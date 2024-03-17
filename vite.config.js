@@ -1,19 +1,24 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
+import * as path from "path";
 
 export default defineConfig({
-  plugins: [react()],
   css: {
     preprocessorOptions: {
-      scss: {
-        additionalData: `@import "@/styles";`,
+      css: {
+        preprocessorOptions: {
+          scss: {
+            additionalData: `@import "@/assets/index.scss";`
+          }
+        }
       },
     },
   },
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src'),
-    },
+      '@': path.resolve(__dirname, 'src'),
+    }
   },
+  plugins: [react()],
 });
