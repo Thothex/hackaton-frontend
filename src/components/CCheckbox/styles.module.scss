@@ -1,0 +1,14 @@
+@import'../../index.scss';
+.box{
+  border-color: $lighter-violet-color;
+  accent-color: $blind-violet-color;
+  height:fit-content;
+  margin: 0;
+  cursor: pointer;
+}
+.box:checked{
+  border-color: $lighter-violet-color;
+  background-color: $blind-violet-color;
+  height:fit-content;
+  margin: 0;
+}
