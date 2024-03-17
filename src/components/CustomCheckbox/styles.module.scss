@@ -1,0 +1,67 @@
+.checkboxWrapper {
+  display: flex;
+  position: relative;
+  cursor: pointer;
+  font-size: 1.2em;
+  flex-direction: row;
+}
+
+.boxWrapper {
+  display: block;
+  position: relative;
+  top: -1px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+
+}
+
+.hiddenNativeCheckbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #a0aec0;
+  border-radius: 6px;
+  transition: all 0.3s;
+}
+
+.checkmark.checked {
+  border: 1px solid #97abdf;
+}
+
+.fillChecked {
+  background-color: #97ABDF20;
+}
+
+.boxWrapper:hover .checkmark {
+  box-shadow: 0 0 0 3px #97ABDF20;
+  border: 1px solid #97abdf;
+}
+
+.checkboxArraw {
+  position: absolute;
+  top: 6px;
+  left: 5px;
+}
+
+.checked {
+  display: block;
+}
+
+.unckecked {
+  display: none;
+}
+
+.label {
+  margin-left: 10px;
+  color: #97abdf;
+  font-size: 16px;
+  cursor: pointer;
+}
