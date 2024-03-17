@@ -6,8 +6,10 @@ import Checkbox from "@/components/CCheckbox/index.jsx";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import axios from "axios";
+import CCheckbox from '../../CustomCheckbox/index.jsx';
 const LoginPage = () => {
     const navigate = useNavigate();
+    const [rememberCheckbox, setRememberCheckbox] = useState(false);
     const [formData, setFormData] = useState({
         username: '',
         password: ''
@@ -34,6 +36,10 @@ const LoginPage = () => {
     const handleNavigate = (path) => {
         navigate(path);
     };
+
+    const handleChangeRemember = (checked) => {
+        setRememberCheckbox(checked)
+    }
     return(
         <div className={styles.main}>
             <img src={logo} alt='logo'/>
@@ -44,8 +50,7 @@ const LoginPage = () => {
                 <AuthInput label='Password' inner='Enter your password' type='password' name='password' value={formData.password} onChange={handleInputChange} />
                 <div>
                     <div>
-                        <Checkbox id="box" />
-                        <label htmlFor="box">Remember me</label>
+                        <CCheckbox label="Remember me" checked={rememberCheckbox} onChange={handleChangeRemember} />
                     </div>
                     <span>Forgot password</span>
                 </div>
