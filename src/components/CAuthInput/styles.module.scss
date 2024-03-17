@@ -1,0 +1,32 @@
+@import "../../index.scss";
+label {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1.5em;
+  font-size: 14px;
+  color: $data-auth-color;
+  font-weight: 400;
+}
+
+  input {
+    height: 2.7em;
+    border-radius: 30px;
+    border: 1px solid $input-border-color;
+    padding-left: 1em;
+    font-size: 16px;
+    color: $inner-input-auth-color;
+    font-family: 'Geologica', sans-serif;
+    margin-top:.5em
+  }
+
+  input::-webkit-input-placeholder {
+    font-weight: 300;
+  }
+
+  input::-moz-placeholder {
+    font-weight: 300;
+  }
+
+  input:-ms-input-placeholder {
+    font-weight: 300;
+  }

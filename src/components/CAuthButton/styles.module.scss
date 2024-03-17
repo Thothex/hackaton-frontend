@@ -1,0 +1,25 @@
+@import "../../index.scss";
+
+.AuthButton {
+  font-family: 'Geologica', sans-serif;
+  background-color: $auth-button-color;
+  width: 100%;
+  height: 2.7em;
+  border-radius: 50px;
+  color: white;
+  border: none;
+  font-weight: 500;
+  font-size: 16px;
+  margin-top: 1.5em;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.AuthButton:hover {
+  outline: 2px solid $auth-button-hover-color;
+}
+
+.AuthButton:active {
+  background-color: darken($auth-button-color, 10%);
+}
+

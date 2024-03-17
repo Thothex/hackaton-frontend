@@ -1,0 +1,22 @@
+$black-color: black;
+$light-violet-color: #7D98E2;
+$lighter-violet-color: #97ABDF;
+$blind-violet-color: rgba(151, 171, 223, 0.25);
+$auth-title-color: #101828;
+$auth-text-color: #475467;
+$data-auth-color:#344054;
+$auth-button-color:#97ABDF;
+$inner-input-auth-color:#667085;
+$input-border-color:#D0D5DD;
+$light-grey-color:#D9D9D9;
+$background-color:#F8F8FA;
+$auth-button-hover-color: #8797c4;
+
+body{
+  width:100wv;
+  height:fit-content;
+  min-height: 100vh;
+  margin: 0 auto;
+  font-family: 'Geologica', sans-serif;
+  background-color: $background-color;
+}
