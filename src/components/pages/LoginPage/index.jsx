@@ -6,6 +6,7 @@ import Checkbox from "@/components/CCheckbox/index.jsx";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import axios from "axios";
+import AuthHeader from "@/components/AuthHeader/index.jsx";
 const LoginPage = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -35,23 +36,26 @@ const LoginPage = () => {
         navigate(path);
     };
     return(
+        <div className={styles.AuthPage}>
+            <AuthHeader/>
         <div className={styles.main}>
             <img src={logo} alt='logo'/>
             <h1>Log into your account</h1>
-            <p>Welcome back! Please enter your details.</p>
-            <form onSubmit={handleSubmit}>
-                <AuthInput label='Username' inner='Username your email' type='text' name='email' value={formData.username} onChange={handleInputChange} />
+            <p className={styles.loginParagraph}>Welcome back! Please enter your details.</p>
+            <form className={styles.loginForm} onSubmit={handleSubmit}>
+                <AuthInput label='Username' inner='Enter your username' type='text' name='email' value={formData.username} onChange={handleInputChange} />
                 <AuthInput label='Password' inner='Enter your password' type='password' name='password' value={formData.password} onChange={handleInputChange} />
                 <div>
                     <div>
                         <Checkbox id="box" />
-                        <label htmlFor="box">Remember me</label>
+                        <label className={styles.rememberMe} htmlFor="box">Remember me</label>
                     </div>
                     <span>Forgot password</span>
                 </div>
                 <AuthButton buttonText="Sign in" />
             </form>
-            <h5>Don't have an account? <button onClick={() => handleNavigate("/register")}>Sign up</button></h5>
+            <h5>Don't have an account? <button className={styles.linkButton} onClick={() => handleNavigate("/register")}>Sign up</button></h5>
+        </div>
         </div>
     )
 

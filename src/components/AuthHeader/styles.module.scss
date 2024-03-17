@@ -1,0 +1,28 @@
+@import '../../index.scss';
+.authHeader{
+position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: white;
+  width: 96vw;
+  height: 50vh;
+  border-radius: 40px;
+  inset:2vw;
+  background:  url("../../assets/authHeader.svg");
+  background-color:$lighter-violet-color ;
+  background-size: cover;
+  z-index: -1;
+  padding-top: 10vh;
+  .title{
+    font-size: 32px;
+    font-family: 'Helvetica', sans-serif;
+    font-weight: 600;
+    margin-top: 0;
+  }
+  .paragraph{
+    margin-top: 0;
+    font-weight: 100;
+  }
+}
