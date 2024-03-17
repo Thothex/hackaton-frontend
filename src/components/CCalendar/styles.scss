@@ -1,0 +1,208 @@
+$calendar-color: rgba(151, 171, 223, 1);
+$calendar-bg: rgb(255, 255, 255);
+$calendar-border-radius: 20px;
+$calendar-box-shadow: 0 0 10px rgba(153, 153, 153, 0.445);
+$calendar-font-family: "Geologica", sans-serif;
+
+.react-calendar {
+  width: 330px;
+  background: $calendar-bg;
+  color: $calendar-color;
+  border-radius: $calendar-border-radius;
+  box-shadow: $calendar-box-shadow;
+  font-family: $calendar-font-family;
+
+  &--doubleView {
+    width: 700px;
+
+    .react-calendar__viewContainer {
+      display: flex;
+      margin: -0.5em;
+
+      > * {
+        width: 100%;
+        margin: 0.5em;
+      }
+    }
+  }
+
+  *,
+  *:before,
+  *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  &__month-view__weekdays__weekday abbr {
+    text-decoration: none;
+    font-weight: 300;
+  }
+
+  button:enabled:hover {
+    outline: none;
+    cursor: pointer;
+  }
+
+  &__navigation {
+    width: 90%;
+    margin: auto;
+    padding: auto;
+    height: 50px;
+    padding-top: 30px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    color: $calendar-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #dbdbdb6c;
+    padding-bottom: 30px;
+
+    button {
+      color: $calendar-color;
+      width: auto;
+      background: none;
+      border-radius: 25px;
+      border: none;
+      display: flex;
+      justify-content: center;
+
+      &:enabled:hover,
+      &:enabled:active {
+        color: rgb(104, 113, 124);
+      }
+
+      &:enabled:focus {
+        outline: none;
+      }
+    }
+
+    &__prev-button,
+    &__next-button {
+      font-size: 25px;
+    }
+  }
+
+  &__month-view__weekdays {
+    color: rgba(160, 174, 192, 1);
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 0.75em;
+    width: 93%;
+    margin: auto;
+    padding: auto;
+  }
+
+  &__month-view__weekNumbers .react-calendar__tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font: inherit;
+    font-size: 0.75em;
+    font-weight: bold;
+  }
+
+  &__navigation__prev2-button,
+  &__navigation__next2-button {
+    width: 0;
+    height: 0;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  &__month-view__days {
+    width: 93%;
+    margin: auto;
+    padding-bottom: 15px;
+    font-weight: 300;
+
+    &__day {
+      border-radius: 30px;
+      color: $calendar-color;
+      border: none;
+      width: 32px;
+      height: 29px;
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      abbr {
+        background-color: rgb(255, 255, 255);
+        width: 25px;
+        height: 25px;
+        border-radius: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:enabled:focus,
+        &:enabled:active,
+        &:enabled:hover {
+          outline: none;
+        }
+      }
+
+      &--neighboringMonth {
+        pointer-events: none;
+        color: white;
+      }
+    }
+  }
+
+  &__year-view .react-calendar__tile,
+  &__decade-view .react-calendar__tile,
+  &__century-view .react-calendar__tile {
+    padding: 2em 0.5em;
+  }
+
+  &__tile {
+    max-width: 100%;
+    padding: 10px 6.6667px;
+    background: none;
+    text-align: center;
+    line-height: 16px;
+    font: inherit;
+    font-size: 0.833em;
+
+    &:disabled {
+      background-color: #f0f0f0;
+      color: $calendar-color;
+    }
+
+    &--hasActive abbr:enabled:hover,
+    &--hasActive abbr:enabled:focus,
+    &--hasActive abbr:enabled:active {
+      border-radius: 25px;
+      background-color: #a9d4ff;
+      outline: none;
+    }
+
+    &--active abbr {
+      background: $calendar-color;
+      border-radius: 25px;
+      color: white;
+    }
+  }
+
+  &__navigation__label {
+    cursor: auto;
+    width: 100px;
+
+    &:enabled:hover {
+      outline: none;
+    }
+  }
+
+  &--selectRange .react-calendar__tile--hover abbr {
+    background-color: #ffffff;
+    outline: none;
+  }
+
+  &__navigation__label__labelText--from {
+    font-size: large;
+    display: block;
+    width: 150px;
+  }
+}
