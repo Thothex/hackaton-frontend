@@ -1,9 +1,9 @@
-import './styles.module.scss';
+import styles from  './styles.module.scss';
 const AuthButton = (props) => {
     const { buttonText } = props;
 
     return (
-        <button>
+        <button className={styles.AuthButton}>
             {buttonText}
         </button>
     );
