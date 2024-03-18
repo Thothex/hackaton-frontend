@@ -1,0 +1,82 @@
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+	bearer: "",
+	userInfo: {},
+	status: "idle",
+};
+
+export const userLoginThunk = createAsyncThunk(
+	"user/login",
+	async ({ email, password }) => {
+		try {
+			const res = await fetch(`${import.meta.env.VITE_BASE_URL}/login`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ email, password }),
+			});
+			if (res.status === 200) {
+				const data = await res.json();
+				localStorage.setItem("token", data.token);
+				return data;
+			}
+
+			console.log("res", await res.data);
+		} catch (error) {
+			console.error(error);
+		}
+	}
+);
+
+export const getUserThunk = createAsyncThunk("user/userinfo", async () => {
+	try {
+		const res = await fetch(`${import.meta.env.VITE_BASE_URL}/user`, {
+			method: "GET",
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem("token")}`,
+			},
+		});
+		if (res.status === 200) {
+			const data = await res.json();
+			return data;
+		}
+		console.log("res", await res.data);
+	} catch (error) {
+		console.error(error);
+	}
+});
+
+export const userSlice = createSlice({
+	name: "user",
+	initialState,
+	reducers: {},
+	extraReducers: (builder) => {
+		builder
+			//loginThunk
+			.addCase(userLoginThunk.pending, (state) => {
+				state.status = "loading";
+			})
+			.addCase(userLoginThunk.fulfilled, (state, action) => {
+				state.status = "idle";
+				state.bearer = action.payload.token;
+			})
+			.addCase(userLoginThunk.rejected, (state) => {
+				state.status = "failed";
+			})
+			// getUserThunk
+			.addCase(getUserThunk.pending, (state) => {
+				state.status = "loading";
+			})
+			.addCase(getUserThunk.fulfilled, (state, action) => {
+				state.status = "idle";
+				state.userInfo = action.payload;
+			})
+			.addCase(getUserThunk.rejected, (state) => {
+				state.status = "failed";
+			});
+	},
+});
+
+export default userSlice.reducer;
