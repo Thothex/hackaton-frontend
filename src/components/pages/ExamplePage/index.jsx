@@ -9,7 +9,6 @@ const ExamplePage = () => {
     setChecked(checked);
   };
   const ddHandleChange = (item) => {
-    console.log('item', item)
     setValue(item.value);
   };
   return (

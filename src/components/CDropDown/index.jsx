@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 
 const CDropDown = ({ items = [], placeholder='Выберите', value='Choose', onChange }) => {
 	
-	console.log(items);
 	const [isOpen, setIsOpen] = useState(false);
 	const handleClick = () => {
 		setIsOpen(!isOpen);
@@ -55,7 +54,7 @@ const CDropDown = ({ items = [], placeholder='Выберите', value='Choose',
 CDropDown.propTypes = {
 	items: PropTypes.array.isRequired,
 	placeholder: PropTypes.string,
-	itemPlaceholder: PropTypes.string,
+	value: PropTypes.string,
 	onChange: PropTypes.func.isRequired,
 };
 
