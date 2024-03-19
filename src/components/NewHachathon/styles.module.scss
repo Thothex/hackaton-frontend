@@ -1,3 +1,33 @@
-.newHachathonWrapper{
+.newHachathonWrapperCol{
   max-width: 300px;
+}
+
+.newHachathonWrapper{
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
+}
+
+.badges{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.newHackContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  margin: 20px;
+
+}
+
+.bntRow{
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 }

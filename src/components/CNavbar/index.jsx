@@ -9,7 +9,7 @@ import register from "../../assets/register.svg";
 import { useSelector } from "react-redux";
 
 // пока непонятно, какие пропсы будут (если будут), поэтому сделала примерно
-const Navbar = ({ isAuthenticated = false, isAdmin = true }) => {
+const Navbar = () => {
   const { userInfo } = useSelector((state) => state.userStore)
   return (
     <nav className={styles.navbar}>
@@ -25,6 +25,14 @@ const Navbar = ({ isAuthenticated = false, isAdmin = true }) => {
             >
               <img src={profile} alt="profile" className={styles.icon} />
               Profile
+            </NavLink>
+            <NavLink
+              to="/newhackathon"
+              className={styles.navLink}
+              activeclassname="active"
+            >
+              <img src={profile} alt="profile" className={styles.icon} />
+              Create Hackathon
             </NavLink>
               {userInfo.role === 'admin' && <NavLink to="/admin" className={styles.navLink}>
                 <img src={cap} alt="cap" className={styles.icon} />
