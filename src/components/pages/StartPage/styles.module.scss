@@ -1,0 +1,92 @@
+@import '../../../index.scss';
+
+.StartPage{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100vw;
+  height: fit-content;
+  background: url("../../../assets/MainDashboard.svg");
+  background-size: cover;
+}
+.valuesContainer{
+  width: 80vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap:3%;
+}
+.values{
+  width: 250px;
+  height: 250px;
+  border-radius: 20px;
+  background-color: white;
+  padding: 2%;
+  margin-bottom: 2vh;
+  max-width: 300px;
+  max-height: 350px;
+  img{
+    width: 3vw;
+    height: 3vw;
+    margin-block: 0;
+    padding-block: 0;
+  }
+  h5{
+    font-size: 25px;
+    max-font-size: 20px;
+    font-weight: 200;
+    margin-block: 0;
+    padding-block: 1vh 0;
+  }
+}
+.Welcome{
+  font-size: 60px;
+  font-weight: 100;
+  margin-block: 15%  0;
+}
+.titleContainer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  h1{
+    margin-block:0;
+    font-size: 90px;
+  }
+}
+.valTitle{
+  font-size: 3vw;
+  margin-block: 3vw 0;
+  padding-bottom: 3vh;
+}
+.paragraph{
+  margin-block: 0;
+  font-size: 26px;
+  font-weight: 100;
+}
+.button {
+    font-family: 'Geologica', sans-serif;
+    background-color: $auth-button-color;
+    width: fit-content;
+  padding-inline: 2em;
+    height: 3em;
+    border-radius: 50px;
+    color: white;
+    border: none;
+    font-weight: 500;
+    font-size: 20px;
+    margin-top: 1.5em;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+
+.button:hover {
+    outline: 2px solid $auth-button-hover-color;
+  }
+.logo{
+  position: sticky;
+  inset: 20px;
+  width: 155px;
+  height: 62px;
+}
