@@ -1,19 +1,4 @@
-$black-color: black;
-$white-color: white;
-$light-violet-color: #7d98e2;
-$lighter-violet-color: #97abdf;
-$blind-violet-color: rgba(151, 171, 223, 0.25);
-$auth-title-color: #101828;
-$auth-text-color: #475467;
-$data-auth-color: #344054;
-$auth-button-color: #97abdf;
-$inner-input-auth-color: #667085;
-$input-border-color: #d0d5dd;
-$light-grey-color: #d9d9d9;
-$background-color: #f8f8fa;
-$background-color-link-hover: #eaeef9;
-$auth-button-hover-color: #8797c4;
-$color-font-not-hover: #a0aec0;
+@import "../../index.scss";
 
 .navbar {
   width: 20rem;
@@ -22,36 +7,63 @@ $color-font-not-hover: #a0aec0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   gap: 10px;
+
+  .navbarContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
   .navList {
     display: flex;
     flex-direction: column;
     gap: 10px;
 
-    .navLink {
+    .unactive,
+    .active {
       width: 219px;
       height: 54px;
       display: flex;
       align-items: center;
       text-decoration: none;
-      color: $color-font-not-hover;
-      background-color: $white-color;
       border-radius: 40px;
       transition: background-color 0.3s ease;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.041);
-
-      &:hover {
-        background-color: $background-color-link-hover;
-        color: $black-color;
-      }
 
       .icon {
         padding: 5px;
         margin-left: 15px;
         margin-right: 10px;
         border-radius: 20px;
-        background-color: $lighter-violet-color;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.041);
+      }
+    }
+
+    .active {
+      color: $black-color;
+      background-color: $white-color;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.041);
+
+      .icon {
+        background-color: $auth-button-hover-color;
+      }
+
+      &:hover {
+        background-color: $background-color-link-hover;
+        color: $black-color;
+      }
+    }
+
+    .unactive {
+      color: $color-font-not-hover;
+
+      .icon {
+        background-color: $light-grey-color;
+      }
+
+      &:hover {
+        background-color: $background-color-link-hover;
       }
     }
   }
@@ -72,5 +84,61 @@ $color-font-not-hover: #a0aec0;
       rgba(0, 0, 0, 0.199),
       rgba(0, 0, 0, 0)
     );
+  }
+
+  .questions {
+    width: 65%;
+    padding: 15px 15px 0 15px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 20px;
+    background: rgb(148, 168, 221);
+    background: linear-gradient(
+      34deg,
+      rgba(148, 168, 221, 1) 59%,
+      rgba(127, 177, 225, 1) 100%
+    );
+    color: $white-color;
+
+    .contactInfo {
+      font-weight: 100;
+    }
+
+    .icon {
+      width: 25px;
+      height: 25px;
+      padding: 8px;
+      border-radius: 25px;
+      background-color: $white-color;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.041);
+    }
+
+    .buttonContainer {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .questionsBtn {
+      margin-bottom: 15px;
+      width: 98%;
+      height: 35px;
+      background-color: $white-color;
+      color: $black-color;
+      font-weight: 700;
+      font-family: $font-family-commissioner;
+      border-radius: 40px;
+      border: none;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.041);
+      transition: 0.2s;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $light-grey-color;
+      }
+    }
   }
 }
