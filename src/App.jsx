@@ -15,7 +15,7 @@ import { getUserThunk } from './redux/features/userSlice';
 function App() {
     const location = useLocation();
   const dispatch = useDispatch()
-  const { bearer: bearerFromStore } = useSelector((state) => state.userStore)
+  const { bearer: bearerFromStore, userInfo } = useSelector((state) => state.userStore)
   
   useEffect(() => {
       const bearer = localStorage.getItem('token')
@@ -23,6 +23,8 @@ function App() {
         dispatch(getUserThunk())
       }
   }, [dispatch, bearerFromStore])
+
+
   
 
   return (
@@ -30,15 +32,17 @@ function App() {
       {location.pathname !== "/register" && location.pathname !== "/login" && (
         <Navbar />
       )}
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/hackathon" element={<HackathonPage />} />
-        <Route path="/admin" element={<AdminPage />} />
-        <Route path="/example" element={<ExamplePage />} />
-        <Route path='/profile' element={<ProfilePage />}/>
-      </Routes>
+      <div className='mainWrapper'>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/hackathon" element={<HackathonPage />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/example" element={<ExamplePage />} />
+          <Route path='/profile' element={<ProfilePage />}/>
+        </Routes>
+      </div>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
 	bearer: "",
@@ -8,7 +9,7 @@ const initialState = {
 
 export const userLoginThunk = createAsyncThunk(
 	"user/login",
-	async ({ email, password }) => {
+	async ({ email, password }, { dispatch }) => {
 		try {
 			const res = await fetch(`${import.meta.env.VITE_BASE_URL}/login`, {
 				method: "POST",
@@ -20,10 +21,10 @@ export const userLoginThunk = createAsyncThunk(
 			if (res.status === 200) {
 				const data = await res.json();
 				localStorage.setItem("token", data.token);
-				return data;
-			}
 
-			console.log("res", await res.data);
+				const userData = await dispatch(getUserThunk());
+				return { ...data, role: userData.payload.role };
+			}
 		} catch (error) {
 			console.error(error);
 		}

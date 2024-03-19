@@ -2,11 +2,9 @@ import styles from './styles.module.scss'
 import PropTypes from 'prop-types';
 
 const CCheckbox = ({ label, checked = false, onChange }) => {
-  console.log('CCheckbox', label, checked, onChange)
 
   const handleCheckboxChange = (event) => {
     onChange(event.target.checked)
-    console.log('handleCheckboxChange', event.target.checked)
   }
   return (
     <label className={styles.checkboxWrapper}>
