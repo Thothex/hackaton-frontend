@@ -1,0 +1,85 @@
+@import "../../index.scss";
+.hackathonPanel{
+  background:  url("../../assets/authHeader.svg");
+  background-size: cover;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 17vh;
+  background-color: $light-violet-color;
+  justify-content: space-between;
+  margin-bottom:2em;
+  border-radius:20px
+}
+.hackathonPanelHeader{
+  display: flex;
+  justify-content: space-between;
+}
+.hackathonPanelHeaderLeft{
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  *{
+    margin-inline:1em
+  }
+}
+.title{
+  font-size:32px;
+  color: white;
+}
+.status{
+  font-size:15px;
+  padding-inline: 1em;
+  padding-block: .3em;
+  background-color: white;
+  border-radius: 40px;
+  color:#16A34A ;
+}
+.button{
+  background-color: white;
+  border:none;
+  color:$light-violet-color;
+  height: 42px;
+  border-radius: 40px;
+  width: fit-content;
+  padding-inline: 2em;
+  margin-left:2em;
+  margin-bottom: 2em;
+}
+.hackathonPanelHeaderRight{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: fit-content;
+  margin-right:2vw;
+  margin-top: 2vw;
+  background-color: rgba(255, 255, 255, 0.8);
+  color:$font-color-date;
+  border-radius: 10px;
+  padding: .5em;
+  *{
+    margin: 0;
+    padding: 0;
+  }
+}
+hr{
+  width: 90%;
+  opacity: 50%;
+}
+.date{
+  font-size:28px;
+}
+.month{
+  font-size:12px;
+  font-weight: 100;
+}
+.area{
+  font-size:15px;
+  padding-inline: 1em;
+  padding-block: .3em;
+  background-color: white;
+  border-radius: 40px;
+  color: $data-auth-color ;
+}
