@@ -21,7 +21,6 @@ const LoginPage = () => {
     const dispatch = useDispatch()
 
     const handleInputChange = (e) => {
-        console.log('e', e)
         const { name, value } = e.target;
         setFormData({
             ...formData,
@@ -32,8 +31,8 @@ const LoginPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            dispatch(userLoginThunk(formData));
-            navigate('/');
+            const res = await dispatch(userLoginThunk(formData));
+            res.payload.role === 'admin' ? navigate('/admin') : navigate('/profile');
         } catch (error) {
             console.error('Ошибка при отправке данных', error);
         }
@@ -46,7 +45,6 @@ const LoginPage = () => {
     const handleChangeRemember = (checked) => {
         setRememberCheckbox(checked)
     }
-    console.log('formData',formData)
     return(
         <div className={styles.AuthPage}>
             <AuthHeader/>

@@ -12,11 +12,13 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserThunk } from './redux/features/userSlice';
 import StartPage from "@/components/pages/StartPage/index.jsx";
+import NewHachathon from './components/NewHachathon';
+
 
 function App() {
     const location = useLocation();
   const dispatch = useDispatch()
-  const { bearer: bearerFromStore } = useSelector((state) => state.userStore)
+  const { bearer: bearerFromStore, userInfo } = useSelector((state) => state.userStore)
 
   useEffect(() => {
       const bearer = localStorage.getItem('token')
@@ -25,22 +27,23 @@ function App() {
       }
   }, [dispatch, bearerFromStore])
 
-
   return (
     <div className="appContainer">
       {location.pathname !== "/register" && location.pathname !== "/login"  && location.pathname !== "/" && (
         <Navbar />
       )}
-      <Routes>
-        <Route path='/' element={<StartPage/>} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-
-        <Route path="/admin" element={<AdminPage />} />
-        <Route path="/example" element={<ExamplePage />} />
-        <Route path='/profile' element={<ProfilePage />}/>
-      </Routes>
+      <div className='mainWrapper'>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/example" element={<ExamplePage />} />
+          <Route path='/profile' element={<ProfilePage />}/>
+          <Route path='/newhackathon' element={<NewHachathon />}/>
+        </Routes>
+      </div>
     </div>
   );
 }
