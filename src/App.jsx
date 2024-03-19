@@ -1,9 +1,10 @@
 import './index.scss'
 import {Route, Routes} from "react-router-dom";
-import LoginPage from "./components/pages/LoginPage/index.jsx";
-import RegisterPage from "@/components/pages/RegisterPage/index.jsx";
-import HomePage from './components/pages/HomePage/index.jsx';
-import ExamplePage from './components/pages/ExamplePage/index.jsx';
+import LoginPage from "./components/pages/LoginPage";
+import RegisterPage from "@/components/pages/RegisterPage";
+import HomePage from './components/pages/HomePage';
+import ExamplePage from './components/pages/ExamplePage';
+import ProfilePage from './components/pages/ProfilePage';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserThunk } from './redux/features/userSlice';
@@ -26,6 +27,7 @@ function App() {
           <Route path='/register' element={<RegisterPage/>}/>
           <Route path='/' element={<HomePage />}/>
           <Route path='/example' element={<ExamplePage />}/>
+          <Route path='/profile' element={<ProfilePage />}/>
       </Routes>
     </>
   )
