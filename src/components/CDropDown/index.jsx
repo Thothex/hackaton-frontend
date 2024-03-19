@@ -4,7 +4,7 @@ import { useState } from "react";
 import classnames from "classnames";
 import PropTypes from "prop-types";
 
-const CDropDown = ({ items = [], placeholder='Выберите', value='Choose', onChange }) => {
+const CDropDown = ({ name='', items = [], placeholder='Выберите', value='Choose', onChange }) => {
 	
 	const [isOpen, setIsOpen] = useState(false);
 	const handleClick = () => {
@@ -22,7 +22,7 @@ const CDropDown = ({ items = [], placeholder='Выберите', value='Choose',
 
 	const handleItemClick = (item) => {
 		setIsOpen(false);
-		onChange(item);
+		onChange(name, item);
 	}
 	return (
 	<div className={styles.ddContainer}>
@@ -52,6 +52,7 @@ const CDropDown = ({ items = [], placeholder='Выберите', value='Choose',
 };
 
 CDropDown.propTypes = {
+	name: PropTypes.string,
 	items: PropTypes.array.isRequired,
 	placeholder: PropTypes.string,
 	value: PropTypes.string,

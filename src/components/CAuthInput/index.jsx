@@ -1,10 +1,10 @@
-import './styles.module.scss'
+import styles from './styles.module.scss'
 import PropTypes from 'prop-types'
 
 const AuthInput = ({ onChange, ...props}) =>{
     return (
         <label>
-            <span>{props.label}</span>
+            <span className={styles.inputTitle}>{props.label}</span>
             <input type={props.type} placeholder={props.inner} name={props.name} value={props.value} onChange={(e)=>onChange(e)}/>
         </label>
     )

@@ -11,6 +11,7 @@ import Navbar from "./components/CNavbar";
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserThunk } from './redux/features/userSlice';
+import NewHachathon from './components/NewHachathon';
 
 function App() {
     const location = useLocation();
@@ -41,6 +42,7 @@ function App() {
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/example" element={<ExamplePage />} />
           <Route path='/profile' element={<ProfilePage />}/>
+          <Route path='/newhackathon' element={<NewHachathon />}/>
         </Routes>
       </div>
     </div>

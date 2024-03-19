@@ -15,6 +15,7 @@ const ExamplePage = () => {
     <div>
       <CCheckbox label="I agree to the terms and conditions" checked={checked} onChange={handleChackbox} />
       <CDropDown
+        name='category'
         items={[{ id: 1, value: 'Значение 1' }, { id: 2, value: 'Значение 2' }, { id: 3, value: 'Значение 3' }]}
         onChange={ddHandleChange}
         placeholder={'Выберите категорию'}
