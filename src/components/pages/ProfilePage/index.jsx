@@ -8,7 +8,7 @@ const ProfilePage = () => {
 	if (!userInfo) return <div>Loading...</div>;
 	return <div>
 		<div className={styles.topPlain}>
-			<div className={styles.hello}>Hello Esthera 👋🏼,</div>
+			<div className={styles.hello}>Hello, {userInfo.username} 👋🏼,</div>
 		</div>
 		<div className={styles.avatarBox}>
 			<div className={styles.avatarWrapper}>
