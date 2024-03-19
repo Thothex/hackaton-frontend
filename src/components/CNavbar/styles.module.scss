@@ -1,0 +1,76 @@
+$black-color: black;
+$white-color: white;
+$light-violet-color: #7d98e2;
+$lighter-violet-color: #97abdf;
+$blind-violet-color: rgba(151, 171, 223, 0.25);
+$auth-title-color: #101828;
+$auth-text-color: #475467;
+$data-auth-color: #344054;
+$auth-button-color: #97abdf;
+$inner-input-auth-color: #667085;
+$input-border-color: #d0d5dd;
+$light-grey-color: #d9d9d9;
+$background-color: #f8f8fa;
+$background-color-link-hover: #eaeef9;
+$auth-button-hover-color: #8797c4;
+$color-font-not-hover: #a0aec0;
+
+.navbar {
+  width: 20rem;
+  height: 100vh;
+  background-color: $background-color;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  .navList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .navLink {
+      width: 219px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: $color-font-not-hover;
+      background-color: $white-color;
+      border-radius: 40px;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.041);
+
+      &:hover {
+        background-color: $background-color-link-hover;
+        color: $black-color;
+      }
+
+      .icon {
+        padding: 5px;
+        margin-left: 15px;
+        margin-right: 10px;
+        border-radius: 20px;
+        background-color: $lighter-violet-color;
+      }
+    }
+  }
+
+  .logo {
+    padding-top: 20px;
+    width: 155px;
+    height: 62px;
+  }
+
+  hr {
+    width: 233px;
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0.199),
+      rgba(0, 0, 0, 0)
+    );
+  }
+}
