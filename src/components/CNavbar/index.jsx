@@ -81,7 +81,14 @@ const Navbar = () => {
           If you have any questions, feel free to contact us at Telegram
         </span>
         <div className={styles.buttonContainer}>
-          <button className={styles.questionsBtn}>CONTACT US</button>
+          <button
+            className={styles.questionsBtn}
+            onClick={() => {
+              window.location.href = "https://t.me/alinaluzanova";
+            }}
+          >
+            CONTACT US
+          </button>
         </div>
       </div>
     </nav>
