@@ -1,15 +1,29 @@
-import "./index.scss";
+import './index.scss'
 import { Route, Routes, useLocation } from "react-router-dom";
-import LoginPage from "./components/pages/LoginPage/index.jsx";
-import RegisterPage from "@/components/pages/RegisterPage/index.jsx";
-import HomePage from "./components/pages/HomePage/index.jsx";
-import ExamplePage from "./components/pages/ExamplePage/index.jsx";
-import Navbar from "./components/CNavbar/index.jsx";
-import HackathonPage from "./components/pages/HackathonPage/index.jsx";
-import AdminPage from "./components/pages/AdminPage/index.jsx";
+import LoginPage from "./components/pages/LoginPage";
+import RegisterPage from "@/components/pages/RegisterPage";
+import HomePage from './components/pages/HomePage';
+import ExamplePage from './components/pages/ExamplePage';
+import ProfilePage from './components/pages/ProfilePage';
+import AdminPage from "./components/pages/AdminPage";
+import HackathonPage from "./components/pages/HackathonPage";
+import Navbar from "./components/CNavbar";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserThunk } from './redux/features/userSlice';
 
 function App() {
-  const location = useLocation();
+    const location = useLocation();
+  const dispatch = useDispatch()
+  const { bearer: bearerFromStore } = useSelector((state) => state.userStore)
+  
+  useEffect(() => {
+      const bearer = localStorage.getItem('token')
+      if (bearer) {
+        dispatch(getUserThunk())
+      }
+  }, [dispatch, bearerFromStore])
+  
 
   return (
     <div className="appContainer">
@@ -23,6 +37,7 @@ function App() {
         <Route path="/hackathon" element={<HackathonPage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/example" element={<ExamplePage />} />
+        <Route path='/profile' element={<ProfilePage />}/>
       </Routes>
     </div>
   );

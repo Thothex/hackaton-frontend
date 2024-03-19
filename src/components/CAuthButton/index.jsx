@@ -1,12 +1,12 @@
 
 import './styles.module.scss';
 import PropTypes from 'prop-types';
-
+import styles from './styles.module.scss'
 const AuthButton = (props) => {
     const { buttonText } = props;
 
     return (
-        <button type='submit'>
+        <button className={styles.AuthButton} type='submit'>
             {buttonText}
         </button>
     );
