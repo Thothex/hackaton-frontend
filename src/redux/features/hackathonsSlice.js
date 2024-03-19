@@ -15,10 +15,8 @@ export const fetchHackathons = createAsyncThunk(
             if (!response.ok) {
                 throw new Error('Failed to fetch hackathons');
             }
-            console.log('------ok')
-            console.log(await response.json());
-
-            return await response.json();
+            const data = await response.json();
+            return data;
         } catch (error) {
             throw new Error('Failed to fetch hackathons');
         }

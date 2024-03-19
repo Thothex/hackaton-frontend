@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchHackathons } from '@/redux/features/hackathonsSlice.js';
-
 import styles from './styles.module.scss';
 import HackathonPanel from "@/components/HackathonPanel";
 
