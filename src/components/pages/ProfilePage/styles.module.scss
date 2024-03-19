@@ -1,0 +1,62 @@
+.topPlain{
+  position: relative;
+  top: 24px;
+  background-color: #97ABDF;
+  width: 100%;
+  height: 300px;
+  border-radius: 16px;
+  background-image: url('@/assets/headerBg.png');
+  background-repeat: no-repeat, repeat;
+  background-size: cover;
+  // background-size: contain;
+  background-position: center;
+}
+
+.hello{
+  padding: 14px 0 0 20px;
+  color: white;
+}
+
+.avatarBox {
+  position: relative;
+  display: flex;
+  height: 113px;
+  top: -35px;
+  background-color: rgba(255, 255, 255, 0.8);
+  margin: 0 35px 0 35px;
+  border-radius: 20px;
+  backdrop-filter: blur(21px);
+  
+}
+
+.avatarWrapper{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 20px;
+}
+
+.textWrapper{
+  padding-left: 20px;
+  gap: 4px;
+  flex-direction: column;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.name {
+  font-family: 'Roboto';
+  font-weight: 600;
+  color: #2D3748;
+}
+
+.email {
+  font-family: 'Roboto';
+  font-size: 14px;
+  color: #6E6E6E;
+  line-height: 1.4em;
+  font-weight: 300;
+}

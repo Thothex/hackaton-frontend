@@ -3,33 +3,34 @@ import AuthButton from "../../CAuthButton/index.jsx";
 import AuthInput from "@/components/CAuthInput/index.jsx";
 import { useNavigate } from "react-router-dom";
 import styles from './styles.module.scss';
-import axios from "axios";
 import { useState } from "react";
 import AuthHeader from "@/components/AuthHeader/index.jsx";
+import { register } from '@/api/register';
 
 const RegisterPage = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: '',
+        email: '',
         password: '',
         confirmPassword: ''
     });
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prevState => ({
-            ...prevState,
+        setFormData({
+            ...formData,
             [name]: value
-        }));
+        });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            await axios.post('http://localhost:4000/login', formData);
-            navigate('/login');
-        } catch (error) {
-            console.error('Ошибка при отправке данных', error);
+        if (formData.password === formData.confirmPassword) {
+            const res = register(formData);
+            if (res) {
+                navigate('/login');
+            }
         }
     };
 
@@ -45,7 +46,8 @@ const RegisterPage = () => {
                 <h1 className={styles.title}>Create an account</h1>
                 <p className={styles.regParagraph}>Welcome back! Please enter your details.</p>
                 <form onSubmit={handleSubmit} className={styles.form}>
-                    <AuthInput label='Username' inner='Enter your username' type='text' name='email' value={formData.username} onChange={handleInputChange} />
+                    <AuthInput label='Email' inner='Enter your email' type='email' name='email' value={formData.email} onChange={handleInputChange} />
+                    <AuthInput label='Username' inner='Enter your username' type='text' name='username' value={formData.username} onChange={handleInputChange} />
                     <AuthInput label='Password' inner='Enter your password' type='password' name='password' value={formData.password} onChange={handleInputChange} />
                     <AuthInput label='Confirm Password' inner='Confirm password' type='password' name='confirmPassword' value={formData.confirmPassword} onChange={handleInputChange} />
                     <AuthButton buttonText="Sign up" />
