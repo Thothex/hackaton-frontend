@@ -37,7 +37,7 @@ function App() {
           <Route path="/" element={<StartPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/home" element={<HomePage />} />
+          <Route path="/hackathon" element={<HomePage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/example" element={<ExamplePage />} />
           <Route path='/profile' element={<ProfilePage />}/>

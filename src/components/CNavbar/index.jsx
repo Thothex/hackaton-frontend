@@ -74,7 +74,7 @@ const Navbar = () => {
             </>
           )}
           <NavLink
-            to="/home"
+            to="/hackathon"
             className={({ isActive }) =>
               isActive ? styles.active : styles.unactive
             }

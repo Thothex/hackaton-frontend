@@ -9,6 +9,7 @@
   padding-bottom: 0;
 }
 .hackathonPanelUpper{
+  background: url("../../../assets/authHeader.svg");
   color: white;
   width: 100%;
   min-height: 300px;
@@ -60,8 +61,8 @@
 }
 .hackathonPanelSMall{
   min-width: 220px;
-  max-width: 300px;
-  width: calc((100% / 4));
+
+  width: calc((100% / 3));
   height: 15vh;
   aspect-ratio: .5 / 1;
   display: flex;
@@ -73,6 +74,7 @@
   border-radius: 20px;
   padding: .5em;
   transition: .3s all ease;
+  box-shadow: $light-violet-color 5px 5px ;
   *{
     white-space: nowrap;
     margin: 0;
@@ -91,7 +93,7 @@
   margin-block: 10px;
 }
 .date{
-  font-size:40px;
+  font-size:35px;
 }
 .month{
   font-size:20px;
@@ -113,7 +115,7 @@
 }
 .ButCont{
   min-width: 220px;
-  width: calc((100% / 4));
+  width: calc((100% / 3));
   height: 25vh;
   aspect-ratio: .5 / 1;
   display: flex;
