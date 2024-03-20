@@ -19,7 +19,7 @@ const HomePage = () => {
 
     return (
         <div>
-            <h1>Home Page</h1>
+            <h1 className={styles.title}>HACKATHONS</h1>
             {user && (
                 <div>{user.username}</div>
             )}

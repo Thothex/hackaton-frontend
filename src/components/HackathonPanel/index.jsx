@@ -20,9 +20,13 @@ const HackathonPanel = (props) => {
     const startMonth = startDate.toLocaleString('default', { month: 'long' });
     const formattedEndDate = endDate.getDate();
     const endMonth = endDate.toLocaleString('default', { month: 'long' });
-
     return (
-        <div className={styles.hackathonPanel} style={{ backgroundColor: props.backgroundColor }}>
+        <div className={`${styles.hackathonPanel} ${
+            status === "Registration is open" ? styles.panelOpen :
+                status === "In progress" ? styles.panelInProgress :
+                    status === "Finished" ? styles.panelClosed :
+                        ""}`}
+        >
             <div className={styles.hackathonPanelHeader}>
                 <div className={styles.hackathonPanelHeaderLeft}>
                     <h3 className={styles.title}>{props.name}</h3>
@@ -43,7 +47,13 @@ const HackathonPanel = (props) => {
                     <p className={styles.month}>{endMonth}</p>
                 </div>
             </div>
-            <button className={styles.button}>READ MORE</button>
+            <button
+                className={`${styles.button} ${
+                    status === "Registration is open" ? styles.panelOpenButton :
+                        status === "In progress" ? styles.panelInProgressButton :
+                            status === "Finished" ? styles.panelClosedButton :
+                                ""}`}
+            >READ MORE</button>
         </div>
     );
 }

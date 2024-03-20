@@ -42,6 +42,7 @@ function App() {
           <Route path="/example" element={<ExamplePage />} />
           <Route path='/profile' element={<ProfilePage />}/>
           <Route path='/newhackathon' element={<NewHachathon />}/>
+            <Route path='/hackathon/1' element={<HackathonPage />} />
         </Routes>
       </div>
     </div>
