@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import { useSelector } from "react-redux";
 import styles from "./styles.module.scss";
 import logo from "../../assets/logo.svg";
@@ -14,16 +14,18 @@ const Navbar = () => {
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbarContainer}>
-        <img src={logo} alt="logo" className={styles.logo} />
+        <Link to="/">
+          <img src={logo} alt="logo" className={styles.logo} />
+        </Link>
         <hr />
         <div className={styles.navList}>
           {userInfo.role ? (
             <>
               <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  isActive ? styles.active : styles.unactive
-                }
+                  to="/profile"
+                  className={({ isActive }) =>
+                      isActive ? styles.active : styles.unactive
+                  }
               >
                 <img src={profile} alt="profile" className={styles.icon} />
                 Profile
@@ -72,13 +74,13 @@ const Navbar = () => {
             </>
           )}
           <NavLink
-            to="/hackathon"
+            to="/home"
             className={({ isActive }) =>
               isActive ? styles.active : styles.unactive
             }
           >
             <img src={fire} alt="fire" className={styles.icon} />
-            Hackathon
+            Hackathons
           </NavLink>
         </div>
       </div>

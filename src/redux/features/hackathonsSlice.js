@@ -1,11 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-
+console.log('-------1')
 export const fetchHackathons = createAsyncThunk(
     'hackathons/fetchHackathons',
 
     async () => {
+        console.log('-------2')
         try {
+            console.log('-------3')
             const response = await fetch(`${import.meta.env.VITE_BASE_URL}/hackathon`, {
                 method: "GET",
                 headers: {
@@ -16,6 +18,7 @@ export const fetchHackathons = createAsyncThunk(
                 throw new Error('Failed to fetch hackathons');
             }
             const data = await response.json();
+            console.log(data)
             return data;
         } catch (error) {
             throw new Error('Failed to fetch hackathons');

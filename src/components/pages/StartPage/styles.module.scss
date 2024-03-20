@@ -6,7 +6,7 @@
   justify-content: center;
   flex-direction: column;
   width: 100vw;
-  height: fit-content;
+height: 100vh;
   background: url("../../../assets/MainDashboard.svg");
   background-size: cover;
 }
@@ -68,6 +68,7 @@
 .button {
     font-family: 'Geologica', sans-serif;
     background-color: $auth-button-color;
+  min-height: 3em;
     width: fit-content;
   padding-inline: 2em;
     height: 3em;
@@ -86,7 +87,8 @@
   }
 .logo{
   position: sticky;
-  inset: 20px;
+  left:50px;
+  top: 20px;
   width: 155px;
   height: 62px;
 }

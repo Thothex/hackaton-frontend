@@ -34,7 +34,7 @@ function App() {
       )}
       <div className='mainWrapper'>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<StartPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/home" element={<HomePage />} />
