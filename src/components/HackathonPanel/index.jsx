@@ -1,7 +1,9 @@
 import React from 'react';
 import styles from './styles.module.scss';
+import {useNavigate} from "react-router-dom";
 
 const HackathonPanel = (props) => {
+    const navigate = useNavigate();
     const currentDate = new Date();
     const endDate = new Date(props.end);
     const startDate = new Date(props.start);
@@ -53,7 +55,10 @@ const HackathonPanel = (props) => {
                         status === "In progress" ? styles.panelInProgressButton :
                             status === "Finished" ? styles.panelClosedButton :
                                 ""}`}
-            >READ MORE</button>
+                onClick={() => navigate(`/hackathon/${props.id}`)}
+            >
+                READ MORE
+            </button>
         </div>
     );
 }

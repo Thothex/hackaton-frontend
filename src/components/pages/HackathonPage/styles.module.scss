@@ -60,8 +60,9 @@
 }
 .hackathonPanelSMall{
   min-width: 220px;
+  max-width: 300px;
   width: calc((100% / 4));
-  height: 25vh;
+  height: 15vh;
   aspect-ratio: .5 / 1;
   display: flex;
   justify-content: center;

@@ -1,12 +1,24 @@
+import {useEffect, useLayoutEffect} from 'react';
+import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchHackathonById } from '@/redux/features/hackathonsSlice.js';
 import styles from './styles.module.scss';
-import React from "react";
-const audience = '14-17 year,school students';
-const [age, organization] = audience.split(',')
-const HackathonPage = (props) => {
-  const currentDate = new Date();
-  const endDate = new Date(props.end);
-  const startDate = new Date(props.start);
 
+const HackathonPage = () => {
+   const { id } = useParams();
+   const dispatch = useDispatch();
+   const hackathon = useSelector(state => state.hackathons.hackathon);
+
+   useEffect(() => {
+     dispatch(fetchHackathonById(id));
+   }, [dispatch, id]);
+
+  const currentDate = new Date();
+  const endDate = new Date(JSON.stringify(hackathon.end));
+  const startDate = new Date(JSON.stringify(hackathon.start));
+  console.log(JSON.stringify(hackathon.end));
+  console.log(endDate);
+const [level, organization] = hackathon.audience.split(',');
   let status;
 
   if (currentDate < startDate) {
@@ -29,7 +41,7 @@ const HackathonPage = (props) => {
             <button>{`<-back`}</button>
             <h4>Welcome to the hackathon 👋🏼</h4>
           </div>
-          <h1 className={styles.titleHac}>{props.name}HACK</h1>
+          <h1 className={styles.titleHac}>{hackathon.name}</h1>
         </div>
         <div className={styles.panelContainer}>
           <div className={styles.hackathonPanelSMall}>
@@ -40,22 +52,40 @@ const HackathonPage = (props) => {
             <p className={styles.month}>{endMonth}</p>
           </div>
           <div className={styles.hackathonPanelSMall}>
-            <h3 className={styles.date}>{age}</h3>
+            <h3 className={styles.date}>{level}</h3>
             <h3 className={styles.month}>{organization}</h3>
           </div>
           <div className={styles.hackathonPanelSMall}>
-            <h3 className={styles.date}>{props.category}Science</h3>
-            <h3 className={styles.month}>{organization}</h3>
+            <h3 className={styles.date}>{hackathon.category}</h3>
+            <h3 className={styles.month}>category</h3>
           </div>
           <div className={styles.hackathonPanelSMall}>
             <h3 className={styles.date}>Prizes</h3>
-            <h3 className={styles.month}>{props.prizes}1) .... </h3>
+            <h3 className={styles.month}>{hackathon.prize}</h3>
+          </div>
+        </div>
+        <div className={styles.panelContainer}>
+          <div className={styles.hackathonPanelSMall}>
+            <h3 className={styles.date}>{hackathon.type}</h3>
+            <h3 className={styles.month}>Single or team</h3>
+          </div>
+          <div className={styles.hackathonPanelSMall}>
+            <h3 className={styles.date}></h3>
+            <h3 className={styles.month}></h3>
+          </div>
+          <div className={styles.hackathonPanelSMall}>
+            <h3 className={styles.date}></h3>
+            <h3 className={styles.month}></h3>
+          </div>
+          <div className={styles.hackathonPanelSMall}>
+            <h3 className={styles.date}>Prizes</h3>
+            <h3 className={styles.month}>1) .... </h3>
           </div>
         </div>
         <div className={styles.hackathonPanelLower}>
           <div className={styles.description}>
             <h2>About the hackathon</h2>
-            <p className={styles.descriptionHac}>{props.description}Lorem ipsum dolor sit amet consecteturLorem ipsum dolor sit amet consectetur. Commodo leo ipsum arcu vel. Faucibus arcu scelerisque pellentesque consectetur facilisi elit at enim vitae. Venenatis integer duis non donec nec non. Cursus tortor gravida elit at. Lorem ipsum dolor sit amet consectetur. Commodo leo ipsum arcu vel. Faucibus arcu scelerisque pellentesque consectetur facilisi elit at enim vitae. Venenatis integer duis non donec nec non. Cursus tortor gravida elit at.</p>
+            <p className={styles.descriptionHac}>{hackathon.description}</p>
           </div>
           <div className={styles.pic}>    <button className={styles.takePartBTN}>TAKE PART</button></div>
         </div>

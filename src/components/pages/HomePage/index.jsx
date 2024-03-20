@@ -13,7 +13,6 @@ const HomePage = () => {
     console.log('hackathons', hackathons);
 
     useEffect(() => {
-        // Диспетчеризуем fetchHackathons при загрузке компонента
         dispatch(fetchHackathons());
     }, [dispatch]);
 
@@ -27,11 +26,11 @@ const HomePage = () => {
                 {hackathons.map((hackathon) => (
                     <HackathonPanel
                         key={hackathon.id}
+                        id={hackathon.id}
                         name={hackathon.name}
                         status={hackathon.status}
                         start={hackathon.start}
                         end={hackathon.end}
-                        backgroundColor={hackathon.backgroundColor}
                     />
                 ))}
             </div>
