@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Commissioner:wght@100..900&display=swap");
+$font-family-commissioner: "Commissioner", sans-serif;
 $black-color: black;
 $light-violet-color: #7d98e2;
 $lighter-violet-color: #97abdf;
@@ -11,6 +13,12 @@ $input-border-color: #d0d5dd;
 $light-grey-color: #d9d9d9;
 $background-color: #f8f8fa;
 $auth-button-hover-color: #8797c4;
+$background-color-link-hover: #eaeef9;
+$auth-button-hover-color: #8797c4;
+$color-font-not-hover: #a0aec0;
+$white-color: #ffffff;
+$font-color-date:#2d3748;
+
 
 body {
   width: 100wv;
@@ -25,7 +33,7 @@ body {
   display: flex;
 }
 
-.mainWrapper{
-  width:100%;
+.mainWrapper {
+  width: 100%;
   padding-right: 20px;
 }
