@@ -8,12 +8,7 @@ export const fetchHackathons = createAsyncThunk(
         console.log('-------2')
         try {
             console.log('-------3')
-            const response = await fetch(`${import.meta.env.VITE_BASE_URL}/hackathon`, {
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            });
+            const response = await fetch(`${import.meta.env.VITE_BASE_URL}/hackathon`);
             if (!response.ok) {
                 throw new Error('Failed to fetch hackathons');
             }
@@ -26,11 +21,29 @@ export const fetchHackathons = createAsyncThunk(
     }
 );
 
+export const fetchHackathonById = createAsyncThunk(
+    'hackathons/fetchHackathonById',
+    async (hackathonId) => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_BASE_URL}/hackathon/${hackathonId}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch hackathon');
+            }
+            const data = await response.json();
+            console.log(data)
+            return data;
+        } catch (error) {
+            throw new Error('Failed to fetch hackathon');
+        }
+    }
+);
+
 
 const hackathonSlice = createSlice({
     name: 'hackathons',
     initialState: {
         hackathons: [],
+        hackathon: null,
         loading: false,
         error: null,
     },
@@ -47,6 +60,19 @@ const hackathonSlice = createSlice({
                 state.hackathons = action.payload;
             })
             .addCase(fetchHackathons.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            })
+            .addCase(fetchHackathonById.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchHackathonById.fulfilled, (state, action) => {
+                state.loading = false;
+                state.error = null;
+                state.hackathon = action.payload;
+            })
+            .addCase(fetchHackathonById.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message;
             });

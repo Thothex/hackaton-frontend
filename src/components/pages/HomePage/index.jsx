@@ -13,13 +13,12 @@ const HomePage = () => {
     console.log('hackathons', hackathons);
 
     useEffect(() => {
-        // Диспетчеризуем fetchHackathons при загрузке компонента
         dispatch(fetchHackathons());
     }, [dispatch]);
 
     return (
         <div>
-            <h1>Home Page</h1>
+            <h1 className={styles.title}>HACKATHONS</h1>
             {user && (
                 <div>{user.username}</div>
             )}
@@ -27,11 +26,11 @@ const HomePage = () => {
                 {hackathons.map((hackathon) => (
                     <HackathonPanel
                         key={hackathon.id}
+                        id={hackathon.id}
                         name={hackathon.name}
                         status={hackathon.status}
                         start={hackathon.start}
                         end={hackathon.end}
-                        backgroundColor={hackathon.backgroundColor}
                     />
                 ))}
             </div>

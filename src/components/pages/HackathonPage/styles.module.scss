@@ -1,0 +1,193 @@
+@import '../../../index.scss';
+.hackathonPage{
+  margin-top: 20px;
+  width: 100%;
+}
+.titleHac{
+  font-size: 48px;
+  margin-bottom: 20px;
+  padding-bottom: 0;
+}
+.hackathonPanelUpper{
+  background: url("../../../assets/authHeader.svg");
+  color: white;
+  width: 100%;
+  min-height: 300px;
+  height: 20vh;
+  background-color: $light-violet-color;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+*{
+  padding-left:20px
+}
+}
+.upperHello{
+  margin-top: 20px;
+  *{
+    padding-left: 0;
+  }
+  h4{
+    font-size: 20px;
+  }
+  button{
+    border:none;
+    font-family: "Geologica", sans-serif;
+    background-color: white;
+    border-radius: 15px;
+    width: fit-content;
+    padding-inline: 1em;
+    padding-block: .5em;
+    box-shadow: none;
+    outline: none;
+    transition: .3s all ease;
+    font-size: 15px;
+  }
+  button:hover{
+    box-shadow: black 5px 5px ;
+  }
+  button:active{
+    outline: 4px solid black;
+  }
+}
+.panelContainer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap:20px;
+  margin-top: 20px;
+}
+.hackathonPanelSMall{
+  min-width: 220px;
+
+  width: calc((100% / 3));
+  height: 15vh;
+  aspect-ratio: .5 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.8);
+  color:$font-color-date;
+  border-radius: 20px;
+  padding: .5em;
+  transition: .3s all ease;
+  box-shadow: $light-violet-color 5px 5px ;
+  *{
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
+  }
+}
+.hackathonPanelSMall:hover{
+  box-shadow: black 10px 10px ;
+}
+
+.hr{
+  height: 1px;
+  width: 90%;
+  background-color:#6E6E6E ;
+ border: 1px solid #6E6E6E;
+  margin-block: 10px;
+}
+.date{
+  font-size:35px;
+}
+.month{
+  font-size:20px;
+  font-weight: 100;
+}
+.takePartBTN{
+  background: none;
+  border: none;
+  height: inherit;
+  min-height: 100px;
+  width: 100%;
+  border-radius: 20px;
+  font-family: "Geologica", sans-serif;
+  font-size:40px;
+  color:white;
+  font-weight: 600;
+  white-space: normal;
+  transition: .3s all ease;
+}
+.ButCont{
+  min-width: 220px;
+  width: calc((100% / 3));
+  height: 25vh;
+  aspect-ratio: .5 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.8);
+  color:$font-color-date;
+  border-radius: 20px;
+  padding: .5em;
+  transition: .3s all ease;
+  *{
+
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.hackathonPanelLower{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+  height: fit-content;
+  min-height: 300px;
+  border-radius: 20px;
+}
+.description{
+  width: 65%;
+  min-height: 230px;
+  max-height: fit-content;
+  background-color: white;
+  border-radius: 20px;
+  color: $font-color-date;
+  padding:20px;
+  *{
+    margin: 0;
+    padding: 0;
+  }
+  h2{
+    font-size: 24px;
+  }
+  p{
+    font-size:20px;
+    font-weight: 100;
+    padding-top: 20px;
+  }
+}
+.pic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+  border-radius: 20px;
+  height: fit-content;
+  min-height: 260px;
+  background: #cc8fc6;
+  box-shadow: 0 -200px 100px -120px #7254b6 inset;
+  animation: background 3s infinite alternate;
+  transition: .3s all ease;
+}
+
+@keyframes background {
+  50% {
+    background: skyblue;
+    box-shadow: 0 -200px 100px -100px rgba(125,152,226,1) inset;
+  }
+}
+.pic:hover{
+  outline: 10px solid rgba(45, 55, 72, 0.5);
+}
+.pic:active{
+  outline: 15px solid $font-color-date;
+}
