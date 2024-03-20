@@ -26,7 +26,13 @@ const HackathonPanel = (props) => {
             <div className={styles.hackathonPanelHeader}>
                 <div className={styles.hackathonPanelHeaderLeft}>
                     <h3 className={styles.title}>{props.name}</h3>
-                    <div className={styles.status}> {status}</div>
+                    <div className={`${styles.status} ${
+                        status === "Registration is open" ? styles.registrationOpen :
+                            status === "In progress" ? styles.inProgress :
+                                status === "Finished" ? styles.finished :
+                                    ""}`}>
+                        {status}
+                    </div>
                     <h3 className={styles.area}>science</h3>
                 </div>
                 <div className={styles.hackathonPanelHeaderRight}>

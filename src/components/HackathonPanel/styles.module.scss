@@ -5,10 +5,11 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  min-height: 270px;
   height: 17vh;
   background-color: $light-violet-color;
   justify-content: space-between;
-  margin-bottom:2em;
+  margin-bottom:20px;
   border-radius:20px
 }
 .hackathonPanelHeader{
@@ -20,11 +21,13 @@
   display: flex;
   align-items: center;
   white-space: nowrap;
+  height: fit-content;
   *{
     margin-inline:1em
   }
 }
 .title{
+  margin-top: 1em;
   font-size:32px;
   color: white;
 }
@@ -40,7 +43,8 @@
   background-color: white;
   border:none;
   color:$light-violet-color;
-  height: 42px;
+  min-height: 42px;
+  height: 50px;
   border-radius: 40px;
   width: fit-content;
   padding-inline: 2em;
@@ -48,6 +52,7 @@
   margin-bottom: 2em;
 }
 .hackathonPanelHeaderRight{
+  min-width: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -82,4 +87,15 @@ hr{
   background-color: white;
   border-radius: 40px;
   color: $data-auth-color ;
+}
+.registrationOpen {
+  color: #0095ff;
+}
+
+.inProgress {
+  color:#16A34A
+}
+
+.finished {
+  color: #ff284e;
 }
