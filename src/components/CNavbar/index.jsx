@@ -9,9 +9,8 @@ import signin from "../../assets/signin.svg";
 import register from "../../assets/register.svg";
 import question from "../../assets/question.svg";
 
-// пока непонятно, какие пропсы будут (если будут), поэтому сделала примерно
-const Navbar = ({ isAuthenticated = false, isAdmin = true }) => {
-  const { userInfo } = useSelector((state) => state.userStore)
+const Navbar = () => {
+  const { userInfo } = useSelector((state) => state.userStore);
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbarContainer}>
@@ -40,6 +39,15 @@ const Navbar = ({ isAuthenticated = false, isAdmin = true }) => {
                   Admin
                 </NavLink>
               )}
+              <NavLink
+                to="/newhackathon"
+                className={({ isActive }) =>
+                  isActive ? styles.active : styles.unactive
+                }
+              >
+                <img src={profile} alt="profile" className={styles.icon} />
+                Create Hackathon
+              </NavLink>
             </>
           ) : (
             <>
