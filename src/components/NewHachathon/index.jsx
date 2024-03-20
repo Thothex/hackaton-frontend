@@ -22,15 +22,14 @@ const NewHachathon = () => {
       name: '',
       type: null,
       description: '',
-      start: null,
-      end: null,
+      start: new Date(),
+      end: new Date(),
       category: null,
       organizations:[],
       admins:null
     });
   const [onlyOrganizations, setOnlyOrganizations] = useState(false)
 
-  const [startTime, setStartTime] = useState(null)
   const handleFieldChange = (name, item) => {
     setHackathon({...hackathon, [name]: item.value});
   }
@@ -67,15 +66,63 @@ const NewHachathon = () => {
   }
 
   const onStartDateChange = (date) => {
-    console.log('date', date['$H'])
+
+    const newStartDate = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+      hackathon.start.getHours(),
+      hackathon.start.getMinutes(),
+      hackathon.start.getSeconds()
+  );
     setHackathon({
       ...hackathon,
-      start: date
+      start: newStartDate
     })
   }
-  const onStartTimeChange = (time, timeString) => {
-    setStartTime(time)
-    console.log(time['$d'], timeString);
+  const onStartTimeChange = (time) => {
+    const newStartDate = new Date(
+        hackathon.start.getFullYear(),
+        hackathon.start.getMonth(),
+        hackathon.start.getDate(),
+        time.hour(),
+        time.minute(),
+        time.second()
+    );
+    setHackathon({
+        ...hackathon,
+        start: newStartDate
+    });
+  };
+
+  const onEndDateChange = (date) => {
+
+    const newStartDate = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+      hackathon.end.getHours(),
+      hackathon.end.getMinutes(),
+      hackathon.end.getSeconds()
+  );
+    setHackathon({
+      ...hackathon,
+      end: newStartDate
+    })
+  }
+  const onEndTimeChange = (time) => {
+    const newStartDate = new Date(
+        hackathon.end.getFullYear(),
+        hackathon.end.getMonth(),
+        hackathon.end.getDate(),
+        time.hour(),
+        time.minute(),
+        time.second()
+    );
+    setHackathon({
+        ...hackathon,
+        end: newStartDate
+    });
   };
 
   return (
@@ -114,6 +161,18 @@ const NewHachathon = () => {
       
         </div>
         <div className={styles.newHachathonWrapperCol}>
+          <span className={styles.inputTitle}>Дата/время начала хакатона</span>
+          <div className={styles.dateTimeContainer}>
+            <Calendar onDateChange={onStartDateChange} />
+            <TimePicker onChange={onStartTimeChange} defaultOpenValue={dayjs('00:00:00', 'HH:mm:ss')} format={'HH:mm:ss'} />
+          </div>
+          <span className={styles.inputTitle}>Дата/время окончания хакатона</span>
+          <div className={styles.dateTimeContainer}>
+            <Calendar onDateChange={onEndDateChange} />
+            <TimePicker onChange={onEndTimeChange} defaultOpenValue={dayjs('00:00:00', 'HH:mm:ss')} format={'HH:mm:ss'} />
+          </div>
+        </div>
+        <div className={styles.newHachathonWrapperCol}>
           <CCheckbox label="Avaliable only for organizations" checked={onlyOrganizations} onChange={handleOnlyOrganizations} />
           {onlyOrganizations &&
             <>
@@ -131,16 +190,8 @@ const NewHachathon = () => {
               </div>
             </>
           }
-          <Calendar onDateChange={onStartDateChange} />
-          <TimePicker onChange={onStartTimeChange} defaultOpenValue={dayjs('00:00:00', 'HH:mm:ss')} format={'HH:mm:ss'} />
-          {startTime && (
-        <div>
-          <p>Часы: {startTime.format('HH')}</p>
-          {/* <p>Минуты: {startTime.minutes()}</p>
-          <p>Секунды: {startTime.seconds()}</p> */}
         </div>
-      )}
-        </div>
+        
       </div>
       <div className={styles.bntRow}>
         <MainButton caption={'Create'} onClick={onSaveBtnHandler} />
