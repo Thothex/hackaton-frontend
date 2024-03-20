@@ -1,0 +1,19 @@
+.btnContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #97ABDF;
+    border-radius: 25px;
+    padding: 15px 44px;
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    border: none;
+}
+
+.btnContainer:hover{
+    background-color: #6E8AC7;
+}
+

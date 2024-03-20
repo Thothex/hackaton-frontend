@@ -39,6 +39,15 @@ const Navbar = () => {
                   Admin
                 </NavLink>
               )}
+              <NavLink
+                to="/newhackathon"
+                className={({ isActive }) =>
+                  isActive ? styles.active : styles.unactive
+                }
+              >
+                <img src={profile} alt="profile" className={styles.icon} />
+                Create Hackathon
+              </NavLink>
             </>
           ) : (
             <>
