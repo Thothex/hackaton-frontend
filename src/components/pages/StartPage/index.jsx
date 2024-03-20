@@ -23,7 +23,7 @@ const StartPage = () =>{
             <p className={styles.paragraph}>Join us on a unique educational competitions where</p>
                 <p className={styles.paragraph}>curiosity is sparked, talents are nurtured, and futures are</p>
                     <p className={styles.paragraph}>shaped</p>
-            <button onClick={() => { handleNavigate('/home') }} className={styles.button}>to Hackatons</button>
+            <button onClick={() => { handleNavigate('/hackathon') }} className={styles.button}>to Hackatons</button>
             <h3 className={styles.valTitle}>OUR VALUES</h3>
             <div className={styles.valuesContainer}>
                 <div className={styles.values}>
