@@ -20,6 +20,8 @@ const NewHachathon = () => {
   const [hackathon, setHackathon] = useState(
     {
       name: '',
+      rules: '',
+      audience: '',
       type: null,
       description: '',
       start: new Date(),
@@ -143,7 +145,14 @@ const NewHachathon = () => {
             name={'description'}
             value={hackathon.description}
             onChange={handleInputChange} />
-      
+          <CTextArea
+            label='Hackathon rules'
+            inner='Правила'
+            type={'text'}
+            name={'rules'}
+            value={hackathon.rules}
+            onChange={handleInputChange} />
+          
           <CDropDown
             name='type'
             items={[{ id: 1, value: 'Командный' }, { id: 2, value: 'Индивидуальный' }]}

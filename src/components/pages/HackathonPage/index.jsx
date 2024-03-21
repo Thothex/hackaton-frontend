@@ -100,8 +100,14 @@ console.log(formattedStartDate, startMonth, formattedEndDate, endMonth);
                 <h3 className={styles.month}>{hackathon.prize}</h3>
             </div>
           <div className={styles.hackathonPanelSMall}>
-            <h3 className={styles.date}>Elbrus</h3>
-            <h3 className={styles.month}>organization</h3>
+            <h3 className={styles.date}>
+              {hackathon.organizations.map((org) => (
+                <div key={org.id} className={styles.hackathonPanelOrganization}>{org.name}</div>  
+              ))
+              
+              }
+            </h3>
+            <h3 className={styles.month}>organizations</h3>
           </div>
         </div>
         <div className={styles.hackathonPanelLower}>
