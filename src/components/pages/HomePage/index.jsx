@@ -11,7 +11,6 @@ const HomePage = () => {
 
     console.log('user', user);
     console.log('hackathons', hackathons);
-
     useEffect(() => {
         dispatch(fetchHackathons());
     }, [dispatch]);
@@ -31,6 +30,8 @@ const HomePage = () => {
                         status={hackathon.status}
                         start={hackathon.start}
                         end={hackathon.end}
+                        organizer_id={hackathon.organizer_id}
+                        user={user}
                     />
                 ))}
             </div>

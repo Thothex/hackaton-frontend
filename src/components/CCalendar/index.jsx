@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Calendar as MyCalendar } from "react-calendar";
 import "./styles.scss";
 import PropTypes from "prop-types";
 
-function Calendar({onDateChange}) {
+function Calendar({ initialDate, onDateChange }) {
+  console.log('initialDate', initialDate)
   const [date, setDate] = useState(new Date().toLocaleDateString("en-US"));
 
+  useEffect(() => {
+    if (initialDate) {
+      setDate(new Date(initialDate));
+    }
+  }, [initialDate]);
   const handleDateChange = (data) => {
     setDate(data.toLocaleDateString("en-US"));
     onDateChange(data);
@@ -27,6 +33,7 @@ function Calendar({onDateChange}) {
 
 Calendar.propTypes = {
   onDateChange: PropTypes.func,
+  initialDate: PropTypes.string,
 };
 
 export default Calendar;

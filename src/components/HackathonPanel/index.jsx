@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './styles.module.scss';
 import {useNavigate} from "react-router-dom";
+import PropTypes from 'prop-types';
 
 const HackathonPanel = (props) => {
     const navigate = useNavigate();
@@ -8,6 +9,7 @@ const HackathonPanel = (props) => {
     const endDate = new Date(props.end);
     const startDate = new Date(props.start);
 
+    const isOwn = props.user.id === props.organizer_id;
     let status;
 
     if (currentDate < startDate) {
@@ -49,21 +51,30 @@ const HackathonPanel = (props) => {
                     <p className={styles.month}>{endMonth}</p>
                 </div>
             </div>
-            <button
-                className={`${styles.button} ${
-                    status === "Registration is open" ? styles.panelOpenButton :
-                        status === "In progress" ? styles.panelInProgressButton :
-                            status === "Finished" ? styles.panelClosedButton :
-                                ""}`}
-                onClick={() => {
-                    navigate(`/hackathon/${props.id}`)
-
-                }}
-            >
-                READ MORE
-            </button>
+            <div className={styles.btnPanel}>
+                <button
+                    className={`${styles.button} ${
+                        status === "Registration is open" ? styles.panelOpenButton :
+                            status === "In progress" ? styles.panelInProgressButton :
+                                status === "Finished" ? styles.panelClosedButton :
+                                    ""}`}
+                    onClick={() => {
+                        navigate(`/hackathon/${props.id}`)
+                    }}>READ MORE</button>
+                {isOwn && <button type='button' onClick={()=>navigate(`/hackathon/${props.id}/edit`)} className={styles.button}>EDIT</button>}
+            </div>
         </div>
     );
+}
+
+HackathonPanel.propTypes = {
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    start: PropTypes.string.isRequired,
+    end: PropTypes.string.isRequired,
+    organizer_id: PropTypes.number,
+    user: PropTypes.object.isRequired
 }
 
 export default HackathonPanel;

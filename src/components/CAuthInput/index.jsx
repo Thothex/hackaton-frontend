@@ -5,7 +5,7 @@ const AuthInput = ({ onChange, ...props}) =>{
     return (
         <label>
             <span className={styles.inputTitle}>{props.label}</span>
-            <input type={props.type} placeholder={props.inner} name={props.name} value={props.value} onChange={(e)=>onChange(e)}/>
+            <input type={props.type} placeholder={props.inner} name={props.name} value={props.value || ''} onChange={(e)=>onChange(e)}/>
         </label>
     )
 }
