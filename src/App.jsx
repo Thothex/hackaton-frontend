@@ -14,6 +14,7 @@ import { getUserThunk } from './redux/features/userSlice';
 import StartPage from "@/components/pages/StartPage/index.jsx";
 import NewHachathon from './components/NewHachathon';
 import HackathonEditPage from './components/pages/HackathonEditPage';
+import { getCategoriesThunk, getOrganizationsThunk } from './redux/features/dictionarySlice';
 
 
 function App() {
@@ -28,6 +29,10 @@ function App() {
       }
   }, [dispatch, bearerFromStore])
 
+  useEffect(() => {
+    dispatch(getCategoriesThunk())
+    dispatch(getOrganizationsThunk())
+  },[dispatch])
   return (
     <div className="appContainer">
       {location.pathname !== "/register" && location.pathname !== "/login"  && location.pathname !== "/" && (
