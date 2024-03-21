@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserThunk } from './redux/features/userSlice';
 import StartPage from "@/components/pages/StartPage/index.jsx";
 import NewHachathon from './components/NewHachathon';
+import HackathonEditPage from './components/pages/HackathonEditPage';
 
 
 function App() {
@@ -42,7 +43,8 @@ function App() {
           <Route path="/example" element={<ExamplePage />} />
           <Route path='/profile' element={<ProfilePage />}/>
           <Route path='/newhackathon' element={<NewHachathon />}/>
-            <Route path='/hackathon/:id' element={<HackathonPage />}/>
+          <Route path='/hackathon/:id' element={<HackathonPage />}/>
+          <Route path='/hackathon/:id/edit' element={<HackathonEditPage />}/>
         </Routes>
       </div>
     </div>

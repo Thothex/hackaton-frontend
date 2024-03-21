@@ -121,3 +121,8 @@ hr{
 .panelClosedButton{
 color: $finished;
 }
+
+.btnPanel {
+  display: flex;
+  gap: 18px;
+}

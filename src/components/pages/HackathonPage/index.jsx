@@ -20,7 +20,7 @@ const HackathonPage = () => {
   const endDate = new Date(hackathon.end);
   const startDate = new Date(hackathon.start);
 
-const [level, organization] = hackathon.audience.split(',');
+  const [level, organization] = hackathon.audience ? hackathon.audience.split(',') : ["", ""];
   let status;
 
   if (currentDate < startDate) {
@@ -37,7 +37,7 @@ const [level, organization] = hackathon.audience.split(',');
   const yearStart = startDate.getFullYear();
   const yearEnd = endDate.getFullYear();
     const endMonth = endDate.toLocaleString('en-US', { month: 'long' });
-console.log(formattedStartDate, startMonth, formattedEndDate, endMonth);
+  console.log(formattedStartDate, startMonth, formattedEndDate, endMonth);
   return (
       <div className={styles.hackathonPage}>
         <div
@@ -80,7 +80,7 @@ console.log(formattedStartDate, startMonth, formattedEndDate, endMonth);
             <h3 className={styles.month}>{organization}</h3>
           </div>
           <div className={styles.hackathonPanelSMall}>
-            <h3 className={styles.date}>{hackathon.category}</h3>
+            <h3 className={styles.date}>{hackathon.category.name}</h3>
             <h3 className={styles.month}>category</h3>
           </div>
         </div>

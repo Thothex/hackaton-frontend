@@ -45,7 +45,7 @@ export const fetchHackathonById = createAsyncThunk(
 export const createHackathon = createAsyncThunk(
 	"hackathons/create",
 
-	async () => {
+	async (hackathon) => {
 		try {
 			const response = await fetch(
 				`${import.meta.env.VITE_BASE_URL}/hackathon`,
@@ -53,7 +53,36 @@ export const createHackathon = createAsyncThunk(
 					method: "POST",
 					headers: {
 						Authorization: `Bearer ${localStorage.getItem("token")}`,
+						"Content-Type": "application/json",
 					},
+					body: JSON.stringify(hackathon),
+				}
+			);
+			if (!response.ok) {
+				throw new Error("Failed to fetch hackathons");
+			}
+			const data = await response.json();
+			return data;
+		} catch (error) {
+			throw new Error("Failed to fetch hackathons");
+		}
+	}
+);
+
+export const putHackathon = createAsyncThunk(
+	"hackathons/update",
+
+	async (hackathon) => {
+		try {
+			const response = await fetch(
+				`${import.meta.env.VITE_BASE_URL}/hackathon/${hackathon.id}`,
+				{
+					method: "PUT",
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem("token")}`,
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(hackathon),
 				}
 			);
 			if (!response.ok) {
@@ -75,7 +104,14 @@ const hackathonSlice = createSlice({
 		loading: false,
 		error: null,
 	},
-	reducers: {},
+	reducers: {
+		clearHackathon: (state) => {
+			state.hackathon = null;
+		},
+		updateHackathon: (state, action) => {
+			state.hackathon = action.payload;
+		},
+	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(fetchHackathons.pending, (state) => {
@@ -107,4 +143,5 @@ const hackathonSlice = createSlice({
 	},
 });
 
+export const { clearHackathon, updateHackathon } = hackathonSlice.actions;
 export default hackathonSlice.reducer;
