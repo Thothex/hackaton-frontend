@@ -2,6 +2,7 @@
 .hackathonPage{
   margin-top: 20px;
   width: 100%;
+  margin-bottom: 20%;
 }
 .titleHac{
   font-size: 48px;
@@ -61,7 +62,7 @@
 }
 .hackathonPanelSMall{
   min-width: 220px;
-
+  min-height:12em;
   width: calc((100% / 3));
   height: 15vh;
   aspect-ratio: .5 / 1;
@@ -190,4 +191,56 @@
 }
 .pic:active{
   outline: 15px solid $font-color-date;
+}
+.panelOpen{
+  background-color:  $light-violet-color;
+}
+.panelInProgress{
+  background-color: $inProgress;
+}
+.panelClosed{
+  background-color: $finished;
+}
+.panelOpenContainer{
+  .hackathonPanelSMall{
+    box-shadow: $light-violet-color 5px 5px ;
+  }
+  .hackathonPanelSMall:hover{
+    box-shadow: black 10px 10px ;
+  }
+
+}
+.panelInProgressContainer{
+
+  .hackathonPanelSMall{
+    box-shadow: $inProgress 5px 5px ;
+  }
+  .hackathonPanelSMall:hover{
+    box-shadow: black 10px 10px ;
+  }
+}
+.panelClosedContainer{
+
+  .hackathonPanelSMall{
+    box-shadow: $finished 5px 5px ;
+  }
+  .hackathonPanelSMall:hover{
+    box-shadow: black 10px 10px ;
+  }
+
+}
+.timeContainer{
+  width: 100%;;
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  padding-block: 10%;
+}
+.time{
+  width: 100%;;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }

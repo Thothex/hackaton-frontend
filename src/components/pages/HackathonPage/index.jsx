@@ -34,24 +34,46 @@ const [level, organization] = hackathon.audience.split(',');
   const formattedStartDate = startDate.getDate();
     const startMonth = startDate.toLocaleString('en-US', { month: 'long' });
   const formattedEndDate = endDate.getDate();
+  const yearStart = startDate.getFullYear();
+  const yearEnd = endDate.getFullYear();
     const endMonth = endDate.toLocaleString('en-US', { month: 'long' });
 console.log(formattedStartDate, startMonth, formattedEndDate, endMonth);
   return (
       <div className={styles.hackathonPage}>
-        <div className={styles.hackathonPanelUpper}>
+        <div
+            className={`${styles.hackathonPanelUpper} ${
+                status === "Registration is open" ? styles.panelOpen :
+                    status === "In progress" ? styles.panelInProgress :
+                        status === "Finished" ? styles.panelClosed :
+                            ""}`}
+        >
           <div className={styles.upperHello}>
             <button onClick={()=> navigate('/hackathon')}>{`<-back`}</button>
             <h4>Welcome to the hackathon 👋🏼</h4>
           </div>
           <h1 className={styles.titleHac}>{hackathon.name}</h1>
         </div>
-        <div className={styles.panelContainer}>
+        <div
+            className={`${styles.panelContainer} ${
+                status === "Registration is open" ? styles.panelOpenContainer :
+                    status === "In progress" ? styles.panelInProgressContainer :
+                        status === "Finished" ? styles.panelClosedContainer :
+                            ""}`}
+        >
           <div className={styles.hackathonPanelSMall}>
+              <div className={styles.timeContainer}>
+              <div className={styles.time}>
             <h4 className={styles.date}>{formattedStartDate}</h4>
             <p className={styles.month}>{startMonth}</p>
-            <div className={styles.hr}/>
+                  <p className={styles.month}>{yearStart}</p>
+              </div>
+                  <div className={styles.hr}/>
+              <div className={styles.time}>
             <h4 className={styles.date}>{formattedEndDate}</h4>
             <p className={styles.month}>{endMonth}</p>
+                  <p className={styles.month}>{yearEnd}</p>
+              </div>
+          </div>
           </div>
           <div className={styles.hackathonPanelSMall}>
             <h3 className={styles.date}>{level}</h3>
@@ -62,7 +84,13 @@ console.log(formattedStartDate, startMonth, formattedEndDate, endMonth);
             <h3 className={styles.month}>category</h3>
           </div>
         </div>
-        <div className={styles.panelContainer}>
+        <div
+            className={`${styles.panelContainer} ${
+                status === "Registration is open" ? styles.panelOpenContainer :
+                    status === "In progress" ? styles.panelInProgressContainer :
+                        status === "Finished" ? styles.panelClosedContainer :
+                            ""}`}
+        >
           <div className={styles.hackathonPanelSMall}>
             <h3 className={styles.date}>{hackathon.type}</h3>
             <h3 className={styles.month}>Single or team</h3>

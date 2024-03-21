@@ -33,7 +33,7 @@ const StartPage = () =>{
                 <div className={styles.values}>
                     <img src={code} alt='code' />
                     <h5>Attracting the younger generation
-                        to the programming and sciense
+                        to the programming and science
                     </h5>
                 </div>
                 <div className={styles.values}>
