@@ -23,7 +23,11 @@ const NewHachathon = ({id}) => {
   // TODO сделать справочник организаций ручку POST, DELETE
 
   const hackathon = useSelector((state) => state.hackathons.hackathon);
-  
+  const categories = useSelector((state) => state.dictionaryStore.dictionary.categories);
+  const organizations = useSelector((state) => state.dictionaryStore.dictionary.organizations);
+  const categoriesForPicker = categories.map((cat) => ({ id: cat.id, value: cat.name }));
+  const organizationsForPicker = organizations.map((org) => ({ id: org.id, value: org.name }));
+
   useEffect(() => {
     if (!id) {
       dispatch(updateHackathon(
@@ -38,14 +42,14 @@ const NewHachathon = ({id}) => {
           category: null,
           organizations:[],
           admins: null,
-          isPrivate: false,
+          isPrivate: true,
         }
       ))
     }
     return (() => {
       dispatch(clearHackathon())
    })
-  }, [id]);
+  }, [id, dispatch]);
 
   useEffect(() => {
     !!id && dispatch(fetchHackathonById(id))
@@ -210,7 +214,7 @@ const NewHachathon = ({id}) => {
           />
           <CDropDown
             name='category'
-            items={[{ id: 1, value: 'Химия' }, { id: 2, value: 'JS' }, { id: 3, value: 'всё еще JS' }]}
+            items={categoriesForPicker}
             onChange={handleAddFromSelect}
             placeholder={'Выберите категорию'}
             value={hackathon?.category?.name || 'Категории'}
@@ -242,7 +246,7 @@ const NewHachathon = ({id}) => {
             <>
               <CDropDown
                 name='organization'
-                items={[{ id: 1, name: 'Барсы' }, { id: 2, name: 'Медведи' }, { id: 3, name: 'Эльбрусы' }, { id: 4, name: 'Молодцы — орлы' }]}
+                items={organizationsForPicker}
                 onChange={handleAddOrganization}
                 placeholder={'Выберите организацию'}
                 value={'Добавить организацию'}
