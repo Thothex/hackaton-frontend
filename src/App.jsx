@@ -47,6 +47,7 @@ function App() {
           <Route path='/newhackathon' element={<NewHachathon />}/>
             <Route path='/hackathon/:id' element={<HackathonPage />}/>
             <Route path='/hackathon/:id/start' element={<StartHackathonPage />}/>
+            <Route path='/hackathon/:id/tasks' element={<TestPage />}/>
           <Route path='/hackathon/:id/edit' element={<HackathonEditPage />}/>
             <Route path='/test' element={<TestPage/>}/>
 

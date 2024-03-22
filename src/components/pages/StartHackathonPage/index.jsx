@@ -28,7 +28,7 @@ const StartHackathonPage = () => {
 
 
     const handleTasksClick = () => {
-        navigate(`/hackathons/${id}/tasks`);
+        navigate(`/hackathon/${id}/tasks`);
     };
 
     return (

@@ -8,14 +8,16 @@ import {fetchTasks} from "@/redux/features/taskSlice.js";
 
 const TestPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
+    const {id} = useParams();
     const dispatch = useDispatch();
     const tasks = useSelector((state) => state.tasks.tasks);
     console.log('tasks', tasks);
 
     useEffect(() => {
-        dispatch(fetchTasks());
-    }, [dispatch]);
+        dispatch(fetchTasks(id));
+    }, [dispatch, id]);
 
+    console.log(tasks)
     if (!tasks) {
         return <div>Loading...</div>;
     }
@@ -39,16 +41,16 @@ const TestPage = () => {
     };
 
     const renderContent = () => {
-        switch (currentPage) {
-            case 1:
-                return <div><InputTask/></div>;
-            case 2:
-                return <div><AddFileTask/></div>;
-            case 3:
-                return <div>Содержимое для страницы 3</div>;
-            default:
-                return null;
+        if (currentPage > 0 && currentPage <= totalPages) {
+            const task = tasks[currentPage - 1]; // Индексация с 0
+            return (
+                <div>
+                    <p>{task.description}</p>
+                    {/* Добавьте здесь другие поля задачи, которые вы хотите отобразить */}
+                </div>
+            );
         }
+        return null;
     };
 
     const generatePageNumbers = () => {
