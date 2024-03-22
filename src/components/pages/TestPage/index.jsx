@@ -45,8 +45,19 @@ const TestPage = () => {
             const task = tasks[currentPage - 1]; // Индексация с 0
             return (
                 <div>
-                    <p>{task.description}</p>
-                    {/* Добавьте здесь другие поля задачи, которые вы хотите отобразить */}
+                    {task.type === 'document' &&
+                        <>
+                        <p>{task.description}</p>
+                        <AddFileTask/>
+                        </>
+                    }
+                    {task.type === 'input' &&
+                        <>
+                            <p>{task.name}</p>
+                            <InputTask/>
+                        </>
+                    }
+
                 </div>
             );
         }
@@ -80,10 +91,10 @@ const TestPage = () => {
             <div className="mt-3">
                 {renderContent()}
             </div>
-            <div className={styles.BtnContainer}>
-            <button className={styles.Btn} onClick={handlePreviousPage}>{'<-'}PREVIOUS</button>
-            <button className={styles.Btn} onClick={handleNextPage}>NEXT{'->'}</button>
-            </div>
+            {tasks.length >1 &&  <div className={styles.BtnContainer}>
+                <button className={styles.Btn} onClick={handlePreviousPage}>{'<-'}PREVIOUS</button>
+                <button className={styles.Btn} onClick={handleNextPage}>NEXT{'->'}</button>
+            </div>}
         </div>
     );
 };

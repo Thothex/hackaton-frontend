@@ -53,5 +53,4 @@ const tasksSlice = createSlice({
     },
 });
 
-export const { clearHackathon, updateHackathon } = tasksSlice.actions;
 export default tasksSlice.reducer;
