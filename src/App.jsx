@@ -15,6 +15,7 @@ import StartPage from "@/components/pages/StartPage/index.jsx";
 import NewHachathon from './components/NewHachathon';
 import HackathonEditPage from './components/pages/HackathonEditPage';
 import TestPage from "@/components/pages/TestPage/index.jsx";
+import StartHackathonPage from "@/components/pages/StartHackathonPage/index.jsx";
 
 
 function App() {
@@ -44,9 +45,11 @@ function App() {
           <Route path="/example" element={<ExamplePage />} />
           <Route path='/profile' element={<ProfilePage />}/>
           <Route path='/newhackathon' element={<NewHachathon />}/>
-          <Route path='/hackathon/:id' element={<HackathonPage />}/>
+            <Route path='/hackathon/:id' element={<HackathonPage />}/>
+            <Route path='/hackathon/:id/start' element={<StartHackathonPage />}/>
           <Route path='/hackathon/:id/edit' element={<HackathonEditPage />}/>
             <Route path='/test' element={<TestPage/>}/>
+
         </Routes>
       </div>
     </div>

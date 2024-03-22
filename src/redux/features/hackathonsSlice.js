@@ -1,13 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-console.log("-------1");
 export const fetchHackathons = createAsyncThunk(
 	"hackathons/fetchHackathons",
 
 	async () => {
-		console.log("-------2");
 		try {
-			console.log("-------3");
 			const response = await fetch(
 				`${import.meta.env.VITE_BASE_URL}/hackathon`
 			);

@@ -1,11 +1,26 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import styles from './style.module.scss';
 import InputTask from "@/components/InputTask";
 import AddFileTask from "@/components/AddFileTask";
+import {useNavigate, useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchTasks} from "@/redux/features/taskSlice.js";
 
 const TestPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
-    const totalPages = 3;
+    const dispatch = useDispatch();
+    const tasks = useSelector((state) => state.tasks.tasks);
+    console.log('tasks', tasks);
+
+    useEffect(() => {
+        dispatch(fetchTasks());
+    }, [dispatch]);
+
+    if (!tasks) {
+        return <div>Loading...</div>;
+    }
+
+    const totalPages = tasks.length;
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
