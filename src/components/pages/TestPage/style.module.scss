@@ -1,15 +1,16 @@
 @import '../../../index.scss';
 .main{
-  width: calc(100% - 5vh - 20vh);
+  width: calc(100% - 5vh - 5vh);
   background-color: white;
   min-height: 100vh;
   margin-top: 7vh;
   margin-right: 5vh;
   border-radius: 20px;
-
   display:flex;
   flex-direction: column;
+  align-items: center;
   padding-inline:10vh;
+  padding-block: 5vh;
 }
 .Btn{
   border: 2px solid $light-violet-color;
@@ -20,7 +21,7 @@
   border-radius: 25px;
   width: 15em;
   min-height: 3em;
-  margin-left: 2em;
+
 }
 .pageItem{
   background:none;
@@ -38,4 +39,9 @@
 }
 .unactive{
   background-color: rgba(125, 152, 226, 0.5);
+}
+.BtnContainer{
+  display: flex;
+  justify-content: space-between;
+  gap:5px
 }

@@ -26,9 +26,9 @@ const TestPage = () => {
     const renderContent = () => {
         switch (currentPage) {
             case 1:
-                return <div>Содержимое для страницы 1</div>;
+                return <div><InputTask/></div>;
             case 2:
-                return <div>Содержимое для страницы 2</div>;
+                return <div><AddFileTask/></div>;
             case 3:
                 return <div>Содержимое для страницы 3</div>;
             default:
@@ -63,8 +63,10 @@ const TestPage = () => {
             <div className="mt-3">
                 {renderContent()}
             </div>
+            <div className={styles.BtnContainer}>
             <button className={styles.Btn} onClick={handlePreviousPage}>{'<-'}PREVIOUS</button>
             <button className={styles.Btn} onClick={handleNextPage}>NEXT{'->'}</button>
+            </div>
         </div>
     );
 };

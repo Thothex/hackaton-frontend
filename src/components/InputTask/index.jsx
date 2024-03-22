@@ -3,8 +3,8 @@ const InputTask = (props) =>{
     return(
         <div className={styles.inputTask}>
             <h3>{props.name}</h3>
-            <input/>
-            <button></button>
+            <input className={styles.input} placeholder='Enter answer here'/>
+            <button className={styles.button}>save</button>
         </div>
     )
 }
