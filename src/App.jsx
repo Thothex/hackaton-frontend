@@ -14,6 +14,7 @@ import { getUserThunk } from './redux/features/userSlice';
 import StartPage from "@/components/pages/StartPage/index.jsx";
 import NewHachathon from './components/NewHachathon';
 import HackathonEditPage from './components/pages/HackathonEditPage';
+import TestPage from "@/components/pages/TestPage/index.jsx";
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
           <Route path='/newhackathon' element={<NewHachathon />}/>
           <Route path='/hackathon/:id' element={<HackathonPage />}/>
           <Route path='/hackathon/:id/edit' element={<HackathonEditPage />}/>
+            <Route path='/test' element={<TestPage/>}/>
         </Routes>
       </div>
     </div>
