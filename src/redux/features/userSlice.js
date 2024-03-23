@@ -43,7 +43,6 @@ export const getUserThunk = createAsyncThunk("user/userinfo", async () => {
 			const data = await res.json();
 			return data;
 		}
-		console.log("res", await res.data);
 	} catch (error) {
 		console.error(error);
 	}
@@ -72,7 +71,7 @@ export const userSlice = createSlice({
 			})
 			.addCase(getUserThunk.fulfilled, (state, action) => {
 				state.status = "idle";
-				state.userInfo = action.payload;
+				state.userInfo = action.payload || {};
 			})
 			.addCase(getUserThunk.rejected, (state) => {
 				state.status = "failed";

@@ -36,7 +36,6 @@ const HackathonPage = () => {
   const yearStart = startDate.getFullYear();
   const yearEnd = endDate.getFullYear();
     const endMonth = endDate.toLocaleString('en-US', { month: 'long' });
-  console.log(formattedStartDate, startMonth, formattedEndDate, endMonth);
   return (
       <div className={styles.hackathonPage}>
         <div

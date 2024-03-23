@@ -50,6 +50,15 @@ const Navbar = () => {
                 <img src={profile} alt="profile" className={styles.icon} />
                 Create Hackathon
               </NavLink>
+              <NavLink
+                to="/task/new"
+                className={({ isActive }) =>
+                  isActive ? styles.active : styles.unactive
+                }
+              >
+                <img src={profile} alt="profile" className={styles.icon} />
+                Create task
+              </NavLink>
             </>
           ) : (
             <>
