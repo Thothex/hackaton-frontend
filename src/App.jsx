@@ -23,7 +23,7 @@ import { fetchUsersThunk } from './redux/features/usersSlice';
 function App() {
     const location = useLocation();
   const dispatch = useDispatch()
-  const { bearer: bearerFromStore, } = useSelector((state) => state.userStore)
+  const { bearer: bearerFromStore, userInfo } = useSelector((state) => state.userStore)
 
   useEffect(() => {
       const bearer = localStorage.getItem('token')

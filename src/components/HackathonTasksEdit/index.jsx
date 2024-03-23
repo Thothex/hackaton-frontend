@@ -11,7 +11,7 @@ const HackathonTasksEdit = ({ hackathonId }) => {
 
   const handleMenuClick = (e) => {
     if (e.key === '1') dispatch(createNewTask({ type: 'many-answers', maxScore: 10, answers: {}, hackathonId }))
-    if (e.key === '2') dispatch(createNewTask({ type: 'file-upload', maxScore: 10, answers: {}, hackathonId }))
+    if (e.key === '2') dispatch(createNewTask({ type: 'document', maxScore: 10, answers: {}, hackathonId }))
   };
 
   const items  = [
@@ -40,7 +40,7 @@ const HackathonTasksEdit = ({ hackathonId }) => {
         return (
           <div key={index}>
             {task.type === 'many-answers' && <ManyAnswerTask hackathonId={hackathonId} task={task} />}
-            {task.type === 'file-upload' && <FileAnswerTask hackathonId={hackathonId} task={task} />}
+            {task.type === 'document' && <FileAnswerTask hackathonId={hackathonId} task={task} />}
           </div>
         )
       })}

@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Input } from 'antd';
 const { TextArea } = Input;
-import { Checkbox } from 'antd';
 import { Button } from 'antd';
 import styles from './styles.module.scss';
-import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from 'react-redux';
 import { updateTask } from '@/redux/features/hackathonsSlice';
 import PropTypes from 'prop-types';
@@ -21,45 +19,10 @@ const ManyAnswerTask = ({ hackathonId, task }) => {
   useEffect(() => {
     setAnswers(task.answers)
   }, [task])
-  
-  const onChangeRightAnswer = (e, uuid) => {
-    const { checked } = e.target;
-    setAnswers({
-      ...answers,
-      [uuid]: {
-        ...answers[uuid],
-        isRight: checked
-      }
-    })
-  };
-  const answerEditHandler = (e) => {
-    const { value, dataset } = e.target;
-    const { uuid } = dataset;
-    setAnswers({
-      ...answers,
-      [uuid]: {
-        ...answers[uuid],
-        text: value
-      }
-    })
-  }
-
-  const addAnaserVariantHander = () => {
-    const newId = uuidv4()
-    setAnswers({
-      ...answers,
-      [newId]: { text: '', isRight: false }
-    })
-  }
-
-  const removeAnswerVariant = (uuid) => {
-    const newAnswers = { ...answers };
-    delete newAnswers[uuid];
-    setAnswers(newAnswers);
-  }
+ 
 
   const saveHander = () => {
-    dispatch(updateTask({hackathonId, task: {...task, answers, maxScore: taskScore, name: taskText, description: taskDescription, type: 'file-upload'}}))
+    dispatch(updateTask({hackathonId, task: {...task, answers, maxScore: taskScore, name: taskText, description: taskDescription, type: 'document'}}))
   }
 
   if (!answers) return <div>Loading...</div>;
