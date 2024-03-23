@@ -114,8 +114,13 @@ const HackathonPage = () => {
             <h2>About the hackathon</h2>
             <p className={styles.descriptionHac}>{hackathon.description}</p>
           </div>
-          <div className={styles.pic}  onClick={()=> navigate(`/hackathon/${hackathon.id}/start`)} ><button className={styles.takePartBTN}>TAKE PART</button></div>
-        </div>
+            {status === "Registration is open" &&  <div className={styles.pic}  onClick={()=> navigate(`/hackathon/${hackathon.id}/start`)} ><button className={styles.takePartBTN}>TAKE PART</button></div>
+            }
+            {status === "In progress" &&  <div className={styles.pic}  onClick={()=> navigate(`/hackathon/${hackathon.id}/start`)} ><button className={styles.takePartBTN}>TAKE PART</button></div>
+            }
+            {status === "Finished" &&  <div className={styles.pic} ><button disabled={status === "Finished"} className={styles.takePartBTN}>Hackathon is over :(</button></div>
+            }
+         </div>
       </div>
   )
 };

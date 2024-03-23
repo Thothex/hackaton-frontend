@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const createTeam = createAsyncThunk(
     "team/create",
-    async (team, { rejectWithValue }) => {
+    async ({ name, hackathonId }, { rejectWithValue }) => {
         try {
             const response = await fetch(
                 `${import.meta.env.VITE_BASE_URL}/team`,
@@ -12,13 +12,14 @@ export const createTeam = createAsyncThunk(
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(team),
+                    body: JSON.stringify({ name, hackathonId }),
                 }
             );
             if (!response.ok) {
                 throw new Error("Failed to create team");
             }
             const data = await response.json();
+            console.log(data)
             return data;
         } catch (error) {
             return rejectWithValue(error.message);
@@ -28,17 +29,17 @@ export const createTeam = createAsyncThunk(
 
 export const sendInvite = createAsyncThunk(
     "team/invite",
-    async ({ teamId, userId }, { rejectWithValue }) => {
+    async ({ teamId, member, hackathonId}, { rejectWithValue }) => {
         try {
             const response = await fetch(
-                `${import.meta.env.VITE_BASE_URL}/team/${teamId}/${userId}`,
+                `${import.meta.env.VITE_BASE_URL}/team/invite`,
                 {
                     method: "POST",
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ teamId: teamId, userId: userId }),
+                    body: JSON.stringify({ teamId, member, hackathonId}),
                 }
             );
             if (!response.ok) {
@@ -51,6 +52,7 @@ export const sendInvite = createAsyncThunk(
         }
     }
 );
+
 
 const teamSlice = createSlice({
     name: "team",
