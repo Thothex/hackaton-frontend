@@ -17,6 +17,7 @@ import HackathonEditPage from './components/pages/HackathonEditPage';
 import { getCategoriesThunk, getOrganizationsThunk } from './redux/features/dictionarySlice';
 import TestPage from "@/components/pages/TestPage/index.jsx";
 import StartHackathonPage from "@/components/pages/StartHackathonPage/index.jsx";
+import { fetchUsersThunk } from './redux/features/usersSlice';
 
 
 
@@ -35,7 +36,14 @@ function App() {
   useEffect(() => {
     dispatch(getCategoriesThunk())
     dispatch(getOrganizationsThunk())
-  },[dispatch])
+    
+  }, [dispatch])
+  
+  useEffect(() => {
+    if (userInfo.role === 'admin') {
+      dispatch(fetchUsersThunk())
+    }
+  }, [dispatch, userInfo])
   return (
     <div className="appContainer">
       {location.pathname !== "/register" && location.pathname !== "/login"  && location.pathname !== "/" && (
