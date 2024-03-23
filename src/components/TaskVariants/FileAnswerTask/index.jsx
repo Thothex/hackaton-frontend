@@ -59,7 +59,7 @@ const ManyAnswerTask = ({ hackathonId, task }) => {
   }
 
   const saveHander = () => {
-    dispatch(updateTask({hackathonId, task: {...task, answers, maxScore: taskScore, name: taskText, description: taskDescription, type: 'many-answers'}}))
+    dispatch(updateTask({hackathonId, task: {...task, answers, maxScore: taskScore, name: taskText, description: taskDescription, type: 'file-upload'}}))
   }
 
   if (!answers) return <div>Loading...</div>;
