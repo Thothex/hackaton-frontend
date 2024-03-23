@@ -12,13 +12,11 @@ const TestPage = () => {
     const {id} = useParams();
     const dispatch = useDispatch();
     const tasks = useSelector((state) => state.tasks.tasks);
-    console.log('tasks', tasks);
 
     useEffect(() => {
         dispatch(fetchTasks(id));
     }, [dispatch, id]);
 
-    console.log(tasks)
     if (!tasks) {
         return <div>Loading...</div>;
     }
@@ -41,6 +39,48 @@ const TestPage = () => {
         }
     };
 
+    const handleSaveMany = async ({ answers, type, task }) => {
+        const userAnswers = Object.entries(answers).reduce((acc, [uuid, answer]) => {
+            if (answer.checked) {
+                acc[uuid] = { checked: answer.checked };
+            }
+            return acc
+        }, {})
+        
+      try {
+          const res = await fetch(`${import.meta.env.VITE_BASE_URL}/answers/${task.id}/${type}`, {
+              method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+                body: JSON.stringify({userAnswers}),
+          });
+          // TODO: обработать ответ? вывести тост?
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+
+    // TODO: вынести в отдельную функцию фетч или объединить, ориентируясь на тип задания
+    const handleSaveInput = async ({ answers, type, task }) => {
+        const userAnswers = answers
+        
+      try {
+          const res = await fetch(`${import.meta.env.VITE_BASE_URL}/answers/${task.id}/${type}`, {
+              method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+                body: JSON.stringify({userAnswers}),
+          });
+          // TODO: обработать ответ? вывести тост?
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+
     const renderContent = () => {
         if (currentPage > 0 && currentPage <= totalPages) {
             const task = tasks[currentPage - 1]; // Индексация с 0
@@ -48,21 +88,22 @@ const TestPage = () => {
                 <div>
                     {task.type === 'document' &&
                         <>
-                        <p>{task.description}</p>
-                        <AddFileTask task={task}/>
+                            <p>{task.name}</p>
+                            <p>{task.description}</p>
+                            <AddFileTask task={task} />
                         </>
                     }
                     {task.type === 'input' &&
                         <>
                             <p>{task.name}</p>
-                            <InputTask task={task} />
+                            <InputTask handleSaveInput={handleSaveInput} type={'input'} task={task} />
                         </>
                     }
                     {task.type === 'many-answers' &&
                         <>
                             <p>{task.name}</p>
                             <p>{task.description}</p>
-                        <ManyAnswersTask task={task} />
+                        <ManyAnswersTask handleSaveMany={handleSaveMany} type={'many-answers'} task={task} />
                         </>
                     }
 

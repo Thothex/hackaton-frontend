@@ -13,7 +13,7 @@ const AddFileTask = ({ task }) => {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
-        action: `${import.meta.env.VITE_BASE_URL}/answers/${task.id}`,
+        action: `${import.meta.env.VITE_BASE_URL}/answers/${task.id}/document`,
         onChange(info) {
             const { status } = info.file;
             if (status !== 'uploading') {

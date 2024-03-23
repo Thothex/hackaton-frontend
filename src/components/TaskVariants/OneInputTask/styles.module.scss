@@ -1,0 +1,29 @@
+.answerInputBlock {
+  display: flex;
+  gap: 10px;
+  width: 80%;
+  margin-top: 10px;
+  align-items: center
+}
+
+.answerInput {
+  
+}
+
+.checkboxLabelRight {
+  margin-left: 10px;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: row;
+  width: 100px;
+  align-items: center
+}
+
+.addNewAnswerBlock {
+  display: flex;
+  gap: 10px;
+  width: 80%;
+  margin-top: 10px;
+  align-items: center;
+  justify-content: center;
+}

@@ -4,6 +4,7 @@ import { addNewTask, createNewTask } from '@/redux/features/hackathonsSlice';
 import ManyAnswerTask from '../TaskVariants/ManyAnswerTask';
 import { v4 as uuidv4 } from 'uuid';
 import FileAnswerTask from '../TaskVariants/FileAnswerTask';
+import OneInputTask from '../TaskVariants/OneInputTask';
 
 const HackathonTasksEdit = ({ hackathonId }) => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const HackathonTasksEdit = ({ hackathonId }) => {
   const handleMenuClick = (e) => {
     if (e.key === '1') dispatch(createNewTask({ type: 'many-answers', maxScore: 10, answers: {}, hackathonId }))
     if (e.key === '2') dispatch(createNewTask({ type: 'document', maxScore: 10, answers: {}, hackathonId }))
+    if (e.key === '3') dispatch(createNewTask({ type: 'input', maxScore: 10, answers: {}, hackathonId }))
   };
 
   const items  = [
@@ -22,6 +24,10 @@ const HackathonTasksEdit = ({ hackathonId }) => {
     {
       label: 'File upload',
       key: '2',
+    },
+    {
+      label: 'Free answer',
+      key: '3',
     },
   ];
 
@@ -41,6 +47,7 @@ const HackathonTasksEdit = ({ hackathonId }) => {
           <div key={index}>
             {task.type === 'many-answers' && <ManyAnswerTask hackathonId={hackathonId} task={task} />}
             {task.type === 'document' && <FileAnswerTask hackathonId={hackathonId} task={task} />}
+            {task.type === 'input' && <OneInputTask hackathonId={hackathonId} task={task} />}
           </div>
         )
       })}

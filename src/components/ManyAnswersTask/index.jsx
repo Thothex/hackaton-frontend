@@ -1,15 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CCheckbox from '../CustomCheckbox'
 import styles from './style.module.scss'
+import { useDispatch } from 'react-redux';
 
 import PropTypes from 'prop-types' 
-const ManyAnswersTask = ({ task }) => {
-    
+const ManyAnswersTask = ({ task, handleSaveMany, type }) => {
+    const dispatch = useDispatch();
     const [userAnswers, setUserAnswers] = useState({});
+    useEffect(() => {
+        // TODO здесь воткнуть диспатч получения своих ответов, когда будет ручка 
+        // dispatch(fetchUserAnswers(task.id))
+        // или воткнуть его в родительский компонент и передать пропсами или
+        // через селектор
+    }, [dispatch])
     const optionsArray = Object.entries(task.answers);
 
     const handleChangeOption = (checked, dateset) => {
-
         setUserAnswers({
             ...userAnswers,
             [dateset.uuid]: {
@@ -17,9 +23,10 @@ const ManyAnswersTask = ({ task }) => {
                 checked: checked
             }
         })
-
     }
-    console.log('userAnswers', userAnswers);
+    const onSave = () => {
+        handleSaveMany({answers: userAnswers, type, task})
+    }
     return(
         <div className={styles.manyAanswersTask}>
             <form>
@@ -27,13 +34,24 @@ const ManyAnswersTask = ({ task }) => {
                     return <CCheckbox key={key} uuid={key} onChange={handleChangeOption} label={value.text} checked={userAnswers[key]?.checked} />
                 
                 })}
-            <button className={styles.button}>Save</button>
+            <button className={styles.button} type='button' onClick={onSave}>Save</button>
         </form>
         </div>
     )
 }
 
 ManyAnswersTask.propTypes = {
-    name: PropTypes.string,
+    task: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        maxScore: PropTypes.number.isRequired,
+        answers: PropTypes.objectOf(PropTypes.shape({
+            text: PropTypes.string.isRequired,
+            isRight: PropTypes.bool.isRequired
+        })).isRequired
+    }).isRequired,
+    handleSaveMany: PropTypes.func.isRequired,
+    type: PropTypes.string.isRequired
 }
 export default ManyAnswersTask
