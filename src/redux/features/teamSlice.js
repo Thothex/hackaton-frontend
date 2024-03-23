@@ -27,6 +27,32 @@ export const createTeam = createAsyncThunk(
     }
 );
 
+export const getTeamInfo = createAsyncThunk(
+    "team/info",
+    async ({ hackathonId, userId }, { rejectWithValue }) => {
+        try {
+            const response = await fetch(
+                `${import.meta.env.VITE_BASE_URL}/team/${hackathonId}/${userId}`,
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            if (!response.ok) {
+                throw new Error("Failed to get team info");
+            }
+            const data = await response.json();
+            console.log(data)
+            return data;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
 export const sendInvite = createAsyncThunk(
     "team/invite",
     async ({ teamId, member, hackathonId}, { rejectWithValue }) => {
@@ -60,6 +86,7 @@ const teamSlice = createSlice({
         loading: false,
         error: null,
         inviteData: null,
+        teamInfo: null,
     },
     reducers: {},
     extraReducers: (builder) => {
@@ -91,6 +118,21 @@ const teamSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload || action.error.message;
                 state.inviteData = null;
+            })
+            .addCase(getTeamInfo.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+                state.teamInfo = null;
+            })
+            .addCase(getTeamInfo.fulfilled, (state, action) => {
+                state.loading = false;
+                state.error = null;
+                state.teamInfo = action.payload;
+            })
+            .addCase(getTeamInfo.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload || action.error.message;
+                state.teamInfo = null;
             });
     },
 });

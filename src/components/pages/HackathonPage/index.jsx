@@ -6,6 +6,7 @@ import styles from './styles.module.scss';
 
 const HackathonPage = () => {
   const navigate = useNavigate();
+    const user = useSelector((state) => state.userStore.userInfo);
    const { id } = useParams();
    const dispatch = useDispatch();
    const hackathon = useSelector(state => state.hackathons.hackathon);
@@ -15,6 +16,7 @@ const HackathonPage = () => {
   if (!hackathon) {
     return <div>Loading...</div>;
   }
+  console.log(user)
   const currentDate = new Date();
   const endDate = new Date(hackathon.end);
   const startDate = new Date(hackathon.start);
@@ -36,7 +38,6 @@ const HackathonPage = () => {
   const yearStart = startDate.getFullYear();
   const yearEnd = endDate.getFullYear();
     const endMonth = endDate.toLocaleString('en-US', { month: 'long' });
-  console.log(formattedStartDate, startMonth, formattedEndDate, endMonth);
   return (
       <div className={styles.hackathonPage}>
         <div
@@ -114,9 +115,13 @@ const HackathonPage = () => {
             <h2>About the hackathon</h2>
             <p className={styles.descriptionHac}>{hackathon.description}</p>
           </div>
-            {status === "Registration is open" &&  <div className={styles.pic}  onClick={()=> navigate(`/hackathon/${hackathon.id}/start`)} ><button className={styles.takePartBTN}>TAKE PART</button></div>
+            {status === "Registration is open" && user &&  <div className={styles.pic}  onClick={()=> navigate(`/hackathon/${hackathon.id}/start`)} ><button className={styles.takePartBTN}>TAKE PART</button></div>
             }
-            {status === "In progress" &&  <div className={styles.pic}  onClick={()=> navigate(`/hackathon/${hackathon.id}/start`)} ><button className={styles.takePartBTN}>TAKE PART</button></div>
+            {status === "In progress" && user &&  <div className={styles.pic}  onClick={()=> navigate(`/hackathon/${hackathon.id}/start`)} ><button className={styles.takePartBTN}>TAKE PART</button></div>
+            }
+            {status === "Registration is open" && !user &&  <div className={styles.pic}  ><button className={styles.takePartBTN}>SIGN IN/UP TO TAKE PART</button></div>
+            }
+            {status === "In progress" && !user &&  <div className={styles.pic}><button className={styles.takePartBTN}>SIGN IN/UP TO TAKE PART</button></div>
             }
             {status === "Finished" &&  <div className={styles.pic} ><button disabled={status === "Finished"} className={styles.takePartBTN}>Hackathon is over :(</button></div>
             }
