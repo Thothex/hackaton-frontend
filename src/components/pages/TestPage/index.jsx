@@ -2,9 +2,10 @@ import {useEffect, useState} from 'react';
 import styles from './style.module.scss';
 import InputTask from "@/components/InputTask";
 import AddFileTask from "@/components/AddFileTask";
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchTasks} from "@/redux/features/taskSlice.js";
+import ManyAnswersTask from '@/components/ManyAnswersTask';
 
 const TestPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -48,13 +49,20 @@ const TestPage = () => {
                     {task.type === 'document' &&
                         <>
                         <p>{task.description}</p>
-                        <AddFileTask/>
+                        <AddFileTask task={task}/>
                         </>
                     }
                     {task.type === 'input' &&
                         <>
                             <p>{task.name}</p>
-                            <InputTask/>
+                            <InputTask task={task} />
+                        </>
+                    }
+                    {task.type === 'many-answers' &&
+                        <>
+                            <p>{task.name}</p>
+                            <p>{task.description}</p>
+                        <ManyAnswersTask task={task} />
                         </>
                     }
 
