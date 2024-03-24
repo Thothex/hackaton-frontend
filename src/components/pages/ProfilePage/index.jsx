@@ -59,6 +59,7 @@ const ProfilePage = () => {
           </div>
         </div>
       </div>
+      <div>My Hackathons</div>
     </div>
   );
 };

@@ -11,3 +11,10 @@
   margin-top:30px;
   font-weight: 700;
 }
+
+.fullWidthFlexRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}

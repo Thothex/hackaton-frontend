@@ -68,7 +68,6 @@ export const dictionarySlice = createSlice({
 				state.status = "loading";
 			})
 			.addCase(getOrganizationsThunk.fulfilled, (state, action) => {
-				console.log("Fulfilled payload:", action.payload);
 				state.status = "idle";
 				state.dictionary.organizations = action.payload;
 			})

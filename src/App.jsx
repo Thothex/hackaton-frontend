@@ -38,7 +38,7 @@ function App() {
   useEffect(() => {
     dispatch(getCategoriesThunk())
     dispatch(getOrganizationsThunk())
-    if (userInfo.statusCode === 401) {
+    if (userInfo.statusCode === 401 && location.pathname !== '/login' && location.pathname !== '/register') {
       window.location.replace('/login')
     } 
     if (userInfo.statusCode === 403) {
