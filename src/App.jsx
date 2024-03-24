@@ -26,6 +26,7 @@ function App() {
   const dispatch = useDispatch()
   const { bearer: bearerFromStore, userInfo } = useSelector((state) => state.userStore)
 
+
   useEffect(() => {
       const bearer = localStorage.getItem('token')
       if (bearer) {
@@ -36,11 +37,16 @@ function App() {
   useEffect(() => {
     dispatch(getCategoriesThunk())
     dispatch(getOrganizationsThunk())
-    
-  }, [dispatch])
+    if (userInfo.statusCode === 401) {
+      window.location.replace('/login')
+    } 
+    if (userInfo.statusCode === 403) {
+      window.location.replace('/404')
+    } 
+  }, [dispatch, userInfo])
   
   useEffect(() => {
-    if (userInfo.role === 'admin') {
+    if (userInfo && userInfo?.role === 'admin') {
       dispatch(fetchUsersThunk())
     }
   }, [dispatch, userInfo])
