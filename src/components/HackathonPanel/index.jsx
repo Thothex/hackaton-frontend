@@ -61,7 +61,12 @@ const HackathonPanel = (props) => {
                     onClick={() => {
                         navigate(`/hackathon/${props.id}`)
                     }}>READ MORE</button>
-                {isOwn && <button type='button' onClick={()=>navigate(`/hackathon/${props.id}/edit`)} className={styles.button}>EDIT</button>}
+                {isOwn &&
+                    <>
+                        <button type='button' onClick={() => navigate(`/hackathon/${props.id}/edit`)} className={styles.button}>EDIT</button>
+                        <button type='button' onClick={() => navigate(`/hackathon/${props.id}/check`)} className={styles.button}>Check!</button>
+
+                    </>}
             </div>
         </div>
     );

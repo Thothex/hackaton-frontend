@@ -5,7 +5,7 @@ import { fetchHackathonById } from '@/redux/features/hackathonsSlice.js';
 import styles from './style.module.scss';
 import { createTeam, getTeamInfo, sendInvite } from '@/redux/features/teamSlice.js';
 import { getAllUsersThunk } from "@/redux/features/userSlice.js";
-import mockPic from '../../../assets/avatarexample.png'
+import mockPic from '../../../assets/avatar.png'
 const StartHackathonPage = () => {
     const navigate = useNavigate();
     const { id } = useParams();
@@ -15,12 +15,11 @@ const StartHackathonPage = () => {
     const [teamName, setTeamName] = useState('');
     const [inviteEmail, setInviteEmail] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
-    const allUsers = useSelector(state => state.userStore.allUsers);
+    const { allUsers, userInfo: user } = useSelector(state => state.userStore);
     const [newTeamId, setNewTeamId] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [team, setTeam] = useState({});
-    const user = useSelector((state) => state.userStore.userInfo);
     useLayoutEffect(() => {
         setLoading(true);
         dispatch(fetchHackathonById(id));
@@ -128,7 +127,9 @@ const StartHackathonPage = () => {
                         {teamInfo.teamUsers.map((member, index) => (
                             <div key={index} className={styles.memberList}>
                                 <div className={styles.userInfo}>
-                                <img className={styles.userAvatarImg} src={mockPic}/>
+                                    <img
+                                        className={styles.userAvatarImg}
+                                        src={member?.avatar ? `${import.meta.env.VITE_BASE_URL_AVATAR}/${member.avatar}` : mockPic}/>
                                     <div className={styles.userInfoText}>
                                     <h4>{member.username}</h4>
                                     <p>{member.email}</p>
