@@ -1,6 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "../redux/features/userSlice";
-
 import dictionaryReducer from "../redux/features/dictionarySlice";
 import hackathonReducer from "../redux/features/hackathonsSlice";
 import tasksReducer from "../redux/features/taskSlice";

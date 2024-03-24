@@ -16,6 +16,7 @@ import HackathonEditPage from './components/pages/HackathonEditPage';
 import { getCategoriesThunk, getOrganizationsThunk } from './redux/features/dictionarySlice';
 import TestPage from "@/components/pages/TestPage/index.jsx";
 import StartHackathonPage from "@/components/pages/StartHackathonPage/index.jsx";
+import AcceptPage from "@/components/pages/AcceptPage/index.jsx";
 import { fetchUsersThunk } from './redux/features/usersSlice';
 
 
@@ -89,11 +90,11 @@ function App() {
           <Route path='/profile' element={<ProfilePage />}/>
           <Route path='/newhackathon' element={<HackathonEditPage />}/>
             <Route path='/hackathon/:id' element={<HackathonPage />}/>
-            <Route path='/hackathon/:id/start' element={<StartHackathonPage />}/>
+            <Route path='/hackathon/:id/start' element={<StartHackathonPage/>}/>
             <Route path='/hackathon/:id/tasks' element={<TestPage />}/>
           <Route path='/hackathon/:id/edit' element={<HackathonEditPage />}/>
             <Route path='/test' element={<TestPage/>}/>
-
+          <Route path='/team/accept/:teamId/:userId' element={<AcceptPage/>}/>
         </Routes>
       </div>
     </div>

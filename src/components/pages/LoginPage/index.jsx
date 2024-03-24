@@ -1,9 +1,9 @@
-import logo from '../../../assets/logo.svg'
-import styles from './styles.module.scss'
+import logo from '../../../assets/logo.svg';
+import styles from './styles.module.scss';
 import AuthButton from "../../CAuthButton/index.jsx";
 import AuthInput from "@/components/CAuthInput/index.jsx";
-import {useNavigate} from "react-router-dom";
-import {useState} from "react";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import axios from "axios";
 import CCheckbox from '../../CustomCheckbox/index.jsx';
 import AuthHeader from "@/components/AuthHeader/index.jsx";
@@ -18,7 +18,7 @@ const LoginPage = () => {
         password: ''
     });
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -43,8 +43,9 @@ const LoginPage = () => {
     };
 
     const handleChangeRemember = (checked) => {
-        setRememberCheckbox(checked)
-    }
+        setRememberCheckbox(checked);
+    };
+
     return(
         <div className={styles.AuthPage}>
             <AuthHeader/>
@@ -53,8 +54,8 @@ const LoginPage = () => {
                 <h1>Log into your account</h1>
                 <p className={styles.loginParagraph}>Welcome back! Please enter your details.</p>
                 <form className={styles.loginForm} onSubmit={handleSubmit}>
-                        <AuthInput label='Email' inner='Enter your username' type={'text'} name={'email'} value={formData.username} onChange={handleInputChange} />
-                        <AuthInput label='Password' inner={'Enter your password'} type={'password'} name={'password'} value={formData.password} onChange={handleInputChange} />
+                    <AuthInput label='Email' inner='Enter your email' type={'text'} name={'email'} value={formData.email} onChange={handleInputChange} />
+                    <AuthInput label='Password' inner={'Enter your password'} type={'password'} name={'password'} value={formData.password} onChange={handleInputChange} />
                     <div>
                         <div>
                             <CCheckbox label="Remember me" checked={rememberCheckbox} onChange={handleChangeRemember} />
@@ -66,8 +67,7 @@ const LoginPage = () => {
                 <h5>Don't have an account? <button className={styles.linkButton} onClick={() => handleNavigate("/register")}>Sign up</button></h5>
             </div>
         </div>
-    )
-
-}
+    );
+};
 
 export default LoginPage;
