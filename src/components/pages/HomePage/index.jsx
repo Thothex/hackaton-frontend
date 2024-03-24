@@ -9,8 +9,6 @@ const HomePage = () => {
     const user = useSelector((state) => state.userStore.userInfo);
     const hackathons = useSelector((state) => state.hackathons.hackathons);
 
-    console.log('user', user);
-    console.log('hackathons', hackathons);
     useEffect(() => {
         dispatch(fetchHackathons());
     }, [dispatch]);

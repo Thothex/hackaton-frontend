@@ -1,13 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-console.log("-------1");
 export const fetchHackathons = createAsyncThunk(
 	"hackathons/fetchHackathons",
 
 	async () => {
-		console.log("-------2");
 		try {
-			console.log("-------3");
 			const response = await fetch(
 				`${import.meta.env.VITE_BASE_URL}/hackathon`
 			);
@@ -69,6 +66,59 @@ export const createHackathon = createAsyncThunk(
 	}
 );
 
+export const createNewTask = createAsyncThunk(
+	"hackathons/tasks/create",
+	async ({ type = "many-answers", max_score = 10, hackathonId }) => {
+		try {
+			const response = await fetch(
+				`${import.meta.env.VITE_BASE_URL}/hackathon/${hackathonId}/task`,
+				{
+					method: "POST",
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem("token")}`,
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ type, max_score }),
+				}
+			);
+			if (!response.ok) {
+				throw new Error("Failed to fetch hackathons");
+			}
+			if (response.status === 201) {
+				const data = await response.json();
+				return { type, max_score, id: data.id };
+			}
+		} catch (error) {
+			throw new Error("Failed to fetch hackathons");
+		}
+	}
+);
+
+export const updateTask = createAsyncThunk(
+	"hackathons/tasks/update",
+	async ({ hackathonId, task }) => {
+		try {
+			const response = await fetch(
+				`${import.meta.env.VITE_BASE_URL}/task/${task.id}`,
+				{
+					method: "PUT",
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem("token")}`,
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(task),
+				}
+			);
+			if (!response.ok) {
+				throw new Error("Failed to fetch hackathons");
+			}
+			return task;
+		} catch (error) {
+			throw new Error("Failed to fetch hackathons");
+		}
+	}
+);
+
 export const putHackathon = createAsyncThunk(
 	"hackathons/update",
 
@@ -101,6 +151,7 @@ const hackathonSlice = createSlice({
 	initialState: {
 		hackathons: [],
 		hackathon: null,
+		currentHackathonTasks: [],
 		loading: false,
 		error: null,
 	},
@@ -110,6 +161,15 @@ const hackathonSlice = createSlice({
 		},
 		updateHackathon: (state, action) => {
 			state.hackathon = action.payload;
+		},
+		addNewTask: (state, action) => {
+			state.currentHackathonTasks.push(action.payload);
+		},
+		editTask: (state, action) => {
+			const index = state.currentHackathonTasks.findIndex(
+				(task) => task.id === action.payload.id
+			);
+			state.currentHackathonTasks[index] = action.payload;
 		},
 	},
 	extraReducers: (builder) => {
@@ -135,13 +195,49 @@ const hackathonSlice = createSlice({
 				state.loading = false;
 				state.error = null;
 				state.hackathon = action.payload;
+				state.currentHackathonTasks = action.payload.tasks;
 			})
 			.addCase(fetchHackathonById.rejected, (state, action) => {
+				state.loading = false;
+				state.error = action.error.message;
+			})
+
+			.addCase(createNewTask.pending, (state) => {
+				state.loading = true;
+				state.error = null;
+			})
+			.addCase(createNewTask.fulfilled, (state, action) => {
+				state.loading = false;
+				state.error = null;
+				state.currentHackathonTasks.push({ ...action.payload, answers: {} });
+			})
+			.addCase(createNewTask.rejected, (state, action) => {
+				state.loading = false;
+				state.error = action.error.message;
+			})
+
+			.addCase(updateTask.pending, (state) => {
+				state.loading = true;
+				state.error = null;
+			})
+			.addCase(updateTask.fulfilled, (state, action) => {
+				state.loading = false;
+				state.error = null;
+				const index = state.currentHackathonTasks.findIndex(
+					(task) => task.id === action.payload.id
+				);
+				state.currentHackathonTasks[index] = {
+					...action.payload,
+					answers: action.payload.answers || {},
+				};
+			})
+			.addCase(updateTask.rejected, (state, action) => {
 				state.loading = false;
 				state.error = action.error.message;
 			});
 	},
 });
 
-export const { clearHackathon, updateHackathon } = hackathonSlice.actions;
+export const { clearHackathon, updateHackathon, addNewTask, editTask } =
+	hackathonSlice.actions;
 export default hackathonSlice.reducer;

@@ -32,21 +32,20 @@ export const userLoginThunk = createAsyncThunk(
 );
 
 export const getUserThunk = createAsyncThunk("user/userinfo", async () => {
-  try {
-    const res = await fetch(`${import.meta.env.VITE_BASE_URL}/user`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-    if (res.status === 200) {
-      const data = await res.json();
-      return data;
-    }
-    console.log("res", await res.data);
-  } catch (error) {
-    console.error(error);
-  }
+	try {
+		const res = await fetch(`${import.meta.env.VITE_BASE_URL}/user`, {
+			method: "GET",
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem("token")}`,
+			},
+		});
+		if (res.status === 200) {
+			const data = await res.json();
+			return data;
+		}
+	} catch (error) {
+		console.error(error);
+	}
 });
 
 export const userUpdateThunk = createAsyncThunk(

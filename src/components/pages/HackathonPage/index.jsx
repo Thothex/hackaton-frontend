@@ -9,7 +9,6 @@ const HackathonPage = () => {
    const { id } = useParams();
    const dispatch = useDispatch();
    const hackathon = useSelector(state => state.hackathons.hackathon);
-
    useEffect(() => {
      dispatch(fetchHackathonById(id));
    }, [dispatch, id]);
@@ -37,7 +36,6 @@ const HackathonPage = () => {
   const yearStart = startDate.getFullYear();
   const yearEnd = endDate.getFullYear();
     const endMonth = endDate.toLocaleString('en-US', { month: 'long' });
-  console.log(formattedStartDate, startMonth, formattedEndDate, endMonth);
   return (
       <div className={styles.hackathonPage}>
         <div
@@ -102,9 +100,9 @@ const HackathonPage = () => {
           <div className={styles.hackathonPanelSMall}>
             <h3 className={styles.date}>
               {hackathon.organizations.map((org) => (
-                <div key={org.id} className={styles.hackathonPanelOrganization}>{org.name}</div>  
+                <div key={org.id} className={styles.hackathonPanelOrganization}>{org.name}</div>
               ))
-              
+
               }
             </h3>
             <h3 className={styles.month}>organizations</h3>
@@ -115,7 +113,7 @@ const HackathonPage = () => {
             <h2>About the hackathon</h2>
             <p className={styles.descriptionHac}>{hackathon.description}</p>
           </div>
-          <div className={styles.pic}>    <button className={styles.takePartBTN}>TAKE PART</button></div>
+          <div className={styles.pic}  onClick={()=> navigate(`/hackathon/${hackathon.id}/start`)} ><button className={styles.takePartBTN}>TAKE PART</button></div>
         </div>
       </div>
   )

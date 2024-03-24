@@ -10,7 +10,6 @@ import Calendar from "../CCalendar";
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { TimePicker } from 'antd';
-import moment from 'moment';
 import { useDispatch, useSelector } from "react-redux";
 import { clearHackathon, createHackathon, fetchHackathonById, putHackathon, updateHackathon } from "@/redux/features/hackathonsSlice";
 import { useNavigate } from "react-router-dom";
@@ -23,7 +22,11 @@ const NewHachathon = ({id}) => {
   // TODO сделать справочник организаций ручку POST, DELETE
 
   const hackathon = useSelector((state) => state.hackathons.hackathon);
-  
+  const categories = useSelector((state) => state.dictionaryStore.dictionary.categories);
+  const categoriesForPicker = categories.map((cat) => ({ id: cat.id, value: cat.name }));
+  const organizations = useSelector((state) => state.dictionaryStore.dictionary.organizations);
+  const organizationsForPicker = organizations.map((org) => ({ id: org.id, value: org.name }));
+
   useEffect(() => {
     if (!id) {
       dispatch(updateHackathon(
@@ -38,14 +41,14 @@ const NewHachathon = ({id}) => {
           category: null,
           organizations:[],
           admins: null,
-          isPrivate: false,
+          isPrivate: true,
         }
       ))
     }
     return (() => {
       dispatch(clearHackathon())
    })
-  }, [id]);
+  }, [id, dispatch]);
 
   useEffect(() => {
     !!id && dispatch(fetchHackathonById(id))
@@ -75,9 +78,7 @@ const NewHachathon = ({id}) => {
   }
 
   const handleAddFromSelect = (name, item) => {
-    console.log(name, item)
     const value = (name === 'type' || name === 'audience') ? item.value : {id: item.id, name: item.value}
-    console.log('value',value)
     dispatch(updateHackathon({
       ...hackathon,
       [name]: value,
@@ -96,15 +97,12 @@ const NewHachathon = ({id}) => {
   }
 
   const onSaveBtnHandler = async () => {
-    console.log(hackathon)
     const createdHakathon = await dispatch(createHackathon(hackathon))
-    console.log(createdHakathon)
-    navigate(`/hackathon/${createdHakathon.payload.id}`)
+    navigate(`/hackathon/${createdHakathon.payload.id}/edit`)
   }
 
   const onUpdateBtnHandler = async () => {
     const updatedHakathon = await dispatch(putHackathon(hackathon))
-    // console.log(updatedHakathon)
     navigate(`/hackathon/${updatedHakathon.payload.id}`)
   }
 
@@ -210,7 +208,7 @@ const NewHachathon = ({id}) => {
           />
           <CDropDown
             name='category'
-            items={[{ id: 1, value: 'Химия' }, { id: 2, value: 'JS' }, { id: 3, value: 'всё еще JS' }]}
+            items={categoriesForPicker}
             onChange={handleAddFromSelect}
             placeholder={'Выберите категорию'}
             value={hackathon?.category?.name || 'Категории'}
@@ -242,7 +240,7 @@ const NewHachathon = ({id}) => {
             <>
               <CDropDown
                 name='organization'
-                items={[{ id: 1, name: 'Барсы' }, { id: 2, name: 'Медведи' }, { id: 3, name: 'Эльбрусы' }, { id: 4, name: 'Молодцы — орлы' }]}
+                items={organizationsForPicker}
                 onChange={handleAddOrganization}
                 placeholder={'Выберите организацию'}
                 value={'Добавить организацию'}
