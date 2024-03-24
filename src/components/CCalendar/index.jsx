@@ -4,7 +4,6 @@ import "./styles.scss";
 import PropTypes from "prop-types";
 
 function Calendar({ initialDate, onDateChange }) {
-  console.log('initialDate', initialDate)
   const [date, setDate] = useState(new Date().toLocaleDateString("en-US"));
 
   useEffect(() => {

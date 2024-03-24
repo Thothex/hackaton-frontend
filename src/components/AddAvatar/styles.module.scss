@@ -1,0 +1,20 @@
+@import "../../index.scss";
+
+.save {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: $lighter-violet-color;
+  color: $white-color;
+  cursor: pointer;
+  border: none;
+  width: 160px;
+  height: 40px;
+  border-radius: 20px;
+
+  &:hover {
+    background-color: $auth-button-hover-color;
+  }
+}
