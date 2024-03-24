@@ -1,18 +1,20 @@
-.topPlain{
+@import "../../../index.scss";
+
+.topPlain {
   position: relative;
   top: 24px;
-  background-color: #97ABDF;
+  background-color: #97abdf;
   width: 100%;
   height: 300px;
   border-radius: 16px;
-  background-image: url('@/assets/headerBg.png');
+  background-image: url("@/assets/headerBg.png");
   background-repeat: no-repeat, repeat;
   background-size: cover;
   // background-size: contain;
   background-position: center;
 }
 
-.hello{
+.hello {
   padding: 14px 0 0 20px;
   color: white;
 }
@@ -26,10 +28,17 @@
   margin: 0 35px 0 35px;
   border-radius: 20px;
   backdrop-filter: blur(21px);
-  
 }
 
-.avatarWrapper{
+.avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 20px;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.027);
+  object-fit: cover;
+}
+
+.avatarWrapper {
   position: relative;
   display: flex;
   align-items: center;
@@ -37,7 +46,7 @@
   padding-left: 20px;
 }
 
-.textWrapper{
+.textWrapper {
   padding-left: 20px;
   gap: 4px;
   flex-direction: column;
@@ -48,15 +57,73 @@
 }
 
 .name {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-weight: 600;
-  color: #2D3748;
+  color: #2d3748;
 }
 
 .email {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: 14px;
-  color: #6E6E6E;
+  color: #6e6e6e;
   line-height: 1.4em;
   font-weight: 300;
+}
+
+.edit {
+  position: absolute;
+  bottom: 9px;
+  left: 90px;
+  height: 26px;
+  width: 26px;
+  background-color: $white-color;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.171);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.2s;
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &:hover {
+    background-color: $light-grey-color;
+  }
+}
+
+.modal {
+  width: 40vw;
+  position: fixed;
+  border-radius: 20px;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.096);
+  max-width: 80%;
+  max-height: 80%;
+  overflow: auto;
+
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
 }
