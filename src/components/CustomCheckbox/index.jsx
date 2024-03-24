@@ -1,16 +1,17 @@
 import styles from './styles.module.scss'
 import PropTypes from 'prop-types';
 
-const CCheckbox = ({ label, checked = false, onChange }) => {
+const CCheckbox = ({ label, uuid, checked = false, onChange }) => {
 
   const handleCheckboxChange = (event) => {
-    onChange(event.target.checked)
+    onChange(event.target.checked, event.target.dataset)
   }
   return (
     <label className={styles.checkboxWrapper}>
       <input
         type="checkbox"
         checked={checked}
+        data-uuid={uuid}
         onChange={(e)=>handleCheckboxChange(e)}
         className={styles.hiddenNativeCheckbox}
       />
@@ -40,6 +41,7 @@ const CCheckbox = ({ label, checked = false, onChange }) => {
 
 CCheckbox.propTypes = {
   label: PropTypes.string.isRequired,
+  key: PropTypes.string,
   checked: PropTypes.bool,
   onChange: PropTypes.func,
 };

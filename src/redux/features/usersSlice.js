@@ -34,7 +34,7 @@ export const updateUser = createAsyncThunk(
 			const res = await fetch(
 				`${import.meta.env.VITE_BASE_URL}/user/${userId}`,
 				{
-					method: "PUT",
+					method: "PATCH",
 					headers: {
 						"Content-Type": "application/json",
 						Authorization: `Bearer ${localStorage.getItem("token")}`,

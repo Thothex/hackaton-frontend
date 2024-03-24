@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Input } from 'antd';
 const { TextArea } = Input;
+import { Checkbox } from 'antd';
 import { Button } from 'antd';
 import styles from './styles.module.scss';
+import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from 'react-redux';
 import { updateTask } from '@/redux/features/hackathonsSlice';
 import PropTypes from 'prop-types';
 
-const ManyAnswerTask = ({ hackathonId, task }) => {
+const OneInputTask = ({ hackathonId, task }) => {
   
   const [answers, setAnswers] = useState(task.answers);
   const [taskText, setTaskText] = useState(task.name || '');
@@ -19,10 +21,9 @@ const ManyAnswerTask = ({ hackathonId, task }) => {
   useEffect(() => {
     setAnswers(task.answers)
   }, [task])
- 
-
+  
   const saveHander = () => {
-    dispatch(updateTask({hackathonId, task: {...task, answers, maxScore: taskScore, name: taskText, description: taskDescription, type: 'document'}}))
+    dispatch(updateTask({hackathonId, task: {...task, maxScore: taskScore, name: taskText, description: taskDescription, type: 'input'}}))
   }
 
   if (!answers) return <div>Loading...</div>;
@@ -46,15 +47,16 @@ const ManyAnswerTask = ({ hackathonId, task }) => {
           value={taskScore}
           onChange={(e) => setTaskScore(+e.target.value)}
         />
+
       </div>
-      <div className={styles.addNewAnswerBlock}>
+        <div className={styles.addNewAnswerBlock}>
         <Button onClick={saveHander}>Save</Button>
       </div>
     </div>
   );
 };
 
-ManyAnswerTask.propTypes = {
+OneInputTask.propTypes = {
   hackathonId: PropTypes.string,
   task: PropTypes.shape({
     answers: PropTypes.object,
@@ -63,4 +65,4 @@ ManyAnswerTask.propTypes = {
     maxScore: PropTypes.number,
   }),
 };
-export default ManyAnswerTask;
+export default OneInputTask;

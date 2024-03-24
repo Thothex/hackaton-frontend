@@ -24,7 +24,7 @@ import { fetchUsersThunk } from './redux/features/usersSlice';
 function App() {
     const location = useLocation();
   const dispatch = useDispatch()
-  const { bearer: bearerFromStore, } = useSelector((state) => state.userStore)
+  const { bearer: bearerFromStore, userInfo } = useSelector((state) => state.userStore)
 
   useEffect(() => {
       const bearer = localStorage.getItem('token')
@@ -44,6 +44,36 @@ function App() {
       dispatch(fetchUsersThunk())
     }
   }, [dispatch, userInfo])
+
+
+  useEffect(() => {
+    const socket = new WebSocket('ws://localhost:3000');
+
+    socket.onopen = () => {
+      console.log('Соединение установлено');
+    };
+
+    socket.onmessage = (event) => {
+      console.log('Получено сообщение:', event.data);
+      // здесь в зависимости от того что пришло, можно дёргать диспатчи
+    };
+
+    socket.onclose = () => {
+      console.log('Соединение закрыто');
+    };
+
+    socket.onerror = (error) => {
+      console.error('Ошибка:', error);
+    };
+
+    // Очистка эффекта
+    return () => {
+      socket.close();
+    };
+  }, []);
+
+  
+
   return (
     <div className="appContainer">
       {location.pathname !== "/register" && location.pathname !== "/login"  && location.pathname !== "/" && (
