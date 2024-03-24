@@ -54,7 +54,7 @@ const TestPage = () => {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
-                body: JSON.stringify({userAnswers}),
+                body: JSON.stringify({userAnswers, taskId: task.id, type: 'many-answers', hackathonId: task.hackathonId}),
           });
           // TODO: обработать ответ? вывести тост?
       } catch (error) {
@@ -73,7 +73,7 @@ const TestPage = () => {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
-                body: JSON.stringify({userAnswers}),
+                body: JSON.stringify({userAnswers, taskId: task.id, type: 'many-answers', hackathonId: task.hackathonId}),
           });
           // TODO: обработать ответ? вывести тост?
       } catch (error) {
