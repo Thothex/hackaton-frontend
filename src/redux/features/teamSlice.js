@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const createTeam = createAsyncThunk(
     "team/create",
-    async (team, { rejectWithValue }) => {
+    async ({ name, hackathonId }, { rejectWithValue }) => {
         try {
             const response = await fetch(
                 `${import.meta.env.VITE_BASE_URL}/team`,
@@ -12,13 +12,40 @@ export const createTeam = createAsyncThunk(
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(team),
+                    body: JSON.stringify({ name, hackathonId }),
                 }
             );
             if (!response.ok) {
                 throw new Error("Failed to create team");
             }
             const data = await response.json();
+            console.log(data)
+            return data;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
+export const getTeamInfo = createAsyncThunk(
+    "team/info",
+    async ({ hackathonId, userId }, { rejectWithValue }) => {
+        try {
+            const response = await fetch(
+                `${import.meta.env.VITE_BASE_URL}/team/${hackathonId}/${userId}`,
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            if (!response.ok) {
+                throw new Error("Failed to get team info");
+            }
+            const data = await response.json();
+            console.log(data)
             return data;
         } catch (error) {
             return rejectWithValue(error.message);
@@ -28,17 +55,17 @@ export const createTeam = createAsyncThunk(
 
 export const sendInvite = createAsyncThunk(
     "team/invite",
-    async ({ teamId, userId }, { rejectWithValue }) => {
+    async ({ teamId, member, hackathonId}, { rejectWithValue }) => {
         try {
             const response = await fetch(
-                `${import.meta.env.VITE_BASE_URL}/team/${teamId}/${userId}`,
+                `${import.meta.env.VITE_BASE_URL}/team/invite`,
                 {
                     method: "POST",
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ teamId: teamId, userId: userId }),
+                    body: JSON.stringify({ teamId, member, hackathonId}),
                 }
             );
             if (!response.ok) {
@@ -52,12 +79,14 @@ export const sendInvite = createAsyncThunk(
     }
 );
 
+
 const teamSlice = createSlice({
     name: "team",
     initialState: {
         loading: false,
         error: null,
         inviteData: null,
+        teamInfo: null,
     },
     reducers: {},
     extraReducers: (builder) => {
@@ -89,6 +118,21 @@ const teamSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload || action.error.message;
                 state.inviteData = null;
+            })
+            .addCase(getTeamInfo.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+                state.teamInfo = null;
+            })
+            .addCase(getTeamInfo.fulfilled, (state, action) => {
+                state.loading = false;
+                state.error = null;
+                state.teamInfo = action.payload;
+            })
+            .addCase(getTeamInfo.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload || action.error.message;
+                state.teamInfo = null;
             });
     },
 });

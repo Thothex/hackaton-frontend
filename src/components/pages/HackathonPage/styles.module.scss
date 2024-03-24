@@ -103,8 +103,7 @@
 .takePartBTN{
   background: none;
   border: none;
-  height: inherit;
-  min-height: 100px;
+  height: 230px;
   width: 100%;
   border-radius: 20px;
   font-family: "Geologica", sans-serif;
@@ -172,8 +171,8 @@
   justify-content: center;
   width: 30%;
   border-radius: 20px;
-  height: fit-content;
-  min-height: 260px;
+  height: 230px;
+  min-height: 230px;
   background: #cc8fc6;
   box-shadow: 0 -200px 100px -120px #7254b6 inset;
   animation: background 3s infinite alternate;
@@ -187,10 +186,10 @@
   }
 }
 .pic:hover{
-  outline: 10px solid rgba(45, 55, 72, 0.5);
+  outline: 3px solid rgba(45, 55, 72, 0.5);
 }
 .pic:active{
-  outline: 15px solid $font-color-date;
+  outline: 5px solid rgba(45, 55, 72, 0.5);
 }
 .panelOpen{
   background-color:  $light-violet-color;

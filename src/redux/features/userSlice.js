@@ -48,6 +48,28 @@ export const getUserThunk = createAsyncThunk("user/userinfo", async () => {
 	}
 });
 
+export const getAllUsersThunk = createAsyncThunk(
+	'users/all',
+	async (_, { rejectWithValue }) => {
+		try {
+			const response = await fetch(`${import.meta.env.VITE_BASE_URL}/users`, {
+				method: 'GET',
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem('token')}`,
+					'Content-Type': 'application/json'
+				}
+			});
+			if (!response.ok) {
+				throw new Error('Failed to fetch users');
+			}
+			const data = await response.json();
+			return data;
+		} catch (error) {
+			return rejectWithValue(error.message);
+		}
+	}
+);
+
 export const userUpdateThunk = createAsyncThunk(
   "user/update",
   async ({ id, formData }, { dispatch }) => {
@@ -111,7 +133,17 @@ export const userSlice = createSlice({
       })
       .addCase(userUpdateThunk.rejected, (state) => {
         state.status = "failed";
-      });
+      })
+      .addCase(getAllUsersThunk.pending, (state) => {
+				state.status = "loading";
+			})
+			.addCase(getAllUsersThunk.fulfilled, (state, action) => {
+				state.status = "idle";
+				state.allUsers = action.payload;
+			})
+			.addCase(getAllUsersThunk.rejected, (state) => {
+				state.status = "failed";
+			});
   },
 });
 
