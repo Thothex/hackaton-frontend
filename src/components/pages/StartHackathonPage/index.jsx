@@ -128,7 +128,7 @@ const StartHackathonPage = () => {
                         {teamInfo.teamUsers.map((member, index) => (
                             <div key={index} className={styles.memberList}>
                                 <div className={styles.userInfo}>
-                                <img src={mockPic}/>
+                                <img className={styles.userAvatarImg} src={mockPic}/>
                                     <div className={styles.userInfoText}>
                                     <h4>{member.username}</h4>
                                     <p>{member.email}</p>
