@@ -39,7 +39,7 @@ const teamsSlice = createSlice({
 			.addCase(fetchTeamList.fulfilled, (state, action) => {
 				state.loading = false;
 				state.error = null;
-				state.teams = { ...action.payload };
+				state.teams = [...action.payload];
 			})
 			.addCase(fetchTeamList.rejected, (state, action) => {
 				state.loading = false;

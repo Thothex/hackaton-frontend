@@ -28,6 +28,11 @@ export default defineConfig({
 				target: "http://localhost:3000",
 				changeOrigin: true,
 			},
+			"/file": {
+				secure: false,
+				target: "http://localhost:3000",
+				changeOrigin: true,
+			},
 		},
 	},
 });
