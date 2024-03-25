@@ -57,13 +57,13 @@
 }
 
 .name {
-  font-family: "Roboto";
+  font-family: "Geologica", sans-serif;
   font-weight: 600;
   color: #2d3748;
 }
 
 .email {
-  font-family: "Roboto";
+  font-family: "Geologica", sans-serif;
   font-size: 14px;
   color: #6e6e6e;
   line-height: 1.4em;
@@ -126,4 +126,114 @@
       transform: scale(1.2);
     }
   }
+}
+.mainContainer{
+  width: 100%;
+  height: 100vh;
+}
+.upperPanel{
+  width: 100%;
+  height: 400px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  .profileInfo, .toHackathons{
+    width: 100%;
+    height: inherit;
+    background-color: white;
+    border-radius: 20px;
+    min-width: 250px;
+    padding:20px;
+    color:$font-color-date;
+  }
+}
+.infoUserEdit{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  button {
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    min-height: 26px;
+    border: none;
+    border-radius: 50%;
+    background-color: $light-violet-color;
+    background-image: url("../../../assets/editWhite.svg");
+    background-size: 15px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  h4{
+    font-size: 20px;
+    white-space: nowrap;
+  }
+}
+
+.profileInfo{
+  .infoContainer{
+
+    h5{
+      color:#718096;
+      min-width: fit-content;
+      white-space: nowrap;
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      font-size: 18px;
+      font-weight: 300;
+      span{
+        font-size: 16px;
+        font-weight: 200;
+      }
+    }
+  }
+}
+
+
+.toHackathons {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+}
+.pic{
+  //background-color: #16A34A;
+  min-width: 260px;
+
+  height: 100%;
+  background: url("../../../assets/smart-people.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.viewBtn{
+  font-size: 12px;
+  position: absolute;
+  min-width: fit-content;
+  white-space: nowrap;
+  font-family: "Geologica", sans-serif;
+  border-radius: 40px;
+  border: 2px solid $light-violet-color;
+  padding-inline: 2em;
+  padding-block: 1em;
+  color:$light-violet-color;
+  background-color:white ;
+  top:80%;
+  left: 60%;
+}
+.progress{
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border-radius: 20px;
+  min-width: 250px;
+  color:$font-color-date;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding:0;
+  min-width: 250px;
 }
