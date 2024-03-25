@@ -27,6 +27,13 @@ const NewHachathon = ({id}) => {
   const organizations = useSelector((state) => state.dictionaryStore.dictionary.organizations);
   const organizationsForPicker = organizations.map((org) => ({ id: org.id, value: org.name }));
 
+  const today = new Date();
+  const yesterday = new Date(today);
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  const getDatesToCurrentDisable = ({ date }) => {
+    return date <= yesterday;
+  } 
   useEffect(() => {
     if (!id) {
       dispatch(updateHackathon(
@@ -237,12 +244,20 @@ const NewHachathon = ({id}) => {
         <div className={styles.newHachathonWrapperCol}>
           <span className={styles.inputTitle}>Дата/время начала хакатона</span>
           <div className={styles.dateTimeContainer}>
-            <Calendar onDateChange={onStartDateChange} initialDate={hackathon?.start ? hackathon.start : new Date().toString()} />
+            <Calendar
+              onDateChange={onStartDateChange}
+              getDatesToCurrentDisable={getDatesToCurrentDisable}
+              initialDate={hackathon?.start ? hackathon.start : new Date().toString()}
+            />
             <TimePicker onChange={onStartTimeChange} defaultOpenValue={dayjs(hackathon?.start || '00:00:00', 'HH:mm:ss')} format={'HH:mm:ss'} />
           </div>
           <span className={styles.inputTitle}>Дата/время окончания хакатона</span>
           <div className={styles.dateTimeContainer}>
-            <Calendar onDateChange={onEndDateChange} initialDate={hackathon?.end ? hackathon.end : new Date().toString()}/>
+            <Calendar
+              onDateChange={onEndDateChange}
+              getDatesToCurrentDisable={getDatesToCurrentDisable}
+              initialDate={hackathon?.end ? hackathon.end : new Date().toString()}
+            />
             <TimePicker onChange={onEndTimeChange} defaultOpenValue={dayjs(hackathon?.start || '00:00:00', 'HH:mm:ss')} format={'HH:mm:ss'} />
           </div>
         </div>
