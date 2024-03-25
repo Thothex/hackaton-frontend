@@ -12,7 +12,7 @@ const HackathonTeamPage = () => {
   const { teams } = useSelector((state) => state.teamsStore);
   const { tasks } = useSelector((state)=> state.tasks)
   const { answers } = useSelector((state)=> state.answersStore)
-  const team = teams.find(team => team.id === +teamId)
+  const team = teams.teams.find(team => team.id === +teamId)
   console.log('answers', answers)
   useEffect(() => {
     if (!teams.length) {

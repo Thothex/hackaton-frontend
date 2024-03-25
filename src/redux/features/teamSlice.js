@@ -95,6 +95,7 @@ const teamSlice = createSlice({
 				state.loading = false;
 				state.error = null;
 				state.inviteData = action.payload;
+				state.teamInfo = action.payload;
 			})
 			.addCase(createTeam.rejected, (state, action) => {
 				state.loading = false;
