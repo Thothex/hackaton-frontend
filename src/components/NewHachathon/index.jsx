@@ -54,6 +54,12 @@ const NewHachathon = ({id}) => {
     !!id && dispatch(fetchHackathonById(id))
   }, [id, dispatch])
   
+  useEffect(() => {
+    if (hackathon) {
+      setOnlyOrganizations(hackathon.organizations.length > 0)
+      
+    }
+  }, [hackathon])
 
   const [onlyOrganizations, setOnlyOrganizations] = useState(false)
 
@@ -71,9 +77,13 @@ const NewHachathon = ({id}) => {
 
   const handleAddOrganization = (name, item) => {
     const iSincludes = hackathon.organizations.find((org) => org.id === item.id) ? true : false
+    const newOrganization = {
+      id: item.id,
+      name: item.value
+    }
     dispatch(updateHackathon({
       ...hackathon,
-      organizations: iSincludes ? hackathon.organizations : [...hackathon.organizations, item]
+      organizations: iSincludes ? hackathon.organizations : [...hackathon.organizations, newOrganization]
     }))
   }
 
@@ -102,6 +112,7 @@ const NewHachathon = ({id}) => {
   }
 
   const onUpdateBtnHandler = async () => {
+    console.log('hackathon in bnt', hackathon);
     const updatedHakathon = await dispatch(putHackathon(hackathon))
     navigate(`/hackathon/${updatedHakathon.payload.id}`)
   }
@@ -172,6 +183,7 @@ const NewHachathon = ({id}) => {
         end: newStartDate.toString()
     }))
   };
+  console.log('hackathon', hackathon);
   !hackathon && <div>Loading...</div> 
   return (
     <div className={styles.newHackContainer}>
@@ -247,7 +259,7 @@ const NewHachathon = ({id}) => {
               />
               <div className={styles.badges}>
               { hackathon?.organizations.map((org) => (
-                  <Badge key={org.id} name={org.value} onDelete={()=>onBageDelete(org.id)} />
+                  <Badge key={org.id} name={org.name} onDelete={()=>onBageDelete(org.id)} />
                   ))}
               </div>
             </>
