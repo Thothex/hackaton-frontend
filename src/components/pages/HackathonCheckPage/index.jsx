@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import styles from './styles.module.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
@@ -13,10 +13,13 @@ const HackathonCheckPage = () => {
   useEffect(() => {
     dispatch(fetchTeamList({ hackathonId: id }));
   }, [dispatch, id]);
-  // console.log(teams);
   return (
     <>
-      sdf
+      {teams?.length > 0
+        && teams.map((team) => (
+          <Link to={`/hackathon/${id}/check/${team.id}`} key={team.id} className={styles.teamItem}>{team.name}</Link>
+        ))
+      }
     </>
   );
 };

@@ -6,6 +6,7 @@ import tasksReducer from "../redux/features/taskSlice";
 import teamReducer from "../redux/features/teamSlice";
 import usersReducer from "../redux/features/usersSlice";
 import teamsReducer from "../redux/features/teamsSlice";
+import answersReducer from "../redux/features/answersSlice";
 
 export const store = configureStore({
 	reducer: {
@@ -16,5 +17,6 @@ export const store = configureStore({
 		team: teamReducer,
 		usersStore: usersReducer,
 		teamsStore: teamsReducer,
+		answersStore: answersReducer,
 	},
 });

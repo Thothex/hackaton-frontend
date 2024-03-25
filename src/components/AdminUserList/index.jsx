@@ -22,8 +22,8 @@ const AdminUserList = () => {
   const users = userList.map((user) => { 
     console.log('user.organization', user.organization)
     const org = {
-      id: user.organization.id,
-      value: user.organization.name
+      id: user?.organization?.id,
+      value: user?.organization?.name
     }
     return {
       key: user.userId,
