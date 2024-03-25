@@ -38,27 +38,20 @@ const Navbar = () => {
                   }
                 >
                   <img src={cap} alt="cap" className={styles.icon} />
-                  Admin
+                  Admin panel
                 </NavLink>
               )}
-              <NavLink
-                to="/newhackathon"
-                className={({ isActive }) =>
-                  isActive ? styles.active : styles.unactive
-                }
-              >
-                <img src={profile} alt="profile" className={styles.icon} />
-                Create Hackathon
-              </NavLink>
-              <NavLink
-                to="/task/new"
-                className={({ isActive }) =>
-                  isActive ? styles.active : styles.unactive
-                }
-              >
-                <img src={profile} alt="profile" className={styles.icon} />
-                Create task
-              </NavLink>
+              {userInfo.isOrg && (
+                <NavLink
+                  to="/newhackathon"
+                  className={({ isActive }) =>
+                    isActive ? styles.active : styles.unactive
+                  }
+                >
+                  <img src={profile} alt="profile" className={styles.icon} />
+                  Create Hackathon
+                </NavLink>
+              )}
             </>
           ) : (
             <>

@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Table} from 'antd';
 import CDropDown from '../CDropDown';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchUsersThunk, updateUser } from '@/redux/features/usersSlice';
+import { Checkbox } from "antd";
+import { updateUser } from '@/redux/features/usersSlice';
 
 const AdminUserList = () => {
   const dispatch = useDispatch();
@@ -10,15 +11,17 @@ const AdminUserList = () => {
   const organizationList = useSelector((state) => state.dictionaryStore.dictionary.organizations);
   const organizationsForPicker = organizationList.map((org) => ({ id: org.id, value: org.name }));
   const userList = useSelector((state) => state.usersStore.users)
-    
-
-  // useEffect(() => {
-  //   dispatch(fetchUsersThunk());
-  // },[dispatch])
 
   const handleAddFromSelect = (item, userId) => {
     dispatch(updateUser({userId, organization: {id: item.id, name: item.value}}));
   }
+
+  const onChangeIsOrg = (e, user) => {
+    console.log('e.target.checked', e.target.checked)
+    dispatch(updateUser({ userId: user.userId, isOrg: e.target.checked }));
+  };
+
+
   const users = userList.map((user) => { 
     console.log('user.organization', user.organization)
     const org = {
@@ -36,14 +39,11 @@ const AdminUserList = () => {
         items={organizationsForPicker}
         value={org}
         handleAddFromSelect={handleAddFromSelect}
-      />
+        />,
+      isOrg: <Checkbox checked={user.isOrg} onChange={(e)=>onChangeIsOrg(e, user)}>Checkbox</Checkbox>
     }
   })
 
-
-
-  
-  
   const columns = [
     {
       title: 'id',
@@ -64,6 +64,11 @@ const AdminUserList = () => {
       title: 'Organization',
       dataIndex: 'organization',
       key: 'organization',
+    },
+    {
+      title: 'Is Organizer',
+      dataIndex: 'isOrg',
+      key: 'isOrg',
     }
   ];
 

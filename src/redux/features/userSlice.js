@@ -120,7 +120,7 @@ export const userSlice = createSlice({
 			})
 			.addCase(getUserThunk.fulfilled, (state, action) => {
 				state.status = "idle";
-				state.userInfo = action.payload;
+				state.userInfo = { ...action.payload };
 			})
 			.addCase(getUserThunk.rejected, (state) => {
 				state.status = "failed";

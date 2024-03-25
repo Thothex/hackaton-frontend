@@ -27,7 +27,9 @@ const HomePage = () => {
                     onChange={handleFilterChange}
                     options={[
                         { value: 'all', label: 'all', },
-                        { value: 'my', label: 'my', }
+                        { value: 'my', label: 'my', },
+                        { value: 'inProgress', label: 'in progress'},
+                        { value: 'past', label: 'past'}
                     ]}
                 />
             </div>
@@ -35,11 +37,26 @@ const HomePage = () => {
                 <div>{user.username}</div>
             )}
             <div className={styles.hackathonList}>
-                {hackathons.filter((ha) =>{
+                {hackathons.filter((ha) => {
+                    const currentDate = new Date().toLocaleDateString()
+                    console.log('ha.createdAt', ha.createdAt);
+                        console.log('currentDate', currentDate);
                     if (currentFilter === 'all') {
                         return true;
                     }
-                    return ha.organizer_id === user.id;
+                    if (ha.organizer_id === user.id && currentFilter === 'my') {
+                        return true;
+                    }
+                    if (ha.createdAt <= currentDate && ha.end >= currentDate && currentFilter === 'inProgress') {
+                        console.log('currentFilter', currentFilter);
+                        console.log('check', ha.createdAt < currentDate && ha.end > currentDate);
+                        
+                        
+                        return true;
+                    }
+                    if (ha.end < currentDate && currentFilter === 'past') {
+                        return true;
+                    }
                 }).map((hackathon) => (
                     <HackathonPanel
                         key={hackathon.id}
