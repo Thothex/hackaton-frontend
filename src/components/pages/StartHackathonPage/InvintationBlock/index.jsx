@@ -21,7 +21,7 @@ const InvintationBlock = ({
             <div className={styles.userInfo}>
                 <img
                     className={styles.userAvatarImg}
-                    src={member?.avatar ? `${import.meta.env.VITE_BASE_URL_AVATAR}/${member.avatar}` : mockPic}/>
+                    src={member?.avatar ? `${import.meta.env.VITE_BASE_URL_AVATAR}/${member.id}/${member.avatar}` : mockPic}/>
                 <div className={styles.userInfoText}>
                 <h4>{member.username}</h4>
                 <p>{member.email}</p>

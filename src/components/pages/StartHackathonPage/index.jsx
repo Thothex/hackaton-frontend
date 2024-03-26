@@ -116,12 +116,12 @@ const StartHackathonPage = () => {
         <div style={{margin:'20px'}}>
             <div className={styles.hackathonHeader}>
             <div className={styles.hackathonInfo}>
-            <h1>{hackathon.name}</h1>
+                <h1>{hackathon.name}</h1>
                 <div className={styles.Info}>
-            <h3>{hackathon.description}</h3>
-            <h4>{hackathon.rules}</h4>
+                    <h3>{hackathon.description}</h3>
+                    <h4>{hackathon.rules}</h4>
+                </div>
             </div>
-        </div>
             <button className={styles.toTask} onClick={handleTasksClick}>START</button>
         </div>
             <div className={styles.team}>
