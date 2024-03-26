@@ -27,6 +27,13 @@ const NewHachathon = ({id}) => {
   const organizations = useSelector((state) => state.dictionaryStore.dictionary.organizations);
   const organizationsForPicker = organizations.map((org) => ({ id: org.id, value: org.name }));
 
+  const today = new Date();
+  const yesterday = new Date(today);
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  const getDatesToCurrentDisable = ({ date }) => {
+    return date <= yesterday;
+  } 
   useEffect(() => {
     if (!id) {
       dispatch(updateHackathon(
@@ -54,6 +61,12 @@ const NewHachathon = ({id}) => {
     !!id && dispatch(fetchHackathonById(id))
   }, [id, dispatch])
   
+  useEffect(() => {
+    if (hackathon) {
+      setOnlyOrganizations(hackathon.organizations.length > 0)
+      
+    }
+  }, [hackathon])
 
   const [onlyOrganizations, setOnlyOrganizations] = useState(false)
 
@@ -71,9 +84,13 @@ const NewHachathon = ({id}) => {
 
   const handleAddOrganization = (name, item) => {
     const iSincludes = hackathon.organizations.find((org) => org.id === item.id) ? true : false
+    const newOrganization = {
+      id: item.id,
+      name: item.value
+    }
     dispatch(updateHackathon({
       ...hackathon,
-      organizations: iSincludes ? hackathon.organizations : [...hackathon.organizations, item]
+      organizations: iSincludes ? hackathon.organizations : [...hackathon.organizations, newOrganization]
     }))
   }
 
@@ -102,6 +119,7 @@ const NewHachathon = ({id}) => {
   }
 
   const onUpdateBtnHandler = async () => {
+    console.log('hackathon in bnt', hackathon);
     const updatedHakathon = await dispatch(putHackathon(hackathon))
     navigate(`/hackathon/${updatedHakathon.payload.id}`)
   }
@@ -172,6 +190,7 @@ const NewHachathon = ({id}) => {
         end: newStartDate.toString()
     }))
   };
+  console.log('hackathon', hackathon);
   !hackathon && <div>Loading...</div> 
   return (
     <div className={styles.newHackContainer}>
@@ -225,12 +244,20 @@ const NewHachathon = ({id}) => {
         <div className={styles.newHachathonWrapperCol}>
           <span className={styles.inputTitle}>Дата/время начала хакатона</span>
           <div className={styles.dateTimeContainer}>
-            <Calendar onDateChange={onStartDateChange} initialDate={hackathon?.start ? hackathon.start : new Date().toString()} />
+            <Calendar
+              onDateChange={onStartDateChange}
+              getDatesToCurrentDisable={getDatesToCurrentDisable}
+              initialDate={hackathon?.start ? hackathon.start : new Date().toString()}
+            />
             <TimePicker onChange={onStartTimeChange} defaultOpenValue={dayjs(hackathon?.start || '00:00:00', 'HH:mm:ss')} format={'HH:mm:ss'} />
           </div>
           <span className={styles.inputTitle}>Дата/время окончания хакатона</span>
           <div className={styles.dateTimeContainer}>
-            <Calendar onDateChange={onEndDateChange} initialDate={hackathon?.end ? hackathon.end : new Date().toString()}/>
+            <Calendar
+              onDateChange={onEndDateChange}
+              getDatesToCurrentDisable={getDatesToCurrentDisable}
+              initialDate={hackathon?.end ? hackathon.end : new Date().toString()}
+            />
             <TimePicker onChange={onEndTimeChange} defaultOpenValue={dayjs(hackathon?.start || '00:00:00', 'HH:mm:ss')} format={'HH:mm:ss'} />
           </div>
         </div>
@@ -247,7 +274,7 @@ const NewHachathon = ({id}) => {
               />
               <div className={styles.badges}>
               { hackathon?.organizations.map((org) => (
-                  <Badge key={org.id} name={org.value} onDelete={()=>onBageDelete(org.id)} />
+                  <Badge key={org.id} name={org.name} onDelete={()=>onBageDelete(org.id)} />
                   ))}
               </div>
             </>

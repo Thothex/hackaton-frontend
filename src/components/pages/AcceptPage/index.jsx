@@ -13,7 +13,7 @@ const AcceptPage = () => {
             } else {
                 setCountdown(prevCountdown => prevCountdown - 1);
             }
-        }, 1000);
+        }, 300);
 
         return () => clearTimeout(timer);
     }, [countdown, navigate]);
