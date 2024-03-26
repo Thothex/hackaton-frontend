@@ -29,7 +29,8 @@ const StartHackathonPage = () => {
         setLoading(true);
         dispatch(fetchHackathonById(id));
         dispatch(getAllUsersThunk());
-        dispatch(getTeamInfo({ hackathonId: id, userId: user.id }))
+        if (user?.id) {
+            dispatch(getTeamInfo({ hackathonId: id, userId: user.id }))
             .then((data) => {
                 setLoading(false)
             })
@@ -37,6 +38,7 @@ const StartHackathonPage = () => {
                 setError(error.message);
                 setLoading(false);
             });
+        }
     }, [dispatch, id, user]);
 
     useEffect(() => {
