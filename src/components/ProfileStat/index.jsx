@@ -1,14 +1,36 @@
 import React, { useEffect } from 'react';
 import Chart from 'chart.js/auto';
 import dayjs from 'dayjs';
+import PropTypes from "prop-types";
 
-const ProfileStat = () => {
+const ProfileStat = ({stat}) => {
     useEffect(() => {
+        const prepareChartData = () => {
+            if (!stat) return [];
+
+            const months = generateLastSixMonths();
+            const currentYear = dayjs().year();
+
+            const data = months.map(month => {
+                const monthName = month.format('MMMM');
+                const count = stat.filter(entry => {
+                    const entryYear = dayjs(entry.createdAt).year();
+                    return (
+                        dayjs(entry.createdAt).format('MMMM') === monthName &&
+                        entryYear === currentYear
+                    );
+                }).length;
+                return count;
+            });
+            return data;
+        };
+        const chartData = prepareChartData();
+
         const ctx = document.getElementById('myChart');
         if (ctx) {
             const months = generateLastSixMonths();
-            const barWidthPercentage = 13; // Процентная ширина колонок
-            const chartWidth = ctx.parentElement.clientWidth; // Ширина графика
+            const barWidthPercentage = 13;
+            const chartWidth = ctx.parentElement.clientWidth;
 
             new Chart(ctx, {
                 type: 'bar',
@@ -16,7 +38,7 @@ const ProfileStat = () => {
                     labels: months.map(month => month.format('MMMM')),
                     datasets: [{
                         label: 'Your hackathons',
-                        data: [12, 19, 3, 5, 2, 3],
+                        data:chartData,
                         borderRadius: 5,
                         fontFamily: 'Geologica',
                         backgroundColor: 'rgba(151,171,223,0.25)',
@@ -71,8 +93,7 @@ const ProfileStat = () => {
             });
         }
     }, []);
-
-
+console.log(stat)
     const generateLastSixMonths = () => {
         const months = [];
         let currentDate = dayjs();
@@ -87,5 +108,13 @@ const ProfileStat = () => {
         <canvas style={{ width: '100%', height: '100%' }} id="myChart"></canvas>
     );
 }
+
+ProfileStat.propTypes = {
+    stat: PropTypes.arrayOf(
+        PropTypes.shape({
+            createdAt: PropTypes.string.isRequired,
+        })
+    ),
+};
 
 export default ProfileStat;
