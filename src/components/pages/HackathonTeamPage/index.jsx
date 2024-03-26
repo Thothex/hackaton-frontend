@@ -53,7 +53,7 @@ const HackathonTeamPage = () => {
                 <div key={item.id} className={styles.userAnswerBlock}>
                   {
                     item.answer.fileUrl
-                      ? <a href={`http://localhost:3000${item.answer.fileUrl}`} download="filename">download</a>
+                      ? <a href={`${import.meta.env.VITE_BASE_URL_ANSWERS}${item.answer.fileUrl}`} download="filename">download</a>
                       : <div>{item.answer.answer}</div>
                   }
               <div>
