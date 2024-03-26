@@ -5,19 +5,25 @@ import PropTypes from "prop-types";
 
 const ProfileStat = ({stat}) => {
     useEffect(() => {
-
         const prepareChartData = () => {
             if (!stat) return [];
 
             const months = generateLastSixMonths();
+            const currentYear = dayjs().year();
+
             const data = months.map(month => {
                 const monthName = month.format('MMMM');
-                const count = stat.filter(entry => dayjs(entry.createdAt).format('MMMM') === monthName).length;
+                const count = stat.filter(entry => {
+                    const entryYear = dayjs(entry.createdAt).year();
+                    return (
+                        dayjs(entry.createdAt).format('MMMM') === monthName &&
+                        entryYear === currentYear
+                    );
+                }).length;
                 return count;
             });
             return data;
         };
-    console.log('-------', stat)
         const chartData = prepareChartData();
 
         const ctx = document.getElementById('myChart');

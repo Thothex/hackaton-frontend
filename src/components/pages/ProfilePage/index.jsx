@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import ProfileStat from "@/components/ProfileStat/index.jsx";
 import FormUpdateUser from "@/components/FormUpdateUser";
 import {userStatThunk} from "@/redux/features/userSlice.js";
+import StatPanel from "@/components/StatPanel/index.jsx";
 ReactModal.setAppElement("#root");
 
 const ProfilePage = () => {
@@ -142,6 +143,7 @@ const ProfilePage = () => {
             </button>
           </div>
         </div>
+        <StatPanel />
       </div>
     </div>
   );

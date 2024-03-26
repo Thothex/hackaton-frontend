@@ -1,0 +1,50 @@
+@import "../../index.scss";
+.statPanel{
+  margin-top:20px;
+  width:100%;
+  background-color: white;
+  height: 50vh;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.roundInfo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  *{
+    font-weight: 300;
+    font-size: 20px;
+    margin-bottom: 0;
+  }
+}
+.squareLabel{
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 5px;
+  margin-right: 5px;
+  background-color: $lighter-violet-color;
+}
+.squareLabelAll{
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  margin-right: 5px;
+  background-color: white;
+  border: 2px solid $lighter-violet-color;
+}
+.RoundStat{
+  width: 400px;
+  height: 300px;
+  background-color: #16A34A;
+  display: flex;
+  flex-direction: column;
+}
+.roundInfoCont{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
