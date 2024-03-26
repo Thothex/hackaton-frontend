@@ -42,7 +42,7 @@ const StartHackathonPage = () => {
     }, [dispatch, id, user]);
 
     useEffect(() => {
-        const socket = new WebSocket('ws://localhost:3000');
+        const socket = new WebSocket(import.meta.env.VITE_BASE_WS_URL);
         socket.onopen = () => {};
         socket.onmessage = (event) => {
             const teamMessage = JSON.parse(event.data);
