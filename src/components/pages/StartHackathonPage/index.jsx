@@ -29,7 +29,8 @@ const StartHackathonPage = () => {
         setLoading(true);
         dispatch(fetchHackathonById(id));
         dispatch(getAllUsersThunk());
-        dispatch(getTeamInfo({ hackathonId: id, userId: user.id }))
+        if (user?.id) {
+            dispatch(getTeamInfo({ hackathonId: id, userId: user.id }))
             .then((data) => {
                 setLoading(false)
             })
@@ -37,10 +38,11 @@ const StartHackathonPage = () => {
                 setError(error.message);
                 setLoading(false);
             });
+        }
     }, [dispatch, id, user]);
 
     useEffect(() => {
-        const socket = new WebSocket('ws://localhost:3000');
+        const socket = new WebSocket(import.meta.env.VITE_BASE_WS_URL);
         socket.onopen = () => {};
         socket.onmessage = (event) => {
             const teamMessage = JSON.parse(event.data);
@@ -132,6 +134,8 @@ const StartHackathonPage = () => {
                         <h4>{hackathon.rules}</h4>
                     </div>
                 </div>
+                <button className={styles.toTask} onClick={handleTasksClick}>START</button>
+            </div>
                 <div className={styles.team}>
                     {teamInfo?.team ? (
                         <h2>Your team is: {teamInfo.team.name}</h2>
@@ -158,7 +162,6 @@ const StartHackathonPage = () => {
                     )}
                 </div>
             </div>
-        </div>
     );
 };
 
