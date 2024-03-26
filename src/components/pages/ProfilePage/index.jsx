@@ -7,24 +7,23 @@ import edit from "@/assets/edit.svg";
 import close from "@/assets/close.svg";
 import AddAvatar from "@/components/AddAvatar";
 import Calendar from "@/components/CCalendar";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ProfileStat from "@/components/ProfileStat/index.jsx";
+import FormUpdateUser from "@/components/FormUpdateUser";
 ReactModal.setAppElement("#root");
-
-
 
 const ProfilePage = () => {
   const navigate = useNavigate();
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalAvatarIsOpen, setModalAvatarIsOpen] = useState(false);
+  const [modalInfoIsOpen, setModalInfoIsOpen] = useState(false);
   const { userInfo } = useSelector((state) => state.userStore);
   if (!userInfo) return <div>Loading...</div>;
-console.log(userInfo)
   const openModal = () => {
-    setModalIsOpen(true);
+    setModalAvatarIsOpen(true);
   };
 
   const closeModal = () => {
-    setModalIsOpen(false);
+    setModalAvatarIsOpen(false);
   };
 
   return (
@@ -38,17 +37,19 @@ console.log(userInfo)
             <img
               src={
                 userInfo.avatar
-                  ? `${import.meta.env.VITE_BASE_URL_AVATAR}/${userInfo.avatar}`
+                  ? `${import.meta.env.VITE_BASE_URL_AVATAR}/${userInfo.id}/${
+                      userInfo.avatar
+                    }`
                   : avatar
               }
               className={styles.avatar}
             />
-            <button className={styles.edit} onClick={openModal}>
+            <button className={styles.editAvatar} onClick={openModal}>
               <img src={edit} alt="edit" className={styles.icon} />
             </button>
             <ReactModal
               className={styles.modal}
-              isOpen={modalIsOpen}
+              isOpen={modalAvatarIsOpen}
               onRequestClose={closeModal}
               shouldCloseOnOverlayClick={true}
             >
@@ -69,29 +70,64 @@ console.log(userInfo)
           <div className={styles.profileInfo}>
             <div className={styles.infoContainer}>
               <div className={styles.infoUserEdit}>
-              <h4>Profile information</h4>
-                <button></button>
-            </div>
+                <h4>Profile information</h4>
+                <button
+                  onClick={() => setModalInfoIsOpen(true)}
+                  className={styles.editInfo}
+                ></button>
+                <ReactModal
+                  className={styles.modal}
+                  isOpen={modalInfoIsOpen}
+                  onRequestClose={closeModal}
+                  shouldCloseOnOverlayClick={true}
+                >
+                  <FormUpdateUser />
+                  <button
+                    onClick={() => setModalInfoIsOpen(false)}
+                    className={styles.close}
+                  >
+                    <img src={close} alt="close" className={styles.icon} />
+                  </button>
+                </ReactModal>
+              </div>
               <hr className={styles.hr} />
-              <h5>Username: <span>{userInfo.username}</span></h5>
-              <h5>Email: <span>{userInfo.email}</span></h5>
+              <h5>
+                Username: <span>{userInfo.username}</span>
+              </h5>
+              <h5>
+                Email: <span>{userInfo.email}</span>
+              </h5>
               {/*TODO настройка языка и организации*/}
-              <h5>Language: <span>English</span></h5>
-              <h5>Organization: <span>-</span></h5>
+              <h5>
+                Language: <span>English</span>
+              </h5>
+              <h5>
+                Organization:{" "}
+                <span>
+                  {userInfo.organization ? userInfo.organization : `-`}
+                </span>
+              </h5>
             </div>
           </div>
           <div className={styles.progress}>
-            <ProfileStat/>
+            <ProfileStat />
           </div>
           <div className={styles.calendar}>
-            <Calendar/>
+            <Calendar />
           </div>
           <div className={styles.toHackathons}>
             <div className={styles.infoUserEdit}>
               <h4>Hackathons</h4>
             </div>
             <div className={styles.pic}></div>
-            <button onClick={()=>{ navigate('/hackathon')}} className={styles.viewBtn}>VIEW ALL</button>
+            <button
+              onClick={() => {
+                navigate("/hackathon");
+              }}
+              className={styles.viewBtn}
+            >
+              VIEW ALL
+            </button>
           </div>
         </div>
       </div>
