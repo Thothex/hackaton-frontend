@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect  } from 'react';
+import { useEffect, useState  } from 'react';
 import { fetchTeamList } from '@/redux/features/teamsSlice';
 import styles from './styles.module.scss';
 import { fetchTasks } from '@/redux/features/taskSlice';
@@ -12,8 +12,11 @@ const HackathonTeamPage = () => {
   const { teams } = useSelector((state) => state.teamsStore);
   const { tasks } = useSelector((state)=> state.tasks)
   const { answers } = useSelector((state)=> state.answersStore)
-  const team = teams.teams.find(team => team.id === +teamId)
-  console.log('answers', answers)
+  const [team, setTeam] = useState(null)
+  useEffect(() => {
+    setTeam(teams.find(team => team.id === +teamId))
+  }, [teams, teamId]
+  )
   useEffect(() => {
     if (!teams.length) {
       dispatch(fetchTeamList({ hackathonId: id }))
