@@ -4,6 +4,7 @@ const initialState = {
   bearer: "",
   userInfo: {},
   status: "idle",
+  userStat:{},
 };
 
 export const userLoginThunk = createAsyncThunk(
@@ -97,6 +98,28 @@ export const userUpdateThunk = createAsyncThunk(
     }
   }
 );
+export const userStatThunk = createAsyncThunk(
+    "user/stat",
+    async (_, { rejectWithValue }) => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_BASE_URL}/user/stat`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        });
+        if (!response.ok) {
+          throw new Error("Failed to fetch user statistics");
+        }
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error(error);
+        return rejectWithValue(error.message);
+      }
+    }
+);
 
 export const userSlice = createSlice({
   name: "user",
@@ -146,7 +169,17 @@ export const userSlice = createSlice({
       })
       .addCase(getAllUsersThunk.rejected, (state) => {
         state.status = "failed";
-      });
+      })
+        .addCase(userStatThunk.pending, (state) => {
+          state.status = "loading";
+        })
+        .addCase(userStatThunk.fulfilled, (state, action) => {
+          state.status = "idle";
+          state.userStat = action.payload;
+        })
+        .addCase(userStatThunk.rejected, (state) => {
+          state.status = "failed";
+        });
   },
 });
 
