@@ -132,6 +132,8 @@ const StartHackathonPage = () => {
                         <h4>{hackathon.rules}</h4>
                     </div>
                 </div>
+                <button className={styles.toTask} onClick={handleTasksClick}>START</button>
+            </div>
                 <div className={styles.team}>
                     {teamInfo?.team ? (
                         <h2>Your team is: {teamInfo.team.name}</h2>
@@ -158,7 +160,6 @@ const StartHackathonPage = () => {
                     )}
                 </div>
             </div>
-        </div>
     );
 };
 
