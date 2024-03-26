@@ -9,36 +9,54 @@ import {
   sendInvite,
 } from "@/redux/features/teamSlice.js";
 import { getAllUsersThunk } from "@/redux/features/userSlice.js";
-import mockPic from "../../../assets/avatar.png";
+import InvintationBlock from './InvintationBlock';
 const StartHackathonPage = () => {
-  const navigate = useNavigate();
-  const { id } = useParams();
-  const dispatch = useDispatch();
-  const hackathon = useSelector((state) => state.hackathons.hackathon);
-  const teamInfo = useSelector((state) => state.team.teamInfo);
-  const [teamName, setTeamName] = useState("");
-  const [inviteEmail, setInviteEmail] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
-  const { allUsers, userInfo: user } = useSelector((state) => state.userStore);
-  const [newTeamId, setNewTeamId] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [team, setTeam] = useState({});
-  useLayoutEffect(() => {
-    setLoading(true);
-    dispatch(fetchHackathonById(id));
-    dispatch(getAllUsersThunk());
-    dispatch(getTeamInfo({ hackathonId: id, userId: user.id }))
-      .then((data) => {
-        setTeam(data.payload);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error.message);
-        setLoading(false);
-      });
-  }, [dispatch, id, user]);
-  console.log(team);
+    const navigate = useNavigate();
+    const { id } = useParams();
+    const dispatch = useDispatch();
+    const hackathon = useSelector(state => state.hackathons.hackathon);
+    const {teamInfo} = useSelector(state => state.team);
+    const [teamName, setTeamName] = useState('');
+    const [inviteEmail, setInviteEmail] = useState('');
+    const [searchTerm, setSearchTerm] = useState('');
+    const { allUsers, userInfo: user } = useSelector(state => state.userStore);
+    const [newTeamId, setNewTeamId] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    useEffect(() => {
+        setLoading(true);
+        dispatch(fetchHackathonById(id));
+        dispatch(getAllUsersThunk());
+        dispatch(getTeamInfo({ hackathonId: id, userId: user.id }))
+            .then((data) => {
+                setLoading(false)
+            })
+            .catch(error => {
+                setError(error.message);
+                setLoading(false);
+            });
+    }, [dispatch, id, user]);
+
+    useEffect(() => {
+        const socket = new WebSocket('ws://localhost:3000');
+        socket.onopen = () => {
+        };
+        socket.onmessage = (event) => {
+            const teamMessage = JSON.parse(event.data);
+            if (+teamMessage.teamId === teamInfo.team.id) {
+                dispatch(getTeamInfo({ hackathonId: id, userId: user.id }))
+            }
+        };
+        socket.onclose = () => {
+          console.log('Соединение закрыто');
+        };
+        socket.onerror = (error) => {
+          console.error('Ошибка:', error);
+        };
+        return () => {
+          socket.close();
+        };
+      }, [dispatch, id, teamInfo?.team.id, user]);
 
   const filteredUsers = allUsers
     ? allUsers.filter(
@@ -59,17 +77,34 @@ const StartHackathonPage = () => {
     setSearchTerm("");
   };
 
-  const handleCreateTeam = async (e) => {
-    e.preventDefault();
-    try {
-      const {
-        payload: { id: newTeamId },
-      } = await dispatch(createTeam({ name: teamName, hackathonId: id }));
-      console.log("New Team Id:", newTeamId);
-      setNewTeamId(newTeamId);
-      return newTeamId;
-    } catch (error) {
-      console.error("Failed to create team:", error);
+
+    const handleCreateTeam = async () => {
+        try {
+            const { payload: { id: newTeamId } } = await dispatch(createTeam({ name: teamName, hackathonId: id }));
+            setNewTeamId(newTeamId);
+            dispatch(getTeamInfo({ hackathonId: id, userId: user.id }))
+            return newTeamId;
+        } catch (error) {
+            console.error('Failed to create team:', error);
+        }
+    };
+
+    const handleSendInvite = async () => {
+        try {
+            await dispatch(sendInvite({ teamId: teamInfo.team.id, member: inviteEmail, hackathonId: id }));
+            dispatch(getTeamInfo({ hackathonId: id, userId: user.id }))
+            setInviteEmail('');
+        } catch (error) {
+            console.error('Failed to send invite:', error);
+        }
+    };
+
+    const handleTasksClick = () => {
+        navigate(`/hackathon/${id}/tasks`);
+    };
+
+    if (!hackathon || loading) {
+        return <div>Loading...</div>;
     }
   };
 
@@ -104,6 +139,7 @@ const StartHackathonPage = () => {
   const startDate = new Date(hackathon.start);
 
   if (currentDate < startDate) {
+
     return (
       <div>
         Hackathon has not started yet. Please wait until it starts in{" "}
@@ -122,104 +158,36 @@ const StartHackathonPage = () => {
             <h4>{hackathon.rules}</h4>
           </div>
         </div>
-        <button className={styles.toTask} onClick={handleTasksClick}>
-          START
-        </button>
-      </div>
-      <div className={styles.team}>
-        {team.team ? (
-          <h2>Your team is: {team.team.name}</h2>
-        ) : (
-          <>
-            <h2>Gather your team!</h2>
-            <form
-              onSubmit={async (e) => {
-                e.preventDefault();
-                const newTeamId = await handleCreateTeam(e);
-              }}
-            >
-              <input
-                placeholder="Create name of your team"
-                value={teamName}
-                onChange={(e) => setTeamName(e.target.value)}
-              />
-              <button type="submit">Save</button>
-            </form>
-          </>
-        )}
-        {team.team && team.teamUsers.length > 0 && (
-          <div className={styles.members}>
-            <h3>Team members</h3>
-            <hr className={styles.divider} />
-            {teamInfo.teamUsers.map((member, index) => (
-              <div key={index} className={styles.memberList}>
-                <div className={styles.userInfo}>
-                  <img
-                    className={styles.userAvatarImg}
-                    src={
-                      member?.avatar
-                        ? `${import.meta.env.VITE_BASE_URL_AVATAR}/${
-                            member.id
-                          }/${member.avatar}`
-                        : mockPic
-                    }
-                  />
-                  <div className={styles.userInfoText}>
-                    <h4>{member.username}</h4>
-                    <p>{member.email}</p>
-                  </div>
-                </div>
-                <div className={styles.role}>
-                  {member.isCaptain ? (
-                    <p className={styles.Cap}>Captain</p>
-                  ) : (
-                    <p className={styles.Member}>Member</p>
-                  )}
-                  {!member.isCaptain && !member.accepted && (
-                    <h6 className={styles.invited}>Invited</h6>
-                  )}
-                  {!member.isCaptain && member.accepted && (
-                    <h6 className={styles.accepted}>Accepted</h6>
-                  )}
-                </div>
-              </div>
-            ))}
-            <form
-              className={styles.inviteForm}
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleSendInvite();
-              }}
-            >
-              <div className={styles.inviteFormContainer}>
-                <input
-                  className={styles.inviteInput}
-                  placeholder="Send invitation to the new member"
-                  value={inviteEmail}
-                  onChange={handleInputChange}
-                />
-                <button className={styles.inviteButton} type="submit">
-                  🔔
-                </button>
-              </div>
-              {searchTerm && (
-                <ul className={styles.memList}>
-                  {filteredUsers.map((user) => (
-                    <li
-                      key={user.id}
-                      onClick={() => handleUserClick(user.email)}
-                    >
-                      {user.username} - {user.email}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </form>
-          </div>
-        )}
-      </div>
-    </div>
-  );
+
+            <div className={styles.team}>
+                {teamInfo?.team ? (<h2>Your team is: {teamInfo.team.name}</h2>)
+                :
+                    (
+                        <>
+                            <h2>Gather your team!</h2>
+                            <form onSubmit={handleCreateTeam}>
+                                <input placeholder="Name your team" value={teamName} onChange={(e) => setTeamName(e.target.value)} />
+                                <button type="submit">Save</button>
+                            </form>
+                        </>
+                    )
+                }
+                {teamInfo?.teamUsers.length > 0 && (
+                    <InvintationBlock
+                        styles={styles}
+                        teamInfo={teamInfo}
+                        handleSendInvite={handleSendInvite}
+                        handleInputChange={handleInputChange}
+                        inviteEmail={inviteEmail}
+                        searchTerm={searchTerm}
+                        filteredUsers={filteredUsers}
+                        handleUserClick={handleUserClick}
+                    
+                    />
+                )}
+            </div>
+        </div>
+    );
 };
 
 export default StartHackathonPage;

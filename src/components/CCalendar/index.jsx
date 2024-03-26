@@ -3,7 +3,7 @@ import { Calendar as MyCalendar } from "react-calendar";
 import "./styles.scss";
 import PropTypes from "prop-types";
 
-function Calendar({ initialDate, onDateChange }) {
+function Calendar({ initialDate, onDateChange, getDatesToCurrentDisable }) {
   const [date, setDate] = useState(new Date().toLocaleDateString("en-US"));
 
   useEffect(() => {
@@ -21,6 +21,7 @@ function Calendar({ initialDate, onDateChange }) {
       <MyCalendar
         onChange={handleDateChange}
         value={date}
+        tileDisabled={getDatesToCurrentDisable}
         locale="en"
         minDetail="month"
         prev2Label=""
@@ -33,6 +34,7 @@ function Calendar({ initialDate, onDateChange }) {
 Calendar.propTypes = {
   onDateChange: PropTypes.func,
   initialDate: PropTypes.string,
+  getDatesToCurrentDisable: PropTypes.func,
 };
 
 export default Calendar;

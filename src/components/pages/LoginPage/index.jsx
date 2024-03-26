@@ -54,7 +54,7 @@ const LoginPage = () => {
                 <h1>Log into your account</h1>
                 <p className={styles.loginParagraph}>Welcome back! Please enter your details.</p>
                 <form className={styles.loginForm} onSubmit={handleSubmit}>
-                    <AuthInput label='Email' inner='Enter your email' type={'text'} name={'email'} value={formData.email} onChange={handleInputChange} />
+                    <AuthInput label='Email' inner='Enter your email' type={'email'} name={'email'} value={formData.email} onChange={handleInputChange} />
                     <AuthInput label='Password' inner={'Enter your password'} type={'password'} name={'password'} value={formData.password} onChange={handleInputChange} />
                     <div>
                         <div>
