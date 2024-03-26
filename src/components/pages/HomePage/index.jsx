@@ -16,7 +16,7 @@ const HomePage = () => {
 
     const handleFilterChange = (value) => {
         setCurrentFilter(value)
-      };
+    };
     return (
         <div>
             <div className={styles.fullWidthFlexRow}>
@@ -38,23 +38,17 @@ const HomePage = () => {
             )}
             <div className={styles.hackathonList}>
                 {hackathons.filter((ha) => {
-                    const currentDate = new Date().toLocaleDateString()
-                    console.log('ha.createdAt', ha.createdAt);
-                        console.log('currentDate', currentDate);
+                    const currentDate = new Date()
                     if (currentFilter === 'all') {
                         return true;
                     }
                     if (ha.organizer_id === user.id && currentFilter === 'my') {
                         return true;
                     }
-                    if (ha.createdAt <= currentDate && ha.end >= currentDate && currentFilter === 'inProgress') {
-                        console.log('currentFilter', currentFilter);
-                        console.log('check', ha.createdAt < currentDate && ha.end > currentDate);
-                        
-                        
+                    if (new Date(ha.start) <= currentDate && new Date(ha.end) >= currentDate && currentFilter === 'inProgress') {
                         return true;
                     }
-                    if (ha.end < currentDate && currentFilter === 'past') {
+                    if (new Date(ha.end) < currentDate && currentFilter === 'past') {
                         return true;
                     }
                 }).map((hackathon) => (
@@ -62,7 +56,6 @@ const HomePage = () => {
                         key={hackathon.id}
                         id={hackathon.id}
                         name={hackathon.name}
-                        status={hackathon.status}
                         start={hackathon.start}
                         end={hackathon.end}
                         organizer_id={hackathon.organizer_id}

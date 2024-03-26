@@ -18,9 +18,9 @@ const HackathonTeamPage = () => {
   }, [teams, teamId]
   )
   useEffect(() => {
+    dispatch(fetchTasks(id))
     if (!teams.length) {
       dispatch(fetchTeamList({ hackathonId: id }))
-      dispatch(fetchTasks(id))
       
       dispatch(fetchTeamAnswer({ hackathonId:id, teamId }))
     }
@@ -40,6 +40,9 @@ const HackathonTeamPage = () => {
   const handleSaveScore = () => {
     dispatch(saveScores({answers}))
   }
+
+  console.log('team?.name', team?.name);
+  console.log('tasks', tasks);
   return (
     <>
       {team?.name}

@@ -75,7 +75,6 @@ const HackathonPanel = (props) => {
 HackathonPanel.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
     start: PropTypes.string.isRequired,
     end: PropTypes.string.isRequired,
     organizer_id: PropTypes.number,
