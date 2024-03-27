@@ -89,6 +89,7 @@ const Navbar = () => {
             <img src={fire} alt="fire" className={styles.icon} />
             Hackathons
           </NavLink>
+          {userInfo.id &&
           <Link
             onClick={logoutHandler}
             className={styles.unactive}
@@ -96,6 +97,7 @@ const Navbar = () => {
             <img src={fire} alt="fire" className={styles.icon} />
             Logout
           </Link>
+          }
         </div>
       </div>
 
