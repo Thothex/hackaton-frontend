@@ -10,6 +10,11 @@ import register from "../../assets/register.svg";
 import question from "../../assets/question.svg";
 
 const Navbar = () => {
+  
+  const logoutHandler = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/";
+  }
   const { userInfo } = useSelector((state) => state.userStore);
   return (
     <nav className={styles.navbar}>
@@ -84,6 +89,13 @@ const Navbar = () => {
             <img src={fire} alt="fire" className={styles.icon} />
             Hackathons
           </NavLink>
+          <Link
+            onClick={logoutHandler}
+            className={styles.unactive}
+          >
+            <img src={fire} alt="fire" className={styles.icon} />
+            Logout
+          </Link>
         </div>
       </div>
 

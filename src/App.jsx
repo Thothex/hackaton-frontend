@@ -105,7 +105,6 @@ function App() {
           <Route path='/hackathon/:id/edit' element={<HackathonEditPage />}/>
           <Route path='/test' element={<TestPage/>}/>
           <Route path='/team/accept/:teamId/:userId' element={<AcceptPage />} />
-          
         </Routes>
       </div>
     </div>
