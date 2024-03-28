@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
+import styles from './styles.module.scss';
 
 const HackathonDashboard = () => {
   const [searchParams] = useSearchParams();
@@ -123,7 +124,7 @@ const HackathonDashboard = () => {
         })
       )}
       </div>
-      <div style={{ width: '500', height: '200' }}>
+      <div className={styles.graphContainer} >
         <canvas  ref={chartEl}></canvas>
       </div>
     </div>
