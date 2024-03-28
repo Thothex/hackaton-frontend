@@ -147,9 +147,7 @@ const ProfilePage = () => {
             </button>
           </div>
         </div>
-        {Object.keys(userStat).length > 0 && (
-          <UserHackatons hack={userStat.hack} date={date} />
-        )}
+        {userStat?.hack && <UserHackatons hack={userStat.hack} date={date} />}
         <StatPanel />
       </div>
     </div>
