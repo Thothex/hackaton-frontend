@@ -6,7 +6,6 @@ import "react-alice-carousel/lib/scss/alice-carousel.scss";
 
 const UserHackatons = ({ hack, date }) => {
   const navigate = useNavigate();
-
   const filteredHackatons = hack.filter((hackaton) => {
     const hackStartDate = new Date(hackaton.start).getDate();
     const hackEndDate = new Date(hackaton.end).getDate();

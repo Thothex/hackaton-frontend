@@ -31,11 +31,10 @@ const ProfilePage = () => {
   }, [dispatch]);
 
 
-  if (!userInfo) return <Loading />;
   const openModal = () => {
     setModalAvatarIsOpen(true);
   };
-
+  
   const closeModal = () => {
     setModalAvatarIsOpen(false);
   };
@@ -43,7 +42,8 @@ const ProfilePage = () => {
   const handleDateChange = (newDate) => {
     setDate(newDate);
   };
-
+  
+  if (!userInfo || !userStat) return <Loading />;
   return (
     <div>
       <div className={styles.topPlain}>
@@ -150,7 +150,7 @@ const ProfilePage = () => {
             </button>
           </div>
         </div>
-        {Object.keys(userStat).length > 0 && (
+        {userStat?.hack && (
           <UserHackatons hack={userStat.hack} date={date} />
         )}
         <StatPanel />
