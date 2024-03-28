@@ -12,11 +12,9 @@ const HackathonDashboard = () => {
   const [chartInstance, setChartInstance] = useState(null);
   const stat = useSelector((state) => state.hackathons.hackathonStat);
   const dispatch = useDispatch();
-  console.log('id', hackathonId);
   useEffect(() => {
     dispatch(fetchHackathonStat({ hackathonId }));
   }, [dispatch, hackathonId]);
-  console.log('stat', stat);
 
   useEffect(() => {
     const socket = new WebSocket(import.meta.env.VITE_BASE_WS_URL);

@@ -8,6 +8,7 @@ import { fetchTasks } from "@/redux/features/taskSlice.js";
 import ManyAnswersTask from "@/components/ManyAnswersTask";
 import { getTeamInfo } from "@/redux/features/teamSlice.js";
 import Loading from "@/components/Loading";
+import { fetchTeamAnswer } from "@/redux/features/answersSlice";
 
 const TestPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,6 +19,7 @@ const TestPage = () => {
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.tasks.tasks);
   const { userInfo } = useSelector((state) => state.userStore);
+  const { answers } = useSelector((state)=> state.answersStore)
 
   useEffect(() => {
     dispatch(getTeamInfo({ hackathonId: id, userId: userInfo.id }))
@@ -45,7 +47,8 @@ const TestPage = () => {
 
   useEffect(() => {
     dispatch(fetchTasks(id));
-  }, [dispatch, id]);
+    dispatch(fetchTeamAnswer({ hackathonId:id, teamId }))
+  }, [dispatch, id, teamId]);
 
   if (!tasks) {
     return <Loading />;
@@ -79,7 +82,7 @@ const TestPage = () => {
       },
       {}
     );
-
+      console.log('answers', answers);
     try {
       const res = await fetch(
         `${import.meta.env.VITE_BASE_URL}/answers/${task.id}/${type}`,
@@ -135,6 +138,7 @@ const TestPage = () => {
   const renderContent = () => {
     if (currentPage > 0 && currentPage <= totalPages) {
       const task = tasks[currentPage - 1]; // Индексация с 0
+      const currentAnswer = answers.find(answer => answer.taskId === task.id)?.answer?.answer
       return (
         <div>
           {task.type === "document" && (
@@ -152,6 +156,7 @@ const TestPage = () => {
                   handleSaveInput={handleSaveInput}
                   type={"input"}
                   task={task}
+                  savedValue={currentAnswer}
                 />
               )}
             </>
