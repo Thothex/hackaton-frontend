@@ -3,6 +3,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchHackathonById } from '@/redux/features/hackathonsSlice.js';
 import styles from './styles.module.scss';
+import Loading from '@/components/Loading';
 
 const HackathonPage = () => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const HackathonPage = () => {
      dispatch(fetchHackathonById(id));
    }, [dispatch, id]);
   if (!hackathon) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
   console.log(user)
   const currentDate = new Date();
