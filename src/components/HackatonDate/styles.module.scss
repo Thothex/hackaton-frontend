@@ -1,0 +1,30 @@
+.hackathonPanelHeaderRight {
+  min-width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: fit-content;
+  margin-right: 2vw;
+  margin-top: 2vw;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: black;
+  border-radius: 10px;
+  padding: 0.5em;
+  * {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+hr {
+  width: 90%;
+  opacity: 50%;
+}
+.date {
+  font-size: 28px;
+}
+.month {
+  font-size: 12px;
+  font-weight: 100;
+}

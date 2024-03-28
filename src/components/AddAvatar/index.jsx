@@ -57,11 +57,17 @@ const AddAvatar = ({ onCloseModal }) => {
     }
   };
 
+  const dummyRequest = async ({ file, onSuccess }) => {
+    setTimeout(() => {
+      onSuccess("ok");
+    }, 0);
+  };
+
   return (
     <>
       <h2>Upload new avatar</h2>
       <Upload
-        action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+        customRequest={dummyRequest}
         accept=".png,.jpg,.jpeg"
         fileList={fileList}
         listType="picture-card"

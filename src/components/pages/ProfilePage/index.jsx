@@ -1,5 +1,5 @@
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import ReactModal from "react-modal";
 import styles from "./styles.module.scss";
 import avatar from "@/assets/avatar.png";
@@ -10,9 +10,11 @@ import Calendar from "@/components/CCalendar";
 import { useNavigate } from "react-router-dom";
 import ProfileStat from "@/components/ProfileStat/index.jsx";
 import FormUpdateUser from "@/components/FormUpdateUser";
-import {userStatThunk} from "@/redux/features/userSlice.js";
+import { userStatThunk } from "@/redux/features/userSlice.js";
 import StatPanel from "@/components/StatPanel/index.jsx";
 import Loading from "@/components/Loading";
+import UserHackatons from "@/components/UserHackatons";
+
 ReactModal.setAppElement("#root");
 
 const ProfilePage = () => {
@@ -20,13 +22,13 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   const [modalAvatarIsOpen, setModalAvatarIsOpen] = useState(false);
   const [modalInfoIsOpen, setModalInfoIsOpen] = useState(false);
+  const [date, setDate] = useState(new Date());
   const { userInfo } = useSelector((state) => state.userStore);
-  const {userStat} = useSelector((state)=> state.userStore);
+  const { userStat } = useSelector((state) => state.userStore);
 
   useEffect(() => {
     dispatch(userStatThunk());
   }, [dispatch]);
-
 
 
   if (!userInfo) return <Loading />;
@@ -36,6 +38,10 @@ const ProfilePage = () => {
 
   const closeModal = () => {
     setModalAvatarIsOpen(false);
+  };
+
+  const handleDateChange = (newDate) => {
+    setDate(newDate);
   };
 
   return (
@@ -123,11 +129,11 @@ const ProfilePage = () => {
           </div>
           <div className={styles.progress}>
             {Object.keys(userStat).length > 0 && (
-                <ProfileStat stat={userStat.participate} />
+              <ProfileStat stat={userStat.participate} />
             )}
           </div>
           <div className={styles.calendar}>
-            <Calendar />
+            <Calendar onDateChange={handleDateChange} />
           </div>
           <div className={styles.toHackathons}>
             <div className={styles.infoUserEdit}>
@@ -144,6 +150,9 @@ const ProfilePage = () => {
             </button>
           </div>
         </div>
+        {Object.keys(userStat).length > 0 && (
+          <UserHackatons hack={userStat.hack} date={date} />
+        )}
         <StatPanel />
       </div>
     </div>
