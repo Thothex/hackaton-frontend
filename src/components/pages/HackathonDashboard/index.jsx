@@ -1,11 +1,15 @@
 import { fetchHackathonStat } from '@/redux/features/hackathonsSlice';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Chart from 'chart.js/auto';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
+import styles from './styles.module.scss';
 
 const HackathonDashboard = () => {
   const [searchParams] = useSearchParams();
+  const chartEl = useRef(null);
   const hackathonId = searchParams.get('id');
+  const [chartInstance, setChartInstance] = useState(null);
   const stat = useSelector((state) => state.hackathons.hackathonStat);
   const dispatch = useDispatch();
   console.log('id', hackathonId);
@@ -36,6 +40,60 @@ const HackathonDashboard = () => {
         socket.close();
     };
   }, [dispatch, hackathonId]);
+
+  useEffect(() => {
+    if (stat.teams?.length > 0) {
+      const ctx = chartEl.current;
+      if (chartInstance) {
+        chartInstance.destroy();
+      }
+      const teamNames = stat.teams.map(team => team.name);
+      const backgroundColors = ['#3e95cd', '#8e5ea2', '#3cba9f', '#3e95cd', '#8e5ea2', '#3cba9f', '#3e95cd', '#8e5ea2', '#3cba9f'];
+      const colors = backgroundColors.slice(0, stat.teams.length);
+      const data = Array.from({ length: stat.tasks.length }, (_, index) => index + 1);
+      const newChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: teamNames,
+          datasets: [
+            {
+              label: "Tasks done",
+              backgroundColor: colors,
+              data: stat.teams.map(team => team.answers.length)
+            }
+          ]
+        },
+        options: {
+          legend: { display: false },
+          indexAxis: 'y',
+          title: {
+            display: true,
+            text: 'Tasks done'
+          },
+          scales: {
+            x: {
+              type: 'linear',
+              grace: 2,
+              grid: {
+                display: false,
+                drawBorder: false,
+              },
+              ticks: {
+                stepSize: 1,
+                beginAtZero: true,
+              }
+            }
+          }
+        }
+      });
+      setChartInstance(newChartInstance);
+    }
+    return () => {
+      if (chartInstance) {
+        chartInstance.destroy();
+      }
+    };
+  }, [stat]);
   
   return (
     <div>
@@ -65,6 +123,9 @@ const HackathonDashboard = () => {
           )
         })
       )}
+      </div>
+      <div className={styles.graphContainer} >
+        <canvas  ref={chartEl}></canvas>
       </div>
     </div>
   );
