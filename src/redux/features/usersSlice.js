@@ -65,7 +65,7 @@ export const usersSlice = createSlice({
 			.addCase(fetchUsersThunk.fulfilled, (state, action) => {
 				state.status = "idle";
 				console.log("action.payload", action.payload);
-				state.users.push(
+				state.users = [
 					...action.payload.map((user) => {
 						return {
 							key: user.id,
@@ -75,8 +75,8 @@ export const usersSlice = createSlice({
 							isOrg: user.isOrg,
 							organization: user?.organizations[0] || null,
 						};
-					})
-				);
+					}),
+				];
 			})
 			.addCase(fetchUsersThunk.rejected, (state) => {
 				state.status = "failed";

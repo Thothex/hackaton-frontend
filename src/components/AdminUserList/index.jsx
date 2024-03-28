@@ -40,7 +40,7 @@ const AdminUserList = () => {
         value={org}
         handleAddFromSelect={handleAddFromSelect}
         />,
-      isOrg: <Checkbox checked={user.isOrg} onChange={(e)=>onChangeIsOrg(e, user)}>Checkbox</Checkbox>
+      isOrg: <Checkbox checked={user.isOrg} onChange={(e)=>onChangeIsOrg(e, user)} />
     }
   })
 
