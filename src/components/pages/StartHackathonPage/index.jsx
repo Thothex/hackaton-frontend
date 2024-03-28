@@ -10,6 +10,7 @@ import {
 } from "@/redux/features/teamSlice.js";
 import { getAllUsersThunk } from "@/redux/features/userSlice.js";
 import InvintationBlock from './InvintationBlock';
+import Loading from "@/components/Loading";
 
 const StartHackathonPage = () => {
     const navigate = useNavigate();
@@ -106,7 +107,7 @@ const StartHackathonPage = () => {
     };
 
     if (!hackathon || loading) {
-        return <div>Loading...</div>;
+        return <Loading />;
     }
 
     if (error) {

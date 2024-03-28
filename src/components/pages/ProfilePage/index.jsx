@@ -12,7 +12,9 @@ import ProfileStat from "@/components/ProfileStat/index.jsx";
 import FormUpdateUser from "@/components/FormUpdateUser";
 import { userStatThunk } from "@/redux/features/userSlice.js";
 import StatPanel from "@/components/StatPanel/index.jsx";
+import Loading from "@/components/Loading";
 import UserHackatons from "@/components/UserHackatons";
+
 ReactModal.setAppElement("#root");
 
 const ProfilePage = () => {
@@ -28,7 +30,8 @@ const ProfilePage = () => {
     dispatch(userStatThunk());
   }, [dispatch]);
 
-  if (!userInfo) return <div>Loading...</div>;
+
+  if (!userInfo) return <Loading />;
   const openModal = () => {
     setModalAvatarIsOpen(true);
   };
