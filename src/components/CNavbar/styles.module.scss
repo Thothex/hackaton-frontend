@@ -70,8 +70,6 @@
 
   .logo {
     padding-top: 20px;
-    //width: 155px;
-    //height: 62px;
   }
 
   hr {
@@ -87,7 +85,7 @@
   }
 
   .questions {
-    width: 65%;
+    width: 200px;
     padding: 15px 15px 0 15px;
     margin-bottom: 25px;
     display: flex;
@@ -102,6 +100,9 @@
       rgba(127, 177, 225, 1) 100%
     );
     color: $white-color;
+    position: fixed;
+    bottom: 0;
+    left: 10;
 
     .contactInfo {
       font-weight: 100;
