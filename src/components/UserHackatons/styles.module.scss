@@ -23,16 +23,11 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-
-    .carousel-container {
-      width: 100%;
-    }
   }
 
   .hackaton {
     max-width: 300px;
     min-width: 270px;
-    padding-bottom: 15px;
     background-color: $background-color;
     height: 270px;
     border-radius: 20px;
@@ -51,6 +46,8 @@
       flex-direction: column;
       justify-content: flex-start;
       color: #718096;
+      white-space: normal;
+      text-overflow: ellipsis;
 
       .name {
         font-size: 17px;
@@ -60,6 +57,9 @@
       .description {
         font-size: 14px;
         font-weight: 200;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
       }
