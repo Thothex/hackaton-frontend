@@ -9,6 +9,7 @@ import ManyAnswersTask from "@/components/ManyAnswersTask";
 import { getTeamInfo } from "@/redux/features/teamSlice.js";
 import Loading from "@/components/Loading";
 import { fetchTeamAnswer } from "@/redux/features/answersSlice";
+import { message } from 'antd';
 
 const TestPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -53,6 +54,14 @@ const TestPage = () => {
   if (!tasks) {
     return <Loading />;
   }
+
+  const info = () => {
+    message.success('Answer saved correctly... maybe');
+  };
+
+  const errorToast = () => {
+    message.error('Something went wrong ^_^');
+  };
 
   const totalPages = tasks.length;
 
@@ -101,7 +110,12 @@ const TestPage = () => {
           }),
         }
       );
-      // TODO: обработать ответ? вывести тост?
+      
+      if (res.status === 201) {
+        info()
+      } else {
+        errorToast()
+      }
     } catch (error) {
       console.error("Error:", error);
     }
@@ -129,7 +143,11 @@ const TestPage = () => {
           }),
         }
       );
-      // TODO: обработать ответ? вывести тост?
+      if (res.status === 201) {
+        info()
+      } else {
+        errorToast()
+      }
     } catch (error) {
       console.error("Error:", error);
     }
@@ -145,7 +163,7 @@ const TestPage = () => {
             <>
               <p>{task.name}</p>
               <p>{task.description}</p>
-              {captain && <AddFileTask task={task} teamId={teamId} />}
+              {captain && <AddFileTask task={task} teamId={teamId} showToast={info} />}
             </>
           )}
           {task.type === "input" && (
