@@ -13,6 +13,7 @@ import { TimePicker } from 'antd';
 import { useDispatch, useSelector } from "react-redux";
 import { clearHackathon, createHackathon, fetchHackathonById, putHackathon, updateHackathon } from "@/redux/features/hackathonsSlice";
 import { useNavigate } from "react-router-dom";
+import Loading from "../Loading";
 
 dayjs.extend(customParseFormat);
 const NewHachathon = ({id}) => {
@@ -191,7 +192,7 @@ const NewHachathon = ({id}) => {
     }))
   };
   console.log('hackathon', hackathon);
-  !hackathon && <div>Loading...</div> 
+  !hackathon && <Loading />
   return (
     <div className={styles.newHackContainer}>
       <div className={styles.newHachathonWrapper}>

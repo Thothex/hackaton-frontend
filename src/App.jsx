@@ -20,6 +20,7 @@ import AcceptPage from "@/components/pages/AcceptPage/index.jsx";
 import { fetchUsersThunk } from './redux/features/usersSlice';
 import HackathonCheckPage from './components/pages/HackathonCheckPage';
 import HackathonTeamPage from './components/pages/HackathonTeamPage';
+import HackathonDashboard from './components/pages/HackathonDashboard';
 
 
 
@@ -97,6 +98,7 @@ function App() {
           <Route path="/example" element={<ExamplePage />} />
           <Route path='/profile' element={<ProfilePage />}/>
           <Route path='/newhackathon' element={<HackathonEditPage />} />
+          <Route path='/dashboard' element={<HackathonDashboard />} />
           <Route path='/hackathon/:id/check' element={<HackathonCheckPage />}/>
           <Route path='/hackathon/:id/check/:teamId' element={<HackathonTeamPage />}/>
           <Route path='/hackathon/:id' element={<HackathonPage />}/>

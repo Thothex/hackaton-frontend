@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from 'react-redux';
 import { updateTask } from '@/redux/features/hackathonsSlice';
 import PropTypes from 'prop-types';
+import Loading from '@/components/Loading';
 
 const OneInputTask = ({ hackathonId, task }) => {
   
@@ -26,7 +27,7 @@ const OneInputTask = ({ hackathonId, task }) => {
     dispatch(updateTask({hackathonId, task: {...task, maxScore: taskScore, name: taskText, description: taskDescription, type: 'input'}}))
   }
 
-  if (!answers) return <div>Loading...</div>;
+  if (!answers) return <Loading />;
   return (
     <div>
       <div>

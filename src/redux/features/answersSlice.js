@@ -28,7 +28,7 @@ export const fetchTeamAnswer = createAsyncThunk(
 
 export const saveScores = createAsyncThunk(
 	"answers/setTeamAnswerScore",
-	async ({ answers }) => {
+	async ({ answers, hackathonId }) => {
 		try {
 			const response = await fetch(
 				`${import.meta.env.VITE_BASE_URL}/answers/score`,
@@ -38,7 +38,7 @@ export const saveScores = createAsyncThunk(
 						Authorization: `Bearer ${localStorage.getItem("token")}`,
 						"Content-Type": "application/json",
 					},
-					body: JSON.stringify({ answers }),
+					body: JSON.stringify({ answers, hackathonId }),
 				}
 			);
 			if (!response.ok) {

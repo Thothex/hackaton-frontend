@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchTasks } from "@/redux/features/taskSlice.js";
 import ManyAnswersTask from "@/components/ManyAnswersTask";
 import { getTeamInfo } from "@/redux/features/teamSlice.js";
+import Loading from "@/components/Loading";
 
 const TestPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -47,7 +48,7 @@ const TestPage = () => {
   }, [dispatch, id]);
 
   if (!tasks) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   const totalPages = tasks.length;
