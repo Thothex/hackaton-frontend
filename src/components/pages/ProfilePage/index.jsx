@@ -150,9 +150,7 @@ const ProfilePage = () => {
             </button>
           </div>
         </div>
-        {userStat?.hack && (
-          <UserHackatons hack={userStat.hack} date={date} />
-        )}
+        {userStat?.hack && <UserHackatons hack={userStat.hack} date={date} />}
         <StatPanel />
       </div>
     </div>
