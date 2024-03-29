@@ -3,11 +3,41 @@
   gap: 10px;
   width: 80%;
   margin-top: 10px;
-  align-items: center
+  align-items: center;
 }
 
-.answerInput {
-  
+.typeTask {
+  color: rgba(0, 0, 0, 0.295);
+  display: inline-block;
+}
+
+.taskContainer {
+  margin: auto;
+  margin-top: 35px;
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: rgba(153, 153, 153, 0.062);
+  border-radius: 20px;
+}
+
+.deleteBtnContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .close {
+    display: flex;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
 }
 
 .checkboxLabelRight {
@@ -16,13 +46,13 @@
   display: flex;
   flex-direction: row;
   width: 100px;
-  align-items: center
+  align-items: center;
 }
 
 .addNewAnswerBlock {
   display: flex;
   gap: 10px;
-  width: 80%;
+  width: 100%;
   margin-top: 10px;
   align-items: center;
   justify-content: center;
