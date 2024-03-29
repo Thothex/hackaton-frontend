@@ -8,6 +8,8 @@ import { fetchTasks } from "@/redux/features/taskSlice.js";
 import ManyAnswersTask from "@/components/ManyAnswersTask";
 import { getTeamInfo } from "@/redux/features/teamSlice.js";
 import Loading from "@/components/Loading";
+import { fetchTeamAnswer } from "@/redux/features/answersSlice";
+import { message } from 'antd';
 
 const TestPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,6 +20,7 @@ const TestPage = () => {
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.tasks.tasks);
   const { userInfo } = useSelector((state) => state.userStore);
+  const { answers } = useSelector((state)=> state.answersStore)
 
   useEffect(() => {
     dispatch(getTeamInfo({ hackathonId: id, userId: userInfo.id }))
@@ -45,11 +48,20 @@ const TestPage = () => {
 
   useEffect(() => {
     dispatch(fetchTasks(id));
-  }, [dispatch, id]);
+    dispatch(fetchTeamAnswer({ hackathonId:id, teamId }))
+  }, [dispatch, id, teamId]);
 
   if (!tasks) {
     return <Loading />;
   }
+
+  const info = () => {
+    message.success('Answer saved correctly... maybe');
+  };
+
+  const errorToast = () => {
+    message.error('Something went wrong ^_^');
+  };
 
   const totalPages = tasks.length;
 
@@ -79,7 +91,7 @@ const TestPage = () => {
       },
       {}
     );
-
+      console.log('answers', answers);
     try {
       const res = await fetch(
         `${import.meta.env.VITE_BASE_URL}/answers/${task.id}/${type}`,
@@ -98,7 +110,12 @@ const TestPage = () => {
           }),
         }
       );
-      // TODO: обработать ответ? вывести тост?
+      
+      if (res.status === 201) {
+        info()
+      } else {
+        errorToast()
+      }
     } catch (error) {
       console.error("Error:", error);
     }
@@ -126,7 +143,11 @@ const TestPage = () => {
           }),
         }
       );
-      // TODO: обработать ответ? вывести тост?
+      if (res.status === 201) {
+        info()
+      } else {
+        errorToast()
+      }
     } catch (error) {
       console.error("Error:", error);
     }
@@ -135,13 +156,14 @@ const TestPage = () => {
   const renderContent = () => {
     if (currentPage > 0 && currentPage <= totalPages) {
       const task = tasks[currentPage - 1]; // Индексация с 0
+      const currentAnswer = answers.find(answer => answer.taskId === task.id)?.answer?.answer
       return (
         <div>
           {task.type === "document" && (
             <>
               <p>{task.name}</p>
               <p>{task.description}</p>
-              {captain && <AddFileTask task={task} teamId={teamId} />}
+              {captain && <AddFileTask task={task} teamId={teamId} showToast={info} />}
             </>
           )}
           {task.type === "input" && (
@@ -152,6 +174,7 @@ const TestPage = () => {
                   handleSaveInput={handleSaveInput}
                   type={"input"}
                   task={task}
+                  savedValue={currentAnswer}
                 />
               )}
             </>
