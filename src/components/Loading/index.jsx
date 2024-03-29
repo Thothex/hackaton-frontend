@@ -1,27 +1,13 @@
 import { Alert, Flex, Spin } from 'antd';
+import styles from './styles.module.scss';
 
 const Loading = () => {
   return (
-    <Flex gap="small" vertical>
-    <Flex gap="small">
-      <Spin tip="Loading" size="small">
-        <div className="content" />
-      </Spin>
-      <Spin tip="Loading">
-        <div className="content" />
-      </Spin>
-      <Spin tip="Loading" size="large">
-        <div className="content" />
-      </Spin>
-    </Flex>
-    <Spin tip="Loading...">
-      <Alert
-        message="Alert message title"
-        description="Further details about the context of this alert."
-        type="info"
-      />
-    </Spin>
-  </Flex>
+    <div className={styles.spinWrapper}>
+      <Flex gap="small" vertical>
+        <Spin tip="Loading..." size='large'></Spin>
+      </Flex>
+    </div>
   );
 };
 
