@@ -33,9 +33,6 @@ const HomePage = () => {
                     ]}
                 />
             </div>
-            {user && (
-                <div>{user.username}</div>
-            )}
             <div className={styles.hackathonList}>
                 {hackathons.filter((ha) => {
                     const currentDate = new Date()
