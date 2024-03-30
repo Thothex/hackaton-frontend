@@ -10,13 +10,10 @@ import remove from "@/assets/remove.svg";
 import MainButton from "@/components/MainButton";
 import CTextArea from "@/components/CTextArea";
 import close from "@/assets/close.svg";
-import { Input } from 'antd';
-// import { Checkbox } from 'antd';
-import { Button } from 'antd';
-import Loading from '@/components/Loading';
+import { Input } from "antd";
+import { Button } from "antd";
+import Loading from "@/components/Loading";
 const { TextArea } = Input;
-
-
 
 const ManyAnswerTask = ({ hackathonId, task }) => {
   const [answers, setAnswers] = useState(task.answers);

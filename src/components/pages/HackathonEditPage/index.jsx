@@ -15,7 +15,6 @@ const HackathonEditPage = () => {
             backgroundColor: "#f5f7fa",
             colorBgContainer: "white",
             margin: "0",
-            borderRadius: "20",
             colorFillQuaternary: "rgba(150, 171, 223, 0.25)",
             colorTextBase: "rgba(113, 128, 150, 1)",
           },
