@@ -123,7 +123,6 @@ export const putHackathon = createAsyncThunk(
 	"hackathons/update",
 
 	async (hackathon) => {
-		console.log("hackathon in thunk", hackathon);
 		try {
 			const response = await fetch(
 				`${import.meta.env.VITE_BASE_URL}/hackathon/${hackathon.id}`,
@@ -152,7 +151,6 @@ export const fetchHackathonStat = createAsyncThunk(
 
 	async ({ hackathonId }) => {
 		try {
-			console.log("hackathon in thunk", hackathonId);
 			const response = await fetch(
 				`${import.meta.env.VITE_BASE_URL}/hackathon/${hackathonId}/stat`,
 				{

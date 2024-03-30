@@ -1,8 +1,8 @@
-import NewHachathon from '@/components/NewHachathon';
-import { useParams } from 'react-router-dom';
-import { Tabs, ConfigProvider } from 'antd';
-import styles from './styles.module.scss';
-import HackathonTasksEdit from '@/components/HackathonTasksEdit';
+import NewHachathon from "@/components/NewHachathon";
+import { useParams } from "react-router-dom";
+import { Tabs, ConfigProvider } from "antd";
+import styles from "./styles.module.scss";
+import HackathonTasksEdit from "@/components/HackathonTasksEdit";
 
 const HackathonEditPage = () => {
   const { id } = useParams();
@@ -11,31 +11,36 @@ const HackathonEditPage = () => {
       <ConfigProvider
         theme={{
           token: {
-            colorPrimary: '#8797c4',
-            backgroundColor: '#f5f7fa',
-            colorBgContainer: 'white',
+            colorPrimary: "#8797c4",
+            backgroundColor: "#f5f7fa",
+            colorBgContainer: "white",
+            margin: "0",
+            borderRadius: "20",
+            colorFillQuaternary: "rgba(150, 171, 223, 0.25)",
+            colorTextBase: "rgba(113, 128, 150, 1)",
           },
         }}
       >
         <Tabs
-        defaultActiveKey="1"
-        items={[
-          {
-            label: 'Общая информация',
-            key: '1',
-            children: <NewHachathon id={id} />,
-          },
-          {
-            label: 'Задания и вопросы',
-            key: '2',
-            children: <HackathonTasksEdit hackathonId={id} />,
-            disabled: id ? false : true,
-          }
+          defaultActiveKey="1"
+          type="card"
+          items={[
+            {
+              label: "General information",
+              key: "1",
+              children: <NewHachathon id={id} />,
+              className: styles.tabFile,
+            },
+            {
+              label: "Tasks and questions",
+              key: "2",
+              children: <HackathonTasksEdit hackathonId={id} />,
+              disabled: id ? false : true,
+              className: styles.tabFile,
+            },
           ]}
-          tabBarStyle={{backgroundColor: 'none'}}
-          className={styles}
-        >
-        </Tabs>
+          className={styles.tabsContainer}
+        ></Tabs>
       </ConfigProvider>
     </>
   );

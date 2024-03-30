@@ -1,7 +1,7 @@
 import styles from './styles.module.scss'
 import PropTypes from 'prop-types';
 
-const CCheckbox = ({ label, uuid, checked = false, onChange }) => {
+const CCheckbox = ({ label, uuid, checked = false, onChange, disabled }) => {
 
   const handleCheckboxChange = (event) => {
     onChange(event.target.checked, event.target.dataset)
@@ -10,6 +10,7 @@ const CCheckbox = ({ label, uuid, checked = false, onChange }) => {
     <label className={styles.checkboxWrapper}>
       <input
         type="checkbox"
+        disabled={disabled}
         checked={checked}
         data-uuid={uuid}
         onChange={(e)=>handleCheckboxChange(e)}

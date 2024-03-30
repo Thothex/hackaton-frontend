@@ -34,7 +34,7 @@ const ProfilePage = () => {
   const openModal = () => {
     setModalAvatarIsOpen(true);
   };
-  
+
   const closeModal = () => {
     setModalAvatarIsOpen(false);
   };
@@ -42,7 +42,7 @@ const ProfilePage = () => {
   const handleDateChange = (newDate) => {
     setDate(newDate);
   };
-  
+
   if (!userInfo || !userStat) return <Loading />;
   return (
     <div>

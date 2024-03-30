@@ -4,7 +4,7 @@ import styles from "./style.module.scss";
 import { useDispatch } from "react-redux";
 
 import PropTypes from "prop-types";
-const ManyAnswersTask = ({ task, handleSaveMany, type, captain, teamId }) => {
+const ManyAnswersTask = ({ task, handleSaveMany, type, captain, teamId, disabled }) => {
   const dispatch = useDispatch();
   const [userAnswers, setUserAnswers] = useState({});
   useEffect(() => {
@@ -34,6 +34,7 @@ const ManyAnswersTask = ({ task, handleSaveMany, type, captain, teamId }) => {
           ? optionsArray.map(([key, value]) => {
               return (
                 <CCheckbox
+                  disabled={disabled}
                   key={key}
                   uuid={key}
                   onChange={handleChangeOption}
@@ -51,7 +52,7 @@ const ManyAnswersTask = ({ task, handleSaveMany, type, captain, teamId }) => {
             })}
 
         {captain && (
-          <button className={styles.button} type="button" onClick={onSave}>
+          <button className={styles.button} disabled={disabled} type="button" onClick={onSave}>
             Save
           </button>
         )}
