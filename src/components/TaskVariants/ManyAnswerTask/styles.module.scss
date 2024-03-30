@@ -9,41 +9,45 @@
   padding: 20px;
   background-color: rgba(153, 153, 153, 0.062);
   border-radius: 20px;
+
+  input {
+    width: 100%;
+    &:active,
+    &:focus {
+      outline: none;
+    }
+  }
+
+  label {
+    font-size: 20px;
+    padding: 0;
+    margin-top: 15px;
+  }
 }
 
 .typeTask {
   color: rgba(0, 0, 0, 0.295);
 }
 
-label {
-  font-size: 20px;
-  padding: 0;
-  margin-top: 15px;
-}
-
-input {
-  width: 100%;
-  &:active,
-  &:focus {
-    outline: none;
-  }
-}
-
 .answerInputBlock {
   display: flex;
   gap: 10px;
   width: 100%;
-  margin-top: 10px;
   align-items: center;
 }
 
 .checkboxLabelRight {
-  margin-left: 10px;
-  margin-right: 20px;
+  margin-bottom: 5px;
   display: flex;
+  margin-right: 20px;
   flex-direction: row;
   width: 100px;
   align-items: center;
+
+  div {
+    font-size: 15px;
+    margin: 0;
+  }
 }
 
 .addNewAnswerBlock {
@@ -84,6 +88,7 @@ input {
   border: none;
   background-color: transparent;
   cursor: pointer;
+  margin-top: 5px;
 
   &:active,
   &:focus {

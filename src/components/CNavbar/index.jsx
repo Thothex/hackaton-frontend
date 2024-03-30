@@ -9,6 +9,7 @@ import signin from "../../assets/signin.svg";
 import register from "../../assets/register.svg";
 import question from "../../assets/question.svg";
 import logout from "../../assets/logout.svg";
+import highscore from "../../assets/highscore.svg";
 
 const Navbar = () => {
   const logoutHandler = () => {
@@ -86,7 +87,7 @@ const Navbar = () => {
               isActive ? styles.active : styles.unactive
             }
           >
-            <img src={fire} alt="fire" className={styles.icon} />
+            <img src={highscore} alt="highscore" className={styles.icon} />
             Highscore
           </NavLink>
           <NavLink

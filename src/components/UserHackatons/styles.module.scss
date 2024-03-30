@@ -2,7 +2,7 @@
 
 .hackatonsContainer {
   margin-top: 20px;
-  width: 1605px;
+  width: 100%;
   background-color: $white-color;
   border-radius: 20px;
   padding: 20px;
@@ -19,6 +19,7 @@
   }
 
   .hackatonsCards {
+    width: 83vw;
     margin-top: 30px;
     display: flex;
     flex-wrap: wrap;
@@ -26,8 +27,8 @@
   }
 
   .hackaton {
-    max-width: 300px;
-    min-width: 270px;
+    max-width: 350px;
+    margin-right: 10px;
     background-color: $background-color;
     height: 270px;
     border-radius: 20px;
@@ -36,7 +37,6 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    gap: 10px;
 
     .info {
       margin-left: 2vw;
