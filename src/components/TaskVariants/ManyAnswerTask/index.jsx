@@ -11,7 +11,7 @@ import MainButton from "@/components/MainButton";
 import CTextArea from "@/components/CTextArea";
 import close from "@/assets/close.svg";
 import { Input } from 'antd';
-import { Checkbox } from 'antd';
+// import { Checkbox } from 'antd';
 import { Button } from 'antd';
 import Loading from '@/components/Loading';
 const { TextArea } = Input;
