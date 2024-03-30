@@ -3,7 +3,7 @@ import { InboxOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
 const { Dragger } = Upload;
 
-const AddFileTask = ({ task, teamId }) => {
+const AddFileTask = ({ task, teamId, showToast, disabled }) => {
   const prop = {
     name: "file",
     data: { taskId: task.id, hackathonId: task.hackathon_id, teamId },
@@ -18,6 +18,7 @@ const AddFileTask = ({ task, teamId }) => {
         console.log(info.file, info.fileList);
       }
       if (status === "done") {
+        showToast()
         message.success(`${info.file.name} file uploaded successfully.`);
       } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
@@ -29,7 +30,7 @@ const AddFileTask = ({ task, teamId }) => {
   };
   return (
     <div className={styles.paragraphIcon}>
-      <Dragger {...prop}>
+      <Dragger disabled={disabled} {...prop}>
         <p className={`ant-upload-drag-icon`}>
           <InboxOutlined />
         </p>

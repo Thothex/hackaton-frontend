@@ -12,7 +12,9 @@ import ProfileStat from "@/components/ProfileStat/index.jsx";
 import FormUpdateUser from "@/components/FormUpdateUser";
 import { userStatThunk } from "@/redux/features/userSlice.js";
 import StatPanel from "@/components/StatPanel/index.jsx";
+import Loading from "@/components/Loading";
 import UserHackatons from "@/components/UserHackatons";
+
 ReactModal.setAppElement("#root");
 
 const ProfilePage = () => {
@@ -28,7 +30,7 @@ const ProfilePage = () => {
     dispatch(userStatThunk());
   }, [dispatch]);
 
-  if (!userInfo) return <div>Loading...</div>;
+
   const openModal = () => {
     setModalAvatarIsOpen(true);
   };
@@ -41,6 +43,7 @@ const ProfilePage = () => {
     setDate(newDate);
   };
 
+  if (!userInfo || !userStat) return <Loading />;
   return (
     <div>
       <div className={styles.topPlain}>
@@ -147,9 +150,7 @@ const ProfilePage = () => {
             </button>
           </div>
         </div>
-        {Object.keys(userStat).length > 0 && (
-          <UserHackatons hack={userStat.hack} date={date} />
-        )}
+        {userStat?.hack && <UserHackatons hack={userStat.hack} date={date} />}
         <StatPanel />
       </div>
     </div>

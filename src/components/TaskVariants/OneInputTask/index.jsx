@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Input } from "antd";
 const { TextArea } = Input;
+
 import { Checkbox } from "antd";
 import { Button } from "antd";
 import styles from "./styles.module.scss";
@@ -11,6 +12,7 @@ import PropTypes from "prop-types";
 import MainButton from "@/components/MainButton";
 import CTextArea from "@/components/CTextArea";
 import close from "@/assets/close.svg";
+import Loading from '@/components/Loading';
 
 const OneInputTask = ({ hackathonId, task }) => {
   const [answers, setAnswers] = useState(task.answers);
@@ -41,7 +43,7 @@ const OneInputTask = ({ hackathonId, task }) => {
     );
   };
 
-  if (!answers) return <div>Loading...</div>;
+  if (!answers) return <Loading />;
   return (
     <div className={styles.taskContainer}>
       <div>

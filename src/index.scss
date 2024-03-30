@@ -43,3 +43,20 @@ body {
   width: 100%;
   padding-right: 20px;
 }
+
+button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+}
+
+button:active {
+  outline: none;
+  border: none;
+}
+
+button:focus {
+  outline: none;
+  border: none;
+}
+

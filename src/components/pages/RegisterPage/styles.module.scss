@@ -1,4 +1,4 @@
-@import '../../../index.scss';
+@import "../../../index.scss";
 .AuthPage {
   width: 100vw;
   display: flex;
@@ -8,20 +8,20 @@
 }
 
 .main {
-  padding: 2%;
-  margin-top: 10vh;
+  padding: 27px;
+  margin-top: 17vh;
   background-color: white;
   z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 30vw;
+  width: 90vw;
   max-width: 500px;
   min-width: 330px;
   border-radius: 20px;
 
   .title {
-    margin-block: .5em 0;
+    margin-block: 0.5em 0;
     font-size: 30px;
     color: $auth-title-color;
     padding: 0;
@@ -30,7 +30,7 @@
   }
 
   .regParagraph {
-    margin-bottom: 2em;
+    margin: 1em 0;
     font-size: 16px;
     color: $auth-text-color;
     font-weight: 300;
@@ -53,7 +53,7 @@
 
         .regParagraph {
           padding-block: 0;
-          padding-inline: .5em 0;
+          padding-inline: 0.5em 0;
           font-weight: 400;
         }
 
@@ -72,6 +72,7 @@
   }
 
   .loginLink {
+    margin-top: 20px;
     font-size: 14px;
     font-weight: 200;
     display: flex;
@@ -85,14 +86,16 @@
       width: fit-content;
       background: none;
       border: none;
-      font-family: 'Geologica', sans-serif;
+      font-family: "Geologica", sans-serif;
       color: $light-violet-color;
       font-weight: 400;
       white-space: nowrap;
       transition: all 0.3s ease;
+      cursor: pointer;
+      outline: none;
     }
-    .linkButton:hover{
-      color:darken($inner-input-auth-color, 10%)
+    .linkButton:hover {
+      color: darken($inner-input-auth-color, 10%);
     }
   }
 }

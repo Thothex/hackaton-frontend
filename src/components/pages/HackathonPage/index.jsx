@@ -1,8 +1,10 @@
 import {useEffect, useLayoutEffect} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchHackathonById } from '@/redux/features/hackathonsSlice.js';
+import { fetchHackathonById, putHackathon } from '@/redux/features/hackathonsSlice.js';
+import { Button, Flex } from 'antd'
 import styles from './styles.module.scss';
+import Loading from '@/components/Loading';
 
 const HackathonPage = () => {
   const navigate = useNavigate();
@@ -14,9 +16,10 @@ const HackathonPage = () => {
      dispatch(fetchHackathonById(id));
    }, [dispatch, id]);
   if (!hackathon) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
-  console.log(user)
+
+  const isOrg = user.isOrg && user.id === hackathon.organizer_id
   const currentDate = new Date();
   const endDate = new Date(hackathon.end);
   const startDate = new Date(hackathon.start);
@@ -37,7 +40,11 @@ const HackathonPage = () => {
   const formattedEndDate = endDate.getDate();
   const yearStart = startDate.getFullYear();
   const yearEnd = endDate.getFullYear();
-    const endMonth = endDate.toLocaleString('en-US', { month: 'long' });
+  const endMonth = endDate.toLocaleString('en-US', { month: 'long' });
+  
+  const handleEndHackathon = () => {
+    dispatch(putHackathon({...hackathon, status: "Finished" }))
+  }
   return (
       <div className={styles.hackathonPage}>
         <div
@@ -125,7 +132,13 @@ const HackathonPage = () => {
             }
             {status === "Finished" &&  <div className={styles.pic} ><button disabled={status === "Finished"} className={styles.takePartBTN}>Hackathon is over :(</button></div>
             }
-         </div>
+      </div>
+      
+      {isOrg && hackathon.status !== "Finished" &&
+        <Flex wrap="wrap" gap="small" >
+          <Button type="primary" danger onClick={handleEndHackathon}>Hackathon end</Button>
+        </Flex>
+      }
       </div>
   )
 };

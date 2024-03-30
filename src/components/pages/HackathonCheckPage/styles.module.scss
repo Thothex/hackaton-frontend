@@ -1,7 +1,43 @@
+@import '../../../index.scss';
+
 .teamItem {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 0;
   border-bottom: 1px solid #e0e0e0;
+}
+
+.checkPageContainer {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px;
+}
+
+.hackathonPanelSMall{
+  min-width: 220px;
+  min-height:12em;
+  width: calc((100% / 3));
+  height: 15vh;
+  aspect-ratio: .5 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.8);
+  color:$font-color-date;
+  border-radius: 20px;
+  padding: .5em;
+  transition: .3s all ease;
+  box-shadow: $light-violet-color 5px 5px ;
+  *{
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
+  }
+}
+.hackathonPanelSMall:hover{
+  box-shadow: black 10px 10px ;
 }

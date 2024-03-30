@@ -123,7 +123,6 @@ export const putHackathon = createAsyncThunk(
 	"hackathons/update",
 
 	async (hackathon) => {
-		console.log("hackathon in thunk", hackathon);
 		try {
 			const response = await fetch(
 				`${import.meta.env.VITE_BASE_URL}/hackathon/${hackathon.id}`,
@@ -147,11 +146,37 @@ export const putHackathon = createAsyncThunk(
 	}
 );
 
+export const fetchHackathonStat = createAsyncThunk(
+	"hackathons/fetchStat",
+
+	async ({ hackathonId }) => {
+		try {
+			const response = await fetch(
+				`${import.meta.env.VITE_BASE_URL}/hackathon/${hackathonId}/stat`,
+				{
+					method: "GET",
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem("token")}`,
+					},
+				}
+			);
+			if (!response.ok) {
+				throw new Error("Failed to fetch hackathon stat");
+			}
+			const data = await response.json();
+			return data;
+		} catch (error) {
+			throw new Error("Failed to fetch hackathon stat");
+		}
+	}
+);
+
 const hackathonSlice = createSlice({
 	name: "hackathons",
 	initialState: {
 		hackathons: [],
 		hackathon: null,
+		hackathonStat: {},
 		currentHackathonTasks: [],
 		loading: false,
 		error: null,
@@ -233,6 +258,19 @@ const hackathonSlice = createSlice({
 				};
 			})
 			.addCase(updateTask.rejected, (state, action) => {
+				state.loading = false;
+				state.error = action.error.message;
+			})
+			.addCase(fetchHackathonStat.pending, (state) => {
+				state.loading = true;
+				state.error = null;
+			})
+			.addCase(fetchHackathonStat.fulfilled, (state, action) => {
+				state.loading = false;
+				state.error = null;
+				state.hackathonStat = action.payload;
+			})
+			.addCase(fetchHackathonStat.rejected, (state, action) => {
 				state.loading = false;
 				state.error = action.error.message;
 			});

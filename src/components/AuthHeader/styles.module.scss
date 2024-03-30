@@ -1,6 +1,6 @@
-@import '../../index.scss';
-.authHeader{
-position: absolute;
+@import "../../index.scss";
+.authHeader {
+  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,19 +9,19 @@ position: absolute;
   width: 96vw;
   height: 50vh;
   border-radius: 40px;
-  inset:2vw;
-  background:  url("../../assets/authHeader.svg");
-  background-color:$lighter-violet-color ;
+  inset: 2vw;
+  background: url("../../assets/authHeader.svg");
+  background-color: $lighter-violet-color;
   background-size: cover;
   z-index: -1;
-  padding-top: 10vh;
-  .title{
+  padding-top: 6vh;
+  .title {
     font-size: 32px;
-    font-family: 'Helvetica', sans-serif;
     font-weight: 600;
     margin-top: 0;
+    padding: 4px;
   }
-  .paragraph{
+  .paragraph {
     margin-top: 0;
     font-weight: 100;
   }

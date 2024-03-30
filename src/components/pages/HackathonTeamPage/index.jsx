@@ -19,10 +19,9 @@ const HackathonTeamPage = () => {
   )
   useEffect(() => {
     dispatch(fetchTasks(id))
+    dispatch(fetchTeamAnswer({ hackathonId:id, teamId }))
     if (!teams.length) {
       dispatch(fetchTeamList({ hackathonId: id }))
-      
-      dispatch(fetchTeamAnswer({ hackathonId:id, teamId }))
     }
   }, [dispatch, teams, id, teamId])
   
@@ -38,47 +37,58 @@ const HackathonTeamPage = () => {
   }
 
   const handleSaveScore = () => {
-    dispatch(saveScores({answers}))
+    const hackathonId = id
+    dispatch(saveScores({answers, hackathonId}))
   }
 
-  console.log('team?.name', team?.name);
-  console.log('tasks', tasks);
+  if (!answers.length) return <div></div>
+
   return (
-    <>
-      {team?.name}
-      {tasks.map((task) =>
-        <div key={task.id}>
-          <h1>{task.name}</h1>
-          <span>{task.description}</span>
-          <div>Максимальное количество баллов: {task.maxScore}</div>
-          <div >Ответ пользователя:</div>
+    <div className={styles.checkPageContainer}>
+      <h1 className={styles.pageHeaderFont}>{team?.name}</h1>
+      {tasks.filter(item=> item.type !=='many-answers').map((task, index) =>
+        <div key={task.id} className={styles.answerBlock}>
+          <div className={styles.questionPart}>
+            <h1 className={styles.partHeaderWrapper}>Задание {index+1}</h1>
+            <span className={styles.partContent}>{task.name}</span>
+          </div>
+          <div className={styles.questionPart}>
+            <h1 className={styles.partHeaderWrapper}>Описание</h1>
+            <span className={styles.partContent}>{task.description}</span>
+          </div>
+          <div className={styles.questionPart}>
+            <div className={styles.partHeaderWrapper}>Максимальный балл за задание:
+              <span>{task.maxScore}</span></div>
+          </div>
+          <div className={styles.questionPart}>
+            <div className={styles.partHeaderWrapper}>Ответ команды</div>
             {answers.filter(ans => ans.taskId === task.id).map(item => ( 
-                <div key={item.id} className={styles.userAnswerBlock}>
+                <div key={item.id} className={styles.partContent}>
                   {
                     item.answer.fileUrl
                       ? <a href={`${import.meta.env.VITE_BASE_URL_ANSWERS}${item.answer.fileUrl}`} download="filename">download</a>
                       : <div>{item.answer.answer}</div>
                   }
-              <div>
-                <label>Введите оценку
-                <input
-                  data-answerid={item.id}
-                  type="number"
-                  min="0"
-                  max={task.maxScore}
-                  value={item.score || ''}
-                  onChange={(e)=>handleChangeScore(e)}
-                /></label>
-              </div>
+                <div className={styles.markBlock}>
+                  <label className={styles.markLabel}>Выставить баллы</label>
+                  <input
+                    className={styles.input}
+                    data-answerid={item.id}
+                    type="number"
+                    min="0"
+                    max={task.maxScore}
+                    value={item.score || ''}
+                    onChange={(e)=>handleChangeScore(e)}
+                  />
+                </div>
               </div>
               )
               )}
-            
-          
+          </div>
         </div>
       )}
-      <button onClick={handleSaveScore} type='button'>Выставить оценку</button>
-    </>
+      <button className={styles.btnUpdate} onClick={handleSaveScore} type='button'>Выставить оценку</button>
+    </div>
   );
 };
 
