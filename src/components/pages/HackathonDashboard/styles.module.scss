@@ -8,12 +8,13 @@
 
 .blocksWrapper{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 60px;
   flex-wrap: wrap;
-  justify-content: space-between;
-  margin-top: 20px;
+  justify-content: center;
+  margin-top: 60px;
   align-items: center;
+  height: 100%;
 }
 
 .blockWidget{
@@ -36,4 +37,20 @@
 .widgetTitle{
   font-size: 40px;
   font-weight: 200;
+}
+
+.countdownWrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+
+}
+
+.rowBlockWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  justify-content: space-between;
+  margin-top: 20px;
 }

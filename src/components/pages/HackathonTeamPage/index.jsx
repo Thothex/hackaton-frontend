@@ -45,7 +45,7 @@ const HackathonTeamPage = () => {
 
   return (
     <div className={styles.checkPageContainer}>
-      <h1 className={styles.pageHeaderFont}>{team?.name}</h1>
+      <h1 className={styles.pageHeaderFont}>{team?.name}&apos;s answers</h1>
       {tasks.filter(item=> item.type !=='many-answers').map((task, index) =>
         <div key={task.id} className={styles.answerBlock}>
           <div className={styles.questionPart}>
