@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
-import Chart from 'chart.js/auto';
+import { useEffect, useState } from 'react';
 import { Progress, Tooltip } from 'antd';
 import styles from './styles.module.scss';
 import getHighscore from '@/api/highscore';
