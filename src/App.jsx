@@ -21,6 +21,7 @@ import { fetchUsersThunk } from './redux/features/usersSlice';
 import HackathonCheckPage from './components/pages/HackathonCheckPage';
 import HackathonTeamPage from './components/pages/HackathonTeamPage';
 import HackathonDashboard from './components/pages/HackathonDashboard';
+import HighscorePage from './components/pages/HighscorePage';
 
 
 
@@ -107,6 +108,7 @@ function App() {
           <Route path='/hackathon/:id/edit' element={<HackathonEditPage />}/>
           <Route path='/test' element={<TestPage/>}/>
           <Route path='/team/accept/:teamId/:userId' element={<AcceptPage />} />
+          <Route path='/highscore' element={<HighscorePage />} />
         </Routes>
       </div>
     </div>

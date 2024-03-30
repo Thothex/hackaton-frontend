@@ -81,6 +81,15 @@ const Navbar = () => {
             </>
           )}
           <NavLink
+            to="/highscore"
+            className={({ isActive }) =>
+              isActive ? styles.active : styles.unactive
+            }
+          >
+            <img src={fire} alt="fire" className={styles.icon} />
+            Highscore
+          </NavLink>
+          <NavLink
             to="/hackathon"
             className={({ isActive }) =>
               isActive ? styles.active : styles.unactive
