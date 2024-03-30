@@ -1,57 +1,82 @@
-import { useEffect, useState } from 'react';
-import { Input } from 'antd';
+import { useEffect, useState } from "react";
+import { Input } from "antd";
 const { TextArea } = Input;
-import { Checkbox } from 'antd';
-import { Button } from 'antd';
-import styles from './styles.module.scss';
-import { v4 as uuidv4 } from 'uuid';
-import { useDispatch } from 'react-redux';
-import { updateTask } from '@/redux/features/hackathonsSlice';
-import PropTypes from 'prop-types';
+
+import { Checkbox } from "antd";
+import { Button } from "antd";
+import styles from "./styles.module.scss";
+import { v4 as uuidv4 } from "uuid";
+import { useDispatch } from "react-redux";
+import { updateTask } from "@/redux/features/hackathonsSlice";
+import PropTypes from "prop-types";
+import MainButton from "@/components/MainButton";
+import CTextArea from "@/components/CTextArea";
+import close from "@/assets/close.svg";
 import Loading from '@/components/Loading';
 
 const OneInputTask = ({ hackathonId, task }) => {
-  
   const [answers, setAnswers] = useState(task.answers);
-  const [taskText, setTaskText] = useState(task.name || '');
-  const [taskDescription, setTaskDescription] = useState(task.description || '');
+  const [taskText, setTaskText] = useState(task.name || "");
+  const [taskDescription, setTaskDescription] = useState(
+    task.description || ""
+  );
   const [taskScore, setTaskScore] = useState(task.maxScore);
-  
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setAnswers(task.answers)
-  }, [task])
-  
+    setAnswers(task.answers);
+  }, [task]);
+
   const saveHander = () => {
-    dispatch(updateTask({hackathonId, task: {...task, maxScore: taskScore, name: taskText, description: taskDescription, type: 'input'}}))
-  }
+    dispatch(
+      updateTask({
+        hackathonId,
+        task: {
+          ...task,
+          maxScore: taskScore,
+          name: taskText,
+          description: taskDescription,
+          type: "input",
+        },
+      })
+    );
+  };
 
   if (!answers) return <Loading />;
   return (
-    <div>
+    <div className={styles.taskContainer}>
       <div>
-        <TextArea
+        <div className={styles.deleteBtnContainer}>
+          <span className={styles.typeTask}>Free answer</span>
+          <button className={styles.close}>
+            <img src={close} alt="close" className={styles.icon} />
+          </button>
+        </div>
+        <label>Title</label>
+        <input
           value={taskText}
           onChange={(e) => setTaskText(e.target.value)}
-          placeholder="Task question here..."
-          autoSize={{ minRows: 2, maxRows: 6, }}
+          placeholder="Enter title"
         />
-        <TextArea
+        <label>Description</label>
+        <CTextArea
+          inner="Enter description"
+          type={"text"}
+          name={"description"}
           value={taskDescription}
           onChange={(e) => setTaskDescription(e.target.value)}
-          placeholder="Task description here..."
-          autoSize={{ minRows: 2, maxRows: 6, }}
         />
-        <Input
-          classNames={styles.taskInput}
-          value={taskScore}
+        <label>Scores</label>
+        <input
+          className={styles.taskInput}
           onChange={(e) => setTaskScore(+e.target.value)}
+          type="number"
+          placeholder="Enter scores"
         />
-
       </div>
-        <div className={styles.addNewAnswerBlock}>
-        <Button onClick={saveHander}>Save</Button>
+      <div className={styles.addNewAnswerBlock}>
+        <MainButton caption="SAVE" onClick={saveHander} />
       </div>
     </div>
   );
