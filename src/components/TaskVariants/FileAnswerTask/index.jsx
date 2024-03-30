@@ -70,6 +70,7 @@ const ManyAnswerTask = ({ hackathonId, task }) => {
           className={styles.taskInput}
           onChange={(e) => setTaskScore(+e.target.value)}
           type="number"
+          value={taskScore || 0}
           placeholder="Enter scores"
         />
       </div>

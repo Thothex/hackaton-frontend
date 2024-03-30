@@ -247,3 +247,12 @@
 .hackathonPanelOrganization{
   font-size: 1.5rem;
 }
+
+.iframeWrapper{
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  width: 0px;
+  height: 0px;
+  overflow: hidden;
+}
