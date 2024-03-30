@@ -3,7 +3,7 @@ import { InboxOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
 const { Dragger } = Upload;
 
-const AddFileTask = ({ task, teamId, showToast }) => {
+const AddFileTask = ({ task, teamId, showToast, disabled }) => {
   const prop = {
     name: "file",
     data: { taskId: task.id, hackathonId: task.hackathon_id, teamId },
@@ -30,7 +30,7 @@ const AddFileTask = ({ task, teamId, showToast }) => {
   };
   return (
     <div className={styles.paragraphIcon}>
-      <Dragger {...prop}>
+      <Dragger disabled={disabled} {...prop}>
         <p className={`ant-upload-drag-icon`}>
           <InboxOutlined />
         </p>

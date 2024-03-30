@@ -3,14 +3,14 @@
   width: calc(100% - 5vh - 5vh);
   background-color: white;
   min-height: 100vh;
-  margin-top: 7vh;
+  margin-top: 20px;
   margin-right: 5vh;
   border-radius: 20px;
   display:flex;
   flex-direction: column;
   align-items: center;
-  padding-inline:10vh;
-  padding-block: 5vh;
+  // padding-inline:10vh;
+  // padding-block: 5vh;
 }
 .Btn{
   border: 2px solid $light-violet-color;
@@ -44,4 +44,14 @@
   display: flex;
   justify-content: space-between;
   gap:5px
+}
+
+.countDownRow {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  padding-bottom: 4em;
+  padding-right: 20px;
 }

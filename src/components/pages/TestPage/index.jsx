@@ -10,6 +10,8 @@ import { getTeamInfo } from "@/redux/features/teamSlice.js";
 import Loading from "@/components/Loading";
 import { fetchTeamAnswer } from "@/redux/features/answersSlice";
 import { message } from 'antd';
+import CountdownTimer from "@/components/CountdownTimer";
+import { fetchHackathonById } from "@/redux/features/hackathonsSlice";
 
 const TestPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,6 +23,12 @@ const TestPage = () => {
   const tasks = useSelector((state) => state.tasks.tasks);
   const { userInfo } = useSelector((state) => state.userStore);
   const { answers } = useSelector((state)=> state.answersStore)
+  const hackathon = useSelector((state)=> state.hackathons?.hackathon)
+
+  useEffect(() => {
+    if (hackathon?.id) return;
+    dispatch(fetchHackathonById(id));
+  }, [dispatch, id, hackathon]);
 
   useEffect(() => {
     dispatch(getTeamInfo({ hackathonId: id, userId: userInfo.id }))
@@ -157,13 +165,14 @@ const TestPage = () => {
     if (currentPage > 0 && currentPage <= totalPages) {
       const task = tasks[currentPage - 1]; // Индексация с 0
       const currentAnswer = answers.find(answer => answer.taskId === task.id)?.answer?.answer
+      const disabled = new Date(hackathon.end) < new Date()
       return (
         <div>
           {task.type === "document" && (
             <>
               <p>{task.name}</p>
               <p>{task.description}</p>
-              {captain && <AddFileTask task={task} teamId={teamId} showToast={info} />}
+              {captain && <AddFileTask task={task} teamId={teamId} showToast={info} disabled={disabled} />}
             </>
           )}
           {task.type === "input" && (
@@ -175,6 +184,7 @@ const TestPage = () => {
                   type={"input"}
                   task={task}
                   savedValue={currentAnswer}
+                  disabled={disabled}
                 />
               )}
             </>
@@ -190,6 +200,7 @@ const TestPage = () => {
                 task={task}
                 captain={captain}
                 teamId={teamId}
+                disabled={disabled}
               />
             </>
           )}
@@ -217,9 +228,10 @@ const TestPage = () => {
 
     return pageNumbers;
   };
-
+  console.log('hackathon.end', hackathon);
   return (
     <div className={styles.main}>
+      {hackathon?.end && <div className={styles.countDownRow}><CountdownTimer targetDate={hackathon.end} /></div>}
       <nav aria-label="...">
         <ul className="pagination pagination-lg">{generatePageNumbers()}</ul>
       </nav>
