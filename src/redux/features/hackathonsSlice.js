@@ -67,31 +67,37 @@ export const createHackathon = createAsyncThunk(
 );
 
 export const createNewTask = createAsyncThunk(
-  "hackathons/tasks/create",
-  async ({ type = "many-answers", maxScore = 10, hackathonId }) => {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BASE_URL}/hackathon/${hackathonId}/task`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ type, maxScore }),
-        }
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch hackathons");
-      }
-      if (response.status === 201) {
-        const data = await response.json();
-        return { type, maxScore, id: data.id };
-      }
-    } catch (error) {
-      throw new Error("Failed to fetch hackathons");
-    }
-  }
+
+	"hackathons/tasks/create",
+	async ({
+		type = "many-answers",
+		maxScore = 10,
+		hackathonId,
+		answers = {},
+	}) => {
+		try {
+			const response = await fetch(
+				`${import.meta.env.VITE_BASE_URL}/hackathon/${hackathonId}/task`,
+				{
+					method: "POST",
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem("token")}`,
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ type, maxScore, answers }),
+				}
+			);
+			if (!response.ok) {
+				throw new Error("Failed to fetch hackathons");
+			}
+			if (response.status === 201) {
+				const data = await response.json();
+				return { type, maxScore, id: data.id };
+			}
+		} catch (error) {
+			throw new Error("Failed to fetch hackathons");
+		}
+	}
 );
 
 export const updateTask = createAsyncThunk(

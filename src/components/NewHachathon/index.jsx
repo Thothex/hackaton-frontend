@@ -19,8 +19,6 @@ dayjs.extend(customParseFormat);
 const NewHachathon = ({id}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // TODO сделать справочник организаций ручку GET
-  // TODO сделать справочник организаций ручку POST, DELETE
 
   const hackathon = useSelector((state) => state.hackathons.hackathon);
   const categories = useSelector((state) => state.dictionaryStore.dictionary.categories);
@@ -218,7 +216,13 @@ const NewHachathon = ({id}) => {
             name={'rules'}
             value={hackathon?.rules}
             onChange={handleInputChange} />
-          
+          <AuthInput
+            label='Prize'
+            inner='Max amount of rating'
+            type={'number'}
+            name={'prize'}
+            value={hackathon?.prize}
+            onChange={handleInputChange} />
           <CDropDown
             name='type'
             items={[{ id: 1, value: 'Командный' }, { id: 2, value: 'Индивидуальный' }]}

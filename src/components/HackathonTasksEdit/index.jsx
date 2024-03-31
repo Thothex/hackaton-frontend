@@ -33,7 +33,12 @@ const HackathonTasksEdit = ({ hackathonId }) => {
       );
     if (e.key === "3")
       dispatch(
-        createNewTask({ type: "input", maxScore: 10, answers: {}, hackathonId })
+        createNewTask({
+          type: "input",
+          maxScore: 10,
+          answers: {},
+          hackathonId
+        })
       );
   };
 
