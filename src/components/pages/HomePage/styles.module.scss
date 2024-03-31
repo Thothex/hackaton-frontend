@@ -1,5 +1,6 @@
 @import '../../../index.scss';
 
+
 .hackathonList{
   width: calc(100%);
   height: fit-content;
@@ -17,4 +18,9 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+.darkPage{
+  .title{
+    color:white
+  }
 }
