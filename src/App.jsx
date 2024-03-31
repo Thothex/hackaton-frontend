@@ -1,4 +1,5 @@
 import './index.scss'
+import { Button, Modal } from 'antd'
 import { Route, Routes, useLocation } from "react-router-dom";
 import LoginPage from "./components/pages/LoginPage";
 import RegisterPage from "@/components/pages/RegisterPage";
@@ -8,9 +9,9 @@ import ProfilePage from './components/pages/ProfilePage';
 import AdminPage from "./components/pages/AdminPage";
 import HackathonPage from "./components/pages/HackathonPage";
 import Navbar from "./components/CNavbar";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserThunk } from './redux/features/userSlice';
+import { approveUserRankStatusThunk, fetchUserRankStatusThunk, getUserThunk } from './redux/features/userSlice';
 import StartPage from "@/components/pages/StartPage/index.jsx";
 import HackathonEditPage from './components/pages/HackathonEditPage';
 import { getCategoriesThunk, getOrganizationsThunk } from './redux/features/dictionarySlice';
@@ -24,12 +25,20 @@ import HackathonDashboard from './components/pages/HackathonDashboard';
 import HighscorePage from './components/pages/HighscorePage';
 
 
-
 function App() {
-    const location = useLocation();
+  const location = useLocation();
   const dispatch = useDispatch()
-  const { bearer: bearerFromStore, userInfo } = useSelector((state) => state.userStore)
+  const { bearer: bearerFromStore, userInfo, userRankStatus } = useSelector((state) => state.userStore)
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const handleOk = () => {
+    setIsModalOpen(false);
+    dispatch(approveUserRankStatusThunk())
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
       const bearer = localStorage.getItem('token')
@@ -41,6 +50,7 @@ function App() {
   useEffect(() => {
     dispatch(getCategoriesThunk())
     dispatch(getOrganizationsThunk())
+    dispatch(fetchUserRankStatusThunk())
     if (userInfo.statusCode === 401 && location.pathname !== '/login' && location.pathname !== '/register') {
       window.location.replace('/login')
     } 
@@ -55,6 +65,11 @@ function App() {
     }
   }, [dispatch, userInfo])
 
+  useEffect(() => {
+    if (userRankStatus && userRankStatus?.approved === false) {
+      setIsModalOpen(true)
+    }
+  }, [userRankStatus])
 
   useEffect(() => {
     const socket = new WebSocket(import.meta.env.VITE_BASE_WS_URL);
@@ -65,6 +80,10 @@ function App() {
 
     socket.onmessage = (event) => {
       console.log('Получено сообщение:', event.data);
+      const data = JSON.parse(event.data);
+      if (data.code === 'fetch_rank_status') {
+        dispatch(fetchUserRankStatusThunk())
+      }
       // здесь в зависимости от того что пришло, можно дёргать диспатчи
     };
 
@@ -111,6 +130,9 @@ function App() {
           <Route path='/highscore' element={<HighscorePage />} />
         </Routes>
       </div>
+      <Modal title="Новый ранг" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+        <p>Вы получили новый ранг: {userRankStatus?.rank}</p>
+      </Modal>
     </div>
   );
 }
