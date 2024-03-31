@@ -1,5 +1,8 @@
 @import "../../index.scss";
+.dark {
+  background-color: $inner-input-auth-color;
 
+}
 .navbar {
   width: 20rem;
   height: 100vh;
@@ -98,6 +101,149 @@
       34deg,
       rgba(148, 168, 221, 1) 59%,
       rgba(127, 177, 225, 1) 100%
+    );
+    color: $white-color;
+    position: fixed;
+    bottom: 0;
+    left: 10;
+
+    .contactInfo {
+      font-weight: 100;
+    }
+
+    .icon {
+      width: 25px;
+      height: 25px;
+      padding: 2px;
+      border-radius: 25px;
+      background-color: $white-color;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.041);
+    }
+
+    .buttonContainer {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .questionsBtn {
+      margin-bottom: 15px;
+      width: 98%;
+      height: 35px;
+      background-color: $white-color;
+      color: $black-color;
+      font-weight: 700;
+      font-family: $font-family-commissioner;
+      border-radius: 40px;
+      border: none;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.041);
+      transition: 0.2s;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $light-grey-color;
+      }
+    }
+  }
+}
+.dark {
+  background-color: $dark-bg;
+  width: 20rem;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  .navbarContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .unactive,
+    .active {
+      width: 219px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      border-radius: 40px;
+      transition: background-color 0.3s ease;
+
+      .icon {
+        padding: 5px;
+        margin-left: 15px;
+        margin-right: 10px;
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.041);
+      }
+    }
+
+    .active {
+      color: $black-color;
+      background-color: $white-color;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.041);
+
+      .icon {
+        background-color: $auth-button-hover-color;
+      }
+
+      &:hover {
+        background-color: $background-color-link-hover;
+        color: $black-color;
+      }
+    }
+
+    .unactive {
+      color: $color-font-not-hover;
+
+      .icon {
+        background-color: $light-grey-color;
+      }
+
+      &:hover {
+        background-color: $background-color-link-hover;
+      }
+    }
+  }
+
+  .logo {
+    padding-top: 20px;
+  }
+
+  hr {
+    width: 233px;
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(
+                    to right,
+                    rgba(0, 0, 0, 0),
+                    rgba(0, 0, 0, 0.199),
+                    rgba(0, 0, 0, 0)
+    );
+  }
+
+  .questions {
+    width: 200px;
+    padding: 15px 15px 0 15px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 20px;
+    background: rgb(148, 168, 221);
+    background: linear-gradient(
+                    34deg,
+                    rgba(148, 168, 221, 1) 59%,
+                    rgba(127, 177, 225, 1) 100%
     );
     color: $white-color;
     position: fixed;

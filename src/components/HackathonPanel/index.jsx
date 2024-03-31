@@ -2,13 +2,14 @@ import React from 'react';
 import styles from './styles.module.scss';
 import {useNavigate} from "react-router-dom";
 import PropTypes from 'prop-types';
+import {useSelector} from "react-redux";
 
 const HackathonPanel = (props) => {
     const navigate = useNavigate();
     const currentDate = new Date();
     const endDate = new Date(props.end);
     const startDate = new Date(props.start);
-
+    const {darkMode} = useSelector((state) => state.mode);
     const isOwn = props.user.id === props.organizer_id;
     let status;
 
@@ -25,7 +26,7 @@ const HackathonPanel = (props) => {
     const formattedEndDate = endDate.getDate();
     const endMonth = endDate.toLocaleString('en-US', { month: 'long' });
     return (
-        <div className={`${styles.hackathonPanel} ${
+        <div className={`${styles.hackathonPanel} ${darkMode && styles.darkPanel} ${
             status === "Registration is open" ? styles.panelOpen :
                 status === "In progress" ? styles.panelInProgress :
                     status === "Finished" ? styles.panelClosed :

@@ -9,18 +9,23 @@ import signin from "../../assets/signin.svg";
 import register from "../../assets/register.svg";
 import question from "../../assets/question.svg";
 import logout from "../../assets/logout.svg";
+import darkLogo from "../../assets/darkLogo.svg";
+import highscore from "../../assets/highscore.svg";
 
 const Navbar = () => {
   const logoutHandler = () => {
     localStorage.removeItem("token");
     window.location.href = "/";
   };
+  const { darkMode } = useSelector((state) => state.mode);
   const { userInfo } = useSelector((state) => state.userStore);
   return (
-    <nav className={styles.navbar}>
+      <nav className={`${styles.navbar} ${darkMode && styles.dark}`}>
       <div className={styles.navbarContainer}>
         <Link to="/">
-          <img src={logo} alt="logo" className={styles.logo} />
+          {darkMode ? <img src={darkLogo} alt="logo" className={styles.logo}/> :
+              <img src={logo} alt="logo" className={styles.logo} />
+          }
         </Link>
         <hr />
         <div className={styles.navList}>
@@ -86,7 +91,7 @@ const Navbar = () => {
               isActive ? styles.active : styles.unactive
             }
           >
-            <img src={fire} alt="fire" className={styles.icon} />
+            <img src={highscore} alt="highscore" className={styles.icon} />
             Highscore
           </NavLink>
           <NavLink

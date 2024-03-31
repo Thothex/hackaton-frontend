@@ -3,20 +3,14 @@ import { Checkbox } from "antd";
 import styles from "./styles.module.scss";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
-import { updateTask } from "@/redux/features/hackathonsSlice";
+import { deleteTask, updateTask } from "@/redux/features/hackathonsSlice";
 import PropTypes from "prop-types";
 import plus from "@/assets/plus.svg";
 import remove from "@/assets/remove.svg";
 import MainButton from "@/components/MainButton";
 import CTextArea from "@/components/CTextArea";
 import close from "@/assets/close.svg";
-import { Input } from 'antd';
-// import { Checkbox } from 'antd';
-import { Button } from 'antd';
-import Loading from '@/components/Loading';
-const { TextArea } = Input;
-
-
+import Loading from "@/components/Loading";
 
 const ManyAnswerTask = ({ hackathonId, task }) => {
   const [answers, setAnswers] = useState(task.answers);
@@ -84,13 +78,17 @@ const ManyAnswerTask = ({ hackathonId, task }) => {
     );
   };
 
+  const deleteHandler = () => {
+    dispatch(deleteTask({ taskId: task.id }));
+  };
+
   if (!answers) return <Loading />;
   return (
     <div className={styles.taskContainer}>
       <div>
         <div className={styles.deleteBtnContainer}>
           <span className={styles.typeTask}>Multiple answers</span>
-          <button className={styles.close}>
+          <button className={styles.close} onClick={deleteHandler}>
             <img src={close} alt="close" className={styles.icon} />
           </button>
         </div>

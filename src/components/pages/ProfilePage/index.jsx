@@ -25,6 +25,7 @@ const ProfilePage = () => {
   const [date, setDate] = useState(new Date());
   const { userInfo } = useSelector((state) => state.userStore);
   const { userStat } = useSelector((state) => state.userStore);
+  const { darkMode } = useSelector((state) => state.mode);
 
   useEffect(() => {
     dispatch(userStatThunk());
@@ -45,7 +46,7 @@ const ProfilePage = () => {
 
   if (!userInfo || !userStat) return <Loading />;
   return (
-    <div>
+    <div className={`${styles.profilePage} ${darkMode && styles.darkPage}`}>
       <div className={styles.topPlain}>
         <div className={styles.hello}>Hello, {userInfo.username} 👋🏼</div>
       </div>

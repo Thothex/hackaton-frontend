@@ -26,8 +26,20 @@ $member: #9333ea;
 $member-background: rgba(168, 85, 247, 0.1);
 $font-color-edit-hack: #718096;
 
+//dark
+$dark-bg: #35405b;
+$dark-gray: #667085;
+
+$darkInProgress: #567b7e;
+$dark-light-violet-color: #5a6d9b;
+
+
+.dark{
+  background-color: $dark-bg;
+}
+
 body {
-  width: 100wv;
+  width: 100vw;
   height: fit-content;
   min-height: 100vh;
   margin: 0 auto;
@@ -59,4 +71,6 @@ button:focus {
   outline: none;
   border: none;
 }
+
+
 

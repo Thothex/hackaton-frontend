@@ -22,7 +22,10 @@ import { fetchUsersThunk } from './redux/features/usersSlice';
 import HackathonCheckPage from './components/pages/HackathonCheckPage';
 import HackathonTeamPage from './components/pages/HackathonTeamPage';
 import HackathonDashboard from './components/pages/HackathonDashboard';
+import FeaturesPanel from "@/components/FeaturesPanel/index.jsx";
 import HighscorePage from './components/pages/HighscorePage';
+
+
 
 
 function App() {
@@ -30,7 +33,7 @@ function App() {
   const dispatch = useDispatch()
   const { bearer: bearerFromStore, userInfo, userRankStatus } = useSelector((state) => state.userStore)
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const { darkMode } = useSelector((state) => state.mode);
   const handleOk = () => {
     setIsModalOpen(false);
     dispatch(approveUserRankStatusThunk())
@@ -38,7 +41,7 @@ function App() {
 
   const handleCancel = () => {
     setIsModalOpen(false);
-  };
+  };  const { darkMode } = useSelector((state) => state.mode);
 
   useEffect(() => {
       const bearer = localStorage.getItem('token')
@@ -53,12 +56,12 @@ function App() {
     dispatch(fetchUserRankStatusThunk())
     if (userInfo.statusCode === 401 && location.pathname !== '/login' && location.pathname !== '/register') {
       window.location.replace('/login')
-    } 
+    }
     if (userInfo.statusCode === 403) {
       window.location.replace('/404')
-    } 
+    }
   }, [dispatch, userInfo])
-  
+
   useEffect(() => {
     if (userInfo && userInfo?.role === 'admin') {
       dispatch(fetchUsersThunk())
@@ -101,12 +104,21 @@ function App() {
     };
   }, []);
 
-  
+
 
   return (
-    <div className="appContainer">
+
+    <div className={`appContainer transition-all  
+                     duration-500  
+                     ease-in-out  
+                     ${darkMode ?
+        "dark " :
+        ""}`}>
       {location.pathname !== "/register" && location.pathname !== "/login"  && location.pathname !== "/" && location.pathname !=='/dashboard' && (
+          <>
         <Navbar />
+          <FeaturesPanel/>
+        </>
       )}
       <div className='mainWrapper'>
         <Routes>

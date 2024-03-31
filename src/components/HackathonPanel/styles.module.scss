@@ -127,3 +127,30 @@ color: $finished;
   display: flex;
   gap: 18px;
 }
+.darkPanel{
+
+  .title{
+    color:$font-color-date
+  }
+  .button:hover{
+    outline: 3px solid $font-color-date;
+  }
+  .panelOpen{
+    background-color:  $dark-light-violet-color;
+  }
+  .panelInProgress{
+    background-color: $darkInProgress;
+  }
+  .panelClosed{
+    background-color: $finished;
+  }
+  .panelOpenButton{
+    color:   $dark-light-violet-color;
+  }
+  .panelInProgressButton{
+    color: $darkInProgress;
+  }
+  .panelClosedButton{
+    color: $finished;
+  }
+}
