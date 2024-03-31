@@ -33,7 +33,12 @@ const HackathonTasksEdit = ({ hackathonId }) => {
       );
     if (e.key === "3")
       dispatch(
-        createNewTask({ type: "input", maxScore: 10, answers: {}, hackathonId })
+        createNewTask({
+          type: "input",
+          maxScore: 10,
+          answers: {},
+          hackathonId
+        })
       );
   };
 
@@ -59,7 +64,7 @@ const HackathonTasksEdit = ({ hackathonId }) => {
 
   return (
     <div>
-      <h2>Fill in the task information</h2>
+      <h2 className={styles.title}>Fill in the task information</h2>
 
       {tasks &&
         tasks.map((task, index) => {

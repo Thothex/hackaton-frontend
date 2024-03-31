@@ -1,23 +1,41 @@
-import {useEffect, useLayoutEffect} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchHackathonById, putHackathon } from '@/redux/features/hackathonsSlice.js';
 import { Button, Flex } from 'antd'
 import styles from './styles.module.scss';
 import Loading from '@/components/Loading';
+import screenfull from 'screenfull';
+import DashboardFloatingButton from '@/components/DashboardFloatingButton';
 
 const HackathonPage = () => {
   const navigate = useNavigate();
-    const user = useSelector((state) => state.userStore.userInfo);
-   const { id } = useParams();
-   const dispatch = useDispatch();
-   const hackathon = useSelector(state => state.hackathons.hackathon);
-   useEffect(() => {
-     dispatch(fetchHackathonById(id));
-   }, [dispatch, id]);
+  const user = useSelector((state) => state.userStore.userInfo);
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const hackathon = useSelector(state => state.hackathons.hackathon);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const iframeRef = useRef(null);
+
+  useEffect(() => {
+    dispatch(fetchHackathonById(id));
+  }, [dispatch, id]);
+  
+  const toggleFullscreen = () => {
+    if (screenfull.isEnabled) {
+      if (!screenfull.isFullscreen) {
+        screenfull.request(iframeRef.current);
+      } else {
+        screenfull.exit();
+      }
+      setIsFullscreen(prevState => !prevState);
+    }
+  };
+
   if (!hackathon) {
     return <Loading />;
   }
+  
 
   const isOrg = user.isOrg && user.id === hackathon.organizer_id
   const currentDate = new Date();
@@ -135,9 +153,15 @@ const HackathonPage = () => {
       </div>
       
       {isOrg && hackathon.status !== "Finished" &&
-        <Flex wrap="wrap" gap="small" >
-          <Button type="primary" danger onClick={handleEndHackathon}>Hackathon end</Button>
-        </Flex>
+        <>
+          <Flex wrap="wrap" gap="small" >
+            <Button type="primary" danger onClick={handleEndHackathon}>Hackathon end</Button>
+          </Flex>
+          <DashboardFloatingButton onClick={toggleFullscreen} />
+          <div className={styles.iframeWrapper}>
+            <iframe ref={iframeRef} src={`http://localhost:5173/dashboard?id=${id}`} />
+          </div>
+        </>
       }
       </div>
   )

@@ -10,6 +10,8 @@ import register from "../../assets/register.svg";
 import question from "../../assets/question.svg";
 import logout from "../../assets/logout.svg";
 import darkLogo from "../../assets/darkLogo.svg";
+import highscore from "../../assets/highscore.svg";
+
 const Navbar = () => {
   const logoutHandler = () => {
     localStorage.removeItem("token");
@@ -83,6 +85,15 @@ const Navbar = () => {
               </NavLink>
             </>
           )}
+          <NavLink
+            to="/highscore"
+            className={({ isActive }) =>
+              isActive ? styles.active : styles.unactive
+            }
+          >
+            <img src={highscore} alt="highscore" className={styles.icon} />
+            Highscore
+          </NavLink>
           <NavLink
             to="/hackathon"
             className={({ isActive }) =>

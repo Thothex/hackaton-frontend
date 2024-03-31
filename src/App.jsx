@@ -22,6 +22,8 @@ import HackathonCheckPage from './components/pages/HackathonCheckPage';
 import HackathonTeamPage from './components/pages/HackathonTeamPage';
 import HackathonDashboard from './components/pages/HackathonDashboard';
 import FeaturesPanel from "@/components/FeaturesPanel/index.jsx";
+import HighscorePage from './components/pages/HighscorePage';
+
 
 
 
@@ -85,13 +87,14 @@ function App() {
 
 
   return (
+
     <div className={`appContainer transition-all  
                      duration-500  
                      ease-in-out  
                      ${darkMode ?
         "dark " :
         ""}`}>
-      {location.pathname !== "/register" && location.pathname !== "/login"  && location.pathname !== "/" && (
+      {location.pathname !== "/register" && location.pathname !== "/login"  && location.pathname !== "/" && location.pathname !=='/dashboard' && (
           <>
         <Navbar />
           <FeaturesPanel/>
@@ -116,6 +119,7 @@ function App() {
           <Route path='/hackathon/:id/edit' element={<HackathonEditPage />}/>
           <Route path='/test' element={<TestPage/>}/>
           <Route path='/team/accept/:teamId/:userId' element={<AcceptPage />} />
+          <Route path='/highscore' element={<HighscorePage />} />
         </Routes>
       </div>
     </div>

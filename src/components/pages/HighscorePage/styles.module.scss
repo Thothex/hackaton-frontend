@@ -8,13 +8,12 @@
 
 .blocksWrapper{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 60px;
   flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 60px;
+  justify-content: space-between;
+  margin-top: 20px;
   align-items: center;
-  height: 100%;
 }
 
 .blockWidget{
@@ -27,7 +26,7 @@
   background-color: #f5f5f5;
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
   min-width: 600px;
-  padding-right: 60px;
+  padding: 20px 60px 40px 40px;
 }
 
 .progressWrapper {
@@ -37,20 +36,42 @@
 .widgetTitle{
   font-size: 40px;
   font-weight: 200;
+  margin-bottom: 40px;
 }
 
-.countdownWrapper{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
-
+.username{
+  font-size: 30px;
+  font-weight: 200;
+  color: $data-auth-color;
+}
+.usernameMe {
+  font-size: 30px;
+  font-weight: 200;
+  color: #2db7f5;
 }
 
-.rowBlockWrapper {
+.username h4 {
+  width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.usernameMe h4 {
+  width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.userScore {
   display: flex;
-  flex-direction: column;
-  gap: 80px;
   justify-content: space-between;
-  margin-top: 20px;
+  width: 100%;
+  gap: 20px;
+}
+
+.progress{
+  width: 300px;
+
 }

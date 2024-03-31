@@ -72,14 +72,14 @@ const LoginPage = () => {
             value={formData.password}
             onChange={handleInputChange}
           />
-          <div className={styles.checkboxContainer}>
+          {/* <div className={styles.checkboxContainer}>
             <CCheckbox
               label="Remember me"
               checked={rememberCheckbox}
               onChange={handleChangeRemember}
             />
             <span>Forgot password</span>
-          </div>
+          </div> */}
           <AuthButton buttonText="Sign in" />
         </form>
         <h5>

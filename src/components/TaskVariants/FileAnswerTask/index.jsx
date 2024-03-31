@@ -4,9 +4,9 @@ const { TextArea } = Input;
 import { Button } from "antd";
 import styles from "./styles.module.scss";
 import { useDispatch } from "react-redux";
-import { updateTask } from "@/redux/features/hackathonsSlice";
+import { deleteTask, updateTask } from "@/redux/features/hackathonsSlice";
 import PropTypes from "prop-types";
-import Loading from '@/components/Loading';
+import Loading from "@/components/Loading";
 import CTextArea from "@/components/CTextArea";
 import close from "@/assets/close.svg";
 import MainButton from "@/components/MainButton";
@@ -41,13 +41,17 @@ const ManyAnswerTask = ({ hackathonId, task }) => {
     );
   };
 
+  const deleteHandler = () => {
+    dispatch(deleteTask({ taskId: task.id }));
+  };
+
   if (!answers) return <Loading />;
   return (
     <div className={styles.taskContainer}>
       <div>
         <div className={styles.deleteBtnContainer}>
           <span className={styles.typeTask}>File upload</span>
-          <button className={styles.close}>
+          <button className={styles.close} onClick={deleteHandler}>
             <img src={close} alt="close" className={styles.icon} />
           </button>
         </div>
@@ -70,6 +74,7 @@ const ManyAnswerTask = ({ hackathonId, task }) => {
           className={styles.taskInput}
           onChange={(e) => setTaskScore(+e.target.value)}
           type="number"
+          value={taskScore || 0}
           placeholder="Enter scores"
         />
       </div>
