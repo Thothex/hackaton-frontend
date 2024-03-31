@@ -24,6 +24,7 @@ const HighscorePage = () => {
     '100%': '#87d068',
   };
   const maxScore = usersHithscore?.highscore[0]?.score;
+  const maxScoreOrg = usersHithscore?.organizationsHighscore[0]?.rating;
   
   return (
     <div className={styles.blocksWrapper}>
@@ -48,6 +49,32 @@ const HighscorePage = () => {
                   strokeColor={twoColors}
                   size={[300, 30]}
                   format={() => ` ${user.score}`} />
+              </div>
+            )
+          }) 
+        }
+      </div>
+
+
+      <div className={styles.blockWidget}>
+      <h1 className={styles.widgetTitle}>Organizations highscore</h1>
+        {
+          usersHithscore?.organizationsHighscore && usersHithscore?.organizationsHighscore.map((org) => {
+            const progress = org.rating * 100 / maxScoreOrg;
+            const disabled = org.organization.length > 10;
+            return (
+              <div className={styles.userScore}  key={org.id}>
+                <div className={styles.username}>
+                <Tooltip placement="topLeft" title={!disabled ? '' : org.organization} color='#2db7f5'>
+                  <h4>{org.organization}</h4>
+                </Tooltip>
+                </div>
+                <Progress
+                  className={styles.progress}
+                  percent={progress}
+                  strokeColor={twoColors}
+                  size={[300, 30]}
+                  format={() => ` ${org.rating}`} />
               </div>
             )
           }) 
