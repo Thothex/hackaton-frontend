@@ -1,0 +1,18 @@
+// style.module.scss
+
+@import "../../index.scss";
+.panel{
+  position: absolute;
+  width: 50px;
+  height: 30px;
+  top: 20px;
+  right: 0;
+  margin-right: 40px;
+}
+
+.dark {
+  color:white;
+}
+.light{
+  color:black
+}
