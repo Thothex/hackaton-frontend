@@ -24,9 +24,7 @@ import HackathonTeamPage from './components/pages/HackathonTeamPage';
 import HackathonDashboard from './components/pages/HackathonDashboard';
 import FeaturesPanel from "@/components/FeaturesPanel/index.jsx";
 import HighscorePage from './components/pages/HighscorePage';
-
-
-
+import Ranks from './constants/ranks';
 
 function App() {
   const location = useLocation();
@@ -34,6 +32,7 @@ function App() {
   const { bearer: bearerFromStore, userInfo, userRankStatus } = useSelector((state) => state.userStore)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { darkMode } = useSelector((state) => state.mode);
+
   const handleOk = () => {
     setIsModalOpen(false);
     dispatch(approveUserRankStatusThunk())
@@ -41,7 +40,7 @@ function App() {
 
   const handleCancel = () => {
     setIsModalOpen(false);
-  };  const { darkMode } = useSelector((state) => state.mode);
+  };
 
   useEffect(() => {
       const bearer = localStorage.getItem('token')
@@ -142,8 +141,11 @@ function App() {
           <Route path='/highscore' element={<HighscorePage />} />
         </Routes>
       </div>
-      <Modal title="Новый ранг" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        <p>Вы получили новый ранг: {userRankStatus?.rank}</p>
+      <Modal title="New Rank" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+        <div className='flexCenterCol'>
+          <p>Yor new rank: {userRankStatus?.rank}</p>
+          {userRankStatus?.rank && <img src={Ranks[userRankStatus.rank.toUpperCase()].img} alt={userRankStatus.rank} />}
+        </div>
       </Modal>
     </div>
   );
