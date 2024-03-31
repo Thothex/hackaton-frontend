@@ -86,7 +86,7 @@ function App() {
 
   return (
     <div className="appContainer">
-      {location.pathname !== "/register" && location.pathname !== "/login"  && location.pathname !== "/" && (
+      {location.pathname !== "/register" && location.pathname !== "/login"  && location.pathname !== "/" && location.pathname !=='/dashboard' && (
         <Navbar />
       )}
       <div className='mainWrapper'>

@@ -68,7 +68,12 @@ export const createHackathon = createAsyncThunk(
 
 export const createNewTask = createAsyncThunk(
 	"hackathons/tasks/create",
-	async ({ type = "many-answers", maxScore = 10, hackathonId }) => {
+	async ({
+		type = "many-answers",
+		maxScore = 10,
+		hackathonId,
+		answers = {},
+	}) => {
 		try {
 			const response = await fetch(
 				`${import.meta.env.VITE_BASE_URL}/hackathon/${hackathonId}/task`,
@@ -78,7 +83,7 @@ export const createNewTask = createAsyncThunk(
 						Authorization: `Bearer ${localStorage.getItem("token")}`,
 						"Content-Type": "application/json",
 					},
-					body: JSON.stringify({ type, maxScore }),
+					body: JSON.stringify({ type, maxScore, answers }),
 				}
 			);
 			if (!response.ok) {

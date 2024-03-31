@@ -43,6 +43,7 @@ const OneInputTask = ({ hackathonId, task }) => {
     );
   };
 
+  console.log('task', task);
   if (!answers) return <Loading />;
   return (
     <div className={styles.taskContainer}>
@@ -72,6 +73,7 @@ const OneInputTask = ({ hackathonId, task }) => {
           className={styles.taskInput}
           onChange={(e) => setTaskScore(+e.target.value)}
           type="number"
+          value={taskScore || 0}
           placeholder="Enter scores"
         />
       </div>
