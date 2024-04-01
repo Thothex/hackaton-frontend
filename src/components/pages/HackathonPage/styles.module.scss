@@ -25,6 +25,8 @@
 }
 }
 .upperHello{
+  display:flex;
+  align-items: center;
   margin-top: 20px;
   *{
     padding-left: 0;
@@ -36,10 +38,11 @@
     border:none;
     font-family: "Geologica", sans-serif;
     background-color: white;
-    border-radius: 15px;
-    width: fit-content;
-    padding-inline: 1em;
-    padding-block: .5em;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-inline: 1em;
+    //padding-block: .5em;
     box-shadow: none;
     outline: none;
     transition: .3s all ease;
@@ -70,7 +73,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 1);
   color:$font-color-date;
   border-radius: 20px;
   padding: .5em;
@@ -235,7 +238,7 @@
   justify-content: space-between;
   flex-direction: column;
   align-items: center;
-  padding-block: 10%;
+  padding-block: 20px;
 }
 .time{
   width: 100%;;
@@ -246,4 +249,13 @@
 
 .hackathonPanelOrganization{
   font-size: 1.5rem;
+}
+
+.iframeWrapper{
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  width: 0px;
+  height: 0px;
+  overflow: hidden;
 }
