@@ -8,9 +8,14 @@ const UserHackatons = ({ hack, date }) => {
   const navigate = useNavigate();
 
   const filteredHackatons = hack.filter((hackaton) => {
-    const hackStartDate = new Date(hackaton.start).getDate();
-    const hackEndDate = new Date(hackaton.end).getDate();
-    const checkDate = new Date(date).getDate();
+    const hackStartDate = new Date(hackaton.start);
+    const hackEndDate = new Date(hackaton.end);
+    const checkDate = new Date(date);
+
+    hackStartDate.setHours(0, 0, 0, 0);
+    hackEndDate.setHours(0, 0, 0, 0);
+    checkDate.setHours(0, 0, 0, 0);
+
     return checkDate >= hackStartDate && checkDate <= hackEndDate;
   });
 

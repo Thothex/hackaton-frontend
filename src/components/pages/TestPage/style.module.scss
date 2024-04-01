@@ -1,49 +1,58 @@
-@import '../../../index.scss';
-.main{
+@import "../../../index.scss";
+.main {
   width: calc(100% - 5vh - 5vh);
   background-color: white;
   min-height: 100vh;
   margin-top: 20px;
   margin-right: 5vh;
   border-radius: 20px;
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   // padding-inline:10vh;
   // padding-block: 5vh;
 }
-.Btn{
+.Btn {
   border: 2px solid $light-violet-color;
-  font-family: 'Geologica', sans-serif;
+  font-family: "Geologica", sans-serif;
   background-color: white;
   color: $light-violet-color;
   font-weight: 600;
   border-radius: 25px;
   width: 15em;
   min-height: 3em;
+  transition: 0.3s;
 
+  &:hover {
+    background-color: rgba(220, 220, 220, 0.336);
+  }
+
+  &:focus,
+  &:active {
+    border: 2px solid $light-violet-color;
+  }
 }
-.pageItem{
-  background:none;
+.pageItem {
+  background: none;
 }
-.pageLink{
+.pageLink {
   border: none;
-  background-color:#7d98e2;
-  width:6em;
-  height:14px;
-  border-radius:20px;
-  margin-inline:.1em
+  background-color: #7d98e2;
+  width: 6em;
+  height: 14px;
+  border-radius: 20px;
+  margin-inline: 0.1em;
 }
-.active{
-  background-color:#7d98e2;
+.active {
+  background-color: #7d98e2;
 }
-.unactive{
+.unactive {
   background-color: rgba(125, 152, 226, 0.5);
 }
-.BtnContainer{
+.BtnContainer {
   display: flex;
   justify-content: space-between;
-  gap:5px
+  gap: 5px;
 }
 
 .countDownRow {
@@ -54,4 +63,17 @@
   margin-bottom: 2vh;
   padding-bottom: 4em;
   padding-right: 20px;
+}
+
+.taskContainer {
+  align-items: center;
+  width: 75%;
+  border-radius: 20px;
+  padding: 25px;
+  margin-bottom: 50px;
+  background-color: rgba(153, 153, 153, 0.062);
+
+  .taskName {
+    font-size: 25px;
+  }
 }
