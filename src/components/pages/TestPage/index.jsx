@@ -2,18 +2,19 @@ import { useEffect, useState, useLayoutEffect } from "react";
 import styles from "./style.module.scss";
 import InputTask from "@/components/InputTask";
 import AddFileTask from "@/components/AddFileTask";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTasks } from "@/redux/features/taskSlice.js";
 import ManyAnswersTask from "@/components/ManyAnswersTask";
 import { getTeamInfo } from "@/redux/features/teamSlice.js";
 import Loading from "@/components/Loading";
 import { fetchTeamAnswer } from "@/redux/features/answersSlice";
-import { message } from 'antd';
+import { message } from "antd";
 import CountdownTimer from "@/components/CountdownTimer";
 import { fetchHackathonById } from "@/redux/features/hackathonsSlice";
 
 const TestPage = () => {
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [team, setTeam] = useState({});
   const [teamId, setTeamId] = useState(null);
@@ -22,8 +23,18 @@ const TestPage = () => {
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.tasks.tasks);
   const { userInfo } = useSelector((state) => state.userStore);
-  const { answers } = useSelector((state)=> state.answersStore)
-  const hackathon = useSelector((state)=> state.hackathons?.hackathon)
+  const { answers } = useSelector((state) => state.answersStore);
+  const hackathon = useSelector((state) => state.hackathons?.hackathon);
+
+  useEffect(() => {
+    if (
+      userInfo?.id &&
+      hackathon?.organizer_id &&
+      userInfo.id === hackathon.organizer_id
+    ) {
+      navigate("/hackathon");
+    }
+  }, [navigate, userInfo, hackathon]);
 
   useEffect(() => {
     if (hackathon?.id) return;
@@ -56,7 +67,7 @@ const TestPage = () => {
 
   useEffect(() => {
     dispatch(fetchTasks(id));
-    dispatch(fetchTeamAnswer({ hackathonId:id, teamId }))
+    dispatch(fetchTeamAnswer({ hackathonId: id, teamId }));
   }, [dispatch, id, teamId]);
 
   if (!tasks) {
@@ -64,11 +75,11 @@ const TestPage = () => {
   }
 
   const info = () => {
-    message.success('Answer saved correctly... maybe');
+    message.success("Answer saved correctly... maybe");
   };
 
   const errorToast = () => {
-    message.error('Something went wrong ^_^');
+    message.error("Something went wrong ^_^");
   };
 
   const totalPages = tasks.length;
@@ -99,7 +110,7 @@ const TestPage = () => {
       },
       {}
     );
-      console.log('answers', answers);
+    console.log("answers", answers);
     try {
       const res = await fetch(
         `${import.meta.env.VITE_BASE_URL}/answers/${task.id}/${type}`,
@@ -118,11 +129,11 @@ const TestPage = () => {
           }),
         }
       );
-      
+
       if (res.status === 201) {
-        info()
+        info();
       } else {
-        errorToast()
+        errorToast();
       }
     } catch (error) {
       console.error("Error:", error);
@@ -152,9 +163,9 @@ const TestPage = () => {
         }
       );
       if (res.status === 201) {
-        info()
+        info();
       } else {
-        errorToast()
+        errorToast();
       }
     } catch (error) {
       console.error("Error:", error);
@@ -164,15 +175,23 @@ const TestPage = () => {
   const renderContent = () => {
     if (currentPage > 0 && currentPage <= totalPages) {
       const task = tasks[currentPage - 1]; // Индексация с 0
-      const currentAnswer = answers.find(answer => answer.taskId === task.id)?.answer?.answer
-      const disabled = new Date(hackathon.end) < new Date()
+      const currentAnswer = answers.find((answer) => answer.taskId === task.id)
+        ?.answer?.answer;
+      const disabled = new Date(hackathon.end) < new Date();
       return (
         <div>
           {task.type === "document" && (
             <>
               <p>{task.name}</p>
               <p>{task.description}</p>
-              {captain && <AddFileTask task={task} teamId={teamId} showToast={info} disabled={disabled} />}
+              {captain && (
+                <AddFileTask
+                  task={task}
+                  teamId={teamId}
+                  showToast={info}
+                  disabled={disabled}
+                />
+              )}
             </>
           )}
           {task.type === "input" && (
@@ -228,10 +247,14 @@ const TestPage = () => {
 
     return pageNumbers;
   };
-  console.log('hackathon.end', hackathon);
+  console.log("hackathon.end", hackathon);
   return (
     <div className={styles.main}>
-      {hackathon?.end && <div className={styles.countDownRow}><CountdownTimer targetDate={hackathon.end} /></div>}
+      {hackathon?.end && (
+        <div className={styles.countDownRow}>
+          <CountdownTimer targetDate={hackathon.end} />
+        </div>
+      )}
       <nav aria-label="...">
         <ul className="pagination pagination-lg">{generatePageNumbers()}</ul>
       </nav>
