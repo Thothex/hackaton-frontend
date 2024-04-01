@@ -7,6 +7,7 @@ import styles from './styles.module.scss';
 import Loading from '@/components/Loading';
 import screenfull from 'screenfull';
 import DashboardFloatingButton from '@/components/DashboardFloatingButton';
+import Icons from '@/constants/icons';
 
 
 const HackathonPage = () => {
@@ -84,7 +85,9 @@ const HackathonPage = () => {
         }`}
       >
         <div className={styles.upperHello}>
-          <button onClick={() => navigate("/hackathon")}>{`<-back`}</button>
+          <button onClick={() => navigate("/hackathon")}>
+            <img className={styles.backArrow} src={Icons.BACK_ARROW} alt="back" />
+          </button>
           <h4>Welcome to the hackathon 👋🏼</h4>
         </div>
         <h1 className={styles.titleHac}>{hackathon.name}</h1>
