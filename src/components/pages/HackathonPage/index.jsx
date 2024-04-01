@@ -20,7 +20,7 @@ const HackathonPage = () => {
   useEffect(() => {
     dispatch(fetchHackathonById(id));
   }, [dispatch, id]);
-  
+
   const toggleFullscreen = () => {
     if (screenfull.isEnabled) {
       if (!screenfull.isFullscreen) {
@@ -35,7 +35,7 @@ const HackathonPage = () => {
   if (!hackathon) {
     return <Loading />;
   }
-  
+
 
   const isOrg = user.isOrg && user.id === hackathon.organizer_id
   const currentDate = new Date();
@@ -59,7 +59,7 @@ const HackathonPage = () => {
   const yearStart = startDate.getFullYear();
   const yearEnd = endDate.getFullYear();
   const endMonth = endDate.toLocaleString('en-US', { month: 'long' });
-  
+
   const handleEndHackathon = () => {
     dispatch(putHackathon({...hackathon, status: "Finished" }))
   }
@@ -73,7 +73,7 @@ const HackathonPage = () => {
                             ""}`}
         >
           <div className={styles.upperHello}>
-            <button onClick={()=> navigate('/hackathon')}>{`<-back`}</button>
+            <button onClick={()=> navigate('/hackathon')}>{`<—`}</button>
             <h4>Welcome to the hackathon 👋🏼</h4>
           </div>
           <h1 className={styles.titleHac}>{hackathon.name}</h1>
@@ -151,7 +151,7 @@ const HackathonPage = () => {
             {status === "Finished" &&  <div className={styles.pic} ><button disabled={status === "Finished"} className={styles.takePartBTN}>Hackathon is over :(</button></div>
             }
       </div>
-      
+
       {isOrg && hackathon.status !== "Finished" &&
         <>
           <Flex wrap="wrap" gap="small" >

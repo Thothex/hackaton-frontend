@@ -2,7 +2,8 @@
 .members{
 
   height: fit-content;
-  width: 40vw;
+  width: inherit;
+  margin-bottom: 20px;
   max-width: 700px;
   min-width: 550px;
   display: flex;
@@ -140,9 +141,7 @@ font-size: 2em;
     font-weight: 200;
   }
 }
-.toTask{
 
-}
 .hackathonHeader{
   width: 90%;
   display: flex;
@@ -159,7 +158,7 @@ font-size: 2em;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30%;
+  width: 100%;
   border-radius: 20px;
   height: 230px;
   min-height: 230px;
@@ -176,19 +175,187 @@ font-size: 2em;
     box-shadow: 0 -200px 100px -100px rgba(125,152,226,1) inset;
   }
 }
-.toTask:hover{
-  outline: 3px solid rgba(45, 55, 72, 0.5);
+.toTask:hover {
+  animation: bounce 0.3s;
 }
-.toTask:active{
-  outline: 5px solid rgba(45, 55, 72, 0.5);
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.toTask:active {
+  animation: pop 0.3s;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 .team{
   h2{
     color:#7254b6
   }
 }
+.createTeam{
+  background-color: white;
+  border-radius: 20px;
+  padding: 20px ;
+  margin-bottom: 20px;
+  display: flex;
+
+  justify-content: space-between;
+  flex-direction: column;
+  button{
+    border:2px solid $light-grey-color;
+    background: none;
+    padding-inline: 1em;
+    border-radius: 40px;
+    width: 20%;
+    height: 4em;
+    transition: .2s all ease;
+  }
+  button:hover{
+    background-color: $light-grey-color;
+  }
+  button:active{
+    border:2px solid dimgrey;
+  }
+  input{
+    height: 4em;
+    width: 80%;
+  }
+}
+.teamContainer{
+  width: 40%;
+
+}
 
 .userAvatarImg {
   width: 50px;
   height: 50px;
 }
+
+
+.hackathonPage{
+  margin-top: 20px;
+  width: 100%;
+  margin-bottom: 20%;
+}
+.titleHac{
+  font-size: 48px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  padding-left: 20px;
+}
+.hackathonPanelUpper{
+  background: url("../../../assets/authHeader.svg");
+  color: white;
+  width: 100%;
+  min-height: 300px;
+  height: 20vh;
+  background-color: $light-violet-color;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  //*{
+  //  padding-left:20px
+  //}
+}
+
+.upperHello{
+  display:flex;
+  align-items: center;
+  margin-top: 20px;
+  *{
+    padding-left: 0;
+  }
+  h4{
+    font-size: 20px;
+  }
+  .button{
+    border:none;
+    font-family: "Geologica", sans-serif;
+    background-color: white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-inline: 1em;
+    //padding-block: .5em;
+    box-shadow: none;
+    outline: none;
+    transition: .3s all ease;
+    font-size: 15px;
+  }
+  .button:hover{
+    box-shadow: black 5px 5px ;
+  }
+  .button:active{
+    outline: 4px solid black;
+  }
+}
+.panelOpen{
+  background-color:  $light-violet-color;
+}
+.panelInProgress{
+  background-color: $inProgress;
+}
+.panelClosed{
+  background-color: $finished;
+}
+.hackathonPanelLower{
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  margin-top: 20px;
+  margin-right: 20px;
+
+  justify-content: space-between;
+  gap:20px;
+}
+.about{
+  display: flex;
+  flex-direction: column;
+  padding:20px;
+  border-radius: 20px;
+  background-color: white;
+  width: 60%;
+  gap:40px;
+  h2{
+    font-size: 40px;
+
+  }
+  p{
+    font-size:20px;
+    font-weight: 200;
+  }
+}
+.timerName{
+  display: flex;
+  padding-bottom: 0;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 20px;
+
+  .countDownRow{
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+   align-items: center;
+  }
+}
+

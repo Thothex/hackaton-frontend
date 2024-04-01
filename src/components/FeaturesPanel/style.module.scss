@@ -1,18 +1,44 @@
-// style.module.scss
-
-@import "../../index.scss";
-.panel{
+.settings{
   position: absolute;
-  width: 50px;
-  height: 30px;
-  top: 20px;
+  top: 40px;
   right: 0;
   margin-right: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: fit-content;
+  gap: 10px;
+  background-color: #97abdf;
+  border-radius: 20px;
+  padding-left: 20px;
+  border:2px solid #97abdf;
+}
+.panel {
+  height: 30px;
+  width: 60px;
+  overflow: hidden;
+  border-radius: 40px;
+}
+
+.dark,
+.light {
+  position: absolute;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  margin-top: -12.5px;
+  padding: 0;
+}
+
+.light {
+  transform: translateX(0);
+  background: url("../../assets/mode/moon.svg")  no-repeat  center ;
+  background-size: cover;
 }
 
 .dark {
-  color:white;
-}
-.light{
-  color:black
+  transform: translateX(25px);
+  background: url("../../assets/mode/sunTheme.svg") no-repeat center;
+  background-size: cover;
 }
