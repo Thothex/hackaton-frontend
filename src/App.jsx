@@ -144,7 +144,7 @@ function App() {
       <Modal title="New Rank" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
         <div className='flexCenterCol'>
           <p>Yor new rank: {userRankStatus?.rank}</p>
-          {userRankStatus?.rank && <img src={Ranks[userRankStatus.rank.toUpperCase()].img} alt={userRankStatus.rank} />}
+          {userRankStatus?.rank && <img src={Ranks[userRankStatus.rank.toUpperCase()]?.img} alt={userRankStatus.rank} />}
         </div>
       </Modal>
     </div>
