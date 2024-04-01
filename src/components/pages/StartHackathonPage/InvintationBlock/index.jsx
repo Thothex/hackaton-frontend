@@ -11,10 +11,10 @@ const InvintationBlock = ({
   filteredUsers,
   handleUserClick
 }) => {
-  
+
   return (
     <div className={styles.members}>
-    <h3>Team members</h3>
+    <h3>{teamInfo.team.name}</h3>
     <hr className={styles.divider} />
     {teamInfo.teamUsers.map((member, index) => (
         <div key={index} className={styles.memberList}>
@@ -37,7 +37,7 @@ const InvintationBlock = ({
     <form  className={styles.inviteForm} onSubmit={(e) => {
         e.preventDefault();
         handleSendInvite();
-        
+
 
     }}>
     <div  className={styles.inviteFormContainer}>
@@ -69,9 +69,9 @@ InvintationBlock.propTypes = {
   teamInfo: PropTypes.object.isRequired,
   handleSendInvite: PropTypes.func.isRequired,
   handleInputChange: PropTypes.func.isRequired,
-  inviteEmail: PropTypes.string, 
+  inviteEmail: PropTypes.string,
   searchTerm: PropTypes.string,
-  filteredUsers: PropTypes.array, 
+  filteredUsers: PropTypes.array,
   handleUserClick: PropTypes.func.isRequired,
 }
 

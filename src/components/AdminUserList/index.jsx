@@ -4,6 +4,7 @@ import CDropDown from '../CDropDown';
 import { useSelector, useDispatch } from 'react-redux';
 import { Checkbox } from "antd";
 import { updateUser } from '@/redux/features/usersSlice';
+import styles from './styles.module.scss';
 
 const AdminUserList = () => {
   const dispatch = useDispatch();
@@ -75,7 +76,7 @@ const AdminUserList = () => {
   
   return (
     <div>
-      <Table dataSource={users} columns={columns} />
+      <Table className={styles.table} dataSource={users} columns={columns} />
     </div>
   );
 };

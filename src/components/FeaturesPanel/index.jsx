@@ -1,37 +1,27 @@
-// FeaturesPanel.js
-
-// import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {setMode} from '@/redux/features/modeSlice.js';
+import { setMode } from '@/redux/features/modeSlice.js';
 import style from './style.module.scss';
-
+import lang from '../../assets/mode/lang.svg';
 const FeaturesPanel = () => {
     const dispatch = useDispatch();
     const { darkMode } = useSelector(
         (state) => state.mode
     );
-    // useEffect(() => {
-    //     document.getElementById('theme-toggle-btn').addEventListener('click', function() {
-    //         document.body.classList.toggle(`${style.darkTheme}`);
-    //     });
-    // },[])
+
     return (
-        <div>
-            <button id='theme-toggle-btn' className={`h-screen  
-                                 flex  
-                                 items-center  
-                                 justify-center  
-                                 text-2xl  
-                                 cursor-pointer  
-                                 ${darkMode?
-                "text-richblack-100 "
-                : "text-richblack-700"}`}
-                     onClick={() => {dispatch(setMode(!darkMode)
-                     )}}>
-                {darkMode ? (
-                    <p className={style.light}>light</p>
-                ) : (
-                    <p className={style.dark}>dark</p>)}
+        <div className={style.settings}>
+            <img src={lang} alt='lang' className={style.lang} />
+            <button
+                id='theme-toggle-btn'
+                className={`${style.panel}`}
+                onClick={() => {
+                    dispatch(setMode(!darkMode));
+                }}
+                style={{
+                    backgroundColor: darkMode ? '#1F2733' : '#ffffff'
+                }}
+            >
+                <p className={darkMode ? style.light : style.dark}></p>
             </button>
         </div>
     );

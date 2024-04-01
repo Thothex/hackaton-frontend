@@ -1,5 +1,10 @@
+
 .showCounter {
   display: flex;
   flex-direction: row;
   gap: 2px;
+  background-color: white;
+  border-radius: 20px;
+  font-family: 'Geologica', sans-serif;  font-size: 30px;
+  border: 2px solid #d9d9d9;
 }

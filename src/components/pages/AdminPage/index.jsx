@@ -1,6 +1,6 @@
 import AdminUserList from '@/components/AdminUserList';
 import { Tabs } from 'antd';
-
+import styles from './styles.module.scss';
 const AdminPage = () => {
   const onChange = (key) => {
     console.log(key);
@@ -14,7 +14,7 @@ const AdminPage = () => {
     ];
  
   return (
-  <div>
+  <div className={styles.adminContainer}>
     <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
   </div>
 )};

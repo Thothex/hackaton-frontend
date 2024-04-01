@@ -2,7 +2,7 @@ import { useEffect, useState, useLayoutEffect } from "react";
 import styles from "./style.module.scss";
 import InputTask from "@/components/InputTask";
 import AddFileTask from "@/components/AddFileTask";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTasks } from "@/redux/features/taskSlice.js";
 import ManyAnswersTask from "@/components/ManyAnswersTask";
@@ -14,6 +14,7 @@ import CountdownTimer from "@/components/CountdownTimer";
 import { fetchHackathonById } from "@/redux/features/hackathonsSlice";
 
 const TestPage = () => {
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [team, setTeam] = useState({});
   const [teamId, setTeamId] = useState(null);
@@ -24,6 +25,17 @@ const TestPage = () => {
   const { userInfo } = useSelector((state) => state.userStore);
   const { answers } = useSelector((state) => state.answersStore);
   const hackathon = useSelector((state) => state.hackathons?.hackathon);
+
+  useEffect(() => {
+    if (
+      userInfo?.id &&
+      hackathon?.organizer_id &&
+      userInfo.id === hackathon.organizer_id
+    ) {
+      navigate("/hackathon");
+    }
+  }, [navigate, userInfo, hackathon]);
+
 
   useEffect(() => {
     if (hackathon?.id) return;
