@@ -204,15 +204,17 @@ const HackathonPage = () => {
         )}
       </div>
 
-      {isOrg && hackathon.status !== "Finished" &&
+      {isOrg &&
         <>
-          <Flex wrap="wrap" gap="small" >
-            <Button type="primary" danger onClick={handleEndHackathon}>Hackathon end</Button>
-          </Flex>
-          <DashboardFloatingButton onClick={toggleFullscreen} />
-          <div className={styles.iframeWrapper}>
-            <iframe ref={iframeRef} src={`http://localhost:5173/dashboard?id=${id}`} />
-          </div>
+        { hackathon.status !== "Finished" &&
+            <Flex wrap="wrap" gap="small" >
+              <Button type="primary" danger onClick={handleEndHackathon}>Hackathon end</Button>
+            </Flex>
+        }
+            <DashboardFloatingButton onClick={toggleFullscreen} />
+            <div className={styles.iframeWrapper}>
+              <iframe ref={iframeRef} src={`http://localhost:5173/dashboard?id=${id}`} />
+            </div>
         </>
       }
       </div>
