@@ -11,6 +11,7 @@ import {
 import { getAllUsersThunk } from "@/redux/features/userSlice.js";
 import InvintationBlock from './InvintationBlock';
 import Loading from "@/components/Loading";
+import CountdownTimer from "@/components/CountdownTimer/index.jsx";
 
 const StartHackathonPage = () => {
     const navigate = useNavigate();
@@ -61,6 +62,8 @@ const StartHackathonPage = () => {
             socket.close();
         };
     }, [dispatch, id, teamInfo?.team.id, user]);
+
+    console.log('---------------',hackathon)
 
     const filteredUsers = allUsers
         ? allUsers.filter(
@@ -116,7 +119,7 @@ const StartHackathonPage = () => {
 
     const currentDate = new Date();
     const startDate = new Date(hackathon.start);
-
+    const endDate = new Date(hackathon.end);
     if (currentDate < startDate) {
         return (
             <div>
@@ -125,43 +128,87 @@ const StartHackathonPage = () => {
         );
     }
 
+    let status;
+
+    if (currentDate < startDate) {
+        status = "Registration is open";
+    } else if (currentDate >= startDate && currentDate <= endDate) {
+        status = "In progress";
+    } else {
+        status = "Finished";
+    }
+
     return (
-        <div style={{ margin: "20px" }}>
-            <div className={styles.hackathonHeader}>
-                <div className={styles.hackathonInfo}>
-                    <h1>{hackathon.name}</h1>
-                    <div className={styles.Info}>
-                        <h3>{hackathon.description}</h3>
-                        <h4>{hackathon.rules}</h4>
+        // <div>
+        //     <div className={styles.hackathonHeader}>
+        //         <div className={styles.hackathonInfo}>
+        //             <h1>{hackathon.name}</h1>
+        //             <div className={styles.Info}>
+        //                 <h3>{hackathon.description}</h3>
+        //                 <h4>{hackathon.rules}</h4>
+        //             </div>
+        //         </div>
+        //         <button className={styles.toTask} onClick={handleTasksClick}>START</button>
+        //     </div>
+        <div className={styles.hackathonPage}>
+            <div
+                className={`${styles.hackathonPanelUpper} ${
+                    status === "Registration is open" ? styles.panelOpen :
+                        status === "In progress" ? styles.panelInProgress :
+                            status === "Finished" ? styles.panelClosed :
+                                ""}`}
+            >
+                <div className={styles.upperHello}>
+                    <button className={styles.button} onClick={()=> navigate(`/hackathon/${hackathon.id}`)}>{`<—`}</button>
+                    <h4>Welcome to the hackathon 👋🏼</h4>
+                </div>
+                <div className={styles.timerName}>
+                <h1 className={styles.titleHac}>{hackathon.name}</h1>
+                {hackathon?.end && <div className={styles.countDownRow}><CountdownTimer targetDate={hackathon.end} /></div>}
+            </div>
+            </div>
+            <div className={styles.hackathonPanelLower}>
+                <div className={styles.about}>
+                    <div className={styles.description}>
+                        <h2>Description</h2>
+                        <p>{hackathon.description}</p>
+                    </div>
+                    <div className={styles.rules}>
+                        <h2>Rules of participation</h2>
+                        <p>{hackathon.rules}</p>
                     </div>
                 </div>
-                <button className={styles.toTask} onClick={handleTasksClick}>START</button>
-            </div>
-                <div className={styles.team}>
-                    {teamInfo?.team ? (
-                        <h2>Your team is: {teamInfo.team.name}</h2>
-                    ) : (
-                        <>
-                            <h2>Gather your team!</h2>
-                            <form onSubmit={handleCreateTeam}>
-                                <input placeholder="Name your team" value={teamName} onChange={(e) => setTeamName(e.target.value)} />
-                                <button type="submit">Save</button>
-                            </form>
-                        </>
-                    )}
-                    {teamInfo?.teamUsers.length > 0 && (
-                        <InvintationBlock
-                            styles={styles}
-                            teamInfo={teamInfo}
-                            handleSendInvite={handleSendInvite}
-                            handleInputChange={handleInputChange}
-                            inviteEmail={inviteEmail}
-                            searchTerm={searchTerm}
-                            filteredUsers={filteredUsers}
-                            handleUserClick={handleUserClick}
-                        />
-                    )}
+                <div className={styles.teamContainer}>
+                    <div className={styles.team}>
+                        {teamInfo?.team ? (
+                            // <h2>Your team is: {teamInfo.team.name}</h2>
+                            <></>
+                        ) : (
+                            <div className={styles.createTeam}>
+                                <h2>Gather your team!</h2>
+                                <form onSubmit={handleCreateTeam}>
+                                    <input placeholder="Name your team" value={teamName} onChange={(e) => setTeamName(e.target.value)} />
+                                    <button type="submit">Save</button>
+                                </form>
+                            </div>
+                        )}
+                        {teamInfo?.teamUsers.length > 0 && (
+                            <InvintationBlock
+                                styles={styles}
+                                teamInfo={teamInfo}
+                                handleSendInvite={handleSendInvite}
+                                handleInputChange={handleInputChange}
+                                inviteEmail={inviteEmail}
+                                searchTerm={searchTerm}
+                                filteredUsers={filteredUsers}
+                                handleUserClick={handleUserClick}
+                            />
+                        )}
+                    </div>
+                    <button className={styles.toTask} onClick={handleTasksClick}>START</button>
                 </div>
+            </div>
+
             </div>
     );
 };
