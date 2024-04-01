@@ -11,12 +11,13 @@ import CTextArea from "@/components/CTextArea";
 import close from "@/assets/close.svg";
 import MainButton from "@/components/MainButton";
 
-const ManyAnswerTask = ({ hackathonId, task }) => {
+const ManyAnswerTask = ({ hackathonId, task, info }) => {
   const [answers, setAnswers] = useState(task.answers);
   const [taskText, setTaskText] = useState(task.name || "");
   const [taskDescription, setTaskDescription] = useState(
     task.description || ""
   );
+  const [ hasUnsavedChanges, setHasUnsavedChanges] = useState(false)
   const [taskScore, setTaskScore] = useState(task.maxScore);
 
   const dispatch = useDispatch();
@@ -25,6 +26,26 @@ const ManyAnswerTask = ({ hackathonId, task }) => {
     setAnswers(task.answers);
   }, [task]);
 
+  const changeTitleHandler = (e) => {
+    setTaskText(e.target.value)
+    setHasUnsavedChanges(true)
+  }
+
+  const changeDescriptionHandler = (e) => {
+    setTaskDescription(e.target.value)
+    setHasUnsavedChanges(true)
+  }
+
+  const changeScoreHandler = (e) => {
+    setTaskScore(+e.target.value)
+    setHasUnsavedChanges(true)
+  }
+
+  const taskContainerClass = !hasUnsavedChanges ?
+    `${styles.taskContainer} ${styles.greenBorder}` :
+    `${styles.taskContainer} ${styles.redBorder}`
+  
+  
   const saveHander = () => {
     dispatch(
       updateTask({
@@ -39,15 +60,19 @@ const ManyAnswerTask = ({ hackathonId, task }) => {
         },
       })
     );
+    info()
   };
 
   const deleteHandler = () => {
+    setHasUnsavedChanges(false)
     dispatch(deleteTask({ taskId: task.id }));
   };
 
+  
+
   if (!answers) return <Loading />;
   return (
-    <div className={styles.taskContainer}>
+    <div className={taskContainerClass}>
       <div>
         <div className={styles.deleteBtnContainer}>
           <span className={styles.typeTask}>File upload</span>
@@ -58,7 +83,7 @@ const ManyAnswerTask = ({ hackathonId, task }) => {
         <label>Title</label>
         <input
           value={taskText}
-          onChange={(e) => setTaskText(e.target.value)}
+          onChange={(e) => changeTitleHandler(e)}
           placeholder="Enter title"
         />
         <label>Description</label>
@@ -67,19 +92,19 @@ const ManyAnswerTask = ({ hackathonId, task }) => {
           type={"text"}
           name={"description"}
           value={taskDescription}
-          onChange={(e) => setTaskDescription(e.target.value)}
+          onChange={(e) => changeDescriptionHandler(e)}
         />
         <label>Scores</label>
         <input
           className={styles.taskInput}
-          onChange={(e) => setTaskScore(+e.target.value)}
+          onChange={(e) => changeScoreHandler(e)}
           type="number"
           value={taskScore || 0}
           placeholder="Enter scores"
         />
       </div>
       <div className={styles.addNewAnswerBlock}>
-        <MainButton caption="SAVE" onClick={saveHander} />
+        <MainButton caption="SAVE" onClick={saveHander} isDisabled={!hasUnsavedChanges} />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { Alert, Flex, Spin } from 'antd';
+import { Flex, Spin } from 'antd';
 import styles from './styles.module.scss';
 
 const Loading = () => {
