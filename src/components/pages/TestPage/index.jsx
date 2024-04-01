@@ -36,6 +36,7 @@ const TestPage = () => {
     }
   }, [navigate, userInfo, hackathon]);
 
+
   useEffect(() => {
     if (hackathon?.id) return;
     dispatch(fetchHackathonById(id));
@@ -182,7 +183,7 @@ const TestPage = () => {
         <div>
           {task.type === "document" && (
             <>
-              <p>{task.name}</p>
+              <p className={styles.taskName}>{task.name}</p>
               <p>{task.description}</p>
               {captain && (
                 <AddFileTask
@@ -196,7 +197,8 @@ const TestPage = () => {
           )}
           {task.type === "input" && (
             <>
-              <p>{task.name}</p>
+              <p className={styles.taskName}>{task.name}</p>
+              <p>{task.description}</p>
               {captain && (
                 <InputTask
                   handleSaveInput={handleSaveInput}
@@ -210,7 +212,7 @@ const TestPage = () => {
           )}
           {task.type === "many-answers" && (
             <>
-              <p>{task.name}</p>
+              <p className={styles.taskName}>{task.name}</p>
               <p>{task.description}</p>
 
               <ManyAnswersTask
@@ -258,14 +260,14 @@ const TestPage = () => {
       <nav aria-label="...">
         <ul className="pagination pagination-lg">{generatePageNumbers()}</ul>
       </nav>
-      <div className="mt-3">{renderContent()}</div>
+      <div className={styles.taskContainer}>{renderContent()}</div>
       {tasks.length > 1 && (
         <div className={styles.BtnContainer}>
           <button className={styles.Btn} onClick={handlePreviousPage}>
-            {"<-"}PREVIOUS
+            {"← "}PREVIOUS
           </button>
           <button className={styles.Btn} onClick={handleNextPage}>
-            NEXT{"->"}
+            NEXT{" →"}
           </button>
         </div>
       )}

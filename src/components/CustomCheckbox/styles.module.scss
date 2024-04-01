@@ -1,5 +1,8 @@
 .checkboxWrapper {
+  padding-bottom: 10px;
   display: flex;
+  margin: 20px;
+  align-items: center;
   position: relative;
   cursor: pointer;
   font-size: 1.2em;
@@ -9,11 +12,10 @@
 .boxWrapper {
   display: block;
   position: relative;
-  top: -1px;
+  top: 1px;
   width: 20px;
   height: 20px;
   cursor: pointer;
-
 }
 
 .hiddenNativeCheckbox {
@@ -37,11 +39,11 @@
 }
 
 .fillChecked {
-  background-color: #97ABDF20;
+  background-color: #97abdf20;
 }
 
 .boxWrapper:hover .checkmark {
-  box-shadow: 0 0 0 3px #97ABDF20;
+  box-shadow: 0 0 0 3px #97abdf20;
   border: 1px solid #97abdf;
 }
 
@@ -60,8 +62,9 @@
 }
 
 .label {
-  margin-left: 10px;
-  color: #97abdf;
+  width: 85%;
+  margin-left: 20px;
+  color: #8797c4;
   font-size: 16px;
   cursor: pointer;
 }
