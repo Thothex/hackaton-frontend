@@ -5,7 +5,7 @@ import Chart from "chart.js/auto";
 import rank from "../../assets/profile/rank.svg";
 import medal from "../../assets/profile/medal.svg";
 import category from "../../assets/profile/category.svg";
-import { userStatThunk } from "@/redux/features/userSlice.js";
+import {fetchUserRankStatusThunk, userStatThunk} from "@/redux/features/userSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 // import wizard from "../../assets/achievements/trophy.svg";
 //
@@ -18,18 +18,20 @@ const StatPanel = () => {
   const dispatch = useDispatch();
   const { userStat } = useSelector((state) => state.userStore);
   const { userInfo } = useSelector((state) => state.userStore);
+  const {userRankStatus} = useSelector((state) => state.userStore);
   const chartRef = useRef(null);
 
   useEffect(() => {
     dispatch(userStatThunk());
+    dispatch(fetchUserRankStatusThunk())
   }, [dispatch]);
 
     const categories = userStat.categories;
-    const userRank = userStat.userRank?.name;
+    const userRank = userRankStatus?.rank;
     const amountOfHacks = userStat?.hack?.length;
     const userScore = userInfo?.score;
     const leftScore = userStat?.nextRank;
-    console.log('2222', userInfo, userStat)
+
 
     useEffect(() => {
         const ctx = document.getElementById('roundChart');
