@@ -116,7 +116,7 @@ HackathonPanel.propTypes = {
   end: PropTypes.string.isRequired,
   organizer_id: PropTypes.number,
   user: PropTypes.object.isRequired,
-  category: PropTypes.object.isRequired,
+  category: PropTypes.string.isRequired,
 };
 
 export default HackathonPanel;

@@ -301,12 +301,14 @@ const NewHachathon = ({ id }) => {
                 hackathon?.start ? hackathon.start : new Date().toString()
               }
             />
-            <TimePicker
-              onChange={onStartTimeChange}
-              defaultOpenValue={moment(hackathon?.start)}
-              // defaultValue={moment(hackathon?.start)}
-              format={"HH:mm:ss"}
-            />
+            { hackathon?.end &&
+                <TimePicker
+                  onChange={onStartTimeChange}
+                  // defaultOpenValue={moment(hackathon?.start)}
+                  defaultValue={dayjs(hackathon?.start, 'YYYY-MM-DDTHH:mm:ss.SSSZ')}
+                  format={"HH:mm:ss"}
+                />
+            }
           </div>
           <span className={styles.inputTitle}>
             Дата/время окончания хакатона
@@ -319,12 +321,13 @@ const NewHachathon = ({ id }) => {
                 hackathon?.end ? hackathon.end : new Date().toString()
               }
             />
-            <TimePicker
-              onChange={onEndTimeChange}
-              defaultOpenValue={moment(hackathon?.end)}
-              // defaultValue={dayjs(hackathon?.end, 'YYYY-MM-DDTHH:mm:ss.SSSZ')}
-              format={"HH:mm:ss"}
-            />
+            { hackathon?.end &&
+                <TimePicker
+                  onChange={onEndTimeChange}
+                  defaultValue={dayjs(hackathon?.end, 'YYYY-MM-DDTHH:mm:ss.SSSZ')}
+                  format={"HH:mm:ss"}
+                />
+            }
           </div>
         </div>
         <div className={styles.newHachathonWrapperCol}>

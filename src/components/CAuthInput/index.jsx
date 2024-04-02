@@ -9,7 +9,7 @@ const AuthInput = ({ onChange, ...props }) => {
         type={props.type}
         placeholder={props.inner}
         name={props.name}
-        value={props.value || ""}
+        value={props.value || 100}
         onChange={(e) => onChange(e)}
       />
     </label>
