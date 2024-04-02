@@ -33,13 +33,11 @@ $dark-gray: #667085;
 $darkInProgress: #567b7e;
 $dark-light-violet-color: #5a6d9b;
 
-
-.dark{
+.dark {
   background-color: $dark-bg;
 }
 
 body {
-  width: 100vw;
   height: fit-content;
   min-height: 100vh;
   margin: 0 auto;

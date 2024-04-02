@@ -1,49 +1,103 @@
-.newHachathonWrapperCol{
-  max-width: 300px;
-}
-
-.newHachathonWrapper{
-  display: flex;
-  flex-direction: row;
-  gap: 80px;
-}
-
-.badges{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.newHackContainer{
-  display: flex;
-  flex-direction: column;
-  gap: 80px;
-  margin: 20px;
-
-}
-
-.bntRow{
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
+.newHachathonContainer {
   width: 100%;
-  align-items: center;
-  justify-content: center;
-}
-
-.inputTitle {
-  font-size: 16px;
-  font-weight: 500;
-  color: #A0AEC0;
-  margin-bottom: 10px;
-  padding: 0;
-}
-
-.dateTimeContainer {
   display: flex;
-  gap: 20px;
   flex-direction: column;
-  margin-top: 1em;
+  flex-direction: column;
   align-items: center;
+
+  .organizationsContainer {
+  }
+
+  .titleContainer {
+    width: 75%;
+    margin: 20px;
+    display: flex;
+    justify-content: flex-start;
+
+    .title {
+      color: black;
+    }
+  }
+
+  .dateContainer {
+    display: flex;
+    padding: 30px;
+    border-radius: 30px;
+    flex-direction: row;
+    gap: 60px;
+    background-color: rgba(153, 153, 153, 0.062);
+
+    .time {
+      border-radius: 20px;
+    }
+
+    .startContainer,
+    .endContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    span {
+      font-size: 20px;
+    }
+  }
+
+  .organizationsContainer {
+    display: flex;
+    flex-direction: column;
+
+    .org {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 40px;
+
+      .badges {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+    }
+  }
+
+  .infoContainer {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    input {
+      width: 100%;
+      margin: 0;
+    }
+
+    label {
+      font-size: 20px;
+      padding: 0;
+    }
+  }
+
+  .typeContainer {
+    width: 75%;
+    margin: 20px 0 50px 0;
+    display: flex;
+    align-content: space-between;
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 20px;
+
+    input {
+      width: 14vw;
+      height: 50px;
+    }
+
+    label {
+      font-size: 20px;
+      padding: 0;
+    }
+  }
 }
