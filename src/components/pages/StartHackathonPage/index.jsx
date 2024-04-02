@@ -64,9 +64,8 @@ const StartHackathonPage = () => {
     return () => {
       socket.close();
     };
-  }, [dispatch, id, teamInfo?.team.id, user]);
+  }, [dispatch, id, teamInfo?.team?.id, user]);
 
-  console.log("---------------", hackathon);
 
   useEffect(() => {
     if (
@@ -112,7 +111,7 @@ const StartHackathonPage = () => {
     return () => {
       socket.close();
     };
-  }, [dispatch, id, teamInfo?.team.id, user]);
+  }, [dispatch, id, teamInfo?.team?.id, user]);
 
   const filteredUsers = allUsers
     ? allUsers.filter(
@@ -133,11 +132,11 @@ const StartHackathonPage = () => {
     setSearchTerm("");
   };
 
-  const handleCreateTeam = async () => {
+  const handleCreateTeam = async (teamname) => {
     try {
       const {
         payload: { id: newTeamId },
-      } = await dispatch(createTeam({ name: teamName, hackathonId: id }));
+      } = await dispatch(createTeam({ name: teamname ? `${user.username} - ${hackathon.id}` : teamName, hackathonId: id }));
       setNewTeamId(newTeamId);
       dispatch(getTeamInfo({ hackathonId: id, userId: user.id }));
       return newTeamId;
@@ -146,6 +145,19 @@ const StartHackathonPage = () => {
     }
   };
 
+  const createMetaTeam = async () => {
+    await handleCreateTeam(user.username)
+  };
+
+  const handleStart = async () => {
+    if (!hackathon.private) {
+      setTeamName(`${user.username} - ${hackathon.id}`);
+      handleTasksClick()
+    } else {
+      await createMetaTeam()
+      handleTasksClick()
+    }
+  }
   const handleSendInvite = async () => {
     try {
       await dispatch(
@@ -202,6 +214,7 @@ const StartHackathonPage = () => {
     status = "Finished";
   }
 
+  console.log("hackathon", hackathon.private)
   return (
     <div className={styles.hackathonPage}>
       <div
@@ -242,9 +255,11 @@ const StartHackathonPage = () => {
             <p>{hackathon.rules}</p>
           </div>
         </div>
+        
         <div className={styles.teamContainer}>
+          {  !hackathon.private && (
           <div className={styles.team}>
-            {teamInfo?.team ? (
+            {teamInfo?.team? (
               // <h2>Your team is: {teamInfo.team.name}</h2>
               <></>
             ) : (
@@ -260,7 +275,7 @@ const StartHackathonPage = () => {
                 </form>
               </div>
             )}
-            {teamInfo?.teamUsers.length > 0 && (
+            {teamInfo?.teamUsers.length > 0 &&   (
               <InvintationBlock
                 styles={styles}
                 teamInfo={teamInfo}
@@ -273,10 +288,12 @@ const StartHackathonPage = () => {
               />
             )}
           </div>
-          <button className={styles.toTask} onClick={handleTasksClick}>
+          )}
+          <button className={styles.toTask} onClick={handleStart}>
             {t("HackathonTeamPage.START")}
           </button>
-        </div>
+          </div>
+       
       </div>
     </div>
   );

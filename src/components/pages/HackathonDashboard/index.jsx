@@ -119,7 +119,8 @@ const HackathonDashboard = () => {
   };
   const endData = new Date(stat.end).getTime();
   return (
-    <>
+    <div className={styles.dashboardContainer}>
+      <div className={styles.innerContainer}>
       <div className={styles.countdownWrapper}>
         <CountdownTimer targetDate={endData} />
       </div>
@@ -219,7 +220,8 @@ const HackathonDashboard = () => {
           <canvas ref={chartEl}></canvas>
         </div>
       </div>
-    </>
+      </div>
+    </div>
   );
 };
 
