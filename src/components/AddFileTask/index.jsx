@@ -1,9 +1,11 @@
 import styles from "./style.module.scss";
+import { useTranslation } from "react-i18next";
 import { InboxOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
 const { Dragger } = Upload;
 
 const AddFileTask = ({ task, teamId, showToast, disabled }) => {
+  const { t } = useTranslation();
   const prop = {
     name: "file",
     data: { taskId: task.id, hackathonId: task.hackathon_id, teamId },
@@ -18,7 +20,7 @@ const AddFileTask = ({ task, teamId, showToast, disabled }) => {
         console.log(info.file, info.fileList);
       }
       if (status === "done") {
-        showToast()
+        showToast();
         message.success(`${info.file.name} file uploaded successfully.`);
       } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
@@ -35,7 +37,7 @@ const AddFileTask = ({ task, teamId, showToast, disabled }) => {
           <InboxOutlined />
         </p>
         <p className={`ant-upload-text ${styles.paragraph}`}>
-          Click or drag file to this area to upload
+          {t("TestPage.Click or drag file to this area to upload")}
         </p>
       </Dragger>
     </div>

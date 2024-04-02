@@ -1,5 +1,6 @@
 import { useEffect, useState, useLayoutEffect } from "react";
 import styles from "./style.module.scss";
+import { useTranslation } from "react-i18next";
 import InputTask from "@/components/InputTask";
 import AddFileTask from "@/components/AddFileTask";
 import { useNavigate, useParams } from "react-router-dom";
@@ -14,6 +15,7 @@ import CountdownTimer from "@/components/CountdownTimer";
 import { fetchHackathonById } from "@/redux/features/hackathonsSlice";
 
 const TestPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [team, setTeam] = useState({});
@@ -35,7 +37,6 @@ const TestPage = () => {
       navigate("/hackathon");
     }
   }, [navigate, userInfo, hackathon]);
-
 
   useEffect(() => {
     if (hackathon?.id) return;
@@ -76,11 +77,11 @@ const TestPage = () => {
   }
 
   const info = () => {
-    message.success("Answer saved correctly... maybe");
+    message.success(t("TestPage.Answer saved correctly... maybe"));
   };
 
   const errorToast = () => {
-    message.error("Something went wrong ^_^");
+    message.error(t("TestPage.Something went wrong ^_^"));
   };
 
   const totalPages = tasks.length;
@@ -264,10 +265,12 @@ const TestPage = () => {
       {tasks.length > 1 && (
         <div className={styles.BtnContainer}>
           <button className={styles.Btn} onClick={handlePreviousPage}>
-            {"← "}PREVIOUS
+            {"← "}
+            {t("TestPage.PREVIOUS")}
           </button>
           <button className={styles.Btn} onClick={handleNextPage}>
-            NEXT{" →"}
+            {t("TestPage.NEXT")}
+            {" →"}
           </button>
         </div>
       )}

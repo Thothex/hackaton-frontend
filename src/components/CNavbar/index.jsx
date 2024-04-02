@@ -1,5 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import styles from "./styles.module.scss";
 import logo from "../../assets/logo.svg";
 import profile from "../../assets/profile.svg";
@@ -17,15 +18,18 @@ const Navbar = () => {
     localStorage.removeItem("token");
     window.location.href = "/";
   };
+  const { t } = useTranslation();
   const { darkMode } = useSelector((state) => state.mode);
   const { userInfo } = useSelector((state) => state.userStore);
   return (
-      <nav className={`${styles.navbar} ${darkMode && styles.dark}`}>
+    <nav className={`${styles.navbar} ${darkMode && styles.dark}`}>
       <div className={styles.navbarContainer}>
         <Link to="/">
-          {darkMode ? <img src={darkLogo} alt="logo" className={styles.logo}/> :
-              <img src={logo} alt="logo" className={styles.logo} />
-          }
+          {darkMode ? (
+            <img src={darkLogo} alt="logo" className={styles.logo} />
+          ) : (
+            <img src={logo} alt="logo" className={styles.logo} />
+          )}
         </Link>
         <hr />
         <div className={styles.navList}>
@@ -38,7 +42,7 @@ const Navbar = () => {
                 }
               >
                 <img src={profile} alt="profile" className={styles.icon} />
-                Profile
+                {t("Navbar.profile")}
               </NavLink>
               {userInfo.role === "admin" && (
                 <NavLink
@@ -48,7 +52,7 @@ const Navbar = () => {
                   }
                 >
                   <img src={cap} alt="cap" className={styles.icon} />
-                  Admin panel
+                  {t("Navbar.admin-panel")}
                 </NavLink>
               )}
               {userInfo.isOrg && (
@@ -59,7 +63,7 @@ const Navbar = () => {
                   }
                 >
                   <img src={signin} alt="signin" className={styles.icon} />
-                  Create Hackathon
+                  {t("Navbar.create-hackathon")}
                 </NavLink>
               )}
             </>
@@ -72,7 +76,7 @@ const Navbar = () => {
                 }
               >
                 <img src={register} alt="register" className={styles.icon} />
-                Register
+                {t("Navbar.register")}
               </NavLink>
               <NavLink
                 to="/login"
@@ -81,7 +85,7 @@ const Navbar = () => {
                 }
               >
                 <img src={signin} alt="signin" className={styles.icon} />
-                Sign In
+                {t("Navbar.sign-in")}
               </NavLink>
             </>
           )}
@@ -92,7 +96,7 @@ const Navbar = () => {
             }
           >
             <img src={highscore} alt="highscore" className={styles.icon} />
-            Highscore
+            {t("Navbar.highscore")}
           </NavLink>
           <NavLink
             to="/hackathon"
@@ -101,12 +105,12 @@ const Navbar = () => {
             }
           >
             <img src={fire} alt="fire" className={styles.icon} />
-            Hackathons
+            {t("Navbar.hackathons")}
           </NavLink>
           {userInfo.id && (
             <Link onClick={logoutHandler} className={styles.unactive}>
               <img src={logout} alt="logout" className={styles.icon} />
-              Logout
+              {t("Navbar.logout")}
             </Link>
           )}
         </div>
@@ -114,9 +118,9 @@ const Navbar = () => {
 
       <div className={styles.questions}>
         <img src={question} alt="question" className={styles.icon} />
-        <span className={styles.questionText}>Any questions?</span>
+        <span className={styles.questionText}>{t("Navbar.questions")}</span>
         <span className={styles.contactInfo}>
-          If you have any questions, feel free to contact us at Telegram
+          {t("Navbar.have-any-questions")}
         </span>
         <div className={styles.buttonContainer}>
           <button
@@ -125,7 +129,7 @@ const Navbar = () => {
               window.location.href = "https://t.me/alinaluzanova";
             }}
           >
-            CONTACT US
+            {t("Navbar.contact")}
           </button>
         </div>
       </div>

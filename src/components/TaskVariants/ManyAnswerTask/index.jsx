@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Checkbox } from "antd";
 import styles from "./styles.module.scss";
+import { useTranslation } from "react-i18next";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
 import { deleteTask, updateTask } from "@/redux/features/hackathonsSlice";
@@ -13,6 +14,7 @@ import close from "@/assets/close.svg";
 import Loading from "@/components/Loading";
 
 const ManyAnswerTask = ({ hackathonId, task }) => {
+  const { t } = useTranslation();
   const [answers, setAnswers] = useState(task.answers);
   const [taskText, setTaskText] = useState(task.name || "");
   const [taskDescription, setTaskDescription] = useState(
@@ -87,35 +89,37 @@ const ManyAnswerTask = ({ hackathonId, task }) => {
     <div className={styles.taskContainer}>
       <div>
         <div className={styles.deleteBtnContainer}>
-          <span className={styles.typeTask}>Multiple answers</span>
+          <span className={styles.typeTask}>
+            {t("HackathonEditPage.multiple-answers")}
+          </span>
           <button className={styles.close} onClick={deleteHandler}>
             <img src={close} alt="close" className={styles.icon} />
           </button>
         </div>
-        <label>Title</label>
+        <label>{t("HackathonEditPage.title")}</label>
         <input
           value={taskText}
           onChange={(e) => setTaskText(e.target.value)}
-          placeholder="Enter title"
+          placeholder={`${t("HackathonEditPage.enter-title")}`}
         />
-        <label>Description</label>
+        <label>{t("HackathonEditPage.description")}</label>
         <CTextArea
-          inner="Enter description"
+          inner={`${t("HackathonEditPage.enter-description")}`}
           type={"text"}
           name={"description"}
           value={taskDescription}
           onChange={(e) => setTaskDescription(e.target.value)}
         />
-        <label>Scores</label>
+        <label>{t("HackathonEditPage.scores")}</label>
         <input
           className={styles.taskInput}
           onChange={(e) => setTaskScore(+e.target.value)}
           value={taskScore}
           type="number"
-          placeholder="Enter scores"
+          placeholder={`${t("HackathonEditPage.enter-scores")}`}
         />
       </div>
-      <label>Answer variant</label>
+      <label>{t("HackathonEditPage.answer-variant")}</label>
       {Object.keys(answers).map((uuid) => {
         return (
           <div className={styles.answerInputBlock} key={uuid}>
@@ -123,7 +127,7 @@ const ManyAnswerTask = ({ hackathonId, task }) => {
               onChange={answerEditHandler}
               className={styles.taskInput}
               value={answers[uuid].text}
-              placeholder="Enter answer variant"
+              placeholder={`${t("HackathonEditPage.enter-answer-variant")}`}
               data-uuid={uuid}
             />
             <Checkbox
@@ -131,7 +135,9 @@ const ManyAnswerTask = ({ hackathonId, task }) => {
               onChange={(e) => onChangeRightAnswer(e, uuid)}
               checked={answers[uuid].isRight}
             >
-              <div className={styles.checkboxLabelRight}>Right answer</div>
+              <div className={styles.checkboxLabelRight}>
+                {t("HackathonEditPage.right-answer")}
+              </div>
             </Checkbox>
             <button
               onClick={() => removeAnswerVariant(uuid)}
@@ -148,11 +154,11 @@ const ManyAnswerTask = ({ hackathonId, task }) => {
           className={styles.addVariantBtn}
         >
           <img src={plus} alt="plus" />
-          <span>Add answer variant</span>
+          <span>{t("HackathonEditPage.add-answer-variant")}</span>
         </button>
       </div>
       <div className={styles.addNewAnswerBlock}>
-        <MainButton caption="SAVE" onClick={saveHander} />
+        <MainButton caption={t("ProfilePage.save")} onClick={saveHander} />
       </div>
     </div>
   );

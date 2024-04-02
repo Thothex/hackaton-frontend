@@ -1,20 +1,24 @@
-.settings{
+.themeContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: fit-content;
+  background-color: #97abdf;
+  border-radius: 20px;
+  border: 2px solid #97abdf;
+}
+
+.settings {
+  gap: 10px;
   position: absolute;
   top: 40px;
   right: 0;
   margin-right: 40px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: fit-content;
-  gap: 10px;
-  background-color: #97abdf;
-  border-radius: 20px;
-  padding-left: 20px;
-  border:2px solid #97abdf;
 }
 .panel {
-  height: 30px;
+  height: 33px;
   width: 60px;
   overflow: hidden;
   border-radius: 40px;
@@ -33,7 +37,7 @@
 
 .light {
   transform: translateX(0);
-  background: url("../../assets/mode/moon.svg")  no-repeat  center ;
+  background: url("../../assets/mode/moon.svg") no-repeat center;
   background-size: cover;
 }
 

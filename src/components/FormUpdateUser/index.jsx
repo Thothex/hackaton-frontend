@@ -3,8 +3,10 @@ import styles from "./styles.module.scss";
 import CDropDown from "../CDropDown";
 import { useDispatch, useSelector } from "react-redux";
 import { userUpdateThunk } from "@/redux/features/userSlice";
+import { useTranslation } from "react-i18next";
 
 const FormUpdateUser = () => {
+  const { t } = useTranslation();
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userStore);
@@ -44,9 +46,9 @@ const FormUpdateUser = () => {
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
-      <h2>Edit user details</h2>
+      <h2>{t("ProfilePage.edit-user-details")}</h2>
       <div>
-        <label htmlFor="username">Username</label>
+        <label htmlFor="username">{t("ProfilePage.username")}</label>
         <input
           type="text"
           name="username"
@@ -55,7 +57,7 @@ const FormUpdateUser = () => {
         />
       </div>
       <div>
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email">{t("ProfilePage.email")}</label>
         <input
           type="email"
           name="email"
@@ -63,31 +65,18 @@ const FormUpdateUser = () => {
           onChange={handleChange}
         />
       </div>
-      <div>
-        {/* TODO: нужна логика смены языка */}
-        <CDropDown
-          placeholder="Language"
-          value="Choose"
-          items={[
-            { id: 1, value: "English" },
-            { id: 2, value: "Русский" },
-          ]}
-          onChange={() => null}
-          className={styles.label}
-        />
-      </div>
       <div className={styles.organizationInfo}>
-        <span className={styles.title}>Organization</span>
+        <span className={styles.title}>{t("ProfilePage.organization")}</span>
         <div className={styles.tooltip}>
           <span>!</span>
           <span className={styles.text}>
-            To make a change, contact your organization
+            {t("ProfilePage.change-organization")}
           </span>
         </div>
       </div>
       {error && <span className={styles.errorText}>{error}</span>}
       <button type="submit" className={styles.btnUpdate}>
-        Update
+        {t("ProfilePage.save")}
       </button>
     </form>
   );

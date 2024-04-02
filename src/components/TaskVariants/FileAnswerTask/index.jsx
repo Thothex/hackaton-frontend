@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Input } from "antd";
+import { useTranslation } from "react-i18next";
 const { TextArea } = Input;
 import { Button } from "antd";
 import styles from "./styles.module.scss";
@@ -12,6 +13,7 @@ import close from "@/assets/close.svg";
 import MainButton from "@/components/MainButton";
 
 const ManyAnswerTask = ({ hackathonId, task }) => {
+  const { t } = useTranslation();
   const [answers, setAnswers] = useState(task.answers);
   const [taskText, setTaskText] = useState(task.name || "");
   const [taskDescription, setTaskDescription] = useState(
@@ -50,36 +52,38 @@ const ManyAnswerTask = ({ hackathonId, task }) => {
     <div className={styles.taskContainer}>
       <div>
         <div className={styles.deleteBtnContainer}>
-          <span className={styles.typeTask}>File upload</span>
+          <span className={styles.typeTask}>
+            {t("HackathonEditPage.file-upload")}
+          </span>
           <button className={styles.close} onClick={deleteHandler}>
             <img src={close} alt="close" className={styles.icon} />
           </button>
         </div>
-        <label>Title</label>
+        <label>{t("HackathonEditPage.title")}</label>
         <input
           value={taskText}
           onChange={(e) => setTaskText(e.target.value)}
-          placeholder="Enter title"
+          placeholder={`${t("HackathonEditPage.enter-title")}`}
         />
-        <label>Description</label>
+        <label>{t("HackathonEditPage.description")}</label>
         <CTextArea
-          inner="Enter description"
+          inner={`${t("HackathonEditPage.enter-description")}`}
           type={"text"}
           name={"description"}
           value={taskDescription}
           onChange={(e) => setTaskDescription(e.target.value)}
         />
-        <label>Scores</label>
+        <label>{t("HackathonEditPage.scores")}</label>
         <input
           className={styles.taskInput}
           onChange={(e) => setTaskScore(+e.target.value)}
           type="number"
           value={taskScore || 0}
-          placeholder="Enter scores"
+          placeholder={`${t("HackathonEditPage.enter-scores")}`}
         />
       </div>
       <div className={styles.addNewAnswerBlock}>
-        <MainButton caption="SAVE" onClick={saveHander} />
+        <MainButton caption={t("ProfilePage.save")} onClick={saveHander} />
       </div>
     </div>
   );

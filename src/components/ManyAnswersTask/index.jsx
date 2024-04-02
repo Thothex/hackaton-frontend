@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import CCheckbox from "../CustomCheckbox";
 import styles from "./style.module.scss";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 import PropTypes from "prop-types";
 const ManyAnswersTask = ({
@@ -12,6 +13,7 @@ const ManyAnswersTask = ({
   teamId,
   disabled,
 }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [userAnswers, setUserAnswers] = useState({});
   useEffect(() => {
@@ -65,7 +67,7 @@ const ManyAnswersTask = ({
             type="button"
             onClick={onSave}
           >
-            SAVE
+            {t("ProfilePage.save")}
           </button>
         )}
       </form>
