@@ -1,16 +1,15 @@
-import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-import {
-  fetchHackathonById,
-  putHackathon,
-} from "@/redux/features/hackathonsSlice.js";
-import { Button, Flex } from "antd";
-import styles from "./styles.module.scss";
-import Loading from "@/components/Loading";
-import screenfull from "screenfull";
-import DashboardFloatingButton from "@/components/DashboardFloatingButton";
+import {useEffect, useRef, useState} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchHackathonById, putHackathon } from '@/redux/features/hackathonsSlice.js';
+import { Button, Flex } from 'antd'
+import styles from './styles.module.scss';
+import Loading from '@/components/Loading';
+import screenfull from 'screenfull';
+import DashboardFloatingButton from '@/components/DashboardFloatingButton';
+import Icons from '@/constants/icons';
+
 
 const HackathonPage = () => {
   const { t } = useTranslation();
@@ -86,7 +85,9 @@ const HackathonPage = () => {
         }`}
       >
         <div className={styles.upperHello}>
-          <button onClick={() => navigate("/hackathon")}>{`<-back`}</button>
+          <button onClick={() => navigate("/hackathon")}>
+            <img className={styles.backArrow} src={Icons.BACK_ARROW} alt="back" />
+          </button>
           <h4>{t(`HackathonPage.Welcome to the hackathon`)} 👋🏼</h4>
         </div>
         <h1 className={styles.titleHac}>{hackathon.name}</h1>

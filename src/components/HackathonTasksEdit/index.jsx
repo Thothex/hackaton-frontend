@@ -4,6 +4,7 @@ import { addNewTask, createNewTask } from "@/redux/features/hackathonsSlice";
 import ManyAnswerTask from "../TaskVariants/ManyAnswerTask";
 import { useTranslation } from "react-i18next";
 import { v4 as uuidv4 } from "uuid";
+import { message } from "antd";
 import FileAnswerTask from "../TaskVariants/FileAnswerTask";
 import OneInputTask from "../TaskVariants/OneInputTask";
 import styles from "./styles.module.scss";
@@ -64,6 +65,10 @@ const HackathonTasksEdit = ({ hackathonId }) => {
     onClick: handleMenuClick,
   };
 
+  const info = () => {
+    message.success("Question saved");
+  };
+
   return (
     <div>
       <h2 className={styles.title}>
@@ -75,13 +80,13 @@ const HackathonTasksEdit = ({ hackathonId }) => {
           return (
             <div key={index}>
               {task.type === "many-answers" && (
-                <ManyAnswerTask hackathonId={hackathonId} task={task} />
+                <ManyAnswerTask hackathonId={hackathonId} task={task} info={info} />
               )}
               {task.type === "document" && (
-                <FileAnswerTask hackathonId={hackathonId} task={task} />
+                <FileAnswerTask hackathonId={hackathonId} task={task} info={info} />
               )}
               {task.type === "input" && (
-                <OneInputTask hackathonId={hackathonId} task={task} />
+                <OneInputTask hackathonId={hackathonId} task={task} info={info} />
               )}
             </div>
           );

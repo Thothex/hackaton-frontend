@@ -7,7 +7,7 @@ import platinum from "../assets/achievements/team_player_platinum_icon.svg";
 import diamond from "../assets/achievements/team_player_diamond_icon.svg";
 
 const Ranks = {
-	WOOD: {
+	WOODEN: {
 		code: "wooden",
 		img: wooden,
 	},
