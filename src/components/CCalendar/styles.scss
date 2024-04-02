@@ -205,3 +205,8 @@ $calendar-font-family: "Geologica", sans-serif;
     width: 150px;
   }
 }
+
+.react-calendar__month-view__days__day:disabled {
+  color: #d6d6d6;
+  background-color: #ffffff;
+}

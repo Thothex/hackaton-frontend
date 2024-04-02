@@ -1,15 +1,17 @@
 import { useTranslation } from "react-i18next";
-import {useEffect, useRef, useState} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchHackathonById, putHackathon } from '@/redux/features/hackathonsSlice.js';
-import { Button, Flex } from 'antd'
-import styles from './styles.module.scss';
-import Loading from '@/components/Loading';
-import screenfull from 'screenfull';
-import DashboardFloatingButton from '@/components/DashboardFloatingButton';
-import Icons from '@/constants/icons';
-
+import { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  fetchHackathonById,
+  putHackathon,
+} from "@/redux/features/hackathonsSlice.js";
+import { Button, Flex } from "antd";
+import styles from "./styles.module.scss";
+import Loading from "@/components/Loading";
+import screenfull from "screenfull";
+import DashboardFloatingButton from "@/components/DashboardFloatingButton";
+import Icons from "@/constants/icons";
 
 const HackathonPage = () => {
   const { t } = useTranslation();
@@ -86,7 +88,11 @@ const HackathonPage = () => {
       >
         <div className={styles.upperHello}>
           <button onClick={() => navigate("/hackathon")}>
-            <img className={styles.backArrow} src={Icons.BACK_ARROW} alt="back" />
+            <img
+              className={styles.backArrow}
+              src={Icons.BACK_ARROW}
+              alt="back"
+            />
           </button>
           <h4>{t(`HackathonPage.Welcome to the hackathon`)} 👋🏼</h4>
         </div>
@@ -158,13 +164,19 @@ const HackathonPage = () => {
         </div>
         <div className={styles.hackathonPanelSMall}>
           <h3 className={styles.date}>
-            {hackathon.organizations.map((org) => (
-              <div key={org.id} className={styles.hackathonPanelOrganization}>
-                {org.name}
-              </div>
-            ))}
+            {hackathon.organizations.length ? (
+              hackathon.organizations.map((org) => (
+                <div key={org.id} className={styles.hackathonPanelOrganization}>
+                  {org.name}
+                </div>
+              ))
+            ) : (
+              <>Без организации</>
+            )}
           </h3>
-          <h3 className={styles.month}>{t(`HackathonPage.organization`)}</h3>
+          {!!hackathon.organizations.length && (
+            <h3 className={styles.month}>{t(`HackathonPage.organization`)}</h3>
+          )}
         </div>
       </div>
       <div className={styles.hackathonPanelLower}>

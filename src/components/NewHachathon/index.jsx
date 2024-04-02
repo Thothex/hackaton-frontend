@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import CDropDown from "../CDropDown";
 import AuthInput from "../CAuthInput";
 import styles from "./styles.module.scss";
@@ -23,6 +24,7 @@ import Loading from "../Loading";
 
 dayjs.extend(customParseFormat);
 const NewHachathon = ({ id }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -228,74 +230,111 @@ const NewHachathon = ({ id }) => {
   console.log("hackathon", hackathon);
   !hackathon && <Loading />;
   return (
-    <div className={styles.newHackContainer}>
-      <div className={styles.newHachathonWrapper}>
-        <div className={styles.newHachathonWrapperCol}>
-          <AuthInput
-            label="Hackathon name"
-            inner="Придумайте название хакатона"
-            type={"text"}
-            name={"name"}
-            value={hackathon?.name}
-            onChange={handleInputChange}
-          />
-          <CTextArea
-            label="Hackathon description"
-            inner="Введите описание хакатона"
-            type={"text"}
-            name={"description"}
-            value={hackathon?.description}
-            onChange={handleInputChange}
-          />
-          <CTextArea
-            label="Hackathon rules"
-            inner="Правила"
-            type={"text"}
-            name={"rules"}
-            value={hackathon?.rules}
-            onChange={handleInputChange}
-          />
-          <AuthInput
-            label="Prize"
-            inner="Max amount of rating"
-            type={"number"}
-            name={"prize"}
-            value={hackathon?.prize}
-            onChange={handleInputChange}
-          />
-          <CDropDown
-            name="type"
-            items={[
-              { id: 1, value: "Team" },
-              { id: 2, value: "Person" },
-            ]}
-            onChange={handleAddFromSelect}
-            placeholder={"Выберите тип хакатона"}
-            value={hackathon?.type || "Тип"}
-          />
-          <CDropDown
-            name="category"
-            items={categoriesForPicker}
-            onChange={handleAddFromSelect}
-            placeholder={"Выберите категорию"}
-            value={hackathon?.category?.name || "Категории"}
-          />
-          <CDropDown
-            name="audience"
-            items={[
-              { id: 1, value: "14 - 18 years, school" },
-              { id: 2, value: "16-23 years, university" },
-              { id: 3, value: "no limit, all" },
-            ]}
-            onChange={handleAddFromSelect}
-            placeholder={"Выберите аудиторию"}
-            value={hackathon?.audience || "Аудитория"}
-          />
+    <>
+      <div className={styles.newHachathonContainer}>
+        <div className={styles.titleContainer}>
+          <h2 className={styles.title}>
+            {t("NewHachathon.Fill in the hackathon information")}
+          </h2>
         </div>
-        <div className={styles.newHachathonWrapperCol}>
-          <span className={styles.inputTitle}>Дата/время начала хакатона</span>
-          <div className={styles.dateTimeContainer}>
+        <div className={styles.infoContainer}>
+          <div className={styles.name}>
+            <label>{t("NewHachathon.Name")}</label>
+            <input
+              label="Name"
+              placeholder={t("NewHachathon.Enter hackathon name")}
+              type={"text"}
+              name={"name"}
+              value={hackathon?.name}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className={styles.description}>
+            <label>{t("HackathonEditPage.description")}</label>
+            <CTextArea
+              inner={t("HackathonEditPage.enter-description")}
+              type={"text"}
+              name={"description"}
+              value={hackathon?.description}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className={styles.rules}>
+            <label>{t("NewHachathon.Rules")}</label>
+            <CTextArea
+              inner={t("NewHachathon.Enter rules")}
+              type={"text"}
+              name={"rules"}
+              value={hackathon?.rules}
+              onChange={handleInputChange}
+            />
+          </div>
+        </div>
+        <div className={styles.typeContainer}>
+          <div className={styles.prize}>
+            <label>{t("NewHachathon.Prize")}</label>
+            <input
+              label="Prize"
+              placeholder={t("NewHachathon.Max amount of rating")}
+              type={"number"}
+              name={"prize"}
+              value={hackathon?.prize}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className={styles.type}>
+            <label>{t("NewHachathon.Type")}</label>
+            <CDropDown
+              name="type"
+              items={[
+                { id: 1, value: `${t("NewHachathon.Team")}` },
+                { id: 2, value: `${t("NewHachathon.Person")}` },
+              ]}
+              onChange={handleAddFromSelect}
+              placeholder={""}
+              value={hackathon?.type || `${t("NewHachathon.Choose type")}`}
+            />
+          </div>
+          <div className={styles.category}>
+            <label>{t("NewHachathon.Category")}</label>
+            <CDropDown
+              name="category"
+              items={categoriesForPicker}
+              onChange={handleAddFromSelect}
+              placeholder={""}
+              value={
+                hackathon?.category?.name ||
+                `${t("NewHachathon.Choose category")}`
+              }
+            />
+          </div>
+          <div className={styles.audience}>
+            <label>{t("NewHachathon.Audience")}</label>
+            <CDropDown
+              name="audience"
+              items={[
+                { id: 1, value: `${t("NewHachathon.14-18 years, school")}` },
+                {
+                  id: 2,
+                  value: `${t("NewHachathon.16-23 years, university")}`,
+                },
+                { id: 3, value: `${t("NewHachathon.no limit, all")}` },
+              ]}
+              onChange={handleAddFromSelect}
+              placeholder={""}
+              value={
+                hackathon?.audience || `${t("NewHachathon.Choose audience")}`
+              }
+            />
+          </div>
+        </div>
+        <div className={styles.dateContainer}>
+          <div className={styles.startContainer}>
+            <span className={styles.inputTitle}>
+              {t("NewHachathon.Date/time of hackathon start")}
+            </span>
             <Calendar
+              className={styles.calendar}
               onDateChange={onStartDateChange}
               getDatesToCurrentDisable={getDatesToCurrentDisable}
               initialDate={
@@ -303,6 +342,8 @@ const NewHachathon = ({ id }) => {
               }
             />
             <TimePicker
+              placeholder={t("NewHachathon.Select time")}
+              className={styles.time}
               onChange={onStartTimeChange}
               defaultOpenValue={dayjs(
                 hackathon?.start || "00:00:00",
@@ -311,10 +352,10 @@ const NewHachathon = ({ id }) => {
               format={"HH:mm:ss"}
             />
           </div>
-          <span className={styles.inputTitle}>
-            Дата/время окончания хакатона
-          </span>
-          <div className={styles.dateTimeContainer}>
+          <div className={styles.endContainer}>
+            <span className={styles.inputTitle}>
+              {t("NewHachathon.Date/time of hackathon end")}
+            </span>
             <Calendar
               onDateChange={onEndDateChange}
               getDatesToCurrentDisable={getDatesToCurrentDisable}
@@ -323,7 +364,9 @@ const NewHachathon = ({ id }) => {
               }
             />
             <TimePicker
+              className={styles.time}
               onChange={onEndTimeChange}
+              placeholder={t("NewHachathon.Select time")}
               defaultOpenValue={dayjs(
                 hackathon?.start || "00:00:00",
                 "HH:mm:ss"
@@ -332,20 +375,20 @@ const NewHachathon = ({ id }) => {
             />
           </div>
         </div>
-        <div className={styles.newHachathonWrapperCol}>
+        <div className={styles.organizationsContainer}>
           <CCheckbox
-            label="Avaliable only for organizations"
+            label={t("NewHachathon.Avaliable only for organizations")}
             checked={onlyOrganizations}
             onChange={handleOnlyOrganizations}
           />
           {onlyOrganizations && (
-            <>
+            <div className={styles.org}>
               <CDropDown
                 name="organization"
                 items={organizationsForPicker}
                 onChange={handleAddOrganization}
-                placeholder={"Выберите организацию"}
-                value={"Добавить организацию"}
+                placeholder={""}
+                value={t("NewHachathon.Choose organizations")}
               />
               <div className={styles.badges}>
                 {hackathon?.organizations.map((org) => (
@@ -356,18 +399,24 @@ const NewHachathon = ({ id }) => {
                   />
                 ))}
               </div>
-            </>
+            </div>
+          )}
+        </div>
+        <div className={styles.bntRow}>
+          {id ? (
+            <MainButton
+              caption={t("NewHachathon.UPDATE")}
+              onClick={onUpdateBtnHandler}
+            />
+          ) : (
+            <MainButton
+              caption={t("NewHachathon.CREATE")}
+              onClick={onSaveBtnHandler}
+            />
           )}
         </div>
       </div>
-      <div className={styles.bntRow}>
-        {id ? (
-          <MainButton caption={"Update"} onClick={onUpdateBtnHandler} />
-        ) : (
-          <MainButton caption={"Create"} onClick={onSaveBtnHandler} />
-        )}
-      </div>
-    </div>
+    </>
   );
 };
 

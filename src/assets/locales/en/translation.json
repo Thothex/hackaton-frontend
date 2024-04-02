@@ -148,11 +148,22 @@
   "HackathonPage": {
     "Welcome to the hackathon": "Welcome to the hackathon",
     "no limit": "no limit",
+    "Нет ограничений": "no limit",
     " all": "all",
+    " все": "all",
     "16-23 years": "16-23 years",
+    "16-23 года": "16-23 years",
+    "16-23 лет": "16-23 years",
+    "16 - 23 лет": "16-23 years",
+    "16 - 23 years": "16-23 years",
+    "16 - 23 года": "16-23 years",
+    " университет": "university",
     " university": "university",
-    "14 - 18 years": "14 - 18 years",
+    "14 - 18 years": "14-18 years",
+    "14-18 years": "14-18 years",
+    "14-18 лет": "14-18 years",
     " school": "school",
+    " школа": "school",
     "category": "category",
     "categories": {
       "Science": "Science",
@@ -160,6 +171,8 @@
       "Algorhythm": "Algothythm"
     },
     "type": {
+      "Командный": "Team",
+      "Индивидуальный": "Person",
       "Person": "Person",
       "Team": "Team"
     },
@@ -219,5 +232,32 @@
     "Set points": "Set points",
     "Give a rating": "Give a rating",
     "Teams answers": "{{teamName}}'s answers"
+  },
+  "NewHachathon": {
+    "Fill in the hackathon information": "Fill in the hackathon information",
+    "Name": "Name",
+    "Enter hackathon name": "Enter hackathon name",
+    "Rules": "Rules",
+    "Enter rules": "Enter rules",
+    "Prize": "Prize",
+    "Max amount of rating": "Max amount of rating",
+    "Type": "Type",
+    "Team": "Team",
+    "Person": "Person",
+    "Choose type": "Choose type",
+    "Category": "Category",
+    "Choose category": "Choose category",
+    "Audience": "Audience",
+    "Choose audience": "Choose audience",
+    "14-18 years, school": "14-18 years, school",
+    "16-23 years, university": "16-23 years, university",
+    "no limit, all": "no limit, all",
+    "Date/time of hackathon start": "Date/time of hackathon start",
+    "Date/time of hackathon end": "Date/time of hackathon end",
+    "Select time": "Select time",
+    "Avaliable only for organizations": "Avaliable only for organizations",
+    "Choose organizations": "Choose organizations",
+    "UPDATE": "UPDATE",
+    "CREATE": "CREATE"
   }
 }
