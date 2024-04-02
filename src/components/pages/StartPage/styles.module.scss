@@ -7,6 +7,8 @@
   flex-direction: column;
   width: 100vw;
   height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
   background: url("../../../assets/MainDashboard.svg");
   background-size: cover;
 }
@@ -27,13 +29,13 @@
   max-width: 300px;
   max-height: 350px;
   img {
-    width: 3vw;
-    height: 3vw;
+    width: 2vw;
+    height: 2vw;
     margin-block: 0;
     padding-block: 0;
   }
   h5 {
-    font-size: 25px;
+    font-size: 20px;
     max-font-size: 20px;
     font-weight: 200;
     margin-block: 0;
@@ -43,7 +45,7 @@
 .Welcome {
   font-size: 60px;
   font-weight: 100;
-  margin-block: 15% 0;
+  margin-block: 5% 0;
 }
 .titleContainer {
   display: flex;
@@ -89,6 +91,5 @@
   position: sticky;
   left: 50px;
   top: 20px;
-  width: 155px;
-  height: 62px;
+
 }

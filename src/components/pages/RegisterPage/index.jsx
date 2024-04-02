@@ -1,4 +1,4 @@
-import logo from "../../../assets/logo.svg";
+import logo from "../../../assets/logoBig.svg";
 import AuthButton from "../../CAuthButton/index.jsx";
 import AuthInput from "@/components/CAuthInput/index.jsx";
 import { useTranslation } from "react-i18next";
