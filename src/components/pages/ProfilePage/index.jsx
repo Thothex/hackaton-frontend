@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import ReactModal from "react-modal";
 import styles from "./styles.module.scss";
 import avatar from "@/assets/avatar.png";
@@ -18,6 +19,7 @@ import UserHackatons from "@/components/UserHackatons";
 ReactModal.setAppElement("#root");
 
 const ProfilePage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [modalAvatarIsOpen, setModalAvatarIsOpen] = useState(false);
@@ -30,7 +32,6 @@ const ProfilePage = () => {
   useEffect(() => {
     dispatch(userStatThunk());
   }, [dispatch]);
-
 
   const openModal = () => {
     setModalAvatarIsOpen(true);
@@ -48,7 +49,9 @@ const ProfilePage = () => {
   return (
     <div className={`${styles.profilePage} ${darkMode && styles.darkPage}`}>
       <div className={styles.topPlain}>
-        <div className={styles.hello}>Hello, {userInfo.username} 👋🏼</div>
+        <div className={styles.hello}>
+          {t("ProfilePage.hello", { username: userInfo.username })} 👋🏼
+        </div>
       </div>
       <div className={styles.avatarBox}>
         <div className={styles.avatarWrapper}>
@@ -89,7 +92,7 @@ const ProfilePage = () => {
           <div className={styles.profileInfo}>
             <div className={styles.infoContainer}>
               <div className={styles.infoUserEdit}>
-                <h4>Profile information</h4>
+                <h4>{t("ProfilePage.profile_information")}</h4>
                 <button
                   onClick={() => setModalInfoIsOpen(true)}
                   className={styles.editInfo}
@@ -111,17 +114,13 @@ const ProfilePage = () => {
               </div>
               <hr className={styles.hr} />
               <h5>
-                Username: <span>{userInfo.username}</span>
+                {t("ProfilePage.username")}: <span>{userInfo.username}</span>
               </h5>
               <h5>
-                Email: <span>{userInfo.email}</span>
-              </h5>
-              {/*TODO настройка языка и организации*/}
-              <h5>
-                Language: <span>English</span>
+                {t("ProfilePage.email")}: <span>{userInfo.email}</span>
               </h5>
               <h5>
-                Organization:{" "}
+                {t("ProfilePage.organization")}:{" "}
                 <span>
                   {userInfo.organization ? userInfo.organization : `-`}
                 </span>
@@ -138,7 +137,7 @@ const ProfilePage = () => {
           </div>
           <div className={styles.toHackathons}>
             <div className={styles.infoUserEdit}>
-              <h4>Hackathons</h4>
+              <h4>{t("ProfilePage.hackathons")}</h4>
             </div>
             <div className={styles.pic}></div>
             <button
@@ -147,7 +146,7 @@ const ProfilePage = () => {
               }}
               className={styles.viewBtn}
             >
-              VIEW ALL
+              {t("ProfilePage.view-all")}
             </button>
           </div>
         </div>

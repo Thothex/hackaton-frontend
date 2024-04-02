@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { fetchHackathonById } from "@/redux/features/hackathonsSlice.js";
 import styles from "./style.module.scss";
 import {
@@ -14,59 +15,57 @@ import Loading from "@/components/Loading";
 import CountdownTimer from "@/components/CountdownTimer/index.jsx";
 
 const StartHackathonPage = () => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const hackathon = useSelector((state) => state.hackathons.hackathon);
+  const { teamInfo } = useSelector((state) => state.team);
+  const { allUsers, userInfo: user } = useSelector((state) => state.userStore);
+  const [teamName, setTeamName] = useState("");
+  const [inviteEmail, setInviteEmail] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [newTeamId, setNewTeamId] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-    const navigate = useNavigate();
-    const { id } = useParams();
-    const dispatch = useDispatch();
-    const hackathon = useSelector(state => state.hackathons.hackathon);
-    const {teamInfo} = useSelector(state => state.team);
-    const { allUsers, userInfo: user } = useSelector(state => state.userStore);
-    const [teamName, setTeamName] = useState('');
-    const [inviteEmail, setInviteEmail] = useState('');
-    const [searchTerm, setSearchTerm] = useState('');
-    const [newTeamId, setNewTeamId] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+  useEffect(() => {
+    setLoading(true);
+    dispatch(fetchHackathonById(id));
+    dispatch(getAllUsersThunk());
+    if (user?.id) {
+      dispatch(getTeamInfo({ hackathonId: id, userId: user.id }))
+        .then((data) => {
+          setLoading(false);
+        })
+        .catch((error) => {
+          setError(error.message);
+          setLoading(false);
+        });
+    }
+  }, [dispatch, id, user]);
 
-    useEffect(() => {
-        setLoading(true);
-        dispatch(fetchHackathonById(id));
-        dispatch(getAllUsersThunk());
-        if (user?.id) {
-            dispatch(getTeamInfo({ hackathonId: id, userId: user.id }))
-            .then((data) => {
-                setLoading(false)
-            })
-            .catch(error => {
-                setError(error.message);
-                setLoading(false);
-            });
-        }
-    }, [dispatch, id, user]);
+  useEffect(() => {
+    const socket = new WebSocket(import.meta.env.VITE_BASE_WS_URL);
+    socket.onopen = () => {};
+    socket.onmessage = (event) => {
+      const teamMessage = JSON.parse(event.data);
+      if (+teamMessage.teamId === teamInfo.team.id) {
+        dispatch(getTeamInfo({ hackathonId: id, userId: user.id }));
+      }
+    };
+    socket.onclose = () => {
+      console.log("Connection closed");
+    };
+    socket.onerror = (error) => {
+      console.error("Error:", error);
+    };
+    return () => {
+      socket.close();
+    };
+  }, [dispatch, id, teamInfo?.team.id, user]);
 
-    useEffect(() => {
-        const socket = new WebSocket(import.meta.env.VITE_BASE_WS_URL);
-        socket.onopen = () => {};
-        socket.onmessage = (event) => {
-            const teamMessage = JSON.parse(event.data);
-            if (+teamMessage.teamId === teamInfo.team.id) {
-                dispatch(getTeamInfo({ hackathonId: id, userId: user.id }))
-            }
-        };
-        socket.onclose = () => {
-            console.log('Connection closed');
-        };
-        socket.onerror = (error) => {
-            console.error('Error:', error);
-        };
-        return () => {
-            socket.close();
-        };
-    }, [dispatch, id, teamInfo?.team.id, user]);
-
-    console.log('---------------',hackathon)
-
-    
+  console.log("---------------", hackathon);
 
   useEffect(() => {
     if (
@@ -122,14 +121,11 @@ const StartHackathonPage = () => {
       )
     : [];
 
-
-
   const handleInputChange = (e) => {
-      const { value } = e.target;
-      setInviteEmail(value);
-      setSearchTerm(value.trim());
+    const { value } = e.target;
+    setInviteEmail(value);
+    setSearchTerm(value.trim());
   };
-
 
   const handleUserClick = (email) => {
     setInviteEmail(email);
@@ -169,127 +165,151 @@ const StartHackathonPage = () => {
     navigate(`/hackathon/${id}/tasks`);
   };
 
-  console.log(user.id, hackathon, "ТУТ МОЕ");
-
   if (!hackathon || loading) {
     return <Loading />;
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return (
+      <div>
+        {t("HackathonTeamPage.Error")}: {error}
+      </div>
+    );
   }
 
   const currentDate = new Date();
   const startDate = new Date(hackathon.start);
   const endDate = new Date(hackathon.end);
   if (currentDate < startDate) {
-      return (
-          <div>
-              Hackathon has not started yet. Please wait until it starts on {startDate.toDateString()}.
-          </div>
-      );
+    return (
+      <div>
+        {t(
+          "HackathonTeamPage.Hackathon has not started yet. Please wait until it starts on"
+        )}{" "}
+        {startDate.toDateString()}.
+      </div>
+    );
   }
 
   let status;
 
   if (currentDate < startDate) {
-      status = "Registration is open";
+    status = "Registration is open";
   } else if (currentDate >= startDate && currentDate <= endDate) {
-      status = "In progress";
+    status = "In progress";
   } else {
-      status = "Finished";
+    status = "Finished";
   }
 
-    return (
-        <div className={styles.hackathonPage}>
-            <div
-                className={`${styles.hackathonPanelUpper} ${
-                    status === "Registration is open" ? styles.panelOpen :
-                        status === "In progress" ? styles.panelInProgress :
-                            status === "Finished" ? styles.panelClosed :
-                                ""}`}
-            >
-                <div className={styles.upperHello}>
-                    <button className={styles.button} onClick={()=> navigate(`/hackathon/${hackathon.id}`)}>{`<—`}</button>
-                    <h4>Welcome to the hackathon 👋🏼</h4>
-                </div>
-                <div className={styles.timerName}>
-                  <h1 className={styles.titleHac}>{hackathon.name}</h1>
-                  {hackathon?.end && <div className={styles.countDownRow}><CountdownTimer targetDate={hackathon.end} /></div>}
-                </div>
-            </div>
-            <div className={styles.hackathonPanelLower}>
-                <div className={styles.about}>
-                    <div className={styles.description}>
-                        <h2>Description</h2>
-                        <p>{hackathon.description}</p>
-                    </div>
-                    <div className={styles.rules}>
-                        <h2>Rules of participation</h2>
-                        <p>{hackathon.rules}</p>
-                    </div>
-                </div>
-                <div className={styles.teamContainer}>
-                    <div className={styles.team}>
-                        {teamInfo?.team ? (
-                            // <h2>Your team is: {teamInfo.team.name}</h2>
-                            <></>
-                        ) : (
-                            <div className={styles.createTeam}>
-                                <h2>Gather your team!</h2>
-                                <form onSubmit={handleCreateTeam}>
-                                    <input placeholder="Name your team" value={teamName} onChange={(e) => setTeamName(e.target.value)} />
-                                    <button type="submit">Save</button>
-                                </form>
-                            </div>
-                        )}
-                        {teamInfo?.teamUsers.length > 0 && (
-                            <InvintationBlock
-                                styles={styles}
-                                teamInfo={teamInfo}
-                                handleSendInvite={handleSendInvite}
-                                handleInputChange={handleInputChange}
-                                inviteEmail={inviteEmail}
-                                searchTerm={searchTerm}
-                                filteredUsers={filteredUsers}
-                                handleUserClick={handleUserClick}
-                            />
-                        )}
-                    </div>
-                  <button className={styles.toTask} onClick={handleTasksClick}>START</button>
-                  <div className={styles.team}>
-                    {teamInfo?.team ? (
-                      <h2>Your team is: {teamInfo.team.name}</h2>
-                    ) : (
-                      <>
-                        <h2>Gather your team!</h2>
-                        <form onSubmit={handleCreateTeam}>
-                          <input
-                            placeholder="Name your team"
-                            value={teamName}
-                            onChange={(e) => setTeamName(e.target.value)}
-                          />
-                          <button type="submit">Save</button>
-                        </form>
-                      </>
-                    )}
-                    {teamInfo?.teamUsers.length > 0 && (
-                      <InvintationBlock
-                        styles={styles}
-                        teamInfo={teamInfo}
-                        handleSendInvite={handleSendInvite}
-                        handleInputChange={handleInputChange}
-                        inviteEmail={inviteEmail}
-                        searchTerm={searchTerm}
-                        filteredUsers={filteredUsers}
-                        handleUserClick={handleUserClick}
-                      />
-                    )}
-                  </div>
-                </div>
-            </div>
+  return (
+    <div className={styles.hackathonPage}>
+      <div
+        className={`${styles.hackathonPanelUpper} ${
+          status === "Registration is open"
+            ? styles.panelOpen
+            : status === "In progress"
+            ? styles.panelInProgress
+            : status === "Finished"
+            ? styles.panelClosed
+            : ""
+        }`}
+      >
+        <div className={styles.upperHello}>
+          <button
+            className={styles.button}
+            onClick={() => navigate(`/hackathon/${hackathon.id}`)}
+          >{`<—`}</button>
+          <h4>{t("HackathonPage.Welcome to the hackathon")} 👋🏼</h4>
         </div>
-    );
-  }
+        <div className={styles.timerName}>
+          <h1 className={styles.titleHac}>{hackathon.name}</h1>
+          {hackathon?.end && (
+            <div className={styles.countDownRow}>
+              <CountdownTimer targetDate={hackathon.end} />
+            </div>
+          )}
+        </div>
+      </div>
+      <div className={styles.hackathonPanelLower}>
+        <div className={styles.about}>
+          <div className={styles.description}>
+            <h2>{t("HackathonTeamPage.Description")}</h2>
+            <p>{hackathon.description}</p>
+          </div>
+          <div className={styles.rules}>
+            <h2>{t("HackathonTeamPage.Rules of participation")}</h2>
+            <p>{hackathon.rules}</p>
+          </div>
+        </div>
+        <div className={styles.teamContainer}>
+          <div className={styles.team}>
+            {teamInfo?.team ? (
+              // <h2>Your team is: {teamInfo.team.name}</h2>
+              <></>
+            ) : (
+              <div className={styles.createTeam}>
+                <h2>{t("HackathonTeamPage.Gather your team!")}</h2>
+                <form onSubmit={handleCreateTeam}>
+                  <input
+                    placeholder="Name your team"
+                    value={teamName}
+                    onChange={(e) => setTeamName(e.target.value)}
+                  />
+                  <button type="submit">{t("HackathonTeamPage.Save")}</button>
+                </form>
+              </div>
+            )}
+            {teamInfo?.teamUsers.length > 0 && (
+              <InvintationBlock
+                styles={styles}
+                teamInfo={teamInfo}
+                handleSendInvite={handleSendInvite}
+                handleInputChange={handleInputChange}
+                inviteEmail={inviteEmail}
+                searchTerm={searchTerm}
+                filteredUsers={filteredUsers}
+                handleUserClick={handleUserClick}
+              />
+            )}
+          </div>
+          <button className={styles.toTask} onClick={handleTasksClick}>
+            {t("HackathonTeamPage.START")}
+          </button>
+          <div className={styles.team}>
+            {teamInfo?.team ? (
+              <h2>
+                {t("HackathonTeamPage.Your team is:")} {teamInfo.team.name}
+              </h2>
+            ) : (
+              <>
+                <h2>{t("HackathonTeamPage.Gather your team!")}</h2>
+                <form onSubmit={handleCreateTeam}>
+                  <input
+                    placeholder="Name your team"
+                    value={teamName}
+                    onChange={(e) => setTeamName(e.target.value)}
+                  />
+                  <button type="submit">{t("HackathonTeamPage.Save")}</button>
+                </form>
+              </>
+            )}
+            {teamInfo?.teamUsers.length > 0 && (
+              <InvintationBlock
+                styles={styles}
+                teamInfo={teamInfo}
+                handleSendInvite={handleSendInvite}
+                handleInputChange={handleInputChange}
+                inviteEmail={inviteEmail}
+                searchTerm={searchTerm}
+                filteredUsers={filteredUsers}
+                handleUserClick={handleUserClick}
+              />
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default StartHackathonPage;

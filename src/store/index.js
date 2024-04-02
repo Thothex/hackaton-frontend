@@ -8,16 +8,18 @@ import usersReducer from "../redux/features/usersSlice";
 import teamsReducer from "../redux/features/teamsSlice";
 import answersReducer from "../redux/features/answersSlice";
 import modeReducer from "../redux/features/modeSlice.js";
+import languageReducer from "@/redux/features/languageSlice";
 export const store = configureStore({
-	reducer: {
-		userStore: userReducer,
-		hackathons: hackathonReducer,
-		dictionaryStore: dictionaryReducer,
-		tasks: tasksReducer,
-		team: teamReducer,
-		usersStore: usersReducer,
-		teamsStore: teamsReducer,
-		answersStore: answersReducer,
-		mode: modeReducer
-	},
+  reducer: {
+    userStore: userReducer,
+    hackathons: hackathonReducer,
+    dictionaryStore: dictionaryReducer,
+    tasks: tasksReducer,
+    team: teamReducer,
+    usersStore: usersReducer,
+    teamsStore: teamsReducer,
+    answersStore: answersReducer,
+    mode: modeReducer,
+    language: languageReducer,
+  },
 });

@@ -1,7 +1,8 @@
 import { useRef } from "react";
+import { useTranslation } from "react-i18next";
 import styles from "./style.module.scss";
 const InputTask = ({ handleSaveInput, type, task, savedValue, disabled }) => {
-  console.log("disabled", disabled);
+  const { t } = useTranslation();
   const answerRef = useRef(null);
   const onSave = () => {
     handleSaveInput({
@@ -16,7 +17,7 @@ const InputTask = ({ handleSaveInput, type, task, savedValue, disabled }) => {
         <input
           className={styles.input}
           disabled={disabled}
-          placeholder="Enter answer here"
+          placeholder={t("TestPage.Enter answer here")}
           ref={answerRef}
           defaultValue={savedValue || ""}
         />
@@ -26,7 +27,7 @@ const InputTask = ({ handleSaveInput, type, task, savedValue, disabled }) => {
           type="button"
           onClick={onSave}
         >
-          SAVE
+          {t("ProfilePage.save")}
         </button>
       </form>
     </div>

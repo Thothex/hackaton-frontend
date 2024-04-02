@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {useEffect, useRef, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,12 +12,13 @@ import Icons from '@/constants/icons';
 
 
 const HackathonPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const user = useSelector((state) => state.userStore.userInfo);
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  const hackathon = useSelector(state => state.hackathons.hackathon);
+  const hackathon = useSelector((state) => state.hackathons.hackathon);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const iframeRef = useRef(null);
 
@@ -31,10 +33,9 @@ const HackathonPage = () => {
       } else {
         screenfull.exit();
       }
-      setIsFullscreen(prevState => !prevState);
+      setIsFullscreen((prevState) => !prevState);
     }
   };
-
 
   if (!hackathon) {
     return <Loading />;
@@ -67,7 +68,6 @@ const HackathonPage = () => {
 
   const endMonth = endDate.toLocaleString("en-US", { month: "long" });
 
-
   const handleEndHackathon = () => {
     dispatch(putHackathon({ ...hackathon, status: "Finished" }));
   };
@@ -88,7 +88,7 @@ const HackathonPage = () => {
           <button onClick={() => navigate("/hackathon")}>
             <img className={styles.backArrow} src={Icons.BACK_ARROW} alt="back" />
           </button>
-          <h4>Welcome to the hackathon 👋🏼</h4>
+          <h4>{t(`HackathonPage.Welcome to the hackathon`)} 👋🏼</h4>
         </div>
         <h1 className={styles.titleHac}>{hackathon.name}</h1>
       </div>
@@ -107,25 +107,30 @@ const HackathonPage = () => {
           <div className={styles.timeContainer}>
             <div className={styles.time}>
               <h4 className={styles.date}>{formattedStartDate}</h4>
-              <p className={styles.month}>{startMonth}</p>
+              <p className={styles.month}>
+                {t(`ProfilePage.months.${startMonth}`)}
+              </p>
               <p className={styles.month}>{yearStart}</p>
             </div>
             <div className={styles.hr} />
             <div className={styles.time}>
               <h4 className={styles.date}>{formattedEndDate}</h4>
-              <p className={styles.month}>{endMonth}</p>
+              <p className={styles.month}>
+                {t(`ProfilePage.months.${endMonth}`)}
+              </p>
               <p className={styles.month}>{yearEnd}</p>
             </div>
-
           </div>
         </div>
         <div className={styles.hackathonPanelSMall}>
-          <h3 className={styles.date}>{level}</h3>
-          <h3 className={styles.month}>{organization}</h3>
+          <h3 className={styles.date}>{t(`HackathonPage.${level}`)}</h3>
+          <h3 className={styles.month}>{t(`HackathonPage.${organization}`)}</h3>
         </div>
         <div className={styles.hackathonPanelSMall}>
-          <h3 className={styles.date}>{hackathon.category.name}</h3>
-          <h3 className={styles.month}>category</h3>
+          <h3 className={styles.date}>
+            {t(`HackathonPage.categories.${hackathon.category.name}`)}
+          </h3>
+          <h3 className={styles.month}>{t(`HackathonPage.category`)}</h3>
         </div>
       </div>
       <div
@@ -140,12 +145,16 @@ const HackathonPage = () => {
         }`}
       >
         <div className={styles.hackathonPanelSMall}>
-          <h3 className={styles.date}>{hackathon.type}</h3>
-          <h3 className={styles.month}>Single or team</h3>
+          <h3 className={styles.date}>
+            {t(`HackathonPage.type.${hackathon.type}`)}
+          </h3>
+          <h3 className={styles.month}>{t(`HackathonPage.Single or team`)}</h3>
         </div>
         <div className={styles.hackathonPanelSMall}>
-          <h3 className={styles.date}>Prizes</h3>
-          <h3 className={styles.month}>{hackathon.prize}</h3>
+          <h3 className={styles.date}>{t(`HackathonPage.Prizes`)}</h3>
+          <h3 className={styles.month}>
+            {hackathon.prize} {t(`HackathonPage.points`)}
+          </h3>
         </div>
         <div className={styles.hackathonPanelSMall}>
           <h3 className={styles.date}>
@@ -155,12 +164,12 @@ const HackathonPage = () => {
               </div>
             ))}
           </h3>
-          <h3 className={styles.month}>organizations</h3>
+          <h3 className={styles.month}>{t(`HackathonPage.organization`)}</h3>
         </div>
       </div>
       <div className={styles.hackathonPanelLower}>
         <div className={styles.description}>
-          <h2>About the hackathon</h2>
+          <h2>{t(`HackathonPage.About the hackathon`)}</h2>
           <p className={styles.descriptionHac}>{hackathon.description}</p>
         </div>
         {status === "Registration is open" && user && (
@@ -168,7 +177,9 @@ const HackathonPage = () => {
             className={styles.pic}
             onClick={() => navigate(`/hackathon/${hackathon.id}/start`)}
           >
-            <button className={styles.takePartBTN}>TAKE PART</button>
+            <button className={styles.takePartBTN}>
+              {t(`HackathonPage.TAKE PART`)}
+            </button>
           </div>
         )}
         {status === "In progress" &&
@@ -178,20 +189,22 @@ const HackathonPage = () => {
               className={styles.pic}
               onClick={() => navigate(`/hackathon/${hackathon.id}/start`)}
             >
-              <button className={styles.takePartBTN}>TAKE PART</button>
+              <button className={styles.takePartBTN}>
+                {t(`HackathonPage.TAKE PART`)}
+              </button>
             </div>
           )}
         {status === "Registration is open" && !user && (
           <div className={styles.pic}>
             <button className={styles.takePartBTN}>
-              SIGN IN/UP TO TAKE PART
+              {t(`HackathonPage.SIGN IN/UP TO TAKE PART`)}
             </button>
           </div>
         )}
         {status === "In progress" && !user && (
           <div className={styles.pic}>
             <button className={styles.takePartBTN}>
-              SIGN IN/UP TO TAKE PART
+              {t(`HackathonPage.SIGN IN/UP TO TAKE PART`)}
             </button>
           </div>
         )}
@@ -201,28 +214,32 @@ const HackathonPage = () => {
               disabled={status === "Finished"}
               className={styles.takePartBTN}
             >
-              Hackathon is over :(
+              {t(`HackathonPage.Hackathon is over :(`)}
             </button>
           </div>
         )}
       </div>
 
-      {isOrg &&
+      {isOrg && (
         <>
-        { hackathon.status !== "Finished" &&
-            <Flex wrap="wrap" gap="small" >
-              <Button type="primary" danger onClick={handleEndHackathon}>Hackathon end</Button>
+          {hackathon.status !== "Finished" && (
+            <Flex wrap="wrap" gap="small">
+              <Button type="primary" danger onClick={handleEndHackathon}>
+                {t(`HackathonPage.Hackathon end`)}
+              </Button>
             </Flex>
-        }
-            <DashboardFloatingButton onClick={toggleFullscreen} />
-            <div className={styles.iframeWrapper}>
-              <iframe ref={iframeRef} src={`http://localhost:5173/dashboard?id=${id}`} />
-            </div>
+          )}
+          <DashboardFloatingButton onClick={toggleFullscreen} />
+          <div className={styles.iframeWrapper}>
+            <iframe
+              ref={iframeRef}
+              src={`http://localhost:5173/dashboard?id=${id}`}
+            />
+          </div>
         </>
-      }
-      </div>
-  )
-
+      )}
+    </div>
+  );
 };
 
 export default HackathonPage;
