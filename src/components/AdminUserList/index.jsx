@@ -27,12 +27,10 @@ const AdminUserList = () => {
   };
 
   const onChangeIsOrg = (e, user) => {
-    console.log("e.target.checked", e.target.checked);
     dispatch(updateUser({ userId: user.userId, isOrg: e.target.checked }));
   };
 
   const users = userList.map((user) => {
-    console.log("user.organization", user.organization);
     const org = {
       id: user?.organization?.id,
       value: user?.organization?.name,

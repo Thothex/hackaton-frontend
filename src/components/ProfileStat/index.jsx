@@ -100,7 +100,6 @@ const ProfileStat = ({ stat }) => {
       });
     }
   }, []);
-  console.log(stat);
   const generateLastSixMonths = () => {
     const months = [];
     let currentDate = dayjs();

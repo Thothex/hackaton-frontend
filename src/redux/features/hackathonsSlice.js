@@ -12,7 +12,6 @@ export const fetchHackathons = createAsyncThunk(
         throw new Error("Failed to fetch hackathons");
       }
       const data = await response.json();
-      console.log(data);
       return data;
     } catch (error) {
       throw new Error("Failed to fetch hackathons");
@@ -31,7 +30,6 @@ export const fetchHackathonById = createAsyncThunk(
         throw new Error("Failed to fetch hackathon");
       }
       const data = await response.json();
-      console.log(data);
       return data;
     } catch (error) {
       throw new Error("Failed to fetch hackathon");

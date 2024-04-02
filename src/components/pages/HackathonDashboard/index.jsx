@@ -25,13 +25,10 @@ const HackathonDashboard = () => {
     socket.onopen = () => {};
     socket.onmessage = (event) => {
       const eventData = JSON.parse(event.data);
-      console.log("event in dashboard", eventData);
       if (
         eventData?.code === "dashboard_update" &&
         +hackathonId === eventData?.hackathonId
       ) {
-        console.log("event code", event.data.code);
-        console.log("МЫ ТОЧНО ДОЛЖНЫ ДЁРНУТЬ ДИСПАТЧ");
         dispatch(fetchHackathonStat({ hackathonId }));
       }
     };
@@ -119,7 +116,8 @@ const HackathonDashboard = () => {
   };
   const endData = new Date(stat.end).getTime();
   return (
-    <>
+    <div className={styles.dashboardContainer}>
+      <div className={styles.innerContainer}>
       <div className={styles.countdownWrapper}>
         <CountdownTimer targetDate={endData} />
       </div>
@@ -219,7 +217,8 @@ const HackathonDashboard = () => {
           <canvas ref={chartEl}></canvas>
         </div>
       </div>
-    </>
+      </div>
+    </div>
   );
 };
 

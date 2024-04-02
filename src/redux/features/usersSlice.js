@@ -44,7 +44,6 @@ export const updateUser = createAsyncThunk(
 			);
 			if (res.status === 200) {
 				const data = await res.json();
-				console.log("data", data);
 				return data;
 			}
 		} catch (error) {
@@ -64,7 +63,6 @@ export const usersSlice = createSlice({
 			})
 			.addCase(fetchUsersThunk.fulfilled, (state, action) => {
 				state.status = "idle";
-				console.log("action.payload", action.payload);
 				state.users = [
 					...action.payload.map((user) => {
 						return {

@@ -5,7 +5,6 @@ import styles from "./styles.module.scss";
 const AdminPage = () => {
   const { t } = useTranslation();
   const onChange = (key) => {
-    console.log(key);
   };
   const items = [
     {

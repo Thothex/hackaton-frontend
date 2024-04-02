@@ -21,6 +21,7 @@ import {
 } from "@/redux/features/hackathonsSlice";
 import { useNavigate } from "react-router-dom";
 import Loading from "../Loading";
+import moment from "moment";
 
 dayjs.extend(customParseFormat);
 const NewHachathon = ({ id }) => {
@@ -60,8 +61,8 @@ const NewHachathon = ({ id }) => {
           audience: null,
           type: null,
           description: "",
-          start: new Date().toString(),
-          end: new Date().toString(),
+          start: new Date().toISOString(),
+          end: new Date().toISOString(),
           category: null,
           organizations: [],
           admins: null,
@@ -149,7 +150,6 @@ const NewHachathon = ({ id }) => {
   };
 
   const onUpdateBtnHandler = async () => {
-    console.log("hackathon in bnt", hackathon);
     const updatedHakathon = await dispatch(putHackathon(hackathon));
     navigate(`/hackathon/${updatedHakathon.payload.id}`);
   };
@@ -163,18 +163,17 @@ const NewHachathon = ({ id }) => {
       currentDate.getHours(),
       currentDate.getMinutes(),
       currentDate.getSeconds()
-    ).toString();
+    )
     dispatch(
       updateHackathon({
         ...hackathon,
         end: hackathon.end.toString(),
-        start: newStartDate,
+        start: newStartDate.toString(),
       })
     );
   };
   const onStartTimeChange = (time) => {
     const currentDate = new Date(hackathon.start);
-
     const newStartDate = new Date(
       currentDate.getFullYear(),
       currentDate.getMonth(),
@@ -182,7 +181,7 @@ const NewHachathon = ({ id }) => {
       time.hour(),
       time.minute(),
       time.second()
-    );
+    )
     dispatch(
       updateHackathon({
         ...hackathon,
@@ -201,7 +200,7 @@ const NewHachathon = ({ id }) => {
       currentDate.getHours(),
       currentDate.getMinutes(),
       currentDate.getSeconds()
-    ).toString();
+    )
     dispatch(
       updateHackathon({
         ...hackathon,
@@ -211,14 +210,15 @@ const NewHachathon = ({ id }) => {
     );
   };
   const onEndTimeChange = (time) => {
+    const currentDate = new Date(hackathon.end);
     const newStartDate = new Date(
-      hackathon.end.getFullYear(),
-      hackathon.end.getMonth(),
-      hackathon.end.getDate(),
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      currentDate.getDate(),
       time.hour(),
       time.minute(),
       time.second()
-    ).toString();
+    )
     dispatch(
       updateHackathon({
         ...hackathon,
@@ -227,7 +227,6 @@ const NewHachathon = ({ id }) => {
       })
     );
   };
-  console.log("hackathon", hackathon);
   !hackathon && <Loading />;
   return (
     <>
@@ -278,7 +277,7 @@ const NewHachathon = ({ id }) => {
               placeholder={t("NewHachathon.Max amount of rating")}
               type={"number"}
               name={"prize"}
-              value={hackathon?.prize}
+              value={hackathon?.prize || '100'}
               onChange={handleInputChange}
             />
           </div>
@@ -341,16 +340,16 @@ const NewHachathon = ({ id }) => {
                 hackathon?.start ? hackathon.start : new Date().toString()
               }
             />
-            <TimePicker
-              placeholder={t("NewHachathon.Select time")}
-              className={styles.time}
-              onChange={onStartTimeChange}
-              defaultOpenValue={dayjs(
-                hackathon?.start || "00:00:00",
-                "HH:mm:ss"
-              )}
-              format={"HH:mm:ss"}
-            />
+            { hackathon?.start &&
+                <TimePicker
+                  className={styles.time}
+                  onChange={onStartTimeChange}
+                  placeholder={t("NewHachathon.Select time")}
+                  // defaultOpenValue={moment(hackathon?.start)}
+                  defaultValue={dayjs(hackathon?.start, 'YYYY-MM-DDTHH:mm:ss.SSSZ')}
+                  format={"HH:mm:ss"}
+                />
+            }
           </div>
           <div className={styles.endContainer}>
             <span className={styles.inputTitle}>
@@ -363,16 +362,15 @@ const NewHachathon = ({ id }) => {
                 hackathon?.end ? hackathon.end : new Date().toString()
               }
             />
-            <TimePicker
-              className={styles.time}
-              onChange={onEndTimeChange}
-              placeholder={t("NewHachathon.Select time")}
-              defaultOpenValue={dayjs(
-                hackathon?.start || "00:00:00",
-                "HH:mm:ss"
-              )}
-              format={"HH:mm:ss"}
-            />
+            { hackathon?.end &&
+                <TimePicker
+                  className={styles.time}
+                  onChange={onEndTimeChange}
+                  placeholder={t("NewHachathon.Select time")}
+                  defaultValue={dayjs(hackathon?.end, 'YYYY-MM-DDTHH:mm:ss.SSSZ')}
+                  format={"HH:mm:ss"}
+                />
+            }
           </div>
         </div>
         <div className={styles.organizationsContainer}>

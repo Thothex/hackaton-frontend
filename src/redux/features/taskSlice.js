@@ -17,7 +17,6 @@ export const fetchTasks = createAsyncThunk(
 				throw new Error("Failed to fetch tasks");
 			}
 			const data = await response.json();
-			console.log(data);
 			return data;
 		} catch (error) {
 			throw new Error("Failed to fetch tasks");

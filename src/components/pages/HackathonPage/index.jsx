@@ -73,6 +73,14 @@ const HackathonPage = () => {
   const handleEndHackathon = () => {
     dispatch(putHackathon({ ...hackathon, status: "Finished" }));
   };
+
+  const handleStartHackathon = () => {
+    if (user?.role) {
+      navigate(`/hackathon/${hackathon.id}/start`)
+    } else {
+      navigate("/login");
+    }
+  }
   return (
     <div className={styles.hackathonPage}>
       <div
@@ -187,7 +195,7 @@ const HackathonPage = () => {
         {status === "Registration is open" && user && (
           <div
             className={styles.pic}
-            onClick={() => navigate(`/hackathon/${hackathon.id}/start`)}
+            onClick={handleStartHackathon}
           >
             <button className={styles.takePartBTN}>
               {t(`HackathonPage.TAKE PART`)}
@@ -196,24 +204,24 @@ const HackathonPage = () => {
         )}
         {status === "In progress" &&
           user &&
-          hackathon.organizer_id !== user.id && (
+          hackathon.organizer_id !== user.id && user.role && (
             <div
               className={styles.pic}
-              onClick={() => navigate(`/hackathon/${hackathon.id}/start`)}
+              onClick={handleStartHackathon}
             >
               <button className={styles.takePartBTN}>
                 {t(`HackathonPage.TAKE PART`)}
               </button>
             </div>
           )}
-        {status === "Registration is open" && !user && (
+        {status === "Registration is open" && !user?.role && (
           <div className={styles.pic}>
             <button className={styles.takePartBTN}>
               {t(`HackathonPage.SIGN IN/UP TO TAKE PART`)}
             </button>
           </div>
         )}
-        {status === "In progress" && !user && (
+        {status === "In progress" && !user?.role && (
           <div className={styles.pic}>
             <button className={styles.takePartBTN}>
               {t(`HackathonPage.SIGN IN/UP TO TAKE PART`)}
@@ -226,7 +234,7 @@ const HackathonPage = () => {
               disabled={status === "Finished"}
               className={styles.takePartBTN}
             >
-              {t(`HackathonPage.Hackathon is over :(`)}
+              {t(`HackathonPage.Hackathon is over`)}
             </button>
           </div>
         )}

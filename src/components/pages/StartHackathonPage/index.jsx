@@ -13,6 +13,7 @@ import { getAllUsersThunk } from "@/redux/features/userSlice.js";
 import InvintationBlock from "./InvintationBlock";
 import Loading from "@/components/Loading";
 import CountdownTimer from "@/components/CountdownTimer/index.jsx";
+import Icons from "@/constants/icons";
 
 const StartHackathonPage = () => {
   const { t } = useTranslation();
@@ -63,9 +64,8 @@ const StartHackathonPage = () => {
     return () => {
       socket.close();
     };
-  }, [dispatch, id, teamInfo?.team.id, user]);
+  }, [dispatch, id, teamInfo?.team?.id, user]);
 
-  console.log("---------------", hackathon);
 
   useEffect(() => {
     if (
@@ -111,7 +111,7 @@ const StartHackathonPage = () => {
     return () => {
       socket.close();
     };
-  }, [dispatch, id, teamInfo?.team.id, user]);
+  }, [dispatch, id, teamInfo?.team?.id, user]);
 
   const filteredUsers = allUsers
     ? allUsers.filter(
@@ -132,11 +132,11 @@ const StartHackathonPage = () => {
     setSearchTerm("");
   };
 
-  const handleCreateTeam = async () => {
+  const handleCreateTeam = async (teamname) => {
     try {
       const {
         payload: { id: newTeamId },
-      } = await dispatch(createTeam({ name: teamName, hackathonId: id }));
+      } = await dispatch(createTeam({ name: teamname ? `${user.username} - ${hackathon.id}` : teamName, hackathonId: id }));
       setNewTeamId(newTeamId);
       dispatch(getTeamInfo({ hackathonId: id, userId: user.id }));
       return newTeamId;
@@ -145,6 +145,19 @@ const StartHackathonPage = () => {
     }
   };
 
+  const createMetaTeam = async () => {
+    await handleCreateTeam(user.username)
+  };
+
+  const handleStart = async () => {
+    if (!hackathon.private) {
+      setTeamName(`${user.username} - ${hackathon.id}`);
+      handleTasksClick()
+    } else {
+      await createMetaTeam()
+      handleTasksClick()
+    }
+  }
   const handleSendInvite = async () => {
     try {
       await dispatch(
@@ -218,7 +231,7 @@ const StartHackathonPage = () => {
           <button
             className={styles.button}
             onClick={() => navigate(`/hackathon/${hackathon.id}`)}
-          >{`<—`}</button>
+          ><img className={styles.backArrow} src={Icons.BACK_ARROW} alt="back" /></button>
           <h4>{t("HackathonPage.Welcome to the hackathon")} 👋🏼</h4>
         </div>
         <div className={styles.timerName}>
@@ -241,9 +254,11 @@ const StartHackathonPage = () => {
             <p>{hackathon.rules}</p>
           </div>
         </div>
+        
         <div className={styles.teamContainer}>
+          {  !hackathon.private && (
           <div className={styles.team}>
-            {teamInfo?.team ? (
+            {teamInfo?.team? (
               // <h2>Your team is: {teamInfo.team.name}</h2>
               <></>
             ) : (
@@ -259,7 +274,7 @@ const StartHackathonPage = () => {
                 </form>
               </div>
             )}
-            {teamInfo?.teamUsers.length > 0 && (
+            {teamInfo?.teamUsers.length > 0 &&   (
               <InvintationBlock
                 styles={styles}
                 teamInfo={teamInfo}
@@ -272,41 +287,12 @@ const StartHackathonPage = () => {
               />
             )}
           </div>
-          <button className={styles.toTask} onClick={handleTasksClick}>
+          )}
+          <button className={styles.toTask} onClick={handleStart}>
             {t("HackathonTeamPage.START")}
           </button>
-          <div className={styles.team}>
-            {teamInfo?.team ? (
-              <h2>
-                {t("HackathonTeamPage.Your team is:")} {teamInfo.team.name}
-              </h2>
-            ) : (
-              <>
-                <h2>{t("HackathonTeamPage.Gather your team!")}</h2>
-                <form onSubmit={handleCreateTeam}>
-                  <input
-                    placeholder="Name your team"
-                    value={teamName}
-                    onChange={(e) => setTeamName(e.target.value)}
-                  />
-                  <button type="submit">{t("HackathonTeamPage.Save")}</button>
-                </form>
-              </>
-            )}
-            {teamInfo?.teamUsers.length > 0 && (
-              <InvintationBlock
-                styles={styles}
-                teamInfo={teamInfo}
-                handleSendInvite={handleSendInvite}
-                handleInputChange={handleInputChange}
-                inviteEmail={inviteEmail}
-                searchTerm={searchTerm}
-                filteredUsers={filteredUsers}
-                handleUserClick={handleUserClick}
-              />
-            )}
           </div>
-        </div>
+       
       </div>
     </div>
   );
