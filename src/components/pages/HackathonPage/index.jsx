@@ -222,7 +222,7 @@ const HackathonPage = () => {
               disabled={status === "Finished"}
               className={styles.takePartBTN}
             >
-              {t(`HackathonPage.Hackathon is over :(`)}
+              {t(`HackathonPage.Hackathon is over`)}
             </button>
           </div>
         )}

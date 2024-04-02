@@ -20,6 +20,7 @@ import {
 } from "@/redux/features/hackathonsSlice";
 import { useNavigate } from "react-router-dom";
 import Loading from "../Loading";
+import moment from "moment";
 
 dayjs.extend(customParseFormat);
 const NewHachathon = ({ id }) => {
@@ -153,6 +154,7 @@ const NewHachathon = ({ id }) => {
   };
 
   const onStartDateChange = (date) => {
+    console.log('date1', date)
     const currentDate = new Date(hackathon.start);
     const newStartDate = new Date(
       date.getFullYear(),
@@ -161,18 +163,18 @@ const NewHachathon = ({ id }) => {
       currentDate.getHours(),
       currentDate.getMinutes(),
       currentDate.getSeconds()
-    ).toString();
+    )
     dispatch(
       updateHackathon({
         ...hackathon,
         end: hackathon.end.toString(),
-        start: newStartDate,
+        start: newStartDate.toString(),
       })
     );
   };
   const onStartTimeChange = (time) => {
     const currentDate = new Date(hackathon.start);
-
+    console.log('time1', time)
     const newStartDate = new Date(
       currentDate.getFullYear(),
       currentDate.getMonth(),
@@ -180,7 +182,8 @@ const NewHachathon = ({ id }) => {
       time.hour(),
       time.minute(),
       time.second()
-    );
+    )
+    console.log('newStartDate', newStartDate);
     dispatch(
       updateHackathon({
         ...hackathon,
@@ -191,6 +194,7 @@ const NewHachathon = ({ id }) => {
   };
 
   const onEndDateChange = (date) => {
+    console.log('date2', date)
     const currentDate = new Date(hackathon.end);
     const newStartDate = new Date(
       date.getFullYear(),
@@ -199,7 +203,7 @@ const NewHachathon = ({ id }) => {
       currentDate.getHours(),
       currentDate.getMinutes(),
       currentDate.getSeconds()
-    ).toString();
+    )
     dispatch(
       updateHackathon({
         ...hackathon,
@@ -209,14 +213,16 @@ const NewHachathon = ({ id }) => {
     );
   };
   const onEndTimeChange = (time) => {
+    console.log('time2', time)
+    const currentDate = new Date(hackathon.end);
     const newStartDate = new Date(
-      hackathon.end.getFullYear(),
-      hackathon.end.getMonth(),
-      hackathon.end.getDate(),
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      currentDate.getDate(),
       time.hour(),
       time.minute(),
       time.second()
-    ).toString();
+    )
     dispatch(
       updateHackathon({
         ...hackathon,
@@ -226,6 +232,8 @@ const NewHachathon = ({ id }) => {
     );
   };
   console.log("hackathon", hackathon);
+  console.log("hackathon?.end", hackathon?.end);
+  console.log("hackathon?.end", dayjs('2024-04-11T19:34:15.000Z', 'YYYY-MM-DDTHH:MM:SS.SSSZ'));
   !hackathon && <Loading />;
   return (
     <div className={styles.newHackContainer}>
@@ -304,10 +312,8 @@ const NewHachathon = ({ id }) => {
             />
             <TimePicker
               onChange={onStartTimeChange}
-              defaultOpenValue={dayjs(
-                hackathon?.start || "00:00:00",
-                "HH:mm:ss"
-              )}
+              defaultOpenValue={moment(hackathon?.start)}
+              // defaultValue={moment(hackathon?.start)}
               format={"HH:mm:ss"}
             />
           </div>
@@ -324,10 +330,8 @@ const NewHachathon = ({ id }) => {
             />
             <TimePicker
               onChange={onEndTimeChange}
-              defaultOpenValue={dayjs(
-                hackathon?.start || "00:00:00",
-                "HH:mm:ss"
-              )}
+              defaultOpenValue={moment(hackathon?.end)}
+              // defaultValue={dayjs(hackathon?.end, 'YYYY-MM-DDTHH:mm:ss.SSSZ')}
               format={"HH:mm:ss"}
             />
           </div>
