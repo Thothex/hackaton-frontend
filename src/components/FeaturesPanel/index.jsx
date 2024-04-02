@@ -1,32 +1,41 @@
-import { useDispatch, useSelector } from "react-redux";
-import { setMode } from "@/redux/features/modeSlice.js";
-import style from "./style.module.scss";
+import { useDispatch, useSelector } from 'react-redux';
+import { setMode } from '@/redux/features/modeSlice.js';
+import style from './style.module.scss';
+import { useEffect } from 'react';
 import LanguageSwitcher from "./LanguageSwitcher";
 const FeaturesPanel = () => {
-  const dispatch = useDispatch();
-  const { darkMode } = useSelector((state) => state.mode);
-
-  return (
-    <>
-      <div className={style.settings}>
-        <LanguageSwitcher />
-        <div className={style.themeContainer}>
-          <button
-            id="theme-toggle-btn"
-            className={`${style.panel}`}
-            onClick={() => {
-              dispatch(setMode(!darkMode));
-            }}
-            style={{
-              backgroundColor: darkMode ? "#1F2733" : "#ffffff",
-            }}
-          >
-            <p className={darkMode ? style.light : style.dark}></p>
-          </button>
-        </div>
-      </div>
-    </>
-  );
+    const dispatch = useDispatch();
+    const { darkMode } = useSelector(
+        (state) => state.mode
+    );
+    useEffect(() => {
+        if (darkMode) {
+            document.body.style.backgroundColor = '#35405b';
+        } else {
+            document.body.style.backgroundColor = '#f8f8fa';
+        }
+    }, [darkMode]);
+    return (
+        <>
+            <div className={style.settings}>
+                <LanguageSwitcher />
+                <div className={style.themeContainer}>
+                    <button
+                        id="theme-toggle-btn"
+                        className={`${style.panel}`}
+                        onClick={() => {
+                            dispatch(setMode(!darkMode));
+                        }}
+                        style={{
+                            backgroundColor:  darkMode ? '#35405b' : '#f8f8fa'
+                        }}
+                    >
+                        <p className={darkMode ? style.light : style.dark}></p>
+                    </button>
+                </div>
+            </div>
+        </>
+    );
 };
 
 export default FeaturesPanel;

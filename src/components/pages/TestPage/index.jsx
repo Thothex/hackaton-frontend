@@ -13,6 +13,7 @@ import { fetchTeamAnswer } from "@/redux/features/answersSlice";
 import { message } from "antd";
 import CountdownTimer from "@/components/CountdownTimer";
 import { fetchHackathonById } from "@/redux/features/hackathonsSlice";
+import style from "@/components/FeaturesPanel/style.module.scss";
 
 const TestPage = () => {
   const { t } = useTranslation();
@@ -27,7 +28,7 @@ const TestPage = () => {
   const { userInfo } = useSelector((state) => state.userStore);
   const { answers } = useSelector((state) => state.answersStore);
   const hackathon = useSelector((state) => state.hackathons?.hackathon);
-
+  const { darkMode } = useSelector((state) => state.mode);
   useEffect(() => {
     if (
       userInfo?.id &&
@@ -252,12 +253,8 @@ const TestPage = () => {
   };
   console.log("hackathon.end", hackathon);
   return (
-    <div className={styles.main}>
-      {hackathon?.end && (
-        <div className={styles.countDownRow}>
-          <CountdownTimer targetDate={hackathon.end} />
-        </div>
-      )}
+      <div className={`${styles.main} ${darkMode && styles.darkMain}`}>
+      {hackathon?.end && <div className={styles.countDownRow}><CountdownTimer targetDate={hackathon.end} /></div>}
       <nav aria-label="...">
         <ul className="pagination pagination-lg">{generatePageNumbers()}</ul>
       </nav>
