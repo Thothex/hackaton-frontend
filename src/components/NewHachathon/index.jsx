@@ -301,7 +301,7 @@ const NewHachathon = ({ id }) => {
                 hackathon?.start ? hackathon.start : new Date().toString()
               }
             />
-            { hackathon?.end &&
+            { hackathon?.start &&
                 <TimePicker
                   onChange={onStartTimeChange}
                   // defaultOpenValue={moment(hackathon?.start)}
