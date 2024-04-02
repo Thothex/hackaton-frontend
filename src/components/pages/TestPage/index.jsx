@@ -113,7 +113,6 @@ const TestPage = () => {
       },
       {}
     );
-    console.log("answers", answers);
     try {
       const res = await fetch(
         `${import.meta.env.VITE_BASE_URL}/answers/${task.id}/${type}`,
@@ -251,7 +250,6 @@ const TestPage = () => {
 
     return pageNumbers;
   };
-  console.log("hackathon.end", hackathon);
   return (
       <div className={`${styles.main} ${darkMode && styles.darkMain}`}>
       {hackathon?.end && <div className={styles.countDownRow}><CountdownTimer targetDate={hackathon.end} /></div>}

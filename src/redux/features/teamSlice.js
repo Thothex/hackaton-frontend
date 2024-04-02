@@ -16,7 +16,6 @@ export const createTeam = createAsyncThunk(
 				throw new Error("Failed to create team");
 			}
 			const data = await response.json();
-			console.log(data);
 			return data;
 		} catch (error) {
 			return rejectWithValue(error.message);
@@ -42,7 +41,6 @@ export const getTeamInfo = createAsyncThunk(
 				throw new Error("Failed to get team info");
 			}
 			const data = await response.json();
-			console.log(data);
 			return data;
 		} catch (error) {
 			return rejectWithValue(error.message);

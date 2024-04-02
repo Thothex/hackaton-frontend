@@ -148,13 +148,11 @@ const NewHachathon = ({ id }) => {
   };
 
   const onUpdateBtnHandler = async () => {
-    console.log("hackathon in bnt", hackathon);
     const updatedHakathon = await dispatch(putHackathon(hackathon));
     navigate(`/hackathon/${updatedHakathon.payload.id}`);
   };
 
   const onStartDateChange = (date) => {
-    console.log('date1', date)
     const currentDate = new Date(hackathon.start);
     const newStartDate = new Date(
       date.getFullYear(),
@@ -174,7 +172,6 @@ const NewHachathon = ({ id }) => {
   };
   const onStartTimeChange = (time) => {
     const currentDate = new Date(hackathon.start);
-    console.log('time1', time)
     const newStartDate = new Date(
       currentDate.getFullYear(),
       currentDate.getMonth(),
@@ -183,7 +180,6 @@ const NewHachathon = ({ id }) => {
       time.minute(),
       time.second()
     )
-    console.log('newStartDate', newStartDate);
     dispatch(
       updateHackathon({
         ...hackathon,
@@ -194,7 +190,6 @@ const NewHachathon = ({ id }) => {
   };
 
   const onEndDateChange = (date) => {
-    console.log('date2', date)
     const currentDate = new Date(hackathon.end);
     const newStartDate = new Date(
       date.getFullYear(),
@@ -213,7 +208,6 @@ const NewHachathon = ({ id }) => {
     );
   };
   const onEndTimeChange = (time) => {
-    console.log('time2', time)
     const currentDate = new Date(hackathon.end);
     const newStartDate = new Date(
       currentDate.getFullYear(),
@@ -231,9 +225,6 @@ const NewHachathon = ({ id }) => {
       })
     );
   };
-  console.log("hackathon", hackathon);
-  console.log("hackathon?.end", hackathon?.end);
-  console.log("hackathon?.end", dayjs('2024-04-11T19:34:15.000Z', 'YYYY-MM-DDTHH:MM:SS.SSSZ'));
   !hackathon && <Loading />;
   return (
     <div className={styles.newHackContainer}>

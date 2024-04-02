@@ -214,7 +214,6 @@ const StartHackathonPage = () => {
     status = "Finished";
   }
 
-  console.log("hackathon", hackathon.private)
   return (
     <div className={styles.hackathonPage}>
       <div

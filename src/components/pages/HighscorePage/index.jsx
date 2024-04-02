@@ -27,7 +27,6 @@ const HighscorePage = () => {
     };
     getUsersHighscore();
   }, [navigate]);
-  console.log(usersHithscore);
   const twoColors = {
     "0%": "#108ee9",
     "100%": "#87d068",

@@ -25,13 +25,10 @@ const HackathonDashboard = () => {
     socket.onopen = () => {};
     socket.onmessage = (event) => {
       const eventData = JSON.parse(event.data);
-      console.log("event in dashboard", eventData);
       if (
         eventData?.code === "dashboard_update" &&
         +hackathonId === eventData?.hackathonId
       ) {
-        console.log("event code", event.data.code);
-        console.log("МЫ ТОЧНО ДОЛЖНЫ ДЁРНУТЬ ДИСПАТЧ");
         dispatch(fetchHackathonStat({ hackathonId }));
       }
     };

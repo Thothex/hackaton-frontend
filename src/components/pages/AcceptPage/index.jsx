@@ -33,7 +33,6 @@ const AcceptPage = () => {
           }
         );
         const data = await response.json();
-        console.log(data);
       } catch (error) {
         console.error("Error accepting invitation:", error);
       }
