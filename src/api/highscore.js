@@ -6,6 +6,9 @@ const getHighscore = async () => {
 				Authorization: `Bearer ${localStorage.getItem("token")}`,
 			},
 		});
+		if (response.status === 401) {
+			return { status: 403, error: "Failed to fetch highscore" };
+		}
 		const data = await response.json();
 		return data;
 	} catch (error) {

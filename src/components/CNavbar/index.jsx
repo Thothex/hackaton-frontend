@@ -66,6 +66,15 @@ const Navbar = () => {
                   {t("Navbar.create-hackathon")}
                 </NavLink>
               )}
+              <NavLink
+                to="/highscore"
+                className={({ isActive }) =>
+                  isActive ? styles.active : styles.unactive
+                }
+              >
+                <img src={highscore} alt="highscore" className={styles.icon} />
+                {t("Navbar.highscore")}
+              </NavLink>
             </>
           ) : (
             <>
@@ -89,15 +98,6 @@ const Navbar = () => {
               </NavLink>
             </>
           )}
-          <NavLink
-            to="/highscore"
-            className={({ isActive }) =>
-              isActive ? styles.active : styles.unactive
-            }
-          >
-            <img src={highscore} alt="highscore" className={styles.icon} />
-            {t("Navbar.highscore")}
-          </NavLink>
           <NavLink
             to="/hackathon"
             className={({ isActive }) =>
