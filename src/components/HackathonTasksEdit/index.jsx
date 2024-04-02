@@ -2,13 +2,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { Button, Dropdown, Space } from "antd";
 import { addNewTask, createNewTask } from "@/redux/features/hackathonsSlice";
 import ManyAnswerTask from "../TaskVariants/ManyAnswerTask";
+import { useTranslation } from "react-i18next";
 import { v4 as uuidv4 } from "uuid";
+import { message } from "antd";
 import FileAnswerTask from "../TaskVariants/FileAnswerTask";
 import OneInputTask from "../TaskVariants/OneInputTask";
 import styles from "./styles.module.scss";
 import plus from "@/assets/plus.svg";
 
 const HackathonTasksEdit = ({ hackathonId }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.hackathons.currentHackathonTasks);
 
@@ -37,22 +40,22 @@ const HackathonTasksEdit = ({ hackathonId }) => {
           type: "input",
           maxScore: 10,
           answers: {},
-          hackathonId
+          hackathonId,
         })
       );
   };
 
   const items = [
     {
-      label: "Multiple answers",
+      label: `${t("HackathonEditPage.multiple-answers")}`,
       key: "1",
     },
     {
-      label: "File upload",
+      label: `${t("HackathonEditPage.file-upload")}`,
       key: "2",
     },
     {
-      label: "Free answer",
+      label: `${t("HackathonEditPage.free-answer")}`,
       key: "3",
     },
   ];
@@ -62,22 +65,28 @@ const HackathonTasksEdit = ({ hackathonId }) => {
     onClick: handleMenuClick,
   };
 
+  const info = () => {
+    message.success("Question saved");
+  };
+
   return (
     <div>
-      <h2 className={styles.title}>Fill in the task information</h2>
+      <h2 className={styles.title}>
+        {t("HackathonEditPage.fill-in-the-task-info")}
+      </h2>
 
       {tasks &&
         tasks.map((task, index) => {
           return (
             <div key={index}>
               {task.type === "many-answers" && (
-                <ManyAnswerTask hackathonId={hackathonId} task={task} />
+                <ManyAnswerTask hackathonId={hackathonId} task={task} info={info} />
               )}
               {task.type === "document" && (
-                <FileAnswerTask hackathonId={hackathonId} task={task} />
+                <FileAnswerTask hackathonId={hackathonId} task={task} info={info} />
               )}
               {task.type === "input" && (
-                <OneInputTask hackathonId={hackathonId} task={task} />
+                <OneInputTask hackathonId={hackathonId} task={task} info={info} />
               )}
             </div>
           );
@@ -85,7 +94,7 @@ const HackathonTasksEdit = ({ hackathonId }) => {
       <Dropdown menu={menuProps}>
         <button className={styles.chooseBtn}>
           <img src={plus} alt="plus" />
-          <Space>Choose task type</Space>
+          <Space>{t("HackathonEditPage.choose-task-type")}</Space>
         </button>
       </Dropdown>
     </div>

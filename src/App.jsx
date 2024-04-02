@@ -88,23 +88,18 @@ function App() {
 
   return (
 
-    <div className={`appContainer 
+    <div className={`appContainer transition-all  
+                     duration-500  
+                     ease-in-out  
                      ${darkMode ?
         "dark " :
         ""}`}>
       {location.pathname !== "/register" && location.pathname !== "/login"  && location.pathname !== "/" && location.pathname !=='/dashboard' && (
           <>
         <Navbar />
+          <FeaturesPanel/>
         </>
-
       )}
-      {location.pathname !== "/register" && location.pathname !== "/login" && location.pathname !== "/" &&(
-          <>
-            <FeaturesPanel/>
-          </>
-
-      )}
-
       <div className='mainWrapper'>
         <Routes>
           <Route path="/" element={<StartPage />} />

@@ -2,9 +2,18 @@ import { useEffect, useState } from "react";
 import CCheckbox from "../CustomCheckbox";
 import styles from "./style.module.scss";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 import PropTypes from "prop-types";
-const ManyAnswersTask = ({ task, handleSaveMany, type, captain, teamId, disabled }) => {
+const ManyAnswersTask = ({
+  task,
+  handleSaveMany,
+  type,
+  captain,
+  teamId,
+  disabled,
+}) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [userAnswers, setUserAnswers] = useState({});
   useEffect(() => {
@@ -45,15 +54,20 @@ const ManyAnswersTask = ({ task, handleSaveMany, type, captain, teamId, disabled
             })
           : optionsArray.map(([key, value], index) => {
               return (
-                <div key={key}>
+                <div key={key} className={styles.textVariant}>
                   {index + 1}. {value.text}
                 </div>
               );
             })}
 
         {captain && (
-          <button className={styles.button} disabled={disabled} type="button" onClick={onSave}>
-            Save
+          <button
+            className={styles.button}
+            disabled={disabled}
+            type="button"
+            onClick={onSave}
+          >
+            {t("ProfilePage.save")}
           </button>
         )}
       </form>

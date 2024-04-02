@@ -1,13 +1,13 @@
 import wooden from "../assets/achievements/team_player_wooden_icon.svg";
-import iron from "../assets/achievements/team_player_wooden_icon.svg";
-import bronze from "../assets/achievements/team_player_wooden_icon.svg";
+import iron from "../assets/achievements/team_player_iron_icon.svg";
+import bronze from "../assets/achievements/team_player_bronze_icon.svg";
 import silver from "../assets/achievements/team_player_wooden_icon.svg";
-import gold from "../assets/achievements/team_player_wooden_icon.svg";
-import platinum from "../assets/achievements/team_player_wooden_icon.svg";
-import diamond from "../assets/achievements/team_player_wooden_icon.svg";
+import gold from "../assets/achievements/team_player_gold_icon.svg";
+import platinum from "../assets/achievements/team_player_platinum_icon.svg";
+import diamond from "../assets/achievements/team_player_diamond_icon.svg";
 
 const Ranks = {
-	WOOD: {
+	WOODEN: {
 		code: "wooden",
 		img: wooden,
 	},

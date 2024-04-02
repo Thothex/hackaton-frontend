@@ -1,16 +1,23 @@
 import styles from "./styles.module.scss";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import HackatonDate from "../HackatonDate";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/scss/alice-carousel.scss";
 
 const UserHackatons = ({ hack, date }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const filteredHackatons = hack.filter((hackaton) => {
-    const hackStartDate = new Date(hackaton.start).getDate();
-    const hackEndDate = new Date(hackaton.end).getDate();
-    const checkDate = new Date(date).getDate();
+    const hackStartDate = new Date(hackaton.start);
+    const hackEndDate = new Date(hackaton.end);
+    const checkDate = new Date(date);
+
+    hackStartDate.setHours(0, 0, 0, 0);
+    hackEndDate.setHours(0, 0, 0, 0);
+    checkDate.setHours(0, 0, 0, 0);
+
     return checkDate >= hackStartDate && checkDate <= hackEndDate;
   });
 
@@ -37,7 +44,7 @@ const UserHackatons = ({ hack, date }) => {
         onClick={() => handleRedirect(hackaton.id)}
         className={styles.viewBtn}
       >
-        VIEW ALL
+        {t("ProfilePage.view-all-hack")}
       </button>
     </div>
   ));
@@ -46,7 +53,7 @@ const UserHackatons = ({ hack, date }) => {
     <div>
       {hack.length > 0 && (
         <div className={styles.hackatonsContainer}>
-          <h4 className={styles.head}>My hackatons</h4>
+          <h4 className={styles.head}>{t("ProfilePage.my-hackathons")}</h4>
           <div className={styles.hackatonsCards}>
             {filteredHackatons.length > 0 ? (
               filteredHackatons.length > 4 ? (
@@ -61,7 +68,9 @@ const UserHackatons = ({ hack, date }) => {
                 items
               )
             ) : (
-              <span className={styles.message}>No scheduled hackathons</span>
+              <span className={styles.message}>
+                {t("ProfilePage.no-scheduled-hackathons")}
+              </span>
             )}
           </div>
         </div>

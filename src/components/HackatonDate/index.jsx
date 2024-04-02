@@ -1,6 +1,8 @@
+import { useTranslation } from "react-i18next";
 import styles from "./styles.module.scss";
 
 const HackatonDate = ({ props }) => {
+  const { t } = useTranslation();
   const endDate = new Date(props.end);
   const startDate = new Date(props.start);
   const formattedStartDate = startDate.getDate();
@@ -10,10 +12,10 @@ const HackatonDate = ({ props }) => {
   return (
     <div className={styles.hackathonPanelHeaderRight}>
       <h4 className={styles.date}>{formattedStartDate}</h4>
-      <p className={styles.month}>{startMonth}</p>
+      <p className={styles.month}>{t(`ProfilePage.months.${startMonth}`)}</p>
       <hr />
       <h4 className={styles.date}>{formattedEndDate}</h4>
-      <p className={styles.month}>{endMonth}</p>
+      <p className={styles.month}>{t(`ProfilePage.months.${endMonth}`)}</p>
     </div>
   );
 };

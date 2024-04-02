@@ -1,39 +1,46 @@
 @import "../../index.scss";
-.inputTask{
+.inputTask {
   width: fit-content;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap:10px;
+  gap: 10px;
   height: fit-content;
 }
-.input{
+.input {
   border-radius: 20px;
   height: 3em;
   outline: 1px solid $light-violet-color;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   font-size: 20px;
   width: 100%;
   resize: horizontal;
   overflow: auto;
-  margin:0
+  margin: 0;
 }
-.input:focus{
+.input:focus {
   outline: 2px solid $light-violet-color;
 }
 .button {
-  font-family: 'Geologica', sans-serif;
-  border: none !important;
-  border-radius: 20px;
-  height: 3em;
-  padding-inline: 2em;
-  outline: none;
-  transition: all .3s ease;
-  background-color: rgb(151, 171, 223);
-  color:white;
-  font-size: 20px;
+  margin: auto;
+  display: flex;
+  width: 10rem;
+  justify-content: center;
+  align-items: center;
+  background-color: #97abdf;
+  border-radius: 30px;
+  padding: 15px 44px;
+  color: white;
+  font-size: 15px;
+  font-weight: 400;
+  cursor: pointer;
+  border: none;
 }
 
 .button:active {
   background-color: rgba(151, 171, 223, 0.7);
+}
+
+.textVariant {
+  margin: 15px;
 }

@@ -1,10 +1,12 @@
 import NewHachathon from "@/components/NewHachathon";
 import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Tabs, ConfigProvider } from "antd";
 import styles from "./styles.module.scss";
 import HackathonTasksEdit from "@/components/HackathonTasksEdit";
 
 const HackathonEditPage = () => {
+  const { t } = useTranslation();
   const { id } = useParams();
   return (
     <>
@@ -25,13 +27,13 @@ const HackathonEditPage = () => {
           type="card"
           items={[
             {
-              label: "General information",
+              label: `${t("HackathonEditPage.general-info")}`,
               key: "1",
               children: <NewHachathon id={id} />,
               className: styles.tabFile,
             },
             {
-              label: "Tasks and questions",
+              label: `${t("HackathonEditPage.tasks-questions")}`,
               key: "2",
               children: <HackathonTasksEdit hackathonId={id} />,
               disabled: id ? false : true,

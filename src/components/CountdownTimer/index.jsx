@@ -5,7 +5,7 @@ const CountdownTimer = ({ targetDate }) => {
   const [days, hours, minutes, seconds] = useCountdown(targetDate);
 
   if (days + hours + minutes + seconds <= 0) {
-    return <div>end</div>
+    return <div>Time's up</div>
   } else {
     return (
       <ShowCounter
