@@ -192,7 +192,7 @@ const HackathonPage = () => {
         )}
         {status === "In progress" &&
           user &&
-          hackathon.organizer_id !== user.id && (
+          hackathon.organizer_id !== user.id && user.role && (
             <div
               className={styles.pic}
               onClick={handleStartHackathon}
@@ -202,14 +202,14 @@ const HackathonPage = () => {
               </button>
             </div>
           )}
-        {status === "Registration is open" && !user && (
+        {status === "Registration is open" && !user?.role && (
           <div className={styles.pic}>
             <button className={styles.takePartBTN}>
               {t(`HackathonPage.SIGN IN/UP TO TAKE PART`)}
             </button>
           </div>
         )}
-        {status === "In progress" && !user && (
+        {status === "In progress" && !user?.role && (
           <div className={styles.pic}>
             <button className={styles.takePartBTN}>
               {t(`HackathonPage.SIGN IN/UP TO TAKE PART`)}

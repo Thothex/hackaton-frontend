@@ -13,6 +13,7 @@ import { getAllUsersThunk } from "@/redux/features/userSlice.js";
 import InvintationBlock from "./InvintationBlock";
 import Loading from "@/components/Loading";
 import CountdownTimer from "@/components/CountdownTimer/index.jsx";
+import Icons from "@/constants/icons";
 
 const StartHackathonPage = () => {
   const { t } = useTranslation();
@@ -218,7 +219,7 @@ const StartHackathonPage = () => {
           <button
             className={styles.button}
             onClick={() => navigate(`/hackathon/${hackathon.id}`)}
-          >{`<—`}</button>
+          ><img className={styles.backArrow} src={Icons.BACK_ARROW} alt="back" /></button>
           <h4>{t("HackathonPage.Welcome to the hackathon")} 👋🏼</h4>
         </div>
         <div className={styles.timerName}>
