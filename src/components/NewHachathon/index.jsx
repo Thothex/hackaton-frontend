@@ -59,8 +59,8 @@ const NewHachathon = ({ id }) => {
           audience: null,
           type: null,
           description: "",
-          start: new Date().toString(),
-          end: new Date().toString(),
+          start: new Date().toISOString(),
+          end: new Date().toISOString(),
           category: null,
           organizations: [],
           admins: null,
@@ -226,6 +226,9 @@ const NewHachathon = ({ id }) => {
     );
   };
   !hackathon && <Loading />;
+  const tmp = dayjs(hackathon?.end, 'YYYY-MM-DDTHH:mm:ss.SSSZ');
+  console.log('hackathon?.end', hackathon?.end);
+  console.log('tmp', tmp);
   return (
     <div className={styles.newHackContainer}>
       <div className={styles.newHachathonWrapper}>
@@ -259,7 +262,7 @@ const NewHachathon = ({ id }) => {
             inner="Max amount of rating"
             type={"number"}
             name={"prize"}
-            value={hackathon?.prize}
+            value={hackathon?.prize || '100'}
             onChange={handleInputChange}
           />
           <CDropDown
