@@ -71,6 +71,14 @@ const HackathonPage = () => {
   const handleEndHackathon = () => {
     dispatch(putHackathon({ ...hackathon, status: "Finished" }));
   };
+
+  const handleStartHackathon = () => {
+    if (user?.role) {
+      navigate(`/hackathon/${hackathon.id}/start`)
+    } else {
+      navigate("/login");
+    }
+  }
   return (
     <div className={styles.hackathonPage}>
       <div
@@ -175,7 +183,7 @@ const HackathonPage = () => {
         {status === "Registration is open" && user && (
           <div
             className={styles.pic}
-            onClick={() => navigate(`/hackathon/${hackathon.id}/start`)}
+            onClick={handleStartHackathon}
           >
             <button className={styles.takePartBTN}>
               {t(`HackathonPage.TAKE PART`)}
@@ -187,7 +195,7 @@ const HackathonPage = () => {
           hackathon.organizer_id !== user.id && (
             <div
               className={styles.pic}
-              onClick={() => navigate(`/hackathon/${hackathon.id}/start`)}
+              onClick={handleStartHackathon}
             >
               <button className={styles.takePartBTN}>
                 {t(`HackathonPage.TAKE PART`)}

@@ -275,37 +275,6 @@ const StartHackathonPage = () => {
           <button className={styles.toTask} onClick={handleTasksClick}>
             {t("HackathonTeamPage.START")}
           </button>
-          <div className={styles.team}>
-            {teamInfo?.team ? (
-              <h2>
-                {t("HackathonTeamPage.Your team is:")} {teamInfo.team.name}
-              </h2>
-            ) : (
-              <>
-                <h2>{t("HackathonTeamPage.Gather your team!")}</h2>
-                <form onSubmit={handleCreateTeam}>
-                  <input
-                    placeholder="Name your team"
-                    value={teamName}
-                    onChange={(e) => setTeamName(e.target.value)}
-                  />
-                  <button type="submit">{t("HackathonTeamPage.Save")}</button>
-                </form>
-              </>
-            )}
-            {teamInfo?.teamUsers.length > 0 && (
-              <InvintationBlock
-                styles={styles}
-                teamInfo={teamInfo}
-                handleSendInvite={handleSendInvite}
-                handleInputChange={handleInputChange}
-                inviteEmail={inviteEmail}
-                searchTerm={searchTerm}
-                filteredUsers={filteredUsers}
-                handleUserClick={handleUserClick}
-              />
-            )}
-          </div>
         </div>
       </div>
     </div>
