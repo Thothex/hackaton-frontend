@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styles from "./styles.module.scss";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logoBig.svg";
 import profile from "../../assets/profile.svg";
 import fire from "../../assets/fire.svg";
 import cap from "../../assets/cap.svg";

@@ -4,7 +4,7 @@ import book from '../../../assets/book.svg'
 import code from '../../../assets/code.svg'
 import bolt from '../../../assets/bolt.svg'
 import data from '../../../assets/data.svg'
-import logo from '../../../assets/logo.svg'
+import logo from '../../../assets/logoBig.svg'
 const StartPage = () =>{
     const navigate = useNavigate();
 
@@ -13,8 +13,8 @@ const StartPage = () =>{
     };
     return (
         <>
-        <img src={logo} alt='logo' className={styles.logo} />
         <div className={styles.StartPage}>
+            <img src={logo} alt='logo' className={styles.logo} />
             <h2 className={styles.Welcome}>Welcome to the World of</h2>
             <div className={styles.titleContainer}>
             <h1>ESSENTIAL</h1>
@@ -24,27 +24,27 @@ const StartPage = () =>{
                 <p className={styles.paragraph}>curiosity is sparked, talents are nurtured, and futures are</p>
                     <p className={styles.paragraph}>shaped</p>
             <button onClick={() => { handleNavigate('/hackathon') }} className={styles.button}>to Hackatons</button>
-            <h3 className={styles.valTitle}>OUR VALUES</h3>
-            <div className={styles.valuesContainer}>
-                <div className={styles.values}>
-                    <img src={book} alt='book' />
-                    <h5>Education through science: try everything by yourself</h5>
-                </div>
-                <div className={styles.values}>
-                    <img src={code} alt='code' />
-                    <h5>Attracting the younger generation
-                        to the programming and science
-                    </h5>
-                </div>
-                <div className={styles.values}>
-                    <img src={bolt} alt='bolt' />
-                    <h5>Contribution to scientific and technological progress</h5>
-                </div>
-                <div className={styles.values}>
-                    <img src={data} alt='data' />
-                    <h5>Using data-driven approaches in development  planning</h5>
-                </div>
-            </div>
+            {/*<h3 className={styles.valTitle}>OUR VALUES</h3>*/}
+            {/*<div className={styles.valuesContainer}>*/}
+            {/*    <div className={styles.values}>*/}
+            {/*        <img src={book} alt='book' />*/}
+            {/*        <h5>Education through science: try everything by yourself</h5>*/}
+            {/*    </div>*/}
+            {/*    <div className={styles.values}>*/}
+            {/*        <img src={code} alt='code' />*/}
+            {/*        <h5>Attracting the younger generation*/}
+            {/*            to the programming and science*/}
+            {/*        </h5>*/}
+            {/*    </div>*/}
+            {/*    <div className={styles.values}>*/}
+            {/*        <img src={bolt} alt='bolt' />*/}
+            {/*        <h5>Contribution to scientific and technological progress</h5>*/}
+            {/*    </div>*/}
+            {/*    <div className={styles.values}>*/}
+            {/*        <img src={data} alt='data' />*/}
+            {/*        <h5>Using data-driven approaches in development  planning</h5>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
 
         </div>
         </>

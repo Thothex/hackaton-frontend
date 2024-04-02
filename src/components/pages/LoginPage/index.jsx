@@ -1,4 +1,4 @@
-import logo from "../../../assets/logo.svg";
+import logo from "../../../assets/logoBig.svg";
 import styles from "./styles.module.scss";
 import AuthButton from "../../CAuthButton/index.jsx";
 import AuthInput from "@/components/CAuthInput/index.jsx";

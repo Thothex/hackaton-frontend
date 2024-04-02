@@ -42,13 +42,15 @@
   width: 500px;
   height: 300px;
   display: flex;
-  flex-direction: column;
   margin-left: 20px;
 }
 .roundInfoCont{
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  width: fit-content;
+  white-space: nowrap;
   gap: 10px;
 }
 .upperPanel{
@@ -130,7 +132,7 @@
 .iron {
   color: $font-color-date;
   border:none;
-  background-color: rgba(67, 70, 75, 1);
+  background-color: rgba(67, 70, 75, 0.7);
   border-radius: 20px;
   padding-inline: 20px;
   transition: all .3s ease;
@@ -238,18 +240,22 @@
   height: fit-content;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap:5%
 }
 .achiv{
-  width: calc(100% - 500px);
+  display: flex;
+  flex-direction: column;
+  gap:15px;
+  width: fit-content;
   height: fit-content;
-  margin-inline:40px;
+  margin-inline:20px;
   margin-block:20px;
   border-radius: 20px;
-  img{
-    width: 60px;
-   transition: .3s ease all;
-
+  h3{
+    font-size: 24px;
+    color: $font-color-date;
+    font-weight: 600;
   }
 
 }
@@ -268,4 +274,21 @@ table td {
 
 }
 
+.aboutRank{
+  display:flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  scale: .95;
+  opacity: .8;
+  transition: all .3s ease;
+  width: fit-content;
+  h5{
+    font-weight: 200;
+  }
+}
+.aboutRank:hover{
+  opacity: 1;
+  scale: 1;
+}
 

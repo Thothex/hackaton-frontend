@@ -27,6 +27,7 @@ const StatPanel = () => {
     const amountOfHacks = userStat?.hack?.length;
     const userScore = userInfo?.score;
     const leftScore = userStat?.nextRank;
+    console.log('2222', userInfo, userStat)
 
     useEffect(() => {
         const ctx = document.getElementById('roundChart');
@@ -34,7 +35,7 @@ const StatPanel = () => {
         const next = userStat?.nextRank;
         if (ctx) {
             if (chartRef.current) {
-                chartRef.current.destroy(); // Уничтожаем предыдущий экземпляр диаграммы
+                chartRef.current.destroy();
             }
             chartRef.current = new Chart(ctx, {
                 type: 'doughnut',
@@ -107,78 +108,40 @@ const StatPanel = () => {
                 <div className={style.rightUpperPanel}>
                     <img src={medal} alt="medal"/>
                     <div className={style.UpperInfo}>
-                    <h5>Latest wins:<span>golden</span></h5>
                     <h5>Overall hackathons:<span>{Number(amountOfHacks)}</span></h5>
                 </div>
                 </div>
             </div>
             </div>
             <div className={style.lowePanel}>
-            <div className={style.achiv}>
-                <table className="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Level</th>
-                        <th scope="col">Code wizard</th>
-                        <th scope="col">Universal player</th>
-                        <th scope="col">Unrivaled Leader</th>
-                        <th scope="col">Scientist</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>wooden</td>
-                        <td><img src={wizard}/></td>
-                        <td><img src={wizard}/></td>
-                        <td><img src={wizard}/></td>
-                        <td><img src={wizard}/></td>
-                    </tr>
-                    <tr>
-                        <td>iron</td>
-                        <td><img src={wizard}/></td>
-                        <td><img src={wizard}/></td>
-                        <td><img src={wizard}/></td>
-                        <td><img src={wizard}/></td>
-                    </tr>
-                    <tr>
-                        <td>bronze</td>
-                        <td><img src={wizard}/></td>
-                        <td><img src={wizard}/></td>
-                        <td><img src={wizard}/></td>
-                        <td><img src={wizard}/></td>
-                    </tr>
-                    <tr>
-                        <td>silver</td>
-                        <td><img src={wizard}/></td>
-                        <td><img src={wizard}/></td>
-                        <td><img src={wizard}/></td>
-                        <td><img src={wizard}/></td>
+                <div className={style.achiv}>
+                    <h3>About ranks</h3>
+                    <div className={style.aboutRank}>
+                        <p className={style.wooden}>wooden</p>
+                        <h5>from <span style={{fontWeight:800}}>0 to 100 points</span> . You are just in the beginning!</h5>
+                    </div>
+                    <div className={style.aboutRank}>
+                        <p className={style.iron}>iron</p>
+                        <h5>from <span style={{fontWeight:800}}>100 to 300</span> points. Feeling more confident in solving tasks.</h5>
+                    </div>
+                    <div className={style.aboutRank}>
+                        <p className={style.bronze}>bronze</p>
+                        <h5>from <span style={{fontWeight:800}}>300 to 600</span> points. Starting to make a name for yourself!</h5>
+                    </div>
+                    <div className={style.aboutRank}>
+                        <p className={style.silver}>silver</p>
+                        <h5>from <span style={{fontWeight:800}}>600 to 1000</span> points. Making significant progress!</h5>
+                    </div>
+                    <div className={style.aboutRank}>
+                        <p className={style.gold}>gold</p>
+                        <h5>from <span style={{fontWeight:800}}>1000 to 1500</span> points. Truly mastering your skills!</h5>
+                    </div>
 
-                    </tr>
-                    <tr>
-                        <td>gold</td>
-                        <td><img src={wizard}/></td>
-                        <td><img src={wizard}/></td>
-                        <td><img src={wizard}/></td>
-                        <td><img src={wizard}/></td>
-                    </tr>
-                    <tr>
-                        <td>platinum</td>
-                        <td><img src={wizard}/></td>
-                        <td><img src={wizard}/></td>
-                        <td><img src={wizard}/></td>
-                        <td><img src={wizard}/></td>
-                    </tr>
-                    <tr>
-                        <td>diamond</td>
-                        <td><img src={wizard}/></td>
-                        <td><img src={wizard}/></td>
-                        <td><img src={wizard}/></td>
-                        <td><img src={wizard}/></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+                    <div className={style.aboutRank}>
+                        <p className={style.diamond}>diamond</p>
+                        <h5>from <span style={{fontWeight:800}}>2000 to infinity</span>. You are a legend!</h5>
+                    </div>
+                </div>
             <div className={style.RoundStat}>
                 <div className={style.roundInfoCont}>
             <div className={style.roundInfo}>

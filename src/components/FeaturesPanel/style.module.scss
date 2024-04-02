@@ -1,6 +1,6 @@
 .settings{
-  position: absolute;
-  top: 40px;
+  position: fixed;
+  top: 30px;
   right: 0;
   margin-right: 40px;
   display: flex;
@@ -12,6 +12,7 @@
   border-radius: 20px;
   padding-left: 20px;
   border:2px solid #97abdf;
+  z-index: 100000;
 }
 .panel {
   height: 30px;

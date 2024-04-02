@@ -17,7 +17,7 @@ $background-color-link-hover: #eaeef9;
 $auth-button-hover-color: #8797c4;
 $color-font-not-hover: #a0aec0;
 $white-color: #ffffff;
-$font-color-date: #2d3748;
+$font-color-date: #2D3748;
 $inProgress: #97d6df;
 $finished: #667085;
 $leader: #0d9488;
@@ -34,9 +34,7 @@ $darkInProgress: #567b7e;
 $dark-light-violet-color: #5a6d9b;
 
 
-.dark{
-  background-color: $dark-bg;
-}
+
 
 body {
   width: 100vw;
@@ -49,11 +47,14 @@ body {
 
 .appContainer {
   display: flex;
+
 }
 
 .mainWrapper {
   width: 100%;
   padding-right: 20px;
+  height: 100vh;
+  min-height: 100vh;
 }
 
 button {
@@ -71,6 +72,5 @@ button:focus {
   outline: none;
   border: none;
 }
-
 
 
