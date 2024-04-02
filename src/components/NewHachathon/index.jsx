@@ -226,9 +226,6 @@ const NewHachathon = ({ id }) => {
     );
   };
   !hackathon && <Loading />;
-  const tmp = dayjs(hackathon?.end, 'YYYY-MM-DDTHH:mm:ss.SSSZ');
-  console.log('hackathon?.end', hackathon?.end);
-  console.log('tmp', tmp);
   return (
     <div className={styles.newHackContainer}>
       <div className={styles.newHachathonWrapper}>
