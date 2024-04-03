@@ -17,6 +17,7 @@ const AdminUserList = () => {
   const organizationsForPicker = organizationList.map((org) => ({
     id: org.id,
     value: org.name,
+    displayValue: org.name,
   }));
   const userList = useSelector((state) => state.usersStore.users);
 

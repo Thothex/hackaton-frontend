@@ -210,8 +210,8 @@
       "Индивидуальный": "Person",
       "Person": "Person",
       "Team": "Team",
-      "person": "person",
-      "team": "team"
+      "person": "Person",
+      "team": "Team"
     },
     "Single or team": "Single or team",
     "Prizes": "Prizes",
@@ -283,6 +283,8 @@
     "Type": "Type",
     "Team": "Team",
     "Person": "Person",
+    "team": "Team",
+    "person": "Person",
     "Choose type": "Choose type",
     "Category": "Category",
     "Choose category": "Choose category",

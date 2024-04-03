@@ -35,7 +35,8 @@ const NewHachathon = ({ id }) => {
   );
   const categoriesForPicker = categories.map((cat) => ({
     id: cat.id,
-    value: `${t(`HackathonPage.categories.${cat.name}`)}`,
+    value: cat.name,
+    displayValue: `${t(`HackathonPage.categories.${cat.name}`)}`,
   }));
   const organizations = useSelector(
     (state) => state.dictionaryStore.dictionary.organizations
@@ -43,6 +44,7 @@ const NewHachathon = ({ id }) => {
   const organizationsForPicker = organizations.map((org) => ({
     id: org.id,
     value: org.name,
+    displayValue: org.name,
   }));
 
   const today = new Date();
@@ -286,12 +288,24 @@ const NewHachathon = ({ id }) => {
             <CDropDown
               name="type"
               items={[
-                { id: 1, value: `${t("NewHachathon.Team")}` },
-                { id: 2, value: `${t("NewHachathon.Person")}` },
+                {
+                  id: 1,
+                  value: "team",
+                  displayValue: `${t("NewHachathon.Team")}`,
+                },
+                {
+                  id: 2,
+                  value: "person",
+                  displayValue: `${t("NewHachathon.Person")}`,
+                },
               ]}
               onChange={handleAddFromSelect}
               placeholder={""}
-              value={hackathon?.type || `${t("NewHachathon.Choose type")}`}
+              value={
+                (hackathon?.type &&
+                  `${t(`NewHachathon.${hackathon?.type}`)}`) ||
+                `${t("NewHachathon.Choose type")}`
+              }
             />
           </div>
           <div className={styles.category}>
@@ -302,7 +316,10 @@ const NewHachathon = ({ id }) => {
               onChange={handleAddFromSelect}
               placeholder={""}
               value={
-                hackathon?.category?.name ||
+                (hackathon?.category?.name &&
+                  `${t(
+                    `HackathonPage.categories.${hackathon?.category?.name}`
+                  )}`) ||
                 `${t("NewHachathon.Choose category")}`
               }
             />
@@ -312,17 +329,28 @@ const NewHachathon = ({ id }) => {
             <CDropDown
               name="audience"
               items={[
-                { id: 1, value: `${t("NewHachathon.14-18 years, school")}` },
+                {
+                  id: 1,
+                  value: "14-18 years, school",
+                  displayValue: `${t("NewHachathon.14-18 years, school")}`,
+                },
                 {
                   id: 2,
-                  value: `${t("NewHachathon.16-23 years, university")}`,
+                  value: "16-23 years, university",
+                  displayValue: `${t("NewHachathon.16-23 years, university")}`,
                 },
-                { id: 3, value: `${t("NewHachathon.no limit, all")}` },
+                {
+                  id: 3,
+                  value: "no limit, all",
+                  displayValue: `${t("NewHachathon.no limit, all")}`,
+                },
               ]}
               onChange={handleAddFromSelect}
               placeholder={""}
               value={
-                hackathon?.audience || `${t("NewHachathon.Choose audience")}`
+                (hackathon?.audience &&
+                  `${t(`NewHachathon.${hackathon?.audience}`)}`) ||
+                `${t("NewHachathon.Choose audience")}`
               }
             />
           </div>
