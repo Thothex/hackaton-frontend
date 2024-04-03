@@ -29,7 +29,7 @@ const StartHackathonPage = () => {
   const [newTeamId, setNewTeamId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  console.log("-------", teamName);
   useEffect(() => {
     setLoading(true);
     dispatch(fetchHackathonById(id));
@@ -65,7 +65,6 @@ const StartHackathonPage = () => {
       socket.close();
     };
   }, [dispatch, id, teamInfo?.team?.id, user]);
-
 
   useEffect(() => {
     if (
@@ -136,7 +135,12 @@ const StartHackathonPage = () => {
     try {
       const {
         payload: { id: newTeamId },
-      } = await dispatch(createTeam({ name: teamname ? `${user.username} - ${hackathon.id}` : teamName, hackathonId: id }));
+      } = await dispatch(
+        createTeam({
+          name: teamname ? `${user.username} - ${hackathon.id}` : teamName,
+          hackathonId: id,
+        })
+      );
       setNewTeamId(newTeamId);
       dispatch(getTeamInfo({ hackathonId: id, userId: user.id }));
       return newTeamId;
@@ -146,18 +150,18 @@ const StartHackathonPage = () => {
   };
 
   const createMetaTeam = async () => {
-    await handleCreateTeam(user.username)
+    await handleCreateTeam(user.username);
   };
 
   const handleStart = async () => {
     if (!hackathon.private) {
       setTeamName(`${user.username} - ${hackathon.id}`);
-      handleTasksClick()
+      handleTasksClick();
     } else {
-      await createMetaTeam()
-      handleTasksClick()
+      await createMetaTeam();
+      handleTasksClick();
     }
-  }
+  };
   const handleSendInvite = async () => {
     try {
       await dispatch(
@@ -193,15 +197,17 @@ const StartHackathonPage = () => {
   const currentDate = new Date();
   const startDate = new Date(hackathon.start);
   const endDate = new Date(hackathon.end);
-  if (currentDate < startDate) {
-    return (
-      <div>
-        {t(
-          "HackathonTeamPage.Hackathon has not started yet. Please wait until it starts on"
-        )}{" "}
-        {startDate.toDateString()}.
-      </div>
-    );
+  const now = currentDate < startDate;
+  if (currentDate > startDate) {
+    // navigate(`/hackathon/${id}/tasks`);
+    // return (
+    //   <div>
+    //     {t(
+    //       "HackathonTeamPage.Hackathon has not started yet. Please wait until it starts on"
+    //     )}{" "}
+    //     {startDate.toDateString()}.
+    //   </div>
+    // );
   }
 
   let status;
@@ -231,7 +237,13 @@ const StartHackathonPage = () => {
           <button
             className={styles.button}
             onClick={() => navigate(`/hackathon/${hackathon.id}`)}
-          ><img className={styles.backArrow} src={Icons.BACK_ARROW} alt="back" /></button>
+          >
+            <img
+              className={styles.backArrow}
+              src={Icons.BACK_ARROW}
+              alt="back"
+            />
+          </button>
           <h4>{t("HackathonPage.Welcome to the hackathon")} 👋🏼</h4>
         </div>
         <div className={styles.timerName}>
@@ -254,45 +266,47 @@ const StartHackathonPage = () => {
             <p>{hackathon.rules}</p>
           </div>
         </div>
-        
+
         <div className={styles.teamContainer}>
-          {  !hackathon.private && (
-          <div className={styles.team}>
-            {teamInfo?.team? (
-              // <h2>Your team is: {teamInfo.team.name}</h2>
-              <></>
-            ) : (
-              <div className={styles.createTeam}>
-                <h2>{t("HackathonTeamPage.Gather your team!")}</h2>
-                <form onSubmit={handleCreateTeam}>
-                  <input
-                    placeholder="Name your team"
-                    value={teamName}
-                    onChange={(e) => setTeamName(e.target.value)}
-                  />
-                  <button type="submit">{t("HackathonTeamPage.Save")}</button>
-                </form>
-              </div>
-            )}
-            {teamInfo?.teamUsers.length > 0 &&   (
-              <InvintationBlock
-                styles={styles}
-                teamInfo={teamInfo}
-                handleSendInvite={handleSendInvite}
-                handleInputChange={handleInputChange}
-                inviteEmail={inviteEmail}
-                searchTerm={searchTerm}
-                filteredUsers={filteredUsers}
-                handleUserClick={handleUserClick}
-              />
-            )}
-          </div>
+          {!hackathon.private && (
+            <div className={styles.team}>
+              {teamInfo?.team ? (
+                // <h2>Your team is: {teamInfo.team.name}</h2>
+                <></>
+              ) : (
+                <div className={styles.createTeam}>
+                  <h2>{t("HackathonTeamPage.Gather your team!")}</h2>
+                  <form onSubmit={handleCreateTeam}>
+                    <input
+                      placeholder={t("HackathonTeamPage.Name your team")}
+                      value={teamName}
+                      onChange={(e) => setTeamName(e.target.value)}
+                    />
+                    <button type="submit">{t("HackathonTeamPage.Save")}</button>
+                  </form>
+                </div>
+              )}
+              {teamInfo?.teamUsers.length > 0 && (
+                <InvintationBlock
+                  styles={styles}
+                  teamInfo={teamInfo}
+                  handleSendInvite={handleSendInvite}
+                  handleInputChange={handleInputChange}
+                  inviteEmail={inviteEmail}
+                  searchTerm={searchTerm}
+                  filteredUsers={filteredUsers}
+                  handleUserClick={handleUserClick}
+                  now={now}
+                />
+              )}
+            </div>
           )}
-          <button className={styles.toTask} onClick={handleStart}>
-            {t("HackathonTeamPage.START")}
-          </button>
-          </div>
-       
+          {!now && (
+            <button className={styles.toTask} onClick={handleStart}>
+              {t("HackathonTeamPage.START")}
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

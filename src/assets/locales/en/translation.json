@@ -9,6 +9,7 @@
     "view-all": "VIEW ALL",
     "label-stat": "Your hackathons",
     "year": "year",
+    "About ranks": "About ranks",
     "months": {
       "January": "January",
       "February": "February",
@@ -225,6 +226,8 @@
   "HackathonTeamPage": {
     "Hackathon has not started yet. Please wait until it starts on": "Hackathon has not started yet. Please wait until it starts on",
     "Error": "Error",
+    "Name your team": "Name your team",
+    "You cannot invite new members after hackathon starts": "You cannot invite new members after hackathon starts",
     "Description": "Description",
     "Rules of participation": "Rules of participation",
     "Gather your team!": "Gather your team!",

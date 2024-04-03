@@ -30,7 +30,7 @@ const StatPanel = () => {
   }, [dispatch]);
 
   const categories = userStat?.categories || [];
-  const userRank = userRankStatus?.rank || '';
+  const userRank = userRankStatus?.rank || "";
   const amountOfHacks = userStat?.hack?.length || 0;
   const userScore = userInfo?.score;
   const leftScore = userStat?.nextRank;
@@ -162,7 +162,7 @@ const StatPanel = () => {
       </div>
       <div className={style.lowePanel}>
         <div className={style.achiv}>
-          <h3>About ranks</h3>
+          <h3>{t(`ProfilePage.About ranks`)}</h3>
           <div className={style.aboutRank}>
             <p className={style.wooden}>{t(`ProfilePage.ranks.wooden`)}</p>
             <h5>

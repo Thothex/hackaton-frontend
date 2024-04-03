@@ -24,6 +24,7 @@
       "December": "Декабрь"
     },
     "view-all-hack": "ПОДРОБНЕЕ",
+    "About ranks": "О рангах",
     "my-hackathons": "Мои хакатоны",
     "no-scheduled-hackathons": "Нет запланированных хакатонов",
     "edit-user-details": "Редактирование данных профиля",
@@ -200,7 +201,14 @@
       "Algorithms": "Алгоритмы",
       "Data Science": "Data Science",
       "Art": "Искусство",
-      "Philosophy": "Философия"
+      "Philosophy": "Философия",
+      "Наука": "Наука",
+      "Химия": "Химия",
+      "Биология": "Биология",
+      "Разработка": "Разработка",
+      "Алгоритмы": "Алгоритмы",
+      "Искусство": "Искусство",
+      "Философия": "Философия"
     },
     "type": {
       "Командный": "Командный",
@@ -223,9 +231,11 @@
   "HackathonTeamPage": {
     "Hackathon has not started yet. Please wait until it starts on": "Хакатон еще не начался. Пожалуйста, подождите, пока он не начнется",
     "Error": "Ошибка",
+    "Name your team": "Введите имя вашей команды",
     "Description": "Описание",
     "Rules of participation": "Правила участия",
     "Gather your team!": "Соберите свою команду!",
+    "You cannot invite new members after hackathon starts": "Вы не можете приглашать новых участников после начала хакатона",
     "Save": "Сохранить",
     "START": "СТАРТ",
     "Your team is:": "Ваша команда:",
