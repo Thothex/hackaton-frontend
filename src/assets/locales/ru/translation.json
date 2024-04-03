@@ -8,6 +8,7 @@
     "hackathons": "Хакатоны",
     "view-all": "ПЕРЕЙТИ",
     "label-stat": "Статистика хакатонов",
+    "year": "год",
     "months": {
       "January": "Январь",
       "February": "Февраль",
@@ -36,13 +37,28 @@
     "own-rank": "Текущий ранг",
     "popular-categories": "Любимые категории",
     "ranks": {
-      "wooden": "Дерево",
-      "iron": "Железо",
-      "bronze": "Бронза",
-      "silver": "Серебро",
-      "gold": "Золото",
-      "platinum": "Платина",
-      "diamond": "Бриллиант"
+      "wooden": "дерево",
+      "iron": "железо",
+      "bronze": "бронза",
+      "silver": "серебро",
+      "gold": "золото",
+      "platinum": "платина",
+      "diamond": "бриллиант"
+    },
+    "AboutRanks": {
+      "from": "от",
+      "0 to 100": "0 до 100",
+      "100 to 300": "100 до 300",
+      "300 to 600": "300 до 600",
+      "600 to 1000": "600 до 1000",
+      "1000 to 1500": "1000 до 1500",
+      "2000 to infinity": "2000 до бесконечности",
+      "points. You re just in the beginning!": "очков. Это только начало пути!",
+      "points. Feeling more confident in solving tasks.": "очков. Появляется уверенность в решении задач!",
+      "points. Starting to make a name for yourself!": "очков. Начинаешь входить в историю!",
+      "points. Making significant progress!": "очков. Добиваемся значительного прогресса!",
+      "points. Truly mastering your skills!": "очков. По-настоящему отточенные навыки!",
+      "You are a legend!": "Ты - легенда!"
     },
     "categories": {
       "science": "наука",
@@ -138,10 +154,11 @@
     "my": "Мои",
     "in progress": "В процессе",
     "past": "Прошедшие",
+    "registration": "Регистрация",
     "READ MORE": "ПОДРОБНЕЕ",
     "EDIT": "РЕДАКТИРОВАТЬ",
     "CHECK": "ПРОВЕРИТЬ",
-    "Registration is open": "Регистрация открыта",
+    "Registration is open": "регистрация открыта",
     "In progress": "в процессе",
     "Finished": "закончен"
   },
@@ -256,6 +273,7 @@
     "Avaliable only for organizations": "Доступно только для организаций",
     "Choose organizations": "Выбрать организации",
     "UPDATE": "ОБНОВИТЬ",
-    "CREATE": "СОЗДАТЬ"
+    "CREATE": "СОЗДАТЬ",
+    "Without organization": "Без организации"
   }
 }
