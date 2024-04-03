@@ -35,7 +35,7 @@ const NewHachathon = ({ id }) => {
   );
   const categoriesForPicker = categories.map((cat) => ({
     id: cat.id,
-    value: cat.name,
+    value: `${t(`HackathonPage.categories.${cat.name}`)}`,
   }));
   const organizations = useSelector(
     (state) => state.dictionaryStore.dictionary.organizations
@@ -163,7 +163,7 @@ const NewHachathon = ({ id }) => {
       currentDate.getHours(),
       currentDate.getMinutes(),
       currentDate.getSeconds()
-    )
+    );
     dispatch(
       updateHackathon({
         ...hackathon,
@@ -181,7 +181,7 @@ const NewHachathon = ({ id }) => {
       time.hour(),
       time.minute(),
       time.second()
-    )
+    );
     dispatch(
       updateHackathon({
         ...hackathon,
@@ -200,7 +200,7 @@ const NewHachathon = ({ id }) => {
       currentDate.getHours(),
       currentDate.getMinutes(),
       currentDate.getSeconds()
-    )
+    );
     dispatch(
       updateHackathon({
         ...hackathon,
@@ -218,7 +218,7 @@ const NewHachathon = ({ id }) => {
       time.hour(),
       time.minute(),
       time.second()
-    )
+    );
     dispatch(
       updateHackathon({
         ...hackathon,
@@ -277,7 +277,7 @@ const NewHachathon = ({ id }) => {
               placeholder={t("NewHachathon.Max amount of rating")}
               type={"number"}
               name={"prize"}
-              value={hackathon?.prize || '100'}
+              value={hackathon?.prize || "100"}
               onChange={handleInputChange}
             />
           </div>
@@ -340,16 +340,19 @@ const NewHachathon = ({ id }) => {
                 hackathon?.start ? hackathon.start : new Date().toString()
               }
             />
-            { hackathon?.start &&
-                <TimePicker
-                  className={styles.time}
-                  onChange={onStartTimeChange}
-                  placeholder={t("NewHachathon.Select time")}
-                  // defaultOpenValue={moment(hackathon?.start)}
-                  defaultValue={dayjs(hackathon?.start, 'YYYY-MM-DDTHH:mm:ss.SSSZ')}
-                  format={"HH:mm:ss"}
-                />
-            }
+            {hackathon?.start && (
+              <TimePicker
+                className={styles.time}
+                onChange={onStartTimeChange}
+                placeholder={t("NewHachathon.Select time")}
+                // defaultOpenValue={moment(hackathon?.start)}
+                defaultValue={dayjs(
+                  hackathon?.start,
+                  "YYYY-MM-DDTHH:mm:ss.SSSZ"
+                )}
+                format={"HH:mm:ss"}
+              />
+            )}
           </div>
           <div className={styles.endContainer}>
             <span className={styles.inputTitle}>
@@ -362,15 +365,15 @@ const NewHachathon = ({ id }) => {
                 hackathon?.end ? hackathon.end : new Date().toString()
               }
             />
-            { hackathon?.end &&
-                <TimePicker
-                  className={styles.time}
-                  onChange={onEndTimeChange}
-                  placeholder={t("NewHachathon.Select time")}
-                  defaultValue={dayjs(hackathon?.end, 'YYYY-MM-DDTHH:mm:ss.SSSZ')}
-                  format={"HH:mm:ss"}
-                />
-            }
+            {hackathon?.end && (
+              <TimePicker
+                className={styles.time}
+                onChange={onEndTimeChange}
+                placeholder={t("NewHachathon.Select time")}
+                defaultValue={dayjs(hackathon?.end, "YYYY-MM-DDTHH:mm:ss.SSSZ")}
+                format={"HH:mm:ss"}
+              />
+            )}
           </div>
         </div>
         <div className={styles.organizationsContainer}>

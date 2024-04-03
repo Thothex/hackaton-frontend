@@ -10,8 +10,11 @@ const HighscorePage = () => {
   const { t } = useTranslation();
   const [usersHithscore, setUsersHithscore] = useState(null);
   const { userInfo } = useSelector((state) => state.userStore);
-  const [maxHighscores, setMaxHighscores] = useState({maxScore: 0, maxScoreOrg: 0})
-  const navigate = useNavigate()
+  const [maxHighscores, setMaxHighscores] = useState({
+    maxScore: 0,
+    maxScoreOrg: 0,
+  });
+  const navigate = useNavigate();
   useEffect(() => {
     const getUsersHighscore = async () => {
       try {
@@ -19,7 +22,7 @@ const HighscorePage = () => {
         if (!response.status === 403 || !response.error) {
           setUsersHithscore(response);
         } else {
-          navigate('/login')
+          navigate("/login");
         }
       } catch (error) {
         return { error: "Failed to fetch highscore" };
@@ -32,12 +35,12 @@ const HighscorePage = () => {
     "100%": "#87d068",
   };
   useEffect(() => {
-    if (!usersHithscore) return
+    if (!usersHithscore) return;
     setMaxHighscores({
       maxScore: usersHithscore?.highscore[0]?.score || 0,
-      maxScoreOrg: usersHithscore?.organizationsHighscore[0]?.rating || 0
-    })
-  },[usersHithscore])
+      maxScoreOrg: usersHithscore?.organizationsHighscore[0]?.rating || 0,
+    });
+  }, [usersHithscore]);
 
   return (
     <div className={styles.blocksWrapper}>
@@ -74,38 +77,38 @@ const HighscorePage = () => {
           })}
       </div>
 
-      {maxHighscores.maxScoreOrg && 
-      <div className={styles.blockWidget}>
-        <h1 className={styles.widgetTitle}>
-          {t("HighscorePage.Organizations highscore")}
-        </h1>
-        {usersHithscore?.organizationsHighscore &&
-          usersHithscore?.organizationsHighscore.map((org) => {
-            const progress = (org.rating * 100) / maxHighscores.maxScoreOrg;
-            const disabled = org.organization.length > 10;
-            return (
-              <div className={styles.userScore} key={org.id}>
-                <div className={styles.username}>
-                  <Tooltip
-                    placement="topLeft"
-                    title={!disabled ? "" : org.organization}
-                    color="#2db7f5"
-                  >
-                    <h4>{org.organization}</h4>
-                  </Tooltip>
+      {!!maxHighscores.maxScoreOrg && (
+        <div className={styles.blockWidget}>
+          <h1 className={styles.widgetTitle}>
+            {t("HighscorePage.Organizations highscore")}
+          </h1>
+          {usersHithscore?.organizationsHighscore &&
+            usersHithscore?.organizationsHighscore.map((org) => {
+              const progress = (org.rating * 100) / maxHighscores.maxScoreOrg;
+              const disabled = org.organization.length > 10;
+              return (
+                <div className={styles.userScore} key={org.id}>
+                  <div className={styles.username}>
+                    <Tooltip
+                      placement="topLeft"
+                      title={!disabled ? "" : org.organization}
+                      color="#2db7f5"
+                    >
+                      <h4>{org.organization}</h4>
+                    </Tooltip>
+                  </div>
+                  <Progress
+                    className={styles.progress}
+                    percent={progress}
+                    strokeColor={twoColors}
+                    size={[300, 30]}
+                    format={() => ` ${org.rating}`}
+                  />
                 </div>
-                <Progress
-                  className={styles.progress}
-                  percent={progress}
-                  strokeColor={twoColors}
-                  size={[300, 30]}
-                  format={() => ` ${org.rating}`}
-                />
-              </div>
-            );
-          })}
-      </div>
-      }
+              );
+            })}
+        </div>
+      )}
     </div>
   );
 };

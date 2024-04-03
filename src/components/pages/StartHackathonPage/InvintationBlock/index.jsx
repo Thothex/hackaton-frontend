@@ -11,7 +11,7 @@ const InvintationBlock = ({
   searchTerm,
   filteredUsers,
   handleUserClick,
-    now
+  now,
 }) => {
   const { t } = useTranslation();
   return (
@@ -62,20 +62,22 @@ const InvintationBlock = ({
           handleSendInvite();
         }}
       >
-        {now && <div className={styles.inviteFormContainer}>
-          <input
+        {now && (
+          <div className={styles.inviteFormContainer}>
+            <input
               className={styles.inviteInput}
               placeholder={t(
-                  "HackathonTeamPage.Send invitation to the new member"
+                "HackathonTeamPage.Send invitation to the new member"
               )}
               value={inviteEmail}
               name="inviteEmail"
               onChange={handleInputChange}
-          />
-          <button className={styles.inviteButton} type="submit">
-            🔔
-          </button>
-        </div>}
+            />
+            <button className={styles.inviteButton} type="submit">
+              🔔
+            </button>
+          </div>
+        )}
         {searchTerm && (
           <ul className={styles.memList}>
             {filteredUsers.map((user) => (
@@ -85,7 +87,13 @@ const InvintationBlock = ({
             ))}
           </ul>
         )}
-        {!now && <p>You cannot invite new members after hackathon starts</p>}
+        {!now && (
+          <p>
+            {t(
+              "HackathonTeamPage.You cannot invite new members after hackathon starts"
+            )}
+          </p>
+        )}
       </form>
     </div>
   );
@@ -100,7 +108,7 @@ InvintationBlock.propTypes = {
   searchTerm: PropTypes.string,
   filteredUsers: PropTypes.array,
   handleUserClick: PropTypes.func.isRequired,
-  now: PropTypes.bool
+  now: PropTypes.bool,
 };
 
 export default InvintationBlock;
