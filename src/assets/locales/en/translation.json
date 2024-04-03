@@ -63,7 +63,14 @@
     "categories": {
       "science": "science",
       "javascript": "javascript",
-      "algorhythm": "algothythm"
+      "algorhythm": "algothythm",
+      "chemistry": "chemistry",
+      "biology": "biology",
+      "development": "development",
+      "algorithms": "algorithms",
+      "data science": "data science",
+      "art": "art",
+      "philosophy": "philosophy"
     },
     "latest-wins": "Latest wins",
     "overall-hackathons": "Overall hackathons",
@@ -164,6 +171,9 @@
   },
   "HackathonPage": {
     "Welcome to the hackathon": "Welcome to the hackathon",
+    "All ages": "All ages",
+    " artists and creatives": "artists and creatives",
+    " lovers of literature and philosophy": "lovers of literature and philosophy",
     "no limit": "no limit",
     "Нет ограничений": "no limit",
     " all": "all",
@@ -185,13 +195,22 @@
     "categories": {
       "Science": "Science",
       "JavaScript": "Javascript",
-      "Algorhythm": "Algothythm"
+      "Algorhythm": "Algothythm",
+      "Chemistry": "Chemistry",
+      "Biology": "Biology",
+      "Development": "Development",
+      "Algorithms": "Algorithms",
+      "Data Science": "Data Science",
+      "Art": "Art",
+      "Philosophy": "Philosophy"
     },
     "type": {
       "Командный": "Team",
       "Индивидуальный": "Person",
       "Person": "Person",
-      "Team": "Team"
+      "Team": "Team",
+      "person": "person",
+      "team": "team"
     },
     "Single or team": "Single or team",
     "Prizes": "Prizes",

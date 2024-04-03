@@ -63,7 +63,14 @@
     "categories": {
       "science": "наука",
       "javascript": "javascript",
-      "algorhythm": "алгоритмы"
+      "algorhythm": "алгоритмы",
+      "chemistry": "химия",
+      "biology": "биология",
+      "development": "разработка",
+      "algorithms": "алгоритмы",
+      "data science": "data science",
+      "art": "искусство",
+      "philosophy": "философия"
     },
     "latest-wins": "Последняя победа",
     "overall-hackathons": "Всего хакатонов",
@@ -164,6 +171,9 @@
   },
   "HackathonPage": {
     "Welcome to the hackathon": "Добро пожаловать на хакатон",
+    "All ages": "Любой возвраст",
+    " artists and creatives": "художники и креативщики",
+    " lovers of literature and philosophy": "любители литературы и философии",
     "no limit": "Без ограничений",
     "Без ограничений": "Без ограничений",
     " all": "все",
@@ -183,13 +193,22 @@
     "categories": {
       "Science": "Наука",
       "JavaScript": "Javascript",
-      "Algorhythm": "Алгоритмы"
+      "Algorhythm": "Алгоритмы",
+      "Chemistry": "Химия",
+      "Biology": "Биология",
+      "Development": "Разработка",
+      "Algorithms": "Алгоритмы",
+      "Data Science": "Data Science",
+      "Art": "Искусство",
+      "Philosophy": "Философия"
     },
     "type": {
       "Командный": "Командный",
       "Индивидуальный": "Индивидуальный",
       "Person": "Индивидуальный",
-      "Team": "Командный"
+      "Team": "Командный",
+      "person": "Индивидуальный",
+      "team": "Командный"
     },
     "Single or team": "Тип хакатона",
     "Prizes": "Призы",
