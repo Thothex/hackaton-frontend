@@ -29,7 +29,7 @@ const StartHackathonPage = () => {
   const [newTeamId, setNewTeamId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+console.log('-------', teamName)
   useEffect(() => {
     setLoading(true);
     dispatch(fetchHackathonById(id));
@@ -193,15 +193,17 @@ const StartHackathonPage = () => {
   const currentDate = new Date();
   const startDate = new Date(hackathon.start);
   const endDate = new Date(hackathon.end);
-  if (currentDate < startDate) {
-    return (
-      <div>
-        {t(
-          "HackathonTeamPage.Hackathon has not started yet. Please wait until it starts on"
-        )}{" "}
-        {startDate.toDateString()}.
-      </div>
-    );
+  const now = currentDate < startDate;
+  if (currentDate > startDate) {
+    // navigate(`/hackathon/${id}/tasks`);
+    // return (
+    //   <div>
+    //     {t(
+    //       "HackathonTeamPage.Hackathon has not started yet. Please wait until it starts on"
+    //     )}{" "}
+    //     {startDate.toDateString()}.
+    //   </div>
+    // );
   }
 
   let status;
@@ -254,7 +256,7 @@ const StartHackathonPage = () => {
             <p>{hackathon.rules}</p>
           </div>
         </div>
-        
+
         <div className={styles.teamContainer}>
           {  !hackathon.private && (
           <div className={styles.team}>
@@ -284,15 +286,16 @@ const StartHackathonPage = () => {
                 searchTerm={searchTerm}
                 filteredUsers={filteredUsers}
                 handleUserClick={handleUserClick}
+                now = {now}
               />
             )}
           </div>
           )}
-          <button className={styles.toTask} onClick={handleStart}>
+          {!now && <button className={styles.toTask} onClick={handleStart}>
             {t("HackathonTeamPage.START")}
-          </button>
+          </button>}
           </div>
-       
+
       </div>
     </div>
   );
