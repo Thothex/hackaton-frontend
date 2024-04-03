@@ -29,9 +29,9 @@ const StatPanel = () => {
     dispatch(fetchUserRankStatusThunk());
   }, [dispatch]);
 
-  const categories = userStat.categories;
-  const userRank = userRankStatus?.rank;
-  const amountOfHacks = userStat?.hack?.length;
+  const categories = userStat?.categories || [];
+  const userRank = userRankStatus?.rank || '';
+  const amountOfHacks = userStat?.hack?.length || 0;
   const userScore = userInfo?.score;
   const leftScore = userStat?.nextRank;
 
@@ -85,7 +85,7 @@ const StatPanel = () => {
         },
       });
     }
-  }, [userInfo, userStat]);
+  }, [userInfo, userStat, t]);
   return (
     <div className={style.statPanel}>
       <div className={style.upperPanel}>
