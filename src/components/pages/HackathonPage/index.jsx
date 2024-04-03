@@ -244,15 +244,15 @@ const HackathonPage = () => {
               </Button>
             </Flex>
           )}
-          <DashboardFloatingButton onClick={toggleFullscreen} />
-          <div className={styles.iframeWrapper}>
-            <iframe
-              ref={iframeRef}
-              src={`http://localhost:5173/dashboard?id=${id}`}
-            />
-          </div>
         </>
       )}
+      <DashboardFloatingButton onClick={toggleFullscreen} />
+      <div className={styles.iframeWrapper}>
+        <iframe
+          ref={iframeRef}
+          src={`http://localhost:5173/dashboard?id=${id}`}
+        />
+      </div>
     </div>
   );
 };
