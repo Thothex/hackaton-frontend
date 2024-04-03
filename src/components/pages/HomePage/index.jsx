@@ -21,11 +21,26 @@ const HomePage = () => {
     setCurrentFilter(value);
   };
   return (
-    <div>
+    <div className={styles.homeContainer}>
       <div
         className={`${styles.fullWidthFlexRow} ${darkMode && styles.darkPage}`}
       >
         <h1 className={styles.title}>{t("HomePage.HACKATHONS")}</h1>
+        <Select
+          defaultValue="all"
+          style={{ width: 120 }}
+          onChange={handleFilterChange}
+          options={[
+            { value: "all", label: `${t("HomePage.all")}` },
+            { value: "my", label: `${t("HomePage.my")}` },
+            { value: "inProgress", label: `${t("HomePage.in progress")}` },
+            { value: "past", label: `${t("HomePage.past")}` },
+            {
+              value: "registrationIsOpen",
+              label: `${t("HomePage.registration")}`,
+            },
+          ]}
+        />
       </div>
       <div className={styles.hackathonList}>
         {hackathons
@@ -47,6 +62,12 @@ const HomePage = () => {
             if (new Date(ha.end) < currentDate && currentFilter === "past") {
               return true;
             }
+            if (
+              new Date(ha.start) > currentDate &&
+              currentFilter === "registrationIsOpen"
+            ) {
+              return true;
+            }
           })
           .map((hackathon) => (
             <HackathonPanel
@@ -61,17 +82,6 @@ const HomePage = () => {
             />
           ))}
       </div>
-      <Select
-        defaultValue="all"
-        style={{ width: 120 }}
-        onChange={handleFilterChange}
-        options={[
-          { value: "all", label: `${t("HomePage.all")}` },
-          { value: "my", label: `${t("HomePage.my")}` },
-          { value: "inProgress", label: `${t("HomePage.in progress")}` },
-          { value: "past", label: `${t("HomePage.past")}` },
-        ]}
-      />
     </div>
   );
 };

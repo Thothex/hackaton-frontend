@@ -10,7 +10,6 @@ import CTextArea from "@/components/CTextArea";
 import close from "@/assets/close.svg";
 import Loading from "@/components/Loading";
 
-
 const OneInputTask = ({ hackathonId, task, info }) => {
   const { t } = useTranslation();
   const [answers, setAnswers] = useState(task.answers);
@@ -18,7 +17,7 @@ const OneInputTask = ({ hackathonId, task, info }) => {
   const [taskDescription, setTaskDescription] = useState(
     task.description || ""
   );
-  const [ hasUnsavedChanges, setHasUnsavedChanges] = useState(false)
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [taskScore, setTaskScore] = useState(task.maxScore);
 
   const dispatch = useDispatch();
@@ -28,26 +27,26 @@ const OneInputTask = ({ hackathonId, task, info }) => {
   }, [task]);
 
   const changeTitleHandler = (e) => {
-    setTaskText(e.target.value)
-    setHasUnsavedChanges(true)
-  }
+    setTaskText(e.target.value);
+    setHasUnsavedChanges(true);
+  };
 
   const changeDescriptionHandler = (e) => {
-    setTaskDescription(e.target.value)
-    setHasUnsavedChanges(true)
-  }
+    setTaskDescription(e.target.value);
+    setHasUnsavedChanges(true);
+  };
 
   const changeScoreHandler = (e) => {
-    setTaskScore(+e.target.value)
-    setHasUnsavedChanges(true)
-  }
+    setTaskScore(+e.target.value);
+    setHasUnsavedChanges(true);
+  };
 
-  const taskContainerClass = !hasUnsavedChanges ?
-    `${styles.taskContainer} ${styles.greenBorder}` :
-    `${styles.taskContainer} ${styles.redBorder}`
-  
+  const taskContainerClass = !hasUnsavedChanges
+    ? `${styles.taskContainer} ${styles.greenBorder}`
+    : `${styles.taskContainer} ${styles.redBorder}`;
+
   const saveHander = () => {
-    setHasUnsavedChanges(false)
+    setHasUnsavedChanges(false);
     dispatch(
       updateTask({
         hackathonId,
@@ -60,10 +59,11 @@ const OneInputTask = ({ hackathonId, task, info }) => {
         },
       })
     );
-    info()
+    info();
   };
 
   const deleteHandler = () => {
+    setHasUnsavedChanges(false);
     dispatch(deleteTask({ taskId: task.id }));
   };
 
@@ -103,7 +103,11 @@ const OneInputTask = ({ hackathonId, task, info }) => {
         />
       </div>
       <div className={styles.addNewAnswerBlock}>
-        <MainButton caption={t("ProfilePage.save")} onClick={saveHander} isDisabled={!hasUnsavedChanges} />
+        <MainButton
+          caption={t("ProfilePage.save")}
+          onClick={saveHander}
+          isDisabled={!hasUnsavedChanges}
+        />
       </div>
     </div>
   );

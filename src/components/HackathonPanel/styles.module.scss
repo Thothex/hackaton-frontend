@@ -1,6 +1,6 @@
 @import "../../index.scss";
-.hackathonPanel{
-  background:  url("../../assets/authHeader.svg");
+.hackathonPanel {
+  background: url("../../assets/authHeader.svg");
   background-size: cover;
   width: 100%;
   display: flex;
@@ -8,149 +8,150 @@
   min-height: 270px;
   height: 17vh;
   justify-content: space-between;
-  margin-bottom:20px;
-  border-radius:20px
+  margin-bottom: 20px;
+  border-radius: 20px;
 }
-.hackathonPanelHeader{
+.hackathonPanelHeader {
   margin-top: 2em;
   display: flex;
   justify-content: space-between;
 }
-.hackathonPanelHeaderLeft{
+.hackathonPanelHeaderLeft {
   justify-content: space-between;
   display: flex;
   align-items: center;
   white-space: nowrap;
   height: fit-content;
-  *{
-    margin-inline:1em;
+  * {
+    margin-inline: 1em;
     margin-block: 0;
   }
 }
-.title{
-  font-size:32px;
+.title {
+  font-size: 32px;
   color: white;
 }
-.status{
-  font-size:15px;
+.status {
+  font-size: 15px;
   padding-inline: 1em;
-  padding-block: .3em;
+  padding-block: 0.3em;
   background-color: white;
   border-radius: 40px;
-  color:#16A34A ;
+  color: #16a34a;
 }
-.button{
+.button {
   background-color: white;
-  border:none;
-  color:$light-violet-color;
+  border: none;
+  color: $light-violet-color;
   min-height: 42px;
   height: 50px;
   border-radius: 40px;
   width: fit-content;
   padding-inline: 2em;
-  margin-left:2em;
+  margin-left: 2em;
   margin-bottom: 2em;
   outline: none;
-  transition: all .3s ease;
+  transition: all 0.1s ease;
 }
-.hackathonPanelHeaderRight{
+.hackathonPanelHeaderRight {
+  position: relative;
+  top: 17px;
   min-width: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   height: fit-content;
-  margin-right:2vw;
-  margin-top: 2vw;
+  margin-right: 2vw;
   background-color: rgba(255, 255, 255, 0.8);
-  color:$font-color-date;
+  color: $font-color-date;
   border-radius: 10px;
-  padding: .5em;
-  *{
+  padding: 0.5em;
+  * {
     margin: 0;
     padding: 0;
   }
 }
-hr{
+hr {
   width: 90%;
   opacity: 50%;
 }
-.date{
-  font-size:28px;
+.date {
+  font-size: 28px;
 }
-.month{
-  font-size:12px;
+.month {
+  font-size: 12px;
   font-weight: 100;
 }
-.area{
-  font-size:15px;
+.area {
+  height: 33px;
+  font-size: 15px;
   padding-inline: 1em;
-  padding-block: .3em;
+  padding-block: 0.5em;
   background-color: white;
   border-radius: 40px;
-  color: $data-auth-color ;
+  color: $data-auth-color;
 }
 .registrationOpen {
   color: #0095ff;
 }
 
 .inProgress {
-  color:#16A34A
+  color: #16a34a;
 }
 
 .finished {
   color: #ff284e;
 }
-.button:hover{
-  outline: 3px solid $font-color-date;
+.button:hover {
+  outline: 2px solid rgba(112, 112, 112, 0.342);
 }
-.panelOpen{
-  background-color:  $light-violet-color;
+.panelOpen {
+  background-color: $light-violet-color;
 }
-.panelInProgress{
+.panelInProgress {
   background-color: $inProgress;
 }
-.panelClosed{
+.panelClosed {
   background-color: $finished;
 }
-.panelOpenButton{
-  color:  $light-violet-color;
+.panelOpenButton {
+  color: $light-violet-color;
 }
-.panelInProgressButton{
- color: $inProgress;
+.panelInProgressButton {
+  color: $inProgress;
 }
-.panelClosedButton{
-color: $finished;
+.panelClosedButton {
+  color: $finished;
 }
 
 .btnPanel {
   display: flex;
   gap: 18px;
 }
-.darkPanel{
-
-  .title{
-    color:$font-color-date
+.darkPanel {
+  .title {
+    color: $font-color-date;
   }
-  .button:hover{
+  .button:hover {
     outline: 3px solid $font-color-date;
   }
-  .panelOpen{
-    background-color:  $dark-light-violet-color;
+  .panelOpen {
+    background-color: $dark-light-violet-color;
   }
-  .panelInProgress{
+  .panelInProgress {
     background-color: $darkInProgress;
   }
-  .panelClosed{
+  .panelClosed {
     background-color: $finished;
   }
-  .panelOpenButton{
-    color:   $dark-light-violet-color;
+  .panelOpenButton {
+    color: $dark-light-violet-color;
   }
-  .panelInProgressButton{
+  .panelInProgressButton {
     color: $darkInProgress;
   }
-  .panelClosedButton{
+  .panelClosedButton {
     color: $finished;
   }
 }

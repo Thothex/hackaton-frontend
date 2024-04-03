@@ -8,6 +8,7 @@
     "hackathons": "Hackathons",
     "view-all": "VIEW ALL",
     "label-stat": "Your hackathons",
+    "year": "year",
     "months": {
       "January": "January",
       "February": "February",
@@ -43,6 +44,21 @@
       "gold": "gold",
       "platinum": "platinum",
       "diamond": "diamond"
+    },
+    "AboutRanks": {
+      "from": "from",
+      "0 to 100": "0 to 100",
+      "100 to 300": "100 to 300",
+      "300 to 600": "300 to 600",
+      "600 to 1000": "600 to 1000",
+      "1000 to 1500": "1000 to 1500",
+      "2000 to infinity": "2000 to infinity",
+      "points. You re just in the beginning!": "points. You re just in the beginning!",
+      "points. Feeling more confident in solving tasks.": "points. Feeling more confident in solving tasks.",
+      "points. Starting to make a name for yourself!": "points. Starting to make a name for yourself!",
+      "points. Making significant progress!": "points. Making significant progress!",
+      "points. Truly mastering your skills!": "points. Truly mastering your skills!",
+      "You are a legend!": "You are a legend!"
     },
     "categories": {
       "science": "science",
@@ -138,12 +154,13 @@
     "my": "my",
     "in progress": "in progress",
     "past": "past",
+    "registration": "registration",
     "READ MORE": "READ MORE",
     "EDIT": "EDIT",
     "CHECK": "CHECK",
-    "Registration is open": "Registration is open",
-    "In progress": "In progress",
-    "Finished": "Finished"
+    "Registration is open": "registration is open",
+    "In progress": "in progress",
+    "Finished": "finished"
   },
   "HackathonPage": {
     "Welcome to the hackathon": "Welcome to the hackathon",
@@ -258,6 +275,7 @@
     "Avaliable only for organizations": "Avaliable only for organizations",
     "Choose organizations": "Choose organizations",
     "UPDATE": "UPDATE",
-    "CREATE": "CREATE"
+    "CREATE": "CREATE",
+    "Without organization": "Without organization"
   }
 }

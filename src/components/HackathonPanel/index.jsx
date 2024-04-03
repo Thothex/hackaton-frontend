@@ -27,6 +27,7 @@ const HackathonPanel = (props) => {
   const startMonth = startDate.toLocaleString("en-US", { month: "long" });
   const formattedEndDate = endDate.getDate();
   const endMonth = endDate.toLocaleString("en-US", { month: "long" });
+  const startYear = startDate.getFullYear();
   return (
     <div
       className={`${styles.hackathonPanel} ${darkMode && styles.darkPanel} ${
@@ -67,6 +68,9 @@ const HackathonPanel = (props) => {
           <hr />
           <h4 className={styles.date}>{formattedEndDate}</h4>
           <p className={styles.month}>{t(`ProfilePage.months.${endMonth}`)}</p>
+          <hr />
+          <h4 className={styles.date}>{startYear}</h4>
+          <p className={styles.month}>{t(`ProfilePage.year`)}</p>
         </div>
       </div>
       <div className={styles.btnPanel}>

@@ -76,11 +76,11 @@ const HackathonPage = () => {
 
   const handleStartHackathon = () => {
     if (user?.role) {
-      navigate(`/hackathon/${hackathon.id}/start`)
+      navigate(`/hackathon/${hackathon.id}/start`);
     } else {
       navigate("/login");
     }
-  }
+  };
   return (
     <div className={styles.hackathonPage}>
       <div
@@ -179,7 +179,7 @@ const HackathonPage = () => {
                 </div>
               ))
             ) : (
-              <>Без организации</>
+              <>{t(`NewHachathon.Without organization`)}</>
             )}
           </h3>
           {!!hackathon.organizations.length && (
@@ -193,10 +193,7 @@ const HackathonPage = () => {
           <p className={styles.descriptionHac}>{hackathon.description}</p>
         </div>
         {status === "Registration is open" && user && (
-          <div
-            className={styles.pic}
-            onClick={handleStartHackathon}
-          >
+          <div className={styles.pic} onClick={handleStartHackathon}>
             <button className={styles.takePartBTN}>
               {t(`HackathonPage.TAKE PART`)}
             </button>
@@ -204,11 +201,9 @@ const HackathonPage = () => {
         )}
         {status === "In progress" &&
           user &&
-          hackathon.organizer_id !== user.id && user.role && (
-            <div
-              className={styles.pic}
-              onClick={handleStartHackathon}
-            >
+          hackathon.organizer_id !== user.id &&
+          user.role && (
+            <div className={styles.pic} onClick={handleStartHackathon}>
               <button className={styles.takePartBTN}>
                 {t(`HackathonPage.TAKE PART`)}
               </button>
