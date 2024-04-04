@@ -30,7 +30,7 @@ import Ranks from './constants/ranks';
 
 
 function App() {
-    const location = useLocation();
+  const location = useLocation();
   const dispatch = useDispatch()
   const { bearer: bearerFromStore, userInfo, userRankStatus } = useSelector((state) => state.userStore)
   const { darkMode } = useSelector((state) => state.mode);
@@ -55,7 +55,9 @@ function App() {
   useEffect(() => {
     dispatch(getCategoriesThunk())
     dispatch(getOrganizationsThunk())
-    dispatch(fetchUserRankStatusThunk())
+    if (userInfo?.role) {
+      dispatch(fetchUserRankStatusThunk())
+    }
     if (userInfo.statusCode === 401 && location.pathname !== '/login' && location.pathname !== '/register') {
       window.location.replace('/login')
     }
