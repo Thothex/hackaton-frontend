@@ -55,6 +55,7 @@ function App() {
   useEffect(() => {
     dispatch(getCategoriesThunk())
     dispatch(getOrganizationsThunk())
+    dispatch(fetchUserRankStatusThunk())
     if (userInfo.statusCode === 401 && location.pathname !== '/login' && location.pathname !== '/register') {
       window.location.replace('/login')
     }
@@ -64,6 +65,7 @@ function App() {
   }, [dispatch, userInfo])
 
   useEffect(() => {
+    console.log('effect');
     if (userRankStatus && userRankStatus?.approved === false) {
       setIsModalOpen(true)
     }
