@@ -45,6 +45,10 @@ const HackathonPage = () => {
 
   const isOrg = user.isOrg && user.id === hackathon.organizer_id;
 
+  const isEmployeeOrg = !!hackathon?.organizations.find(
+    (hack) => hack.name === user?.organization
+  );
+
   const currentDate = new Date();
   const endDate = new Date(hackathon.end);
   const startDate = new Date(hackathon.start);
@@ -202,6 +206,7 @@ const HackathonPage = () => {
         {status === "In progress" &&
           user &&
           hackathon.organizer_id !== user.id &&
+          (hackathon?.organizations.length === 0 || isEmployeeOrg) &&
           user.role && (
             <div className={styles.pic} onClick={handleStartHackathon}>
               <button className={styles.takePartBTN}>

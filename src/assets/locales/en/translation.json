@@ -284,6 +284,8 @@
     "Team": "Team",
     "Person": "Person",
     "team": "Team",
+    "Organizations": "Organizations",
+    "infoOrg": "When selecting organization, only employees of the selected organization will be able to participate in the hackathon.",
     "person": "Person",
     "Choose type": "Choose type",
     "Category": "Category",

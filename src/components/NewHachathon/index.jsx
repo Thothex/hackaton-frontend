@@ -68,7 +68,6 @@ const NewHachathon = ({ id }) => {
           category: null,
           organizations: [],
           admins: null,
-          isPrivate: true,
         })
       );
     }
@@ -80,14 +79,6 @@ const NewHachathon = ({ id }) => {
   useEffect(() => {
     !!id && dispatch(fetchHackathonById(id));
   }, [id, dispatch]);
-
-  useEffect(() => {
-    if (hackathon) {
-      setOnlyOrganizations(hackathon.organizations.length > 0);
-    }
-  }, [hackathon]);
-
-  const [onlyOrganizations, setOnlyOrganizations] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -131,17 +122,16 @@ const NewHachathon = ({ id }) => {
     );
   };
 
-  const handleOnlyOrganizations = () => {
-    setOnlyOrganizations(!onlyOrganizations);
-  };
-
   const onBageDelete = (id) => {
+    const updatedOrganizations = hackathon.organizations.filter(
+      (org) => org.id !== id
+    );
+    const isOrganizationsEmpty = updatedOrganizations.length === 0;
     dispatch(
       updateHackathon({
         ...hackathon,
-        organizations: [
-          ...hackathon.organizations.filter((org) => org.id !== id),
-        ],
+        organizations: updatedOrganizations,
+        isPrivate: !isOrganizationsEmpty,
       })
     );
   };
@@ -325,34 +315,68 @@ const NewHachathon = ({ id }) => {
             />
           </div>
           <div className={styles.audience}>
-            <label>{t("NewHachathon.Audience")}</label>
-            <CDropDown
-              name="audience"
-              items={[
-                {
-                  id: 1,
-                  value: "14-18 years, school",
-                  displayValue: `${t("NewHachathon.14-18 years, school")}`,
-                },
-                {
-                  id: 2,
-                  value: "16-23 years, university",
-                  displayValue: `${t("NewHachathon.16-23 years, university")}`,
-                },
-                {
-                  id: 3,
-                  value: "no limit, all",
-                  displayValue: `${t("NewHachathon.no limit, all")}`,
-                },
-              ]}
-              onChange={handleAddFromSelect}
-              placeholder={""}
-              value={
-                (hackathon?.audience &&
-                  `${t(`NewHachathon.${hackathon?.audience}`)}`) ||
-                `${t("NewHachathon.Choose audience")}`
-              }
-            />
+            <div>
+              <label>{t("NewHachathon.Audience")}</label>
+              <CDropDown
+                name="audience"
+                items={[
+                  {
+                    id: 1,
+                    value: "14-18 years, school",
+                    displayValue: `${t("NewHachathon.14-18 years, school")}`,
+                  },
+                  {
+                    id: 2,
+                    value: "16-23 years, university",
+                    displayValue: `${t(
+                      "NewHachathon.16-23 years, university"
+                    )}`,
+                  },
+                  {
+                    id: 3,
+                    value: "no limit, all",
+                    displayValue: `${t("NewHachathon.no limit, all")}`,
+                  },
+                ]}
+                onChange={handleAddFromSelect}
+                placeholder={""}
+                value={
+                  (hackathon?.audience &&
+                    `${t(`NewHachathon.${hackathon?.audience}`)}`) ||
+                  `${t("NewHachathon.Choose audience")}`
+                }
+              />
+            </div>
+
+            <div className={styles.organizationsContainer}>
+              <div className={styles.org}>
+                <div className={styles.orgInfo}>
+                  <label>{t("NewHachathon.Organizations")}</label>
+                  <div className={styles.tooltip}>
+                    <span>!</span>
+                    <span className={styles.text}>
+                      {t("NewHachathon.infoOrg")}
+                    </span>
+                  </div>
+                </div>
+                <CDropDown
+                  name="organization"
+                  items={organizationsForPicker}
+                  onChange={handleAddOrganization}
+                  placeholder={""}
+                  value={t("NewHachathon.Choose organizations")}
+                />
+                <div className={styles.badges}>
+                  {hackathon?.organizations.map((org) => (
+                    <Badge
+                      key={org.id}
+                      name={org.name}
+                      onDelete={() => onBageDelete(org.id)}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div className={styles.dateContainer}>
@@ -403,33 +427,6 @@ const NewHachathon = ({ id }) => {
               />
             )}
           </div>
-        </div>
-        <div className={styles.organizationsContainer}>
-          <CCheckbox
-            label={t("NewHachathon.Avaliable only for organizations")}
-            checked={onlyOrganizations}
-            onChange={handleOnlyOrganizations}
-          />
-          {onlyOrganizations && (
-            <div className={styles.org}>
-              <CDropDown
-                name="organization"
-                items={organizationsForPicker}
-                onChange={handleAddOrganization}
-                placeholder={""}
-                value={t("NewHachathon.Choose organizations")}
-              />
-              <div className={styles.badges}>
-                {hackathon?.organizations.map((org) => (
-                  <Badge
-                    key={org.id}
-                    name={org.name}
-                    onDelete={() => onBageDelete(org.id)}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
         </div>
         <div className={styles.bntRow}>
           {id ? (

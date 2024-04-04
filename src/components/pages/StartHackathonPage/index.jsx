@@ -67,16 +67,6 @@ const StartHackathonPage = () => {
   }, [dispatch, id, teamInfo?.team?.id, user]);
 
   useEffect(() => {
-    if (
-      user?.id &&
-      hackathon?.organizer_id &&
-      user.id === hackathon.organizer_id
-    ) {
-      navigate("/hackathon");
-    }
-  }, [navigate, user, hackathon]);
-
-  useEffect(() => {
     setLoading(true);
     dispatch(fetchHackathonById(id));
     dispatch(getAllUsersThunk());
@@ -119,6 +109,20 @@ const StartHackathonPage = () => {
           user.username.toLowerCase().includes(searchTerm.toLowerCase())
       )
     : [];
+
+  useEffect(() => {
+    if (user.id && hackathon.organizer_id) {
+      const isEmployeeOrg = !!hackathon?.organizations.find(
+        (hack) => hack.name === user?.organization
+      );
+      if (
+        user?.id === hackathon?.organizer_id ||
+        (hackathon?.organizations.length > 0 && !isEmployeeOrg)
+      ) {
+        navigate("/hackathon");
+      }
+    }
+  }, [navigate, user, hackathon]);
 
   const handleInputChange = (e) => {
     const { value } = e.target;
@@ -268,39 +272,37 @@ const StartHackathonPage = () => {
         </div>
 
         <div className={styles.teamContainer}>
-          {!hackathon.private && (
-            <div className={styles.team}>
-              {teamInfo?.team ? (
-                // <h2>Your team is: {teamInfo.team.name}</h2>
-                <></>
-              ) : (
-                <div className={styles.createTeam}>
-                  <h2>{t("HackathonTeamPage.Gather your team!")}</h2>
-                  <form onSubmit={handleCreateTeam}>
-                    <input
-                      placeholder={t("HackathonTeamPage.Name your team")}
-                      value={teamName}
-                      onChange={(e) => setTeamName(e.target.value)}
-                    />
-                    <button type="submit">{t("HackathonTeamPage.Save")}</button>
-                  </form>
-                </div>
-              )}
-              {teamInfo?.teamUsers.length > 0 && (
-                <InvintationBlock
-                  styles={styles}
-                  teamInfo={teamInfo}
-                  handleSendInvite={handleSendInvite}
-                  handleInputChange={handleInputChange}
-                  inviteEmail={inviteEmail}
-                  searchTerm={searchTerm}
-                  filteredUsers={filteredUsers}
-                  handleUserClick={handleUserClick}
-                  now={now}
-                />
-              )}
-            </div>
-          )}
+          <div className={styles.team}>
+            {teamInfo?.team ? (
+              // <h2>Your team is: {teamInfo.team.name}</h2>
+              <></>
+            ) : (
+              <div className={styles.createTeam}>
+                <h2>{t("HackathonTeamPage.Gather your team!")}</h2>
+                <form onSubmit={handleCreateTeam}>
+                  <input
+                    placeholder={t("HackathonTeamPage.Name your team")}
+                    value={teamName}
+                    onChange={(e) => setTeamName(e.target.value)}
+                  />
+                  <button type="submit">{t("HackathonTeamPage.Save")}</button>
+                </form>
+              </div>
+            )}
+            {teamInfo?.teamUsers.length > 0 && (
+              <InvintationBlock
+                styles={styles}
+                teamInfo={teamInfo}
+                handleSendInvite={handleSendInvite}
+                handleInputChange={handleInputChange}
+                inviteEmail={inviteEmail}
+                searchTerm={searchTerm}
+                filteredUsers={filteredUsers}
+                handleUserClick={handleUserClick}
+                now={now}
+              />
+            )}
+          </div>
           {!now && (
             <button className={styles.toTask} onClick={handleStart}>
               {t("HackathonTeamPage.START")}

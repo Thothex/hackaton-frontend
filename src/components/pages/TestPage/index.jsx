@@ -29,13 +29,18 @@ const TestPage = () => {
   const { answers } = useSelector((state) => state.answersStore);
   const hackathon = useSelector((state) => state.hackathons?.hackathon);
   const { darkMode } = useSelector((state) => state.mode);
+
   useEffect(() => {
-    if (
-      userInfo?.id &&
-      hackathon?.organizer_id &&
-      userInfo.id === hackathon.organizer_id
-    ) {
-      navigate("/hackathon");
+    if (userInfo.id && hackathon.organizer_id) {
+      const isEmployeeOrg = !!hackathon?.organizations.find(
+        (hack) => hack.name === userInfo?.organization
+      );
+      if (
+        userInfo?.id === hackathon?.organizer_id ||
+        (hackathon?.organizations.length > 0 && !isEmployeeOrg)
+      ) {
+        navigate("/hackathon");
+      }
     }
   }, [navigate, userInfo, hackathon]);
 
@@ -251,8 +256,12 @@ const TestPage = () => {
     return pageNumbers;
   };
   return (
-      <div className={`${styles.main} ${darkMode && styles.darkMain}`}>
-      {hackathon?.end && <div className={styles.countDownRow}><CountdownTimer targetDate={hackathon.end} /></div>}
+    <div className={`${styles.main} ${darkMode && styles.darkMain}`}>
+      {hackathon?.end && (
+        <div className={styles.countDownRow}>
+          <CountdownTimer targetDate={hackathon.end} />
+        </div>
+      )}
       <nav aria-label="...">
         <ul className="pagination pagination-lg">{generatePageNumbers()}</ul>
       </nav>
