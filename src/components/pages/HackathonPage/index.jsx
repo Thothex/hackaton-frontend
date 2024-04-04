@@ -85,6 +85,8 @@ const HackathonPage = () => {
       navigate("/login");
     }
   };
+
+  const currentLocation = window.location.origin;
   return (
     <div className={styles.hackathonPage}>
       <div
@@ -255,7 +257,7 @@ const HackathonPage = () => {
       <div className={styles.iframeWrapper}>
         <iframe
           ref={iframeRef}
-          src={`http://localhost:5173/dashboard?id=${id}`}
+          src={`${currentLocation}/dashboard?id=${id}`}
         />
       </div>
     </div>
