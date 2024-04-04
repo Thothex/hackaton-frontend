@@ -1,4 +1,7 @@
-import { useEffect, useState, useLayoutEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { okaidia } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import styles from "./style.module.scss";
 import { useTranslation } from "react-i18next";
 import InputTask from "@/components/InputTask";
@@ -14,7 +17,11 @@ import { message } from "antd";
 import CountdownTimer from "@/components/CountdownTimer";
 import { fetchHackathonById } from "@/redux/features/hackathonsSlice";
 import style from "@/components/FeaturesPanel/style.module.scss";
-
+import { coy } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { solarizedlight } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { twilight } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { prism } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 const TestPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -33,11 +40,11 @@ const TestPage = () => {
   useEffect(() => {
     if (userInfo.id && hackathon.organizer_id) {
       const isEmployeeOrg = !!hackathon?.organizations.find(
-        (hack) => hack.name === userInfo?.organization
+          (hack) => hack.name === userInfo?.organization
       );
       if (
-        userInfo?.id === hackathon?.organizer_id ||
-        (hackathon?.organizations.length > 0 && !isEmployeeOrg)
+          userInfo?.id === hackathon?.organizer_id ||
+          (hackathon?.organizations.length > 0 && !isEmployeeOrg)
       ) {
         navigate("/hackathon");
       }
@@ -51,15 +58,15 @@ const TestPage = () => {
 
   useEffect(() => {
     dispatch(getTeamInfo({ hackathonId: id, userId: userInfo.id }))
-      .then((data) => {
-        setTeam(data.payload);
-      })
-      .catch((error) => {
-        console.error(
-          "Error when receiving information about the team:",
-          error
-        );
-      });
+        .then((data) => {
+          setTeam(data.payload);
+        })
+        .catch((error) => {
+          console.error(
+              "Error when receiving information about the team:",
+              error
+          );
+        });
   }, [dispatch, id, userInfo.id]);
 
   useEffect(() => {
@@ -110,31 +117,31 @@ const TestPage = () => {
 
   const handleSaveMany = async ({ answers, type, task }) => {
     const userAnswers = Object.entries(answers).reduce(
-      (acc, [uuid, answer]) => {
-        if (answer.checked) {
-          acc[uuid] = { checked: answer.checked };
-        }
-        return acc;
-      },
-      {}
+        (acc, [uuid, answer]) => {
+          if (answer.checked) {
+            acc[uuid] = { checked: answer.checked };
+          }
+          return acc;
+        },
+        {}
     );
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_BASE_URL}/answers/${task.id}/${type}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify({
-            userAnswers,
-            taskId: task.id,
-            type: "many-answers",
-            hackathonId: task.hackathonId,
-            teamId: team.team.id,
-          }),
-        }
+          `${import.meta.env.VITE_BASE_URL}/answers/${task.id}/${type}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify({
+              userAnswers,
+              taskId: task.id,
+              type: "many-answers",
+              hackathonId: task.hackathonId,
+              teamId: team.team.id,
+            }),
+          }
       );
 
       if (res.status === 201) {
@@ -153,21 +160,21 @@ const TestPage = () => {
 
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_BASE_URL}/answers/${task.id}/${type}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify({
-            userAnswers,
-            taskId: task.id,
-            type: "many-answers",
-            hackathonId: task.hackathonId,
-            teamId: team.team.id,
-          }),
-        }
+          `${import.meta.env.VITE_BASE_URL}/answers/${task.id}/${type}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify({
+              userAnswers,
+              taskId: task.id,
+              type: "many-answers",
+              hackathonId: task.hackathonId,
+              teamId: team.team.id,
+            }),
+          }
       );
       if (res.status === 201) {
         info();
@@ -183,55 +190,113 @@ const TestPage = () => {
     if (currentPage > 0 && currentPage <= totalPages) {
       const task = tasks[currentPage - 1]; // Индексация с 0
       const currentAnswer = answers.find((answer) => answer.taskId === task.id)
-        ?.answer?.answer;
+          ?.answer?.answer;
       const disabled = new Date(hackathon.end) < new Date();
-      return (
-        <div>
-          {task.type === "document" && (
-            <>
-              <p className={styles.taskName}>{task.name}</p>
-              <p>{task.description}</p>
-              {captain && (
-                <AddFileTask
-                  task={task}
-                  teamId={teamId}
-                  showToast={info}
-                  disabled={disabled}
-                />
-              )}
-            </>
-          )}
-          {task.type === "input" && (
-            <>
-              <p className={styles.taskName}>{task.name}</p>
-              <p>{task.description}</p>
-              {captain && (
-                <InputTask
-                  handleSaveInput={handleSaveInput}
-                  type={"input"}
-                  task={task}
-                  savedValue={currentAnswer}
-                  disabled={disabled}
-                />
-              )}
-            </>
-          )}
-          {task.type === "many-answers" && (
-            <>
-              <p className={styles.taskName}>{task.name}</p>
-              <p>{task.description}</p>
+      const getLanguage = (description) => {
+        const match = description.match(/language='(\w+)'/);
+        return match ? match[1] : null;
+      };
+      const getHighlightedCode = (code) => {
+        const codeStartIndex = code.indexOf('>') + 1;
+        const codeEndIndex = code.lastIndexOf('<');
+        return code.slice(codeStartIndex, codeEndIndex);
+      };
+      const lang = getLanguage(task.description);
+      const highlightedCode = getHighlightedCode(task.description);
 
-              <ManyAnswersTask
-                handleSaveMany={handleSaveMany}
-                type={"many-answers"}
-                task={task}
-                captain={captain}
-                teamId={teamId}
-                disabled={disabled}
-              />
-            </>
-          )}
-        </div>
+
+      return (
+          <div>
+            {task.type === "document" && (
+                <>
+                  <p className={styles.taskName}>{task.name}</p>
+                  {task.description.includes(`<code language='${lang}'`) ? (
+                      <>
+                        {darkMode ? (
+                            <SyntaxHighlighter  language={lang} style={dracula} customStyle={{ fontSize: '20px'}}>
+                              {highlightedCode}
+                            </SyntaxHighlighter>
+                        ) : (
+                            <SyntaxHighlighter  language={lang} style={prism} customStyle={{ fontSize: '20px', backgroundColor:'white'  }}>
+                              {highlightedCode}
+                            </SyntaxHighlighter>
+                        )}
+                      </>
+                  ) : (
+                      <p>{task.description}</p>
+                  )}
+                  {captain && (
+                      <AddFileTask
+                          task={task}
+                          teamId={teamId}
+                          showToast={info}
+                          disabled={disabled}
+                      />
+                  )}
+                </>
+            )}
+            {task.type === "input" && (
+                <>
+                  <p className={styles.taskName}>{task.name}</p>
+                  {task.description.includes("<code language=") ? (
+                      <>
+                        {darkMode ? (
+                            <SyntaxHighlighter  language={lang} style={dracula} customStyle={{ fontSize: '20px'}}>
+                              {highlightedCode}
+                            </SyntaxHighlighter>
+                        ) : (
+                            <SyntaxHighlighter  language={lang} style={prism} customStyle={{ fontSize: '20px', backgroundColor:'white'  }}>
+                              {highlightedCode}
+                            </SyntaxHighlighter>
+                        )}
+                      </>
+
+                  ) : (
+                      <p>{task.description}</p>
+                  )}
+
+
+                  {captain && (
+                      <InputTask
+                          handleSaveInput={handleSaveInput}
+                          type={"input"}
+                          task={task}
+                          savedValue={currentAnswer}
+                          disabled={disabled}
+                      />
+                  )}
+                </>
+            )}
+            {task.type === "many-answers" && (
+                <>
+                  <p className={styles.taskName}>{task.name}</p>
+                  {task.description.includes("<code language=") ? (
+                      <>
+                        {darkMode ? (
+                            <SyntaxHighlighter  language={lang} style={dracula} customStyle={{ fontSize: '20px'}}>
+                              {highlightedCode}
+                            </SyntaxHighlighter>
+                        ) : (
+                            <SyntaxHighlighter  language={lang} style={prism} customStyle={{ fontSize: '20px', backgroundColor:'white'  }}>
+                              {highlightedCode}
+                            </SyntaxHighlighter>
+                        )}
+                      </>
+
+                  ) : (
+                      <p>{task.description}</p>
+                  )}
+                  <ManyAnswersTask
+                      handleSaveMany={handleSaveMany}
+                      type={"many-answers"}
+                      task={task}
+                      captain={captain}
+                      teamId={teamId}
+                      disabled={disabled}
+                  />
+                </>
+            )}
+          </div>
       );
     }
     return null;
@@ -242,43 +307,43 @@ const TestPage = () => {
 
     for (let i = 1; i <= totalPages; i++) {
       pageNumbers.push(
-        <li key={i} className={`${styles.pageItem} `}>
-          <button
-            className={`page-link} ${styles.pageLink} ${
-              currentPage === i ? `${styles.active}` : `${styles.unactive}`
-            }`}
-            onClick={() => handlePageChange(i)}
-          ></button>
-        </li>
+          <li key={i} className={`${styles.pageItem} `}>
+            <button
+                className={`page-link} ${styles.pageLink} ${
+                    currentPage === i ? `${styles.active}` : `${styles.unactive}`
+                }`}
+                onClick={() => handlePageChange(i)}
+            ></button>
+          </li>
       );
     }
 
     return pageNumbers;
   };
   return (
-    <div className={`${styles.main} ${darkMode && styles.darkMain}`}>
-      {hackathon?.end && (
-        <div className={styles.countDownRow}>
-          <CountdownTimer targetDate={hackathon.end} />
-        </div>
-      )}
-      <nav aria-label="...">
-        <ul className="pagination pagination-lg">{generatePageNumbers()}</ul>
-      </nav>
-      <div className={styles.taskContainer}>{renderContent()}</div>
-      {tasks.length > 1 && (
-        <div className={styles.BtnContainer}>
-          <button className={styles.Btn} onClick={handlePreviousPage}>
-            {"← "}
-            {t("TestPage.PREVIOUS")}
-          </button>
-          <button className={styles.Btn} onClick={handleNextPage}>
-            {t("TestPage.NEXT")}
-            {" →"}
-          </button>
-        </div>
-      )}
-    </div>
+      <div className={`${styles.main} ${darkMode && styles.darkMain}`}>
+        {hackathon?.end && (
+            <div className={styles.countDownRow}>
+              <CountdownTimer targetDate={hackathon.end} />
+            </div>
+        )}
+        <nav aria-label="...">
+          <ul className="pagination pagination-lg">{generatePageNumbers()}</ul>
+        </nav>
+        <div className={styles.taskContainer}>{renderContent()}</div>
+        {tasks.length > 1 && (
+            <div className={styles.BtnContainer}>
+              <button className={styles.Btn} onClick={handlePreviousPage}>
+                {"← "}
+                {t("TestPage.PREVIOUS")}
+              </button>
+              <button className={styles.Btn} onClick={handleNextPage}>
+                {t("TestPage.NEXT")}
+                {" →"}
+              </button>
+            </div>
+        )}
+      </div>
   );
 };
 

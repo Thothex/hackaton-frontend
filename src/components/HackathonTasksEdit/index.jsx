@@ -73,8 +73,16 @@ const HackathonTasksEdit = ({ hackathonId }) => {
     <div>
       <h2 className={styles.title}>
         {t("HackathonEditPage.fill-in-the-task-info")}
+          <div className={styles.infoCode}>
+          <h6 className={styles.upload}>You can upload code as description of the task. To check if language is available, join <a href='https://github.com/react-syntax-highlighter/react-syntax-highlighter/blob/master/AVAILABLE_LANGUAGES_PRISM.MD'>link</a>. The format of adding code:</h6>
+              <p className={styles.code}>
+                  {`<code language='yourLanguage'>`}
+                  <span style={{ color: '#7d98e2' }}>your Code here</span>
+                  {`</code>`}
+              </p>
+            <h6 className={styles.upload}>Only one block of code is allowed for description section! Language must be in lower case only</h6>
+          </div>
       </h2>
-
       {tasks &&
         tasks.map((task, index) => {
           return (
