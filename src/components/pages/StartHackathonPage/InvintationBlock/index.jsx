@@ -12,6 +12,7 @@ const InvintationBlock = ({
   filteredUsers,
   handleUserClick,
   now,
+    person
 }) => {
   const { t } = useTranslation();
   return (
@@ -62,7 +63,7 @@ const InvintationBlock = ({
           handleSendInvite();
         }}
       >
-        {now && (
+        {now && !person && (
           <div className={styles.inviteFormContainer}>
             <input
               className={styles.inviteInput}
@@ -73,9 +74,9 @@ const InvintationBlock = ({
               name="inviteEmail"
               onChange={handleInputChange}
             />
-            <button className={styles.inviteButton} type="submit">
-              🔔
-            </button>
+              <button className={styles.inviteButton} type="submit">
+                  🔔
+              </button>
           </div>
         )}
         {searchTerm && (
@@ -109,6 +110,7 @@ InvintationBlock.propTypes = {
   filteredUsers: PropTypes.array,
   handleUserClick: PropTypes.func.isRequired,
   now: PropTypes.bool,
+  person: PropTypes.bool,
 };
 
 export default InvintationBlock;

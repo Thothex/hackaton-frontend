@@ -29,7 +29,7 @@ const StartHackathonPage = () => {
   const [newTeamId, setNewTeamId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  console.log("-------", teamName);
+
   useEffect(() => {
     setLoading(true);
     dispatch(fetchHackathonById(id));
@@ -223,7 +223,7 @@ const StartHackathonPage = () => {
   } else {
     status = "Finished";
   }
-
+  const person = hackathon?.type === 'person';
   return (
     <div className={styles.hackathonPage}>
       <div
@@ -277,17 +277,24 @@ const StartHackathonPage = () => {
               // <h2>Your team is: {teamInfo.team.name}</h2>
               <></>
             ) : (
-              <div className={styles.createTeam}>
-                <h2>{t("HackathonTeamPage.Gather your team!")}</h2>
-                <form onSubmit={handleCreateTeam}>
-                  <input
-                    placeholder={t("HackathonTeamPage.Name your team")}
-                    value={teamName}
-                    onChange={(e) => setTeamName(e.target.value)}
-                  />
-                  <button type="submit">{t("HackathonTeamPage.Save")}</button>
-                </form>
-              </div>
+                now ? (
+                    <div className={styles.createTeam}>
+                      <h2>{t("HackathonTeamPage.Gather your team!")}
+                      </h2>
+                      <p>Even if hackathon is person</p>
+                      <form onSubmit={handleCreateTeam}>
+                        <input
+                            placeholder={t("HackathonTeamPage.Name your team")}
+                            value={teamName}
+                            onChange={(e) => setTeamName(e.target.value)}
+                        />
+                        <button type="submit">{t("HackathonTeamPage.Save")}</button>
+                      </form>
+                    </div>
+                ):(
+                  <></>
+                )
+
             )}
             {teamInfo?.teamUsers.length > 0 && (
               <InvintationBlock
@@ -300,14 +307,16 @@ const StartHackathonPage = () => {
                 filteredUsers={filteredUsers}
                 handleUserClick={handleUserClick}
                 now={now}
+                person={person}
               />
             )}
           </div>
-          {!now && (
+          {!now && teamInfo?.teamUsers.length > 0 && (
             <button className={styles.toTask} onClick={handleStart}>
               {t("HackathonTeamPage.START")}
             </button>
           )}
+
         </div>
       </div>
     </div>

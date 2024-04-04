@@ -33,3 +33,19 @@
     background-color: rgba(220, 220, 220, 0.164);
   }
 }
+.infoCode{
+  margin-top: 35px;
+  background-color: rgba(153, 153, 153, 0.062);
+  border: 1px solid $light-grey-color;
+  border-radius: 20px;
+  width: 75%;
+  padding: 20px;
+}
+.upload{
+  margin-top: 20px;
+  font-weight: 200;
+}
+.code{
+  margin-top: 20px;
+  font-size: 20px;
+}
