@@ -29,6 +29,7 @@ const StartHackathonPage = () => {
   const [newTeamId, setNewTeamId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const hasTeam = !!teamInfo?.team?.id
 
   useEffect(() => {
     setLoading(true);
@@ -135,13 +136,13 @@ const StartHackathonPage = () => {
     setSearchTerm("");
   };
 
-  const handleCreateTeam = async (teamname) => {
+  const handleCreateTeam = async () => {
     try {
       const {
         payload: { id: newTeamId },
       } = await dispatch(
         createTeam({
-          name: teamname ? `${user.username} - ${hackathon.id}` : teamName,
+          name: teamName ? teamName : `${user.username} - ${hackathon.id}`,
           hackathonId: id,
         })
       );
@@ -158,11 +159,13 @@ const StartHackathonPage = () => {
   };
 
   const handleStart = async () => {
-    if (!hackathon.private) {
-      setTeamName(`${user.username} - ${hackathon.id}`);
+    if (!person) {
       handleTasksClick();
     } else {
-      await createMetaTeam();
+      if (!hasTeam) {
+        await createMetaTeam();
+        setTeamName(`${user.username} - ${hackathon.id}`);
+      }
       handleTasksClick();
     }
   };
@@ -296,7 +299,7 @@ const StartHackathonPage = () => {
                 )
 
             )}
-            {teamInfo?.teamUsers.length > 0 && (
+            {teamInfo?.teamUsers?.length > 0 && (
               <InvintationBlock
                 styles={styles}
                 teamInfo={teamInfo}
@@ -311,12 +314,11 @@ const StartHackathonPage = () => {
               />
             )}
           </div>
-          {!now && teamInfo?.teamUsers.length > 0 && (
+          {!now && (teamInfo?.teamUsers?.length > 0 || person) && (
             <button className={styles.toTask} onClick={handleStart}>
               {t("HackathonTeamPage.START")}
             </button>
           )}
-
         </div>
       </div>
     </div>

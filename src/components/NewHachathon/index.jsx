@@ -68,6 +68,7 @@ const NewHachathon = ({ id }) => {
           category: null,
           organizations: [],
           admins: null,
+          prize: 100,
         })
       );
     }
@@ -269,7 +270,7 @@ const NewHachathon = ({ id }) => {
               placeholder={t("NewHachathon.Max amount of rating")}
               type={"number"}
               name={"prize"}
-              value={hackathon?.prize || "100"}
+              value={hackathon?.prize}
               onChange={handleInputChange}
             />
           </div>
