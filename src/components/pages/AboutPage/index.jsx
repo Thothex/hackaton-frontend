@@ -4,13 +4,14 @@ import {Link} from "react-router-dom";
 import alina from '../../../assets/ava/alina.jpg';
 import lena from '../../../assets/ava/lena.jpg';
 import rodion from '../../../assets/ava/rodion.jpg';
-import ilya from '../../../assets/ava/ilya.jpg';
+import ilya from '../../../assets/ava/ilya.png';
 import den  from '../../../assets/ava/den.jpg';
 import itmo  from '../../../assets/partners/itmoLogo.jpeg';
 import syn  from '../../../assets/partners/syntellyLogo.png';
 import aqua  from '../../../assets/partners/aquaLogo.png';
 import infochem  from '../../../assets/partners/infochem.png';
-import fiop from '../../../assets/partners/fiop.png'
+import fiop from '../../../assets/partners/fiop.png';
+import thoth from '../../../assets/thothAbout/thoth.png'
 import {useEffect} from "react";
 import gsap from 'gsap';
 const AboutPage = () =>{
@@ -37,6 +38,31 @@ const AboutPage = () =>{
     return(<div className={style.about}>
         <h1>ABOUT US</h1>
         <div className={style.project}>
+            <p>Thothex.hackathon is an open platform for participating in and running hackathons. Participants can
+                choose hackathons, join teams, earn points and improve their skills. Organizers, in turn, can create and
+                customize hackathons as they see fit and bring out the best among participants.</p>
+            <h4>Created by enthusiasts for enthusiasts</h4>
+            <p>Our mission is to make participation in hackathons accessible to all and to help participants develop
+                their skills.
+                We believe in fostering a supportive community where participants can learn and grow together.
+            </p>
+            <h3>Story of logo</h3>
+            <div>
+                <picture>
+                    <source srcSet={thoth} media="(width: 600px)"/>
+                    <img src={thoth} alt=""/>
+                </picture>
+                <p>The word "Thothex" is made up of two parts, "Thoth" and "ex". "Thoth" is the ancient Egyptian god of
+                    science, wisdom and art. He was known as the patron of magic, writing and knowledge. In his image we
+                    saw a symbol of knowledge that unites people in the pursuit of comprehending new horizons.</p>
+            </div>
+            <div>
+                {/*<picture>*/}
+                {/*    <source srcSet={} media="(width: 600px)"/>*/}
+                {/*    <img src={} alt=""/>*/}
+                {/*</picture>*/}
+                <p>"Ex" is an abbreviation of "explore". The word reflects our commitment to exploring new possibilities, pushing boundaries and driving innovation. We believe that exploration is the key to comprehending new knowledge and achieving success.</p>
+            </div>
 
         </div>
         <div className={style.aim}>
