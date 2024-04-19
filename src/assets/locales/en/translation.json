@@ -92,7 +92,8 @@
     "logout": "Logout",
     "questions": "Any questions?",
     "have-any-questions": "If you have any questions, feel free to contact us at Telegram",
-    "contact": "CONTACT US"
+    "contact": "CONTACT US",
+    "about": "About us"
   },
   "AdminPage": {
     "users": "Users",
@@ -135,10 +136,15 @@
     "curiosity": "curiosity is sparked, talents are nurtured, and futures are",
     "shaped": "shaped",
     "hackatons": "to Hackatons",
-    "education": "Education through science: try everything by yourself",
-    "attracting": "Attracting the younger generation to the programming and science",
-    "contribution": "Contribution to scientific and technological progress",
-    "data-driven": "Using data-driven approaches in development planning"
+    "values": "OUR VALUES",
+    "explore": "Explore & Learn",
+    "youth": "Youth Engagement",
+    "Innovation": "Tech Innovation",
+    "data": "Data-Driven Planning",
+    "exploreP": "Education through science: try everything by yourself",
+    "youthP": "Attracting the younger generation to the programming and science",
+    "InnovationP": "Contribution to scientific and technological progress",
+    "dataP": "Using data-driven approaches in development  planning"
   },
   "Register-and-login-page": {
     "Create an account": "Create an account",

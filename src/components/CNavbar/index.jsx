@@ -107,6 +107,15 @@ const Navbar = () => {
             <img src={fire} alt="fire" className={styles.icon} />
             {t("Navbar.hackathons")}
           </NavLink>
+          <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                  isActive ? styles.active : styles.unactive
+              }
+          >
+            <img src={fire} alt="fire" className={styles.icon} />
+            {t("Navbar.about")}
+          </NavLink>
           {userInfo.id && (
             <Link onClick={logoutHandler} className={styles.unactive}>
               <img src={logout} alt="logout" className={styles.icon} />

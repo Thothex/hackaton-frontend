@@ -25,6 +25,7 @@ import HackathonDashboard from './components/pages/HackathonDashboard';
 import FeaturesPanel from "@/components/FeaturesPanel/index.jsx";
 import HighscorePage from './components/pages/HighscorePage';
 import Ranks from './constants/ranks';
+import AboutPage from "@/components/pages/AboutPage/index.jsx";
 
 
 
@@ -123,8 +124,12 @@ function App() {
       {location.pathname !== "/register" && location.pathname !== "/login"  && location.pathname !== "/" && location.pathname !=='/dashboard' && (
           <>
         <Navbar />
-          <FeaturesPanel/>
         </>
+      )}
+      {location.pathname !== "/register" && location.pathname !== "/login" && location.pathname !=='/dashboard' && (
+          <>
+            <FeaturesPanel/>
+          </>
       )}
       <div className='mainWrapper'>
         <Routes>
@@ -146,6 +151,7 @@ function App() {
           <Route path='/test' element={<TestPage/>}/>
           <Route path='/team/accept/:teamId/:userId' element={<AcceptPage />} />
           <Route path='/highscore' element={<HighscorePage />} />
+          <Route path='/about' element={<AboutPage/>}/>
         </Routes>
       </div>
       <Modal title="New Rank" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
