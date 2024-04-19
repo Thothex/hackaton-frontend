@@ -12,6 +12,7 @@ import aqua  from '../../../assets/partners/aquaLogo.png';
 import infochem  from '../../../assets/partners/infochem.png';
 import fiop from '../../../assets/partners/fiop.png';
 import thoth from '../../../assets/thothAbout/thoth.png'
+import ex from '../../../assets/thothAbout/explore.svg'
 import {useEffect} from "react";
 import gsap from 'gsap';
 const AboutPage = () =>{
@@ -47,7 +48,7 @@ const AboutPage = () =>{
                 We believe in fostering a supportive community where participants can learn and grow together.
             </p>
             <h3>Story of logo</h3>
-            <div>
+            <div className={style.thoths}>
                 <picture>
                     <source srcSet={thoth} media="(width: 600px)"/>
                     <img src={thoth} alt=""/>
@@ -56,11 +57,11 @@ const AboutPage = () =>{
                     science, wisdom and art. He was known as the patron of magic, writing and knowledge. In his image we
                     saw a symbol of knowledge that unites people in the pursuit of comprehending new horizons.</p>
             </div>
-            <div>
-                {/*<picture>*/}
-                {/*    <source srcSet={} media="(width: 600px)"/>*/}
-                {/*    <img src={} alt=""/>*/}
-                {/*</picture>*/}
+            <div className={style.ex}>
+                <picture>
+                    <source srcSet={ex} media="(width: 600px)"/>
+                    <img src={ex} alt=""/>
+                </picture>
                 <p>"Ex" is an abbreviation of "explore". The word reflects our commitment to exploring new possibilities, pushing boundaries and driving innovation. We believe that exploration is the key to comprehending new knowledge and achieving success.</p>
             </div>
 
@@ -101,7 +102,7 @@ const AboutPage = () =>{
                         <source srcSet={ilya} media="(width: 600px)"/>
                         <img src={ilya} alt=""/>
                     </picture>
-                    <p>ILYA TOKII</p>
+                    <p>ILYA TONKII</p>
                     <h5>Product manager</h5>
                 </div>
                 <div className='personContainer'>
