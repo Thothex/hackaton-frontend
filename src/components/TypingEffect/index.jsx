@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import PropTypes from 'prop-types';
 import gsap from "gsap";
 
-const TypingEffect = ({ text }) => {
+const TypingEffect = ({ text, props }) => {
     const textRef = useRef(null);
     const { t } = useTranslation();
     useEffect(() => {
@@ -19,7 +19,7 @@ const TypingEffect = ({ text }) => {
                 ease: 'power4.out',
             }
         );
-    }, [text]);
+    }, [text, props]);
     return (
         <h1 ref={textRef}>
             {t(text).split('').map((char, index) => (
@@ -30,6 +30,7 @@ const TypingEffect = ({ text }) => {
 };
 TypingEffect.propTypes = {
     text: PropTypes.string.isRequired,
+    props: PropTypes.string.isRequired,
 };
 
 export default TypingEffect;

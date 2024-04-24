@@ -8,11 +8,13 @@ import book from '../../../assets/book.svg'
 import chem from '../../../assets/chem.webp';
 import comp from '../../../assets/comp.png';
 import logo from '../../../assets/logoBig.svg';
+import darkLogo from '../../../assets/darkLogo.svg'
 import {useRef, useEffect, useState} from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react";
 import TypingEffect from "@/components/TypingEffect/index.jsx";
+import {useSelector} from "react-redux";
 gsap.registerPlugin(ScrollTrigger);
 
 console.clear();
@@ -49,6 +51,7 @@ function Circle({ children, timeline, index, rotation }) {
 const StartPage = () =>{
     const navigate = useNavigate();
     const { t } = useTranslation();
+    const {darkMode} = useSelector((state)=>state.mode);
     const handleNavigate = (path) => {
         navigate(path);
     };
@@ -62,7 +65,7 @@ const StartPage = () =>{
             ease: "power4.out",
             duration: 2
         });
-    }, []);
+    }, [darkMode]);
 
 
     const imgRef = useRef(null);
@@ -103,7 +106,7 @@ const StartPage = () =>{
             ease: "power4.out",
             duration: 2
         });
-    }, []);
+    }, [darkMode]);
 
     const handleMouseEnter = () => {
         toggleTimeline();
@@ -114,12 +117,13 @@ const StartPage = () =>{
     };
     return (
         <>
-            <div className={styles.StartPage}>
-                <img src={logo} alt='logo' className={styles.logo} />
+            <div  className={`${styles.StartPage} ${darkMode && styles.DarkStartPage}`}>
+                {darkMode ? (<img src={darkLogo} alt='logo' className={styles.logo}/>): (<img src={logo} alt='logo' className={styles.logo}/>)}
+
                 <h2 className={styles.Welcome} id='list'>{t("StartPage.welcome")}</h2>
                 <div className={styles.titleContainer}>
-                    <TypingEffect text="StartPage.ESSENTIAL" />
-                    <TypingEffect text="StartPage.SKILLS" />
+                    <TypingEffect text="StartPage.ESSENTIAL" props={darkMode} />
+                    <TypingEffect text="StartPage.SKILLS" props={darkMode}  />
                 </div>
 
                 <p className={styles.paragraph}>
