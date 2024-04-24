@@ -1,8 +1,20 @@
 .personContainer{
-  width: fit-content;
-  height: fit-content;
+  width: calc(20vmin + 40px);
+  height: calc(40vmin + 40px);
   padding: 20px;
   background-color: white;
   border-radius: 20px;
   margin-right: 20px;
+  transition: all .3s ease;
+  img{
+    margin-bottom: 10px;
+  }
+  h5{
+    white-space: nowrap;
+    margin-top: 10px;
+  }
+  p{
+    margin-block: 0;
+    white-space: pre-line;
+  }
 }

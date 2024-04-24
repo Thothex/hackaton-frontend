@@ -5,6 +5,7 @@ import { fetchHackathons } from "@/redux/features/hackathonsSlice.js";
 import styles from "./styles.module.scss";
 import HackathonPanel from "@/components/HackathonPanel";
 import { Select, Space } from "antd";
+import gsap from "gsap";
 
 const HomePage = () => {
   const { t } = useTranslation();
@@ -16,6 +17,17 @@ const HomePage = () => {
   useEffect(() => {
     dispatch(fetchHackathons());
   }, [dispatch]);
+
+    useEffect(() => {
+        gsap.from("#list", {
+            y: '50',
+            borderRadius: 20,
+            opacity: 0,
+            stagger: 0.2,
+            ease: "power4.out",
+            duration: 2
+        });
+    }, []);
 
   const handleFilterChange = (value) => {
     setCurrentFilter(value);
@@ -42,7 +54,7 @@ const HomePage = () => {
           ]}
         />
       </div>
-      <div className={styles.hackathonList}>
+      <div className={styles.hackathonList} id='list'>
         {hackathons
           .filter((ha) => {
             const currentDate = new Date();

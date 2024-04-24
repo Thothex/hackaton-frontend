@@ -121,7 +121,9 @@
     "how-to-add-code": "You can upload code as description of the task. To check if language is available, join",
     "code-format": "The format of adding code:",
     "link": "link",
-    "code-rules": "Only one block of code is allowed for description section! Language must be in lower case only"
+    "code-rules": "Only one block of code is allowed for description section! Language must be in lower case only",
+    "choose-language": "Choose language",
+    "enter-code": "Enter code here"
   },
   "AcceptPage": {
     "accepted": "Invitation accepted",

@@ -12,7 +12,7 @@ import {useRef, useEffect, useState} from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react";
-import SmoothScrollWrapper from "./SmoothScrollWrapper.jsx";
+import TypingEffect from "@/components/TypingEffect/index.jsx";
 gsap.registerPlugin(ScrollTrigger);
 
 console.clear();
@@ -53,6 +53,17 @@ const StartPage = () =>{
         navigate(path);
     };
 
+    useEffect(() => {
+        gsap.from("#start", {
+            y: '100',
+            borderRadius: 20,
+            opacity: 0,
+            stagger: 0.2,
+            ease: "power4.out",
+            duration: 2
+        });
+    }, []);
+
 
     const imgRef = useRef(null);
     const animationRef = useRef(null);
@@ -83,6 +94,16 @@ const StartPage = () =>{
             }
         );
     }, []);
+    useEffect(() => {
+        gsap.from("#list", {
+            y: '100',
+            borderRadius: 20,
+            opacity: 0,
+            stagger: 0.2,
+            ease: "power4.out",
+            duration: 2
+        });
+    }, []);
 
     const handleMouseEnter = () => {
         toggleTimeline();
@@ -95,11 +116,12 @@ const StartPage = () =>{
         <>
             <div className={styles.StartPage}>
                 <img src={logo} alt='logo' className={styles.logo} />
-                <h2 className={styles.Welcome}>{t("StartPage.welcome")}</h2>
+                <h2 className={styles.Welcome} id='list'>{t("StartPage.welcome")}</h2>
                 <div className={styles.titleContainer}>
-                    <h1>{t("StartPage.ESSENTIAL")}</h1>
-                    <h1>{t("StartPage.SKILLS")}</h1>
+                    <TypingEffect text="StartPage.ESSENTIAL" />
+                    <TypingEffect text="StartPage.SKILLS" />
                 </div>
+
                 <p className={styles.paragraph}>
                     {t("StartPage.join-educational-competitions")}
                 </p>
@@ -118,7 +140,6 @@ const StartPage = () =>{
                 <div className={styles.animationContainer}>
                     <Box timeline={tl} index={0}><img src={chem} style={{width:'160px'}}/></Box>
                     <Circle timeline={tl} rotation={180} index={1}><img src={comp} style={{width:'160px'}}/></Circle>
-                <SmoothScrollWrapper/>
                 </div>
                 <div className={styles.cards}  >
                     <div className="card" style={{width:'25%'}}>
@@ -153,7 +174,7 @@ const StartPage = () =>{
                     </div>
                 </div>
                 </div>
-                <img src={data} ref={imgRef}/>
+                {/*<img src={data} ref={imgRef}/>*/}
 
             </div>
         </>

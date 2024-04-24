@@ -3,6 +3,7 @@ import CCheckbox from "../CustomCheckbox";
 import styles from "./style.module.scss";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
+// import Dropdown from '../Dropdown';
 
 import PropTypes from "prop-types";
 const ManyAnswersTask = ({

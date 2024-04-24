@@ -19,19 +19,23 @@
 .hackathonPanelHeaderLeft {
   justify-content: space-between;
   display: flex;
-  align-items: center;
-  white-space: nowrap;
-  height: fit-content;
+  align-items: flex-start;
+  height: 50%;
+
   * {
     margin-inline: 1em;
     margin-block: 0;
+
+    height: fit-content;
   }
 }
 .title {
   font-size: 32px;
   color: white;
+  word-wrap: break-word;
 }
 .status {
+  white-space: nowrap;
   font-size: 15px;
   padding-inline: 1em;
   padding-block: 0.3em;
@@ -56,7 +60,7 @@
 .hackathonPanelHeaderRight {
   position: relative;
   top: 17px;
-  min-width: 50px;
+  min-width: fit-content;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -70,6 +74,9 @@
   * {
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 hr {
@@ -82,6 +89,8 @@ hr {
 .month {
   font-size: 12px;
   font-weight: 100;
+  white-space: nowrap;
+  padding-inline:1% ;
 }
 .area {
   height: 33px;

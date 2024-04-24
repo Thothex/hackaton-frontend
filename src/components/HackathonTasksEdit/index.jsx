@@ -10,6 +10,7 @@ import OneInputTask from "../TaskVariants/OneInputTask";
 import styles from "./styles.module.scss";
 import plus from "@/assets/plus.svg";
 
+
 const HackathonTasksEdit = ({ hackathonId }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -73,15 +74,15 @@ const HackathonTasksEdit = ({ hackathonId }) => {
     <div>
       <h2 className={styles.title}>
         {t("HackathonEditPage.fill-in-the-task-info")}
-          <div className={styles.infoCode}>
-          <h6 className={styles.upload}>  {t("HackathonEditPage.how-to-add-code")} <a href='https://github.com/react-syntax-highlighter/react-syntax-highlighter/blob/master/AVAILABLE_LANGUAGES_PRISM.MD'>{t("HackathonEditPage.link")}</a>. {t("HackathonEditPage.code-format")}</h6>
-              <p className={styles.code}>
-                  {`<code language='yourLanguage'>`}
-                  <span style={{ color: '#7d98e2' }}>your code here</span>
-                  {`</code>`}
-              </p>
-            <h6 className={styles.upload}>{t("HackathonEditPage.code-rules")}</h6>
-          </div>
+          {/*<div className={styles.infoCode}>*/}
+          {/*<h6 className={styles.upload}>  {t("HackathonEditPage.how-to-add-code")} <a href='https://github.com/react-syntax-highlighter/react-syntax-highlighter/blob/master/AVAILABLE_LANGUAGES_PRISM.MD'>{t("HackathonEditPage.link")}</a>. {t("HackathonEditPage.code-format")}</h6>*/}
+          {/*    <p className={styles.code}>*/}
+          {/*        {`<code language='yourLanguage'>`}*/}
+          {/*        <span style={{ color: '#7d98e2' }}>your code here</span>*/}
+          {/*        {`</code>`}*/}
+          {/*    </p>*/}
+          {/*  <h6 className={styles.upload}>{t("HackathonEditPage.code-rules")}</h6>*/}
+          {/*</div>*/}
       </h2>
       {tasks &&
         tasks.map((task, index) => {

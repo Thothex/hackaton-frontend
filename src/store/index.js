@@ -1,4 +1,3 @@
-import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "../redux/features/userSlice";
 import dictionaryReducer from "../redux/features/dictionarySlice";
 import hackathonReducer from "../redux/features/hackathonsSlice";
@@ -9,6 +8,7 @@ import teamsReducer from "../redux/features/teamsSlice";
 import answersReducer from "../redux/features/answersSlice";
 import modeReducer from "../redux/features/modeSlice.js";
 import languageReducer from "@/redux/features/languageSlice";
+import {configureStore} from "@reduxjs/toolkit";
 export const store = configureStore({
   reducer: {
     userStore: userReducer,
