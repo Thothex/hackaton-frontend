@@ -4,6 +4,7 @@
   background-color: inherit;
   width: 100%;
   height: 100%;
+  margin-right: -100px;
 }
 .topPlain {
   position: relative;
@@ -140,7 +141,6 @@
 .upperPanel {
   width: 100%;
   height: 400px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -152,9 +152,10 @@
     height: inherit;
     background-color: white;
     border-radius: 20px;
-    min-width: 250px;
+    flex-basis: 25%;
     padding: 20px;
     color: $font-color-date;
+    //background-color: red;
   }
 }
 .infoUserEdit {
@@ -229,17 +230,15 @@
   left: 60%;
 }
 .progress {
-  width: 100%;
   height: 100%;
   background-color: white;
   border-radius: 20px;
-  min-width: 250px;
   color: $font-color-date;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0;
-  min-width: 250px;
+  width: 30vmin;
 }
 
 .editInfo {

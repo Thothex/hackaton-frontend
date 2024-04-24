@@ -4,13 +4,15 @@ import AuthInput from "@/components/CAuthInput/index.jsx";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import styles from "./styles.module.scss";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import AuthHeader from "@/components/AuthHeader/index.jsx";
 import { register } from "@/api/register";
+import {useSelector} from "react-redux";
 
 const RegisterPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const {userInfo} = useSelector((state)=> state.userInfo)
   const [formData, setFormData] = useState({
     username: "",
     email: "",

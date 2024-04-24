@@ -1,13 +1,19 @@
 import NewHachathon from "@/components/NewHachathon";
-import { useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Tabs, ConfigProvider } from "antd";
 import styles from "./styles.module.scss";
 import HackathonTasksEdit from "@/components/HackathonTasksEdit";
+import {useSelector} from "react-redux";
 
 const HackathonEditPage = () => {
   const { t } = useTranslation();
   const { id } = useParams();
+    const { userInfo } = useSelector((state) => state.userStore);
+    const navigate = useNavigate();
+  if(userInfo.role ==='user'){
+      navigate('/')
+  }
   return (
     <>
       <ConfigProvider
