@@ -7,12 +7,9 @@ export const register = async ({ email, password, username }) => {
 			},
 			body: JSON.stringify({ email, password, username }),
 		});
-		if (res.status === 201) {
 			const data = await res.json();
-			return data;
-		} else {
-			return null;
-		}
+			return {data: data, status: res.status};
+
 	} catch (error) {
 		console.error(error);
 	}

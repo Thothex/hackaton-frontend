@@ -24,6 +24,9 @@ export const userLoginThunk = createAsyncThunk(
 
 				const userData = await dispatch(getUserThunk());
 				return { ...data, role: userData.payload.role };
+			} else{
+				const data = await res.json();
+				return {...data, status: res.status}
 			}
 		} catch (error) {
 			console.error(error);

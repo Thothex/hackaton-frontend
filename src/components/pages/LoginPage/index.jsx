@@ -15,6 +15,7 @@ const LoginPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [rememberCheckbox, setRememberCheckbox] = useState(false);
+  const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -34,7 +35,11 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       const res = await dispatch(userLoginThunk(formData));
-      res.payload.role === "admin" ? navigate("/admin") : navigate("/profile");
+      if(res.payload.status >= 400){
+        setError(res.payload.error)
+      } else{
+        navigate("/hackathon");
+      }
     } catch (error) {
       console.error("Ошибка при отправке данных", error);
     }
@@ -58,6 +63,7 @@ const LoginPage = () => {
           {t("Register-and-login-page.Welcome back! Please enter your details")}
           .
         </p>
+        {error && <p className={styles.error}>{error}</p>}
         <form className={styles.loginForm} onSubmit={handleSubmit}>
           <AuthInput
             label={t("ProfilePage.email")}
