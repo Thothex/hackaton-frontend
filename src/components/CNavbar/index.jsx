@@ -8,6 +8,7 @@ import fire from "../../assets/fire.svg";
 import cap from "../../assets/cap.svg";
 import signin from "../../assets/signin.svg";
 import register from "../../assets/register.svg";
+import heart from "../../assets/white-heart.png"
 import question from "../../assets/question.svg";
 import logout from "../../assets/logout.svg";
 import darkLogo from "../../assets/darkLogo.svg";
@@ -113,7 +114,7 @@ const Navbar = () => {
                   isActive ? styles.active : styles.unactive
               }
           >
-            <img src={fire} alt="fire" className={styles.icon} />
+            <img src={heart} alt="fire" className={styles.icon} style={{borderRadius:'50%',width:30, height:30}} />
             {t("Navbar.about")}
           </NavLink>
           {userInfo.id && (

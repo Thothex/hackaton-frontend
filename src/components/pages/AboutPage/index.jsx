@@ -268,10 +268,10 @@ const AboutPage = () =>{
                     </div>
                 </ReactCardFlip>
             </div>
-            <h3>Supervisors</h3>
-            <div className={style.supervisors}>
+            {/*<h3>Supervisors</h3>*/}
+            {/*<div className={style.supervisors}>*/}
 
-            </div>
+            {/*</div>*/}
 
         </div>
         <div className={style.partners}>
@@ -320,11 +320,11 @@ const AboutPage = () =>{
             </div>
         </div>
         <div className={style.creators}>
-            <h2>Creators</h2>
+            <h3>Creators</h3>
             <div className={style.creatorsTeam}>
 
             </div>
-            <div>
+            <div className={style.devs}>
                 <p>This website was developed by</p>
                 <Link to='https://github.com/AlinaLuzanova'><h4>Alina Luzanova</h4></Link>
                 <Link to='https://github.com/https://github.com/nunespi'><h4>Lia Tezetdinova</h4></Link>

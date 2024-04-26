@@ -154,3 +154,15 @@ h1, h3{
 .backComponent:hover{
   transform: scale(110%);
 }
+.devs{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-bottom: 40px;
+  *{
+    font-size: 20px;
+
+    margin: 0;
+  }
+  gap: 10px;
+}
