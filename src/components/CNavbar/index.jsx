@@ -46,6 +46,7 @@ const Navbar = () => {
                 {t("Navbar.profile")}
               </NavLink>
               {userInfo.role === "admin" && (
+                  <>
                 <NavLink
                   to="/admin"
                   className={({ isActive }) =>
@@ -55,6 +56,7 @@ const Navbar = () => {
                   <img src={cap} alt="cap" className={styles.icon} />
                   {t("Navbar.admin-panel")}
                 </NavLink>
+            </>
               )}
               {userInfo.isOrg && (
                 <NavLink
@@ -75,6 +77,15 @@ const Navbar = () => {
               >
                 <img src={highscore} alt="highscore" className={styles.icon} />
                 {t("Navbar.highscore")}
+              </NavLink>
+              <NavLink
+                  to="/organizations"
+                  className={({ isActive }) =>
+                      isActive ? styles.active : styles.unactive
+                  }
+              >
+                <img src={cap} alt="cap" className={styles.icon} />
+                {t("Navbar.orgs")}
               </NavLink>
             </>
           ) : (

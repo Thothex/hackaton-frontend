@@ -84,6 +84,7 @@
   "Navbar": {
     "profile": "Profile",
     "admin-panel": "Admin panel",
+    "orgs": "Organizations",
     "create-hackathon": "Create Hackathon",
     "register": "Register",
     "sign-in": "Sign In",

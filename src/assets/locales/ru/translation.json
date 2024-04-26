@@ -84,6 +84,7 @@
   "Navbar": {
     "profile": "Профиль",
     "admin-panel": "Админка",
+    "orgs": "Организации",
     "create-hackathon": "Создать хакатон",
     "register": "Регистрация",
     "sign-in": "Войти",

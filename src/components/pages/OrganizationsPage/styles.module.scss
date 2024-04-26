@@ -1,0 +1,18 @@
+@import "../../../index.scss";
+.mainPage{
+  max-width: 100%;
+  white-space: break-spaces;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  *{
+    max-width: 100%;
+  }
+}
+.tabFile {
+  background-color: #ffffff;
+  border-radius: 0 20px 20px 20px;
+  padding: 10px;
+  margin: 0 10px 20px 1px;
+}

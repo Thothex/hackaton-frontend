@@ -14,7 +14,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { approveUserRankStatusThunk, fetchUserRankStatusThunk, getUserThunk } from './redux/features/userSlice';
 import StartPage from "@/components/pages/StartPage/index.jsx";
 import HackathonEditPage from './components/pages/HackathonEditPage';
-import { getCategoriesThunk, getOrganizationsThunk } from './redux/features/dictionarySlice';
+import { getCategoriesThunk } from './redux/features/dictionarySlice';
+import {fetchOrganizations } from './redux/features/organizationsSlice.js';
 import TestPage from "@/components/pages/TestPage/index.jsx";
 import StartHackathonPage from "@/components/pages/StartHackathonPage/index.jsx";
 import AcceptPage from "@/components/pages/AcceptPage/index.jsx";
@@ -26,6 +27,7 @@ import FeaturesPanel from "@/components/FeaturesPanel/index.jsx";
 import HighscorePage from './components/pages/HighscorePage';
 import Ranks from './constants/ranks';
 import AboutPage from "@/components/pages/AboutPage/index.jsx";
+import OrganizationsPage from "@/components/pages/OrganizationsPage/index.jsx";
 
 
 
@@ -55,7 +57,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getCategoriesThunk())
-    dispatch(getOrganizationsThunk())
+    dispatch(fetchOrganizations())
     if (userInfo?.role) {
       dispatch(fetchUserRankStatusThunk())
     }
@@ -152,6 +154,7 @@ function App() {
           <Route path='/team/accept/:teamId/:userId' element={<AcceptPage />} />
           <Route path='/highscore' element={<HighscorePage />} />
           <Route path='/about' element={<AboutPage/>}/>
+          <Route path='/organizations' element={<OrganizationsPage/>}/>
         </Routes>
       </div>
       <Modal title="New Rank" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>

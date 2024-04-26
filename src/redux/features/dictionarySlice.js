@@ -26,26 +26,26 @@ export const getCategoriesThunk = createAsyncThunk(
 	}
 );
 
-export const getOrganizationsThunk = createAsyncThunk(
-	"dictionaries/getOrganizations",
-	async () => {
-		try {
-			const res = await fetch(
-				`${import.meta.env.VITE_BASE_URL}/organizations`,
-				{
-					method: "GET",
-				}
-			);
-			if (res.status === 200) {
-				const data = await res.json();
-
-				return data;
-			}
-		} catch (error) {
-			console.error(error);
-		}
-	}
-);
+// export const getOrganizationsThunk = createAsyncThunk(
+// 	"dictionaries/getOrganizations",
+// 	async () => {
+// 		try {
+// 			const res = await fetch(
+// 				`${import.meta.env.VITE_BASE_URL}/organizations`,
+// 				{
+// 					method: "GET",
+// 				}
+// 			);
+// 			if (res.status === 200) {
+// 				const data = await res.json();
+//
+// 				return data;
+// 			}
+// 		} catch (error) {
+// 			console.error(error);
+// 		}
+// 	}
+// );
 
 export const dictionarySlice = createSlice({
 	name: "dictionaryStore",
@@ -64,16 +64,16 @@ export const dictionarySlice = createSlice({
 				state.status = "failed";
 			})
 
-			.addCase(getOrganizationsThunk.pending, (state) => {
-				state.status = "loading";
-			})
-			.addCase(getOrganizationsThunk.fulfilled, (state, action) => {
-				state.status = "idle";
-				state.dictionary.organizations = action.payload;
-			})
-			.addCase(getOrganizationsThunk.rejected, (state) => {
-				state.status = "failed";
-			});
+			// .addCase(getOrganizationsThunk.pending, (state) => {
+			// 	state.status = "loading";
+			// })
+			// .addCase(getOrganizationsThunk.fulfilled, (state, action) => {
+			// 	state.status = "idle";
+			// 	state.dictionary.organizations = action.payload;
+			// })
+			// .addCase(getOrganizationsThunk.rejected, (state) => {
+			// 	state.status = "failed";
+			// });
 	},
 });
 
