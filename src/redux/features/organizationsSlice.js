@@ -56,10 +56,10 @@ export const fetchOrgOrganizations = createAsyncThunk(
 
 export const fetchOneOrganization = createAsyncThunk(
     "organizations/fetchOneOrganization",
-    async (organizationId) => {
+    async (id) => {
         try {
             const response = await fetch(
-                `${import.meta.env.VITE_BASE_URL}/organizations/${organizationId}`,
+                `${import.meta.env.VITE_BASE_URL}/organizations/${id}`,
                 {
                     method: "GET",
                     headers: {
@@ -124,6 +124,39 @@ export const editOrganization = createAsyncThunk(
         }
     }
 );
+
+export const createOrganization = createAsyncThunk(
+    "organizations/createOrganization",
+    async ( {formData} ) => {
+        try {
+            for(let [name, value] of formData) {
+                console.log(`${name} = ${value}`);
+
+            }
+            const response = await fetch(
+                `${import.meta.env.VITE_BASE_URL}/organizations/new`,
+                {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                    body: formData,
+                }
+            );
+            if (!response.ok) {
+                const error = await response.json();
+                return({status: response.status, error})
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            throw new Error("Failed to create this organization");
+        }
+    }
+);
+
+
+
 const organizationsSlice = createSlice({
     name: "organizations",
     initialState,
@@ -195,7 +228,19 @@ const organizationsSlice = createSlice({
                 state.loading = false;
                 state.error = action.error.message;
             })
-
+            .addCase(createOrganization.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(createOrganization.fulfilled, (state, action) => {
+                state.loading = false;
+                state.error = null;
+                state.organization = action.payload;
+            })
+            .addCase(createOrganization.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            })
         ;
     },
 });

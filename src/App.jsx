@@ -28,6 +28,7 @@ import HighscorePage from './components/pages/HighscorePage';
 import Ranks from './constants/ranks';
 import AboutPage from "@/components/pages/AboutPage/index.jsx";
 import OrganizationsPage from "@/components/pages/OrganizationsPage/index.jsx";
+import Organization from "@/components/pages/Organization/index.jsx";
 
 
 
@@ -155,6 +156,7 @@ function App() {
           <Route path='/highscore' element={<HighscorePage />} />
           <Route path='/about' element={<AboutPage/>}/>
           <Route path='/organizations' element={<OrganizationsPage/>}/>
+          <Route path='/organizations/:id' element={<Organization/>}/>
         </Routes>
       </div>
       <Modal title="New Rank" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
