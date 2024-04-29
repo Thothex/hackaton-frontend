@@ -71,7 +71,6 @@ function App() {
   }, [dispatch, userInfo])
 
   useEffect(() => {
-    console.log('effect');
     if (userRankStatus && userRankStatus?.approved === false) {
       setIsModalOpen(true)
     }

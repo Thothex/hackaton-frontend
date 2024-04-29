@@ -12,7 +12,7 @@ const AdminUserList = () => {
   const dispatch = useDispatch();
 
   const organizationList = useSelector(
-    (state) => state.dictionaryStore.dictionary.organizations
+    (state) => state.organizations.organizations
   );
   const organizationsForPicker = organizationList.map((org) => ({
     id: org.id,
@@ -28,6 +28,7 @@ const AdminUserList = () => {
   };
 
   const onChangeIsOrg = (e, user) => {
+
     dispatch(updateUser({ userId: user.userId, isOrg: e.target.checked }));
   };
 

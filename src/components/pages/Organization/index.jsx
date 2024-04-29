@@ -1,24 +1,28 @@
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
-import {fetchOneOrganization} from "@/redux/features/organizationsSlice.js";
-import { useParams} from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchOneOrganization } from "@/redux/features/organizationsSlice.js";
+import { useParams } from "react-router-dom";
 import avatar from "@/assets/avatar.png";
 import styles from "./styles.module.scss";
 import mockPic from "@/assets/avatar.png";
+import OrganizationHackathons from "@/components/OrganizationHackathons/index.jsx";
+import UserInfoTable from "@/components/pages/Organization/userInfoTable.jsx";
 
-const Organization =()=>{
-    const {organization, hackathons, totalPeople} = useSelector((store)=> store.organizations.organization);
+const Organization = () => {
+    const { organization, users, hackathons, totalPeople } = useSelector((store) => store.organizations.organization);
     const dispatch = useDispatch();
+    const { userInfo } = useSelector((state) => state.userStore);
     const { id } = useParams();
-    console.log(organization, hackathons, totalPeople)
-    useEffect(()=>{
+
+    useEffect(() => {
         dispatch(fetchOneOrganization(id))
-    },[id])
+    }, [id])
     return (
-        <div>
+        <div className={styles.organization}>
             {organization && (
                 <>
                     <p>{organization.name}</p>
+
                     <img
                         src={
                             organization.picture
@@ -26,17 +30,14 @@ const Organization =()=>{
                                 : avatar
                         }
                         className={styles.picture}
+                        loading="lazy" // Добавляем lazy loading
                     />
+
                     <p>{organization.description}</p>
                     <p>{totalPeople}</p>
-                    {/*<p>*/}
-                    {/*    <ul>*/}
-                    {/*        {hackathons.map((hac) => (*/}
-                    {/*            <li key={hac.id}>{hac.id}</li>*/}
-                    {/*        ))}*/}
-                    {/*    </ul>*/}
-                    {/*</p>*/}
+                    {hackathons?.length > 0 ? <OrganizationHackathons hack={hackathons} /> : <p>no hacks</p>}
 
+                    {users && userInfo.isOrg && <UserInfoTable users={users} />}
                 </>
             )}
         </div>

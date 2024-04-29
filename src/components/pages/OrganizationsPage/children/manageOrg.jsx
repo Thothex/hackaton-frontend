@@ -18,7 +18,7 @@ const ManageOrganizations = () => {
         id: org.id,
         name: <Link to={`/organizations/${org.id}`}>{org.name}</Link>,
         totalPeople: org.totalPeople,
-    }));
+    })).sort((a,b)=>b.totalPeople - a.totalPeople);
 
 
     console.log('1', organizations, '2')

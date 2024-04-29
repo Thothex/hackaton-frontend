@@ -1,0 +1,89 @@
+@import "../../index.scss";
+
+.hackatonsContainer {
+  margin-top: 20px;
+  width: 100%;
+  background-color: $white-color;
+  border-radius: 20px;
+  padding: 20px;
+  color: $black-color;
+
+  .head {
+    margin-bottom: 20px;
+  }
+
+  .message {
+    font-size: 20px;
+    color: #718096;
+    font-weight: 100;
+  }
+
+  .hackatonsCards {
+    width: 83vw;
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .hackaton {
+    max-width: 350px;
+    margin-right: 10px;
+    background-color: $background-color;
+    height: 270px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+    .info {
+      margin-left: 2vw;
+      margin-top: 35px;
+      width: 160px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      color: #718096;
+      white-space: normal;
+      text-overflow: ellipsis;
+
+      .name {
+        font-size: 17px;
+        word-wrap: break-word;
+      }
+
+      .description {
+        font-size: 14px;
+        font-weight: 200;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .viewBtn {
+      margin: auto;
+      width: 50%;
+      font-size: 15px;
+      font-family: "Geologica", sans-serif;
+      border-radius: 40px;
+      border: 2px solid $light-violet-color;
+      padding-block: 0.5em;
+      color: $light-violet-color;
+      background-color: white;
+      top: 80%;
+      left: 60%;
+      outline: none;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $background-color-link-hover;
+        transition: 0.5s;
+      }
+    }
+  }
+}

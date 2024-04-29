@@ -8,7 +8,7 @@ const AdminPage = () => {
   const { t } = useTranslation();
   const { userInfo } = useSelector((state) => state.userStore);
   const navigate = useNavigate();
-  console.log(userInfo)
+
   const onChange = (key) => {
   };
   const items = [

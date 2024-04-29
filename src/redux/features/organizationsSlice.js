@@ -23,7 +23,6 @@ export const fetchOrganizations = createAsyncThunk(
                 throw new Error("Failed to fetch Organizations");
             }
             const data = await response.json();
-            console.log('----------DATA', data, response.status)
             return data;
         } catch (error) {
             throw new Error("Failed to fetch Organizations");
