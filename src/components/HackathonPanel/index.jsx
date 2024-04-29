@@ -77,6 +77,9 @@ const HackathonPanel = React.memo((props) => {
             <h3 className={styles.area}>
               {t(`ProfilePage.categories.${props.category.toLowerCase()}`)}
             </h3>
+            <h3 className={styles.type}>
+              {t(`HackathonPage.type.${props.type.toLowerCase()}`)}
+            </h3>
           </div>
           <div className={styles.hackathonPanelHeaderRight}>
             <h4 className={styles.date}>{formattedStartDate}</h4>
@@ -140,7 +143,8 @@ HackathonPanel.propTypes = {
   organizer_id: PropTypes.number,
   users: PropTypes.array,
   category: PropTypes.string.isRequired,
-  user: PropTypes.object
+  user: PropTypes.object,
+  type:PropTypes.string.isRequired,
 };
 
 export default HackathonPanel;

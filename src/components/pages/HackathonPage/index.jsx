@@ -27,7 +27,7 @@ const HackathonPage = () => {
   useEffect(() => {
     dispatch(fetchHackathonById(id));
   }, [dispatch, id]);
-
+  console.log(hackathon)
   const toggleFullscreen = () => {
     if (screenfull.isEnabled) {
       if (!screenfull.isFullscreen) {

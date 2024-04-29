@@ -100,6 +100,7 @@ const HomePage = React.memo(() => {
                         users={hackathon.users}
                         category={hackathon.category.name}
                         user={user}
+                        type={hackathon.type}
                     />
                 ))}
             </div>
