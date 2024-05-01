@@ -1,0 +1,36 @@
+@import "../../index.scss";
+
+.tooltip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: $white-color;
+  border-radius: 10px;
+  background-color: $lighter-violet-color;
+  position: relative;
+  cursor: pointer;
+}
+
+.text {
+  visibility: hidden;
+  width: 120px;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip:hover .text {
+  visibility: visible;
+  opacity: 1;
+  background-color: $color-font-not-hover;
+}

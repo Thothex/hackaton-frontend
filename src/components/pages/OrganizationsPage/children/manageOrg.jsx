@@ -27,16 +27,19 @@ const ManageOrganizations = () => {
             title: 'ID',
             dataIndex: 'id',
             key: 'id',
+            align: 'center',
         },
         {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
+            align: 'center',
         },
         {
             title: 'People',
             dataIndex: 'totalPeople',
             key: 'totalPeople',
+            align: 'center',
         },
     ];
 

@@ -2,20 +2,23 @@ import { Button, Checkbox, Form, Input, Space, Upload, Image } from 'antd';
 import { useDispatch } from 'react-redux';
 import { createOrganization } from '@/redux/features/organizationsSlice';
 import { useState } from 'react';
+import InfoTooltip from "@/components/InfoTooltip/index.jsx";
 
 const layout = {
     labelCol: {
-        span: 8,
+        span: 3,
+
     },
     wrapperCol: {
-        span: 16,
+        span: 10,
+        offset: 1
     },
 };
 
 const tailLayout = {
     wrapperCol: {
-        offset: 8,
-        span: 16,
+        span: 10,
+        offset:2
     },
 };
 
@@ -69,16 +72,16 @@ const CreateOrganizations = () => {
             {status && <p>{status}</p>}
         <Form
             {...layout}
+
             form={form}
             name="control-hooks"
             onFinish={onFinish}
-            style={{
-                maxWidth: 600,
-            }}
+
         >
             <Form.Item
                 name="name"
                 label="Name"
+                colon={false}
                 rules={[
                     {
                         required: true,
@@ -91,6 +94,7 @@ const CreateOrganizations = () => {
             <Form.Item
                 name="description"
                 label="Description"
+                colon={false}
                 rules={[
                     {
                         required: true,
@@ -100,18 +104,38 @@ const CreateOrganizations = () => {
             >
                 <Input.TextArea />
             </Form.Item>
-            <Form.Item label="Upload" {...tailLayout}>
+            <Form.Item
+                name="link"
+                label="Link"
+                colon={false}
+                // rules={[
+                //     {
+                //         required: true,
+                //         message: 'Please input the link!',
+                //     },
+                // ]}
+            >
+                <Input />
+            </Form.Item>
+
+            <Form.Item    colon={false} label="Upload image" {...tailLayout}>
+
                 <Upload
                     fileList={fileList}
                     onChange={onChange}
                     beforeUpload={beforeUpload}
                     accept=".jpg,.jpeg,.png"
+
                 >
+                    <div>.jpg,.jpeg,.png formats are allowed</div>
                     <Button>Upload</Button>
+
                 </Upload>
+
             </Form.Item>
-            <Image width={200} src={fileList.length > 0 ? URL.createObjectURL(fileList[0].originFileObj) : null} />
-            <Form.Item {...tailLayout}>
+            <Image width={350} height={200}  style={{ objectFit: 'cover', border:'1px solid black', borderRadius:20 }} src={fileList.length > 0 ? URL.createObjectURL(fileList[0].originFileObj) : null} />
+
+            <Form.Item  {...tailLayout}>
                 <Space>
                     <Button type="primary" htmlType="submit">
                         Submit
@@ -122,6 +146,7 @@ const CreateOrganizations = () => {
                 </Space>
             </Form.Item>
         </Form>
+
         </div>
     );
 };

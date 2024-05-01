@@ -27,7 +27,7 @@ const OrganizationHackathons = ({ hack }) => {
                 onClick={() => handleRedirect(hackaton.id)}
                 className={styles.viewBtn}
             >
-                {t("ProfilePage.view-all-hack")}
+                VIEW
             </button>
         </div>
     ));
@@ -36,7 +36,7 @@ const OrganizationHackathons = ({ hack }) => {
         <div>
             {hack.length > 0 && (
                 <div className={styles.hackatonsContainer}>
-                    <h4 className={styles.head}>{t("ProfilePage.my-hackathons")}</h4>
+                    <h4 className={styles.head}>Hackathons</h4>
                     <div className={styles.hackatonsCards}>
                         {items.length > 0 ? (
                             items.length > 4 ? (
@@ -44,9 +44,10 @@ const OrganizationHackathons = ({ hack }) => {
                                     mouseTracking
                                     items={items}
                                     responsive={{
-                                        0: { items: 1 },
-                                        568: { items: 2 },
-                                        1024: { items: 5 },
+                                        1024: { items: 3 },
+                                        1700:{items:4},
+                                        2100:{items:5},
+
                                     }}
                                     disableDotsControls
                                     autoPlayInterval={4000}

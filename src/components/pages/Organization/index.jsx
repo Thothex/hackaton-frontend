@@ -7,6 +7,7 @@ import styles from "./styles.module.scss";
 import mockPic from "@/assets/avatar.png";
 import OrganizationHackathons from "@/components/OrganizationHackathons/index.jsx";
 import UserInfoTable from "@/components/pages/Organization/userInfoTable.jsx";
+import Loading from "@/components/Loading/index.jsx";
 
 const Organization = () => {
     const { organization, users, hackathons, totalPeople } = useSelector((store) => store.organizations.organization);
@@ -17,8 +18,13 @@ const Organization = () => {
     useEffect(() => {
         dispatch(fetchOneOrganization(id))
     }, [id])
+    console.log( organization, users, hackathons, totalPeople)
+    if(!organization){
+        return <Loading/>
+    }
     return (
         <div className={styles.organization}>
+
             <div className={styles.upperPanel}>
                     <h1 className={styles.title}>{organization.name}</h1>
 

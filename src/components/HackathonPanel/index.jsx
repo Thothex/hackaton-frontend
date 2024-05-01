@@ -17,7 +17,7 @@ const HackathonPanel = React.memo((props) => {
 
   useMemo(() => {
     if (props?.users) {
-      const organizators = props?.users.map((item) => item.email);
+      const organizators = props?.users.map((item) => item?.email);
       if (organizators.includes(props.user.email)) {
         setIsOrg(true);
       }
@@ -113,7 +113,7 @@ const HackathonPanel = React.memo((props) => {
           >
             {t(`HomePage.READ MORE`)}
           </button>
-          {(isOrg || userInfo.role ==='admin') && (
+          {(isOrg || userInfo && userInfo?.role ==='admin') && (
               <>
                 <button
                     type="button"
