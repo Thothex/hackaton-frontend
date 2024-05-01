@@ -16,7 +16,7 @@ const ManageOrganizations = () => {
 
     const orgsWithLinks = organizations.map((org) => ({
         id: org.id,
-        name: <Link to={`/organizations/${org.id}`}>{org.name}</Link>,
+        name: <Link key={org.id} to={`/organizations/${org.id}`}>{org.name}</Link>,
         totalPeople: org.totalPeople,
     })).sort((a,b)=>b.totalPeople - a.totalPeople);
 

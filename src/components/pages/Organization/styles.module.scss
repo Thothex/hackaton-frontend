@@ -8,3 +8,39 @@
 
 }
 }
+.upperPanel{
+  background-color: $light-violet-color;
+  background-image: url("../../../assets/authHeader.svg") ;
+  background-size: cover;
+  margin-top: 20px;
+  border-radius: 20px;
+  min-height: 300px;
+  height: 20vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 20px;
+  padding-inline: 20px;
+  .title{
+    font-size: 50px;
+    font-weight: 800;
+    color:white;
+  }
+  img{
+  height: 200px;
+    width: 350px;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+}
+.about{
+  margin-top: 20px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 20px;
+}
+.aboutContainer{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

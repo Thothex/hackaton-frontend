@@ -6,8 +6,13 @@
 }
 .titleHac{
   font-size: 48px;
-  margin-bottom: 20px;
-  padding-bottom: 0;
+height: fit-content;
+  font-weight: 800;
+  //max-width: 60%;
+  padding-left: 20px;
+
+  margin-bottom: -10px;
+  min-width: fit-content;
 }
 .hackathonPanelUpper{
   background: url("../../../assets/authHeader.svg");
@@ -21,7 +26,7 @@
   flex-direction: column;
   justify-content: space-between;
 *{
-  padding-left:20px
+  //padding-left:20px
 }
 }
 .upperHello{
@@ -65,20 +70,19 @@
 }
 .hackathonPanelSMall{
   min-width: 220px;
-  min-height:12em;
-  width: calc((100% / 3));
+  min-height:10em;
+  width: calc((100% / 4));
   height: 15vh;
   aspect-ratio: .5 / 1;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
   flex-direction: column;
   background-color: rgba(255, 255, 255, 1);
   color:$font-color-date;
   border-radius: 20px;
-  padding: .5em;
+  padding: 20px;
   transition: .3s all ease;
-  box-shadow: $light-violet-color 5px 5px ;
+  //box-shadow: $light-violet-color 5px 5px ;
   *{
     white-space: nowrap;
     margin: 0;
@@ -86,7 +90,7 @@
   }
 }
 .hackathonPanelSMall:hover{
-  box-shadow: black 10px 10px ;
+  scale: 110%;
 }
 
 .hr{
@@ -97,11 +101,16 @@
   margin-block: 10px;
 }
 .date{
-  font-size:35px;
+  font-size:24px;
+  font-weight: 800;
+}
+.avialable{
+  font-size:24px;
+  font-weight: 500;
 }
 .month{
-  font-size:20px;
-  font-weight: 100;
+  font-size:15px;
+  font-weight: 200;
 }
 .takePartBTN{
   background: none;
@@ -140,10 +149,10 @@
 .hackathonPanelLower{
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin-top: 20px;
   width: 100%;
-  height: fit-content;
+  //height: fit-content;
   min-height: 300px;
   border-radius: 20px;
 }
@@ -172,24 +181,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30%;
+  width: 100%;
   border-radius: 20px;
-  height: 230px;
-  min-height: 230px;
-  background: #cc8fc6;
-  box-shadow: 0 -200px 100px -120px #7254b6 inset;
+  height: 150px;
+background-color: $light-violet-color;
   animation: background 3s infinite alternate;
   transition: .3s all ease;
 }
 
-@keyframes background {
-  50% {
-    background: skyblue;
-    box-shadow: 0 -200px 100px -100px rgba(125,152,226,1) inset;
-  }
-}
+//@keyframes background {
+//  50% {
+//    background: skyblue;
+//    box-shadow: 0 -200px 100px -100px rgba(125,152,226,1) inset;
+//  }
+//}
 .pic:hover{
-  outline: 3px solid rgba(45, 55, 72, 0.5);
+  scale: 110%;
 }
 .pic:active{
   outline: 5px solid rgba(45, 55, 72, 0.5);
@@ -205,29 +212,29 @@
 }
 .panelOpenContainer{
   .hackathonPanelSMall{
-    box-shadow: $light-violet-color 5px 5px ;
+    //box-shadow: $light-violet-color 5px 5px ;
   }
   .hackathonPanelSMall:hover{
-    box-shadow: black 10px 10px ;
+    scale: 110%;
   }
 
 }
 .panelInProgressContainer{
 
   .hackathonPanelSMall{
-    box-shadow: $inProgress 5px 5px ;
+    //box-shadow: $inProgress 5px 5px ;
   }
   .hackathonPanelSMall:hover{
-    box-shadow: black 10px 10px ;
+    scale: 110%;
   }
 }
 .panelClosedContainer{
 
   .hackathonPanelSMall{
-    box-shadow: $finished 5px 5px ;
+    scale: 110%;
   }
   .hackathonPanelSMall:hover{
-    box-shadow: black 10px 10px ;
+    scale: 110%;
   }
 
 }
@@ -248,9 +255,21 @@
 }
 
 .hackathonPanelOrganization{
-  font-size: 1.5rem;
+  font-size: 20px;
+  background-color: $lighter-violet-color;
+  color: white;
+  width: fit-content;
+  border-radius: 20px;
+  padding-inline: 10px !important;
 }
-
+.organizationsList{
+  ul{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
 .iframeWrapper{
   position: fixed;
   bottom: 40px;
@@ -262,4 +281,100 @@
 
 .backArrow {
   padding-left: 6px;
+}
+.status {
+  height: 33px;
+  font-size: 15px;
+  padding-inline: 1em;
+  padding-block: 0.5em;
+  border-radius: 40px;
+  white-space: nowrap;
+  width: fit-content;
+}
+.registrationOpen {
+  color: #0095ff;
+  background-color: #d7eeff;
+}
+
+.inProgress {
+  color: #16a34a;
+  background-color: #E3F3EA;
+}
+
+.finished {
+  color: #ff284e;
+  background-color: #ffd6db;
+}
+.area {
+  height: 33px;
+  font-size: 15px;
+  padding-inline: 1em;
+  padding-block: 0.5em;
+  background-color: #F0E8FA;
+  border-radius: 40px;
+  white-space: nowrap;
+  color: #9333EA;
+  width: fit-content;
+}
+.type{
+  height: 33px;
+  font-size: 15px;
+  padding-inline: 1em;
+  padding-block: 0.5em;
+  background-color: #E2E9F5;
+  border-radius: 40px;
+  white-space: nowrap;
+  color: #2563EB;
+  text-transform: lowercase;
+  width: fit-content;
+
+}
+.hacUpperContainer{
+  display:flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.dataContainer{
+  display: flex;
+  justify-content: flex-start;
+  gap:20px;
+  max-width: 50%;
+  align-items: flex-end;
+  height: fit-content;
+}
+.statusCont{
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  width: fit-content;
+  gap: 10px;
+  padding-left:0;
+  *{
+    margin-bottom: 0;
+  }
+}
+.icons{
+  margin-left: -5px;
+}
+.infowrap{
+  *{
+    text-decoration: $font-color-date;
+    color: $font-color-date;
+  }
+
+}
+.panelLowerRignt{
+  width: calc(35% - 20px);
+  height: 100%;
+  margin-left: 20px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 20px;
+  *{
+    padding: 0;
+  }
 }

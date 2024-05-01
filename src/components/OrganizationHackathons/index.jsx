@@ -36,6 +36,7 @@ const OrganizationHackathons = ({ hack }) => {
         <div>
             {hack.length > 0 && (
                 <div className={styles.hackatonsContainer}>
+                    <h4 className={styles.head}>{t("ProfilePage.my-hackathons")}</h4>
                     <div className={styles.hackatonsCards}>
                         {items.length > 0 ? (
                             items.length > 4 ? (

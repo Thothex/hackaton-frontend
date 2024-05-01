@@ -39,7 +39,7 @@ const NewHachathon = ({ id }) => {
     displayValue: `${t(`HackathonPage.categories.${cat.name}`)}`,
   }));
   const organizations = useSelector(
-    (state) => state.dictionaryStore.dictionary.organizations
+    (state) => state.organizations.organizations
   );
   const organizationsForPicker = organizations.map((org) => ({
     id: org.id,

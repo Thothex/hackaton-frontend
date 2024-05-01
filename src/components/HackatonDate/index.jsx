@@ -16,10 +16,10 @@ const HackatonDate = ({ props }) => {
     return (
         <div className={styles.hackathonPanelHeaderRight}>
             <h4 className={styles.date}>{formattedStartDate}</h4>
-            <p className={styles.month}>{t(`ProfilePage.months.${startMonth}`)} {startYear}</p> {/* Выводим год начала */}
+            <p className={styles.month}>{t(`ProfilePage.months.${startMonth}`)} {startYear}</p>
             <hr />
             <h4 className={styles.date}>{formattedEndDate}</h4>
-            <p className={styles.month}>{t(`ProfilePage.months.${endMonth}`)} {endYear}</p> {/* Выводим год окончания */}
+            <p className={styles.month}>{t(`ProfilePage.months.${endMonth}`)} {endYear}</p>
         </div>
     );
 };

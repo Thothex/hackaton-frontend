@@ -196,6 +196,7 @@
     "Без ограничений": "Без ограничений",
     " all": "все",
     " все": "все",
+    "recommended_age": "Рекомендованный возраст",
     "16-23 years": "16-23 года",
     "16-23 года": "16-23 года",
     "16-23 лет": "16-23 года",
@@ -207,7 +208,8 @@
     "14 - 18 лет": "14-18 лет",
     " school": "школа",
     " школа": "школа",
-    "category": "категория",
+    "category": "Категория",
+    "sponsor": "Спонсор",
     "categories": {
       "Science": "Наука",
       "JavaScript": "Javascript",
@@ -237,13 +239,13 @@
     },
     "Single or team": "Тип хакатона",
     "Prizes": "Призы",
-    "points": "(очки)",
-    "organization": "организации",
+    "points": "очков",
+    "organization": "Организации",
     "About the hackathon": "О хакатоне",
     "TAKE PART": "УЧАСТВОВАТЬ",
     "SIGN IN/UP TO TAKE PART": "ЗАРЕГИСТРИРОВАТЬСЯ/ВОЙТИ, ЧТОБЫ УЧАСТВОВАТЬ",
     "Hackathon is over :(": "Хакатон закончился :(",
-    "Hackathon end": "Закончить хакатон"
+    "Hackathon end": "Подсчет очков"
   },
   "HackathonTeamPage": {
     "Hackathon has not started yet. Please wait until it starts on": "Хакатон еще не начался. Пожалуйста, подождите, пока он не начнется",

@@ -189,6 +189,7 @@
     " artists and creatives": "artists and creatives",
     " lovers of literature and philosophy": "lovers of literature and philosophy",
     "no limit": "no limit",
+    "recommended_age": "Recommended age",
     "Нет ограничений": "no limit",
     " all": "all",
     " все": "all",
@@ -205,7 +206,8 @@
     "14-18 лет": "14-18 years",
     " school": "school",
     " школа": "school",
-    "category": "category",
+    "category": "Category",
+"sponsor": "Sponsor",
     "categories": {
       "Science": "Science",
       "JavaScript": "Javascript",
@@ -234,7 +236,7 @@
     "TAKE PART": "TAKE PART",
     "SIGN IN/UP TO TAKE PART": "SIGN IN/UP TO TAKE PART",
     "Hackathon is over": "Hackathon is over :(",
-    "Hackathon end": "Hackathon end"
+    "Hackathon end": "Count points"
   },
   "HackathonTeamPage": {
     "Hackathon has not started yet. Please wait until it starts on": "Hackathon has not started yet. Please wait until it starts on",

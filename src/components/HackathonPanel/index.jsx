@@ -13,6 +13,7 @@ const HackathonPanel = React.memo((props) => {
   const startDate = useMemo(() => new Date(props.start), [props.start]);
   const { darkMode } = useSelector((state) => state.mode);
   const [isOrg, setIsOrg] = useState(false);
+  const { userInfo } = useSelector((state) => state.userStore);
 
   useMemo(() => {
     if (props?.users) {
@@ -112,7 +113,7 @@ const HackathonPanel = React.memo((props) => {
           >
             {t(`HomePage.READ MORE`)}
           </button>
-          {isOrg && (
+          {(isOrg || userInfo.role ==='admin') && (
               <>
                 <button
                     type="button"

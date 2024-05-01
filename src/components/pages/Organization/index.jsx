@@ -19,9 +19,8 @@ const Organization = () => {
     }, [id])
     return (
         <div className={styles.organization}>
-            {organization && (
-                <>
-                    <p>{organization.name}</p>
+            <div className={styles.upperPanel}>
+                    <h1 className={styles.title}>{organization.name}</h1>
 
                     <img
                         src={
@@ -30,16 +29,21 @@ const Organization = () => {
                                 : avatar
                         }
                         className={styles.picture}
-                        loading="lazy" // Добавляем lazy loading
+                        loading="lazy"
                     />
+        </div>
+            <div className={styles.about}>
+                <h2>About</h2>
+                <div className={styles.aboutContainer}>
+                <p>{organization.description}</p>
+                <p>{totalPeople}</p>
+            </div>
+            </div>
 
-                    <p>{organization.description}</p>
-                    <p>{totalPeople}</p>
-                    {hackathons?.length > 0 ? <OrganizationHackathons hack={hackathons} /> : <p>no hacks</p>}
+            {hackathons?.length > 0 ? <OrganizationHackathons hack={hackathons} /> : <p>no hacks</p>}
 
                     {users && userInfo.isOrg && <UserInfoTable users={users} />}
-                </>
-            )}
+
         </div>
     );
 
