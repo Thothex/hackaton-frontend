@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import {useEffect, useMemo} from "react";
 import { fetchOneOrganization } from "@/redux/features/organizationsSlice.js";
 import { useParams } from "react-router-dom";
 import avatar from "@/assets/avatar.png";
@@ -18,7 +18,12 @@ const Organization = () => {
     useEffect(() => {
         dispatch(fetchOneOrganization(id))
     }, [id])
-    console.log( organization, users, hackathons, totalPeople)
+    const orgArr = useMemo(() => {
+        return users?.filter((user) => user.isOrg === true).map((user) => user?.email);
+    }, [users]);
+
+    console.log( users , 768676876767)
+
     if(!organization){
         return <Loading/>
     }
@@ -48,17 +53,11 @@ const Organization = () => {
 
             {hackathons?.length > 0 ? <OrganizationHackathons hack={hackathons} /> : <p>no hacks</p>}
 
-                    {users && userInfo.isOrg && <UserInfoTable users={users} />}
+                    {users && (userInfo.role === 'admin' || orgArr.includes(userInfo?.email)) && <UserInfoTable users={users} />}
 
         </div>
     );
 
 }
-// Organization.propTypes ={
-//     name:PropTypes.string,
-//     picture:PropTypes.string,
-//     description:PropTypes.string,
-//     totalPeople:PropTypes.number,
-//     hackathons : PropTypes.array
-// }
+
 export default Organization
