@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Table } from "antd";
 import {useEffect} from "react";
 import {fetchOrganizations} from "@/redux/features/organizationsSlice.js";
+import Loading from "@/components/Loading/index.jsx";
 
 const ManageOrganizations = () => {
     const organizations = useSelector(
@@ -14,14 +15,20 @@ const ManageOrganizations = () => {
         dispatch(fetchOrganizations())
     },[]);
 
-    const orgsWithLinks = organizations.map((org) => ({
-        id: org.id,
-        name: <Link key={org.id} to={`/organizations/${org.id}`}>{org.name}</Link>,
-        totalPeople: org.totalPeople,
-    })).sort((a,b)=>b.totalPeople - a.totalPeople);
+    // Проверяем, что organizations существует и является массивом
+    let orgsWithLinks;
+    if (organizations && Array.isArray(organizations)) {
+        orgsWithLinks = organizations.map((org) => ({
+            id: org.id,
+            name: <Link key={org.id} to={`/organizations/${org.id}`}>{org.name}</Link>,
+            totalPeople: org.totalPeople,
+        })).sort((a,b)=>b.totalPeople - a.totalPeople);
+    }
 
+    if(!organizations){
+        return <Loading/>
+    }
 
-    console.log('1', organizations, '2')
     const columns = [
         {
             title: 'ID',
@@ -49,7 +56,5 @@ const ManageOrganizations = () => {
         </div>
     );
 };
-
-
 
 export default ManageOrganizations;

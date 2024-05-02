@@ -3,7 +3,10 @@ import styles from "./styles.module.scss";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import Modal from "react-modal";
+import useRandomPasswordGenerator from "@/hooks/useRandomPasswordGenerator.js";
+import {deleteHackathon} from "@/redux/features/hackathonsSlice.js";
 
 const HackathonPanel = React.memo((props) => {
   const { t } = useTranslation();
@@ -14,7 +17,11 @@ const HackathonPanel = React.memo((props) => {
   const { darkMode } = useSelector((state) => state.mode);
   const [isOrg, setIsOrg] = useState(false);
   const { userInfo } = useSelector((state) => state.userStore);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const generateRandomPassword = useRandomPasswordGenerator();
+  const [generatedPassword, setGeneratedPassword] = useState("");
+  const [verificationPassword, setVerificationPassword] = useState("");
+const dispatch = useDispatch();
   useMemo(() => {
     if (props?.users) {
       const organizators = props?.users.map((item) => item?.email);
@@ -46,6 +53,25 @@ const HackathonPanel = React.memo((props) => {
   );
   const startYear = useMemo(() => startDate.getFullYear(), [startDate]);
   const endYear = useMemo(() => endDate.getFullYear(), [endDate]);
+
+  const handleDeleteButtonClick = () => {
+    const newPassword = generateRandomPassword(10);
+    setGeneratedPassword(newPassword);
+    setIsModalOpen(true);
+  };
+
+  const handleDelete = () => {
+    if (verificationPassword === generatedPassword) {
+      setIsModalOpen(false);
+      setGeneratedPassword("");
+      setVerificationPassword("");
+      dispatch(deleteHackathon({id: props?.id}))
+      console.log(' совпали')
+    } else {
+      console.log('не совпали')
+      alert("The passwords do not match. Please try again.");
+    }
+  };
 
   return (
       <div
@@ -86,14 +112,15 @@ const HackathonPanel = React.memo((props) => {
             <h4 className={styles.date}>{formattedStartDate}</h4>
             <p className={styles.month}>
               {t(`ProfilePage.months.${startMonth}`)}
-              {' '}{startYear}
+              {" "}
+              {startYear}
             </p>
             <hr />
             <h4 className={styles.date}>{formattedEndDate}</h4>
-            <p className={styles.month}>{t(`ProfilePage.months.${endMonth}`)}{' '}{endYear}</p>
+            <p className={styles.month}>
+              {t(`ProfilePage.months.${endMonth}`)} {endYear}
+            </p>
             <hr />
-            {/*<p  className={styles.month}>{startYear}</p>*/}
-            {/*<p className={styles.month}>{t(`ProfilePage.year`)}</p>*/}
           </div>
         </div>
         <div className={styles.btnPanel}>
@@ -113,7 +140,7 @@ const HackathonPanel = React.memo((props) => {
           >
             {t(`HomePage.READ MORE`)}
           </button>
-          {(isOrg || userInfo && userInfo?.role ==='admin') && (
+          {(isOrg || (userInfo && userInfo?.role === "admin")) && (
               <>
                 <button
                     type="button"
@@ -129,9 +156,40 @@ const HackathonPanel = React.memo((props) => {
                 >
                   {t(`HomePage.CHECK`)}
                 </button>
+                {userInfo?.role === "admin" && (
+                    <button
+                        type="button"
+                        style={{ color: "#ff284e" }}
+                        onClick={handleDeleteButtonClick}
+                        className={styles.button}
+                    >
+                      DELETE
+                    </button>
+                )}
               </>
           )}
         </div>
+        <Modal
+            isOpen={isModalOpen}
+            onRequestClose={() => setIsModalOpen(false)}
+            contentLabel="Confirm Delete"
+        >
+          <h2>Confirmation</h2>
+          <p>Password: {generatedPassword}</p>
+          <p>
+            If you are sure you need to delete this hackathon, write this password
+            in the field:
+          </p>
+          <input
+              type="text"
+              value={verificationPassword}
+              onChange={(e) => setVerificationPassword(e.target.value)}
+          />
+          <div className={styles.modalButtons}>
+            <button onClick={() => setIsModalOpen(false)}>Cancel</button>
+            <button onClick={handleDelete}>Delete</button>
+          </div>
+        </Modal>
       </div>
   );
 });
@@ -145,7 +203,7 @@ HackathonPanel.propTypes = {
   users: PropTypes.array,
   category: PropTypes.string.isRequired,
   user: PropTypes.object,
-  type:PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default HackathonPanel;

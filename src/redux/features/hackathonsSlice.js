@@ -147,7 +147,30 @@ export const deleteTask = createAsyncThunk(
     }
   }
 );
-
+export const deleteHackathon = createAsyncThunk(
+    "hackathons/delete",
+    async ({ id }) => {
+      try {
+        const response = await fetch(
+            `${import.meta.env.VITE_BASE_URL}/hackathon`,
+            {
+              method: "DELETE",
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ id }),
+            }
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch hackathons");
+        }
+        return id;
+      } catch (error) {
+        throw new Error("Failed to fetch hackathons");
+      }
+    }
+);
 export const putHackathon = createAsyncThunk(
   "hackathons/update",
 
@@ -322,7 +345,22 @@ const hackathonSlice = createSlice({
       .addCase(deleteTask.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
-      });
+      })
+        .addCase(deleteHackathon.pending, (state) => {
+          state.loading = true;
+          state.error = null;
+        })
+        .addCase(deleteHackathon.fulfilled, (state, action) => {
+          state.loading = false;
+          state.error = null;
+          state.hackathons = state.hackathons.filter(
+              (hackathon) => hackathon.id !== action.payload
+          );
+        })
+        .addCase(deleteHackathon.rejected, (state, action) => {
+          state.loading = false;
+          state.error = action.error.message;
+        });
   },
 });
 

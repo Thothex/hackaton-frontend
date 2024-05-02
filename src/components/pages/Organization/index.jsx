@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import {useEffect, useMemo} from "react";
 import { fetchOneOrganization } from "@/redux/features/organizationsSlice.js";
-import { useParams } from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import avatar from "@/assets/avatar.png";
 import styles from "./styles.module.scss";
 import mockPic from "@/assets/avatar.png";
@@ -31,10 +31,12 @@ const Organization = () => {
         <div className={styles.organization}>
 
             <div className={styles.upperPanel}>
-                    <h1 className={styles.title}>{organization.name}</h1>
+                {organization?.link ? (
+                    <Link to={organization?.link}><h1 className={styles.title}>{organization.name}</h1></Link>
+                ) : (<h1 className={styles.title}>{organization.name}</h1>)}
 
-                    <img
-                        src={
+                <img
+                    src={
                             organization.picture
                                 ? `${import.meta.env.VITE_BASE_URL_ORG_PIC}/${organization.name}/${organization.picture}`
                                 : avatar

@@ -46,7 +46,7 @@ const Admin = () =>{
                             className: styles.tabFile,
                         },
                         {
-                            label: 'My organizations',
+                            label: 'My organization',
                             key: "3",
                             children:<Suspense fallback={<Loading/>}>
                                 <MyOrganizations />

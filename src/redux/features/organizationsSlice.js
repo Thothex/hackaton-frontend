@@ -102,15 +102,18 @@ export const deleteOrganization = createAsyncThunk(
 );
 export const editOrganization = createAsyncThunk(
     "organizations/editOrganization",
-    async (organizationId) => {
+    async ({id, formData}) => {
+console.log(formData, "ID", id)
         try {
             const response = await fetch(
-                `${import.meta.env.VITE_BASE_URL}/organizations/${organizationId}`,
+                `${import.meta.env.VITE_BASE_URL}/organizations/${id}`,
                 {
                     method: "PUT",
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
+                        "Content-Type": "application/json",
                     },
+                    body:JSON.stringify(formData)
                 }
             );
             if (!response.ok) {
