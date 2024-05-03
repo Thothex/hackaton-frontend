@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { createOrganization } from '@/redux/features/organizationsSlice';
 import { useState } from 'react';
 import InfoTooltip from "@/components/InfoTooltip/index.jsx";
+import {useTranslation} from "react-i18next";
 
 const layout = {
     labelCol: {
@@ -27,6 +28,7 @@ const CreateOrganizations = () => {
     const dispatch = useDispatch();
     const [fileList, setFileList] = useState([]);
     const [status, setStatus] = useState('');
+    const { t } = useTranslation();
     const onFinish = async (values) => {
         const { name, description } = values;
         const picture = fileList[0].originFileObj;
@@ -59,7 +61,6 @@ const CreateOrganizations = () => {
     };
 
     const beforeUpload = (file) => {
-        // Дополнительная проверка перед загрузкой, если нужно
         return true;
     };
     const handleReset =()=>{
@@ -80,7 +81,7 @@ const CreateOrganizations = () => {
         >
             <Form.Item
                 name="name"
-                label="Name"
+                label={t(`OrgPage.name`)}
                 colon={false}
                 rules={[
                     {
@@ -93,7 +94,7 @@ const CreateOrganizations = () => {
             </Form.Item>
             <Form.Item
                 name="description"
-                label="Description"
+                label={t(`OrgPage.descr`)}
                 colon={false}
                 rules={[
                     {
@@ -106,7 +107,7 @@ const CreateOrganizations = () => {
             </Form.Item>
             <Form.Item
                 name="link"
-                label="Link"
+                label={t(`OrgPage.descr`)}
                 colon={false}
                 // rules={[
                 //     {
@@ -118,7 +119,7 @@ const CreateOrganizations = () => {
                 <Input />
             </Form.Item>
 
-            <Form.Item    colon={false} label="Upload image" {...tailLayout}>
+            <Form.Item    colon={false} label={t(`OrgPage.uploadImg`)} {...tailLayout}>
 
                 <Upload
                     fileList={fileList}
@@ -127,8 +128,8 @@ const CreateOrganizations = () => {
                     accept=".jpg,.jpeg,.png"
 
                 >
-                    <div>.jpg,.jpeg,.png formats are allowed</div>
-                    <Button>Upload</Button>
+                    <div>{t(`OrgPage.format`)}</div>
+                    <Button>{t(`OrgPage.upload`)}</Button>
 
                 </Upload>
 
@@ -138,10 +139,10 @@ const CreateOrganizations = () => {
             <Form.Item  {...tailLayout}>
                 <Space>
                     <Button type="primary" htmlType="submit">
-                        Submit
+                        {t(`OrgPage.create`)}
                     </Button>
                     <Button htmlType="button" onClick={() =>handleReset()}>
-                        Reset
+                        {t(`OrgPage.reset`)}
                     </Button>
                 </Space>
             </Form.Item>

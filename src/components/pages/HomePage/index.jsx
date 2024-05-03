@@ -7,7 +7,7 @@ import HackathonPanel from "@/components/HackathonPanel";
 import { Select, Space } from "antd";
 import gsap from "gsap";
 import { fetchOrganizations } from "@/redux/features/organizationsSlice.js";
-
+import './index.scss'
 const HomePage = React.memo(() => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
@@ -73,8 +73,9 @@ const HomePage = React.memo(() => {
             >
                 <h1 className={styles.title}>{t("HomePage.HACKATHONS")}</h1>
                 <Select
+                    className="custom-select"
                     defaultValue="all"
-                    style={{ width: 120 }}
+                    dropdownClassName="custom-dropdown"
                     onChange={handleFilterChange}
                     options={[
                         { value: "all", label: `${t("HomePage.all")}` },

@@ -8,13 +8,14 @@ import mockPic from "@/assets/avatar.png";
 import OrganizationHackathons from "@/components/OrganizationHackathons/index.jsx";
 import UserInfoTable from "@/components/pages/Organization/userInfoTable.jsx";
 import Loading from "@/components/Loading/index.jsx";
+import {useTranslation} from "react-i18next";
 
 const Organization = () => {
     const { organization, users, hackathons, totalPeople } = useSelector((store) => store.organizations.organization);
     const dispatch = useDispatch();
     const { userInfo } = useSelector((state) => state.userStore);
     const { id } = useParams();
-
+    const { t } = useTranslation();
     useEffect(() => {
         dispatch(fetchOneOrganization(id))
     }, [id])
@@ -46,14 +47,13 @@ const Organization = () => {
                     />
         </div>
             <div className={styles.about}>
-                <h2>About</h2>
+                <h2>{t(`OrgPage.About`)}</h2>
                 <div className={styles.aboutContainer}>
                 <p>{organization.description}</p>
-                <p>{totalPeople}</p>
             </div>
             </div>
 
-            {hackathons?.length > 0 ? <OrganizationHackathons hack={hackathons} /> : <p>no hacks</p>}
+            {hackathons?.length > 0 ? <OrganizationHackathons hack={hackathons} /> : <p className={styles.noHack}>{organization.name} {t(`OrgPage.no hack`)}</p>}
 
                     {users && (userInfo.role === 'admin' || orgArr.includes(userInfo?.email)) && <UserInfoTable users={users} />}
 

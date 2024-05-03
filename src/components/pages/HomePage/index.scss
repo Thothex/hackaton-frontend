@@ -1,0 +1,30 @@
+.custom-select{
+  width: 200px;
+  height: 40px;
+  border-radius: 40px;
+  font-family: "Geologica", sans-serif;
+  font-size: 14px;
+  text-transform: capitalize;
+  border: 1px solid #E2E8F0 ;
+  font-weight: 200;
+}
+.custom-dropdown{
+  background-color: white;
+  border-radius: 20px;
+  border: none;
+  text-transform: capitalize;
+  *{
+    border-radius: 20px;
+    border: none;
+  }
+}
+.ant-select-selector{
+  border: none !important;
+}
+.ant-select-selector::after{
+  border: none !important;
+}
+.ant-select-arrow{
+  display: none !important;
+}
+

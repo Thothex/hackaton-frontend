@@ -4,13 +4,14 @@ import { Table } from "antd";
 import {useEffect} from "react";
 import {fetchOrganizations} from "@/redux/features/organizationsSlice.js";
 import Loading from "@/components/Loading/index.jsx";
+import {useTranslation} from "react-i18next";
 
 const ManageOrganizations = () => {
     const organizations = useSelector(
         (state) => state.organizations.organizations
     );
     const dispatch = useDispatch();
-
+    const { t } = useTranslation();
     useEffect(()=>{
         dispatch(fetchOrganizations())
     },[]);
@@ -37,13 +38,13 @@ const ManageOrganizations = () => {
             align: 'center',
         },
         {
-            title: 'Name',
+            title: t(`OrgPage.name`),
             dataIndex: 'name',
             key: 'name',
             align: 'center',
         },
         {
-            title: 'People',
+            title:  t(`OrgPage.people`),
             dataIndex: 'totalPeople',
             key: 'totalPeople',
             align: 'center',

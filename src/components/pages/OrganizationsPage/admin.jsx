@@ -3,11 +3,12 @@ import {ConfigProvider, Tabs} from "antd";
 import styles from "@/components/pages/HackathonEditPage/styles.module.scss";
 import React, {Suspense} from "react";
 import Loading from "@/components/Loading/index.jsx";
+import {useTranslation} from "react-i18next";
 const ManageOrganizations = React.lazy(() => import("./children/manageOrg.jsx"));
 const CreateOrganizations = React.lazy(() => import("./children/createOrg.jsx"));
 const MyOrganizations = React.lazy(() => import("./children/myOrg.jsx"));
 const Admin = () =>{
-
+    const { t } = useTranslation();
 
     return(
         <div className={style.mainPage}>
@@ -30,7 +31,7 @@ const Admin = () =>{
                     type="card"
                     items={[
                         {
-                            label: 'Manage organizations',
+                            label: t(`OrgPage.manage`),
                             key: "1",
                             children: <Suspense fallback={<Loading/>}>
                                 <ManageOrganizations />
@@ -38,7 +39,7 @@ const Admin = () =>{
                             className: styles.tabFile,
                         },
                         {
-                            label: 'Create new organization',
+                            label:  t(`OrgPage.new`),
                             key: "2",
                             children:<Suspense fallback={<Loading/>}>
                                 <CreateOrganizations />
@@ -46,7 +47,7 @@ const Admin = () =>{
                             className: styles.tabFile,
                         },
                         {
-                            label: 'My organization',
+                            label:  t(`OrgPage.my`),
                             key: "3",
                             children:<Suspense fallback={<Loading/>}>
                                 <MyOrganizations />

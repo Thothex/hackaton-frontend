@@ -12,12 +12,13 @@ import React, {Suspense, useEffect, useRef, useState,} from "react";
 import gsap from 'gsap';
 import ReactCardFlip from "react-card-flip";
 import Loading from "@/components/Loading/index.jsx";
+import {useTranslation} from "react-i18next";
 
 const LazyComponent = React.lazy(() => import('./team.jsx'));
 
 const AboutPage = () =>{
     const thothRef = useRef(null);
-
+    const { t } = useTranslation();
 
     useEffect(() => {
         gsap.from("#enth", {
@@ -64,23 +65,15 @@ const AboutPage = () =>{
     }, []);
 
     return(<div className={style.about}>
-        <h1>ABOUT US</h1>
+        <h1>{t(`AboutUsPage.aboutUs`)}</h1>
         <div className={style.project}>
             <div className={style.shortInf}>
-                <p id='parRight'>Thothex.hackathon is an open platform for participating in and running hackathons.
-                    Participants can
-                    choose hackathons, join teams, earn points and <strong>improve their skills</strong>. Organizers, in
-                    turn, can create and
-                    customize hackathons as they see fit and bring out the best among participants.</p>
-                <h4 id='enth'>Created by enthusiasts for enthusiasts</h4>
-                <p id='parLeft'>Our mission is to make participation in hackathons accessible to all and to help
-                    participants develop
-                    their skills.
-                    We believe in fostering a supportive community where participants can learn and <strong> grow
-                        together.</strong>
+                <p id='parRight'>{t(`AboutUsPage.aboutUpper1`)}</p>
+                <h4 id='enth'>{t(`AboutUsPage.enthusiast`)}</h4>
+                <p id='parLeft'>{t(`AboutUsPage.aboutUpper2`)}
                 </p>
             </div>
-            <h3>Story of logo</h3>
+            <h3>{t(`AboutUsPage.storyOfLogo`)}</h3>
             <div
                 id='thoth'
                 className={style.thoths}
@@ -89,18 +82,14 @@ const AboutPage = () =>{
                     <source srcSet={thoth} media="(width: 600px)"/>
                     <img src={thoth} alt=""/>
                 </picture>
-                <p>The word "Thothex" is made up of two parts, "Thoth" and "ex". "Thoth" is the ancient Egyptian god of
-                    science, wisdom and art. He was known as the patron of magic, writing and knowledge. In his image we
-                    saw a symbol of knowledge that unites people in the pursuit of comprehending new horizons.</p>
+                <p>{t(`AboutUsPage.storyOfLogoUpper1`)}</p>
             </div>
             <div className={style.ex} ref={thothRef}>
                 <picture>
                     <source srcSet={ex} media="(width: 600px)"/>
                     <img src={ex} alt=""/>
                 </picture>
-                <p>"Ex" is an abbreviation of "explore". The word reflects our commitment to exploring new
-                    possibilities, pushing boundaries and driving innovation. We believe that exploration is the key to
-                    comprehending new knowledge and achieving success.</p>
+                <p>{t(`AboutUsPage.storyOfLogoUpper2`)}</p>
             </div>
 
         </div>
@@ -108,7 +97,7 @@ const AboutPage = () =>{
             {/*<h3>Our aim</h3>*/}
         </div>
         <div className={style.team}>
-            <h3>Team</h3>
+            <h3>{t(`AboutUsPage.team`)}</h3>
             <Suspense fallback={<Loading/>}>
                 <LazyComponent />
             </Suspense>
@@ -119,7 +108,7 @@ const AboutPage = () =>{
 
         </div>
         <div className={style.partners}>
-            <h3>Partners</h3>
+            <h3>{t(`AboutUsPage.partners`)}</h3>
             <div className={style.partCont}>
                 <Link to="https://itmo.ru/">
                     <div className={style.logos}>
@@ -164,15 +153,15 @@ const AboutPage = () =>{
             </div>
         </div>
         <div className={style.creators}>
-            <h3>Creators</h3>
+            <h3>{t(`AboutUsPage.CREATORS`)}</h3>
             <div className={style.creatorsTeam}>
 
             </div>
             <div className={style.devs}>
-                <p>This website was developed by</p>
-                <Link to='https://github.com/AlinaLuzanova'><h4>Alina Luzanova</h4></Link>
-                <Link to='https://github.com/nunespi'><h4>Lia Tazetdinova</h4></Link>
-                <Link to='https://github.com/shuhermayer'><h4>Evgeny Leventsov</h4></Link>
+                <p>{t(`AboutUsPage.developers`)}</p>
+                <Link to='https://github.com/AlinaLuzanova'><h4>{t(`AboutUsPage.Alina Luzanova`)}</h4></Link>
+                <Link to='https://github.com/nunespi'><h4>{t(`AboutUsPage.Lia Tazetdinova`)}</h4></Link>
+                <Link to='https://github.com/shuhermayer'><h4>{t(`AboutUsPage.Evgeny Leventsov`)}</h4></Link>
             </div>
         </div>
     </div>)

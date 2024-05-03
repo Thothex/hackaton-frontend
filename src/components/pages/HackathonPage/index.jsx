@@ -6,6 +6,7 @@ import categor from '../../../assets/hackathonPageIcons/categor.svg';
 import organiz from '../../../assets/hackathonPageIcons/organiz.svg';
 import teamPers from '../../../assets/hackathonPageIcons/teamPers.svg';
 import prize from '../../../assets/hackathonPageIcons/prize.svg';
+import arrowBack from '../../../assets/arrowBack.svg'
 import './index.css';
 import {
   fetchHackathonById,
@@ -108,11 +109,6 @@ const HackathonPage = () => {
       >
         <div className={styles.upperHello}>
           <button onClick={() => navigate("/hackathon")}>
-            <img
-                className={styles.backArrow}
-                src={Icons.BACK_ARROW}
-                alt="back"
-            />
           </button>
           <h4>{t(`HackathonPage.Welcome to the hackathon`)} 👋🏼</h4>
         </div>

@@ -1,5 +1,6 @@
 .personContainer{
   width: calc(20vmin + 40px);
+  min-width: 220px;
   height: calc(40vmin + 40px);
   padding: 20px;
   background-color: white;
@@ -12,6 +13,7 @@
   h5{
     white-space: nowrap;
     margin-top: 10px;
+    font-size: 17px;
   }
   p{
     margin-block: 0;

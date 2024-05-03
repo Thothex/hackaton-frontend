@@ -120,6 +120,15 @@ const Navbar = () => {
             {t("Navbar.hackathons")}
           </NavLink>
           <NavLink
+              to="/organizations"
+              className={({ isActive }) =>
+                  isActive ? styles.active : styles.unactive
+              }
+          >
+            <img src={cap} alt="cap" className={styles.icon} />
+            {t("Navbar.orgs")}
+          </NavLink>
+          <NavLink
               to="/about"
               className={({ isActive }) =>
                   isActive ? styles.active : styles.unactive
@@ -128,6 +137,7 @@ const Navbar = () => {
             <img src={heart} alt="fire" className={styles.icon} style={{borderRadius:'50%',width:30, height:30}} />
             {t("Navbar.about")}
           </NavLink>
+
           {userInfo.id && (
             <Link onClick={logoutHandler} className={styles.unactive}>
               <img src={logout} alt="logout" className={styles.icon} />

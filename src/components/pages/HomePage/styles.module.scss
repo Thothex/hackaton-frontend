@@ -11,18 +11,23 @@
 }
 .title {
   font-size: 40px;
-  margin-bottom: 30px;
   font-weight: 700;
+  color: $font-color-date
 }
 
 .fullWidthFlexRow {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
+  margin-bottom: 30px;
+  gap: 10px;
 }
 .darkPage {
   .title {
     color: white;
   }
+}
+.selector{
+  border-radius: 20px;
 }

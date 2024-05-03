@@ -7,11 +7,12 @@ import ManageOrganizations from "@/components/pages/OrganizationsPage/children/m
 import CreateOrganizations from "@/components/pages/OrganizationsPage/children/createOrg.jsx";
 import MyOrganizations from "@/components/pages/OrganizationsPage/children/myOrg.jsx";
 import MyOrganization from "@/components/pages/OrganizationsPage/children/myOrg.jsx";
+import {useTranslation} from "react-i18next";
 
 const Org = () =>{
+    const { t } = useTranslation();
     return(
         <div className={style.mainPage}>
-            {/*<h1>admin</h1>*/}
 
             <ConfigProvider
                 theme={{
@@ -30,7 +31,7 @@ const Org = () =>{
                     type="card"
                     items={[
                         {
-                            label: 'All organizations',
+                            label: t(`OrgPage.all`),
                             key: "1",
                             children: <Suspense fallback={<Loading/>}>
                                 <ManageOrganizations />
@@ -38,7 +39,7 @@ const Org = () =>{
                             className: styles.tabFile,
                         },
                         {
-                            label: 'My organization',
+                            label: t(`OrgPage.my`),
                             key: "2",
                             children:<Suspense fallback={<Loading/>}>
                                 <MyOrganization />

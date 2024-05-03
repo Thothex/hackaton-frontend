@@ -23,15 +23,20 @@ const LanguageSwitcher = () => {
     <div className={styles.langContainer}>
       <div className={styles.customSelect} onClick={toggleDropdown}>
         <img src={lang} alt="lang" className={styles.lang} />
-        <span className={styles.selectedLanguage}>
-          {selectedLanguage === "ru" ? "Русский" : "English"}
-        </span>
-        <img src={arrow} alt="arrow" className={styles.icon} />
+        {/*<span className={styles.selectedLanguage}>*/}
+        {/*  {selectedLanguage === "ru" ? "Русский" : "English"}*/}
+        {/*</span>*/}
+        {/*<img src={arrow} alt="arrow" className={styles.icon} />*/}
         {isOpen && (
-          <ul className={styles.options}>
-            <li onClick={() => handleLanguageChange("ru")}>Русский</li>
-            <li onClick={() => handleLanguageChange("en")}>English</li>
-          </ul>
+            <ul className={styles.options}>
+              <li className={selectedLanguage === "ru" ? styles.highlighted : ""} onClick={() => handleLanguageChange("ru")}>
+                Ru
+              </li>
+              <li className={selectedLanguage === "en" ? styles.highlighted : ""} onClick={() => handleLanguageChange("en")}>
+                En
+              </li>
+            </ul>
+
         )}
       </div>
     </div>

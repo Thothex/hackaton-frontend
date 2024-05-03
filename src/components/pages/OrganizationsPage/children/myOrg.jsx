@@ -13,6 +13,7 @@ import ReactModal from "react-modal";
 import close from "@/assets/close.svg";
 import {t} from "i18next";
 import FormEditOrganization from "@/components/pages/OrganizationsPage/editDelete/edit.jsx";
+import {useTranslation} from "react-i18next";
 
 const MyOrganization = ()=>{
     const { organization, users, hackathons, totalPeople } = useSelector((store) => store.organizations.organizations);
@@ -21,7 +22,7 @@ const MyOrganization = ()=>{
     const [modalAvatarIsOpen, setModalAvatarIsOpen] = useState(false);
     const [modalInfoIsOpen, setModalInfoIsOpen] = useState(false);
     const [loadingTime, setLoadingTime] = useState(0);
-
+    const { t } = useTranslation();
     useEffect(() => {
         const timer = setTimeout(() => {
             setLoadingTime((prev) => prev + 1);
