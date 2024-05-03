@@ -73,7 +73,7 @@ h1, h3{
 .thoths{
   display:flex;
   flex-direction: row-reverse;
-  height: 30vmin;
+  height: 23vmin;
   gap:20px;
   min-height:fit-content ;
   width: 100%;
@@ -84,9 +84,9 @@ h1, h3{
     color: white;
     font-size: 2.5vmin;
     font-weight: 200;
-    padding:  1vmin;
+    padding:  20px;
     border-radius: 40px;
-    height: 30vmin;
+    height: 23vmin;
     min-height:fit-content;
     display: flex;
     align-items: center;
@@ -101,7 +101,7 @@ h1, h3{
 .ex{
   margin-top: 20px;
   display:flex;
-  height: 24vmin;
+  height: 20vmin;
   gap:20px;
   min-height:fit-content ;
   width: 100%;
@@ -110,9 +110,9 @@ h1, h3{
     color: white;
     font-size:  2.5vmin;
     font-weight: 200;
-    padding:  1vmin;
+    padding:  20px;
     border-radius: 40px;
-    height: 24vmin;
+    height: 20vmin;
     min-height:fit-content;
     display: flex;
     align-items: center;
@@ -128,10 +128,10 @@ h1, h3{
 }
 
 .shortInf{
-  width: 140vmin;
+  width: 100%;
   background-color: white;
   font-size:  2.5vmin;
-  padding:  2vmin;
+  padding:  20px;
   border-radius: 20px;
   font-weight: 200;
   margin-bottom: 20px;

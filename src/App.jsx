@@ -29,6 +29,7 @@ import Ranks from './constants/ranks';
 import AboutPage from "@/components/pages/AboutPage/index.jsx";
 import OrganizationsPage from "@/components/pages/OrganizationsPage/index.jsx";
 import Organization from "@/components/pages/Organization/index.jsx";
+import Molecule from "@/components/Molecule/index.jsx";
 
 
 
@@ -156,6 +157,7 @@ function App() {
           <Route path='/about' element={<AboutPage/>}/>
           <Route path='/organizations' element={<OrganizationsPage/>}/>
           <Route path='/organizations/:id' element={<Organization/>}/>
+          <Route path='/molecule' element={<Molecule />}/>
         </Routes>
       </div>
       <Modal title="New Rank" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>

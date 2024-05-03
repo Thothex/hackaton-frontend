@@ -173,9 +173,11 @@ const dispatch = useDispatch();
             isOpen={isModalOpen}
             onRequestClose={() => setIsModalOpen(false)}
             contentLabel="Confirm Delete"
+            className={styles.modal}
         >
           <h2>Confirmation</h2>
-          <p>Password: {generatedPassword}</p>
+          <p className={styles.password}>Password:</p>
+          <h4 className={styles.random}>{generatedPassword}</h4>
           <p>
             If you are sure you need to delete this hackathon, write this password
             in the field:
@@ -186,8 +188,8 @@ const dispatch = useDispatch();
               onChange={(e) => setVerificationPassword(e.target.value)}
           />
           <div className={styles.modalButtons}>
-            <button onClick={() => setIsModalOpen(false)}>Cancel</button>
-            <button onClick={handleDelete}>Delete</button>
+            <button className={styles.cancelBTN} onClick={() => setIsModalOpen(false)}>Cancel</button>
+            <button className={styles.deleteBTN} onClick={handleDelete}>Delete</button>
           </div>
         </Modal>
       </div>

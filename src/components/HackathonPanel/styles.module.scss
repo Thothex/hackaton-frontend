@@ -181,3 +181,54 @@ hr {
     color: $finished;
   }
 }
+.password{
+  font-weight: 700;
+}
+.random{
+  background-color: #ffd6db;
+  color:$font-color-date;
+  border-radius: 20px;
+  padding-inline: 10px;
+  width: fit-content;
+}
+.cancelBTN{
+  background-color: rgba(45, 183, 245, 0.2);
+  color: #2b9fd2;
+  border-radius: 20px;
+  padding-inline: 10px;
+  width: fit-content;
+  font-size: 22px;
+  margin-block:20px;
+  margin-right: 10px;
+  transition: all .3s ease;
+}
+.deleteBTN{
+  background-color: #ffd6db;
+  color: #ff284e;
+  border-radius: 20px;
+  padding-inline: 10px;
+  width: fit-content;
+  font-size: 22px;
+  margin-block:20px;
+  margin-right: 10px;
+  transition: all .3s ease;
+}
+.deleteBTN:hover{
+  background-color: #b41f38;
+}
+.cancelBTN:hover{
+  background-color: #207aa2;
+}
+.modal {
+  width: 50vw;
+  background-color: white;
+  border-radius: 20px;
+  padding: 20px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
