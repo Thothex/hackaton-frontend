@@ -27,7 +27,7 @@ const OrganizationHackathons = ({ hack }) => {
                 onClick={() => handleRedirect(hackaton.id)}
                 className={styles.viewBtn}
             >
-                VIEW
+                {t(`OrgPage.view`)}
             </button>
         </div>
     ));
@@ -36,7 +36,7 @@ const OrganizationHackathons = ({ hack }) => {
         <div>
             {hack.length > 0 && (
                 <div className={styles.hackatonsContainer}>
-                    <h4 className={styles.head}>Hackathons</h4>
+                    <h4 className={styles.head}>{t(`ProfilePage.hackathons`)}</h4>
                     <div className={styles.hackatonsCards}>
                         {items.length > 0 ? (
                             items.length > 4 ? (

@@ -257,7 +257,7 @@ export const userSlice = createSlice({
 			})
 			.addCase(approveUserRankStatusThunk.rejected, (state) => {
 				state.status = "failed";
-			});
+			})
 	},
 });
 

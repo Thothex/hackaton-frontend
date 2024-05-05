@@ -7,6 +7,7 @@
     "organization": "Organization",
     "hackathons": "Hackathons",
     "view-all": "VIEW ALL",
+    "makeOrg": "to make user organizer, choose organization",
     "label-stat": "Your hackathons",
     "year": "year",
     "About ranks": "About ranks",
@@ -151,8 +152,10 @@
   },
   "Register-and-login-page": {
     "Create an account": "Create an account",
+    "passwordRecover": "Password recovery",
     "Welcome! Please enter your details": "Welcome back! Please enter your details",
     "Password": "Password",
+    "Recover" : "Recover",
     "Enter your email": "Enter your email",
     "Enter your username": "Enter your username",
     "Repeat Password": "Repeat password",
@@ -181,7 +184,8 @@
     "CHECK": "CHECK",
     "Registration is open": "registration is open",
     "In progress": "in progress",
-    "Finished": "finished"
+    "Finished": "finished",
+    "delete": "DELETE"
   },
   "HackathonPage": {
     "Welcome to the hackathon": "Welcome to the hackathon",
@@ -305,6 +309,7 @@
     "Choose type": "Choose type",
     "Category": "Category",
     "Choose category": "Choose category",
+    "choose": "Choose",
     "Audience": "Audience",
     "Choose audience": "Choose audience",
     "14-18 years, school": "14-18 years, school",
@@ -370,6 +375,8 @@
     "email": "Email",
     "score": "Score",
     "role": "Role",
-    "all": "All organizations"
+    "all": "All organizations",
+    "Avatar": "Avatar",
+    "view": "VIEW"
   }
 }

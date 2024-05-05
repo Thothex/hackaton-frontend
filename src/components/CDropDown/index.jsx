@@ -8,7 +8,7 @@ const CDropDown = ({
   name = "",
   items = [],
   placeholder = "Выберите",
-  value = "Choose",
+  value = "-",
   onChange,
 }) => {
   const [isOpen, setIsOpen] = useState(false);

@@ -78,15 +78,6 @@ const Navbar = () => {
                 <img src={highscore} alt="highscore" className={styles.icon} />
                 {t("Navbar.highscore")}
               </NavLink>
-              <NavLink
-                  to="/organizations"
-                  className={({ isActive }) =>
-                      isActive ? styles.active : styles.unactive
-                  }
-              >
-                <img src={cap} alt="cap" className={styles.icon} />
-                {t("Navbar.orgs")}
-              </NavLink>
             </>
           ) : (
             <>

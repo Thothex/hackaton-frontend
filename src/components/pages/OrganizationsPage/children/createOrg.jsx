@@ -7,12 +7,12 @@ import {useTranslation} from "react-i18next";
 
 const layout = {
     labelCol: {
-        span: 3,
+        span: 4,
 
     },
     wrapperCol: {
         span: 10,
-        offset: 1
+        offset: 2
     },
 };
 

@@ -55,7 +55,7 @@ const AdminUserList = () => {
               <Checkbox
                   checked={user.isOrg}
                   onChange={(e) => onChangeIsOrg(e, user)}
-              /> : <div className={styles.infoCheck}><Checkbox disabled /> <InfoTooltip text='to make user organizer, choose organization'/></div> // Render a disabled checkbox if no organization is selected
+              /> : <div className={styles.infoCheck}><Checkbox disabled /> <InfoTooltip text={t("ProfilePage.makeOrg")} /></div> // Render a disabled checkbox if no organization is selected
       ),
     };
   });

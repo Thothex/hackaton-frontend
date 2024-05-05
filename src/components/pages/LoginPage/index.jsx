@@ -2,7 +2,7 @@ import logo from "../../../assets/logoBig.svg";
 import styles from "./styles.module.scss";
 import AuthButton from "../../CAuthButton/index.jsx";
 import AuthInput from "@/components/CAuthInput/index.jsx";
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
@@ -81,14 +81,14 @@ const LoginPage = () => {
             value={formData.password}
             onChange={handleInputChange}
           />
-          {/* <div className={styles.checkboxContainer}>
-            <CCheckbox
-              label="Remember me"
-              checked={rememberCheckbox}
-              onChange={handleChangeRemember}
-            />
-            <span>Forgot password</span>
-          </div> */}
+           <div className={styles.checkboxContainer}>
+            {/*<CCheckbox*/}
+            {/*  label="Remember me"*/}
+            {/*  checked={rememberCheckbox}*/}
+            {/*  onChange={handleChangeRemember}*/}
+            {/*/>*/}
+             <span><Link to='/newPass'>Forgot password</Link></span>
+          </div>
           <AuthButton buttonText={t("Register-and-login-page.Sign in")} />
         </form>
         <h5>

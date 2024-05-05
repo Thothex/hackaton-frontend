@@ -163,7 +163,7 @@ const dispatch = useDispatch();
                         onClick={handleDeleteButtonClick}
                         className={styles.button}
                     >
-                      DELETE
+                       {t(`HomePage.delete`)}
                     </button>
                 )}
               </>

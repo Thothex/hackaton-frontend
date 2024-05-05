@@ -295,7 +295,7 @@ const NewHachathon = ({ id }) => {
               value={
                 (hackathon?.type &&
                   `${t(`NewHachathon.${hackathon?.type}`)}`) ||
-                `${t("NewHachathon.Choose type")}`
+                  `${t("NewHachathon.choose")}`
               }
             />
           </div>
@@ -311,7 +311,7 @@ const NewHachathon = ({ id }) => {
                   `${t(
                     `HackathonPage.categories.${hackathon?.category?.name}`
                   )}`) ||
-                `${t("NewHachathon.Choose category")}`
+                `${t("NewHachathon.choose")}`
               }
             />
           </div>
@@ -344,7 +344,7 @@ const NewHachathon = ({ id }) => {
                 value={
                   (hackathon?.audience &&
                     `${t(`NewHachathon.${hackathon?.audience}`)}`) ||
-                  `${t("NewHachathon.Choose audience")}`
+                    `${t("NewHachathon.choose")}`
                 }
               />
             </div>
@@ -365,7 +365,7 @@ const NewHachathon = ({ id }) => {
                   items={organizationsForPicker}
                   onChange={handleAddOrganization}
                   placeholder={""}
-                  value={t("NewHachathon.Choose organizations")}
+                  value={t("NewHachathon.choose")}
                 />
                 <div className={styles.badges}>
                   {hackathon?.organizations.map((org) => (

@@ -8,7 +8,8 @@ import teamsReducer from "../redux/features/teamsSlice";
 import answersReducer from "../redux/features/answersSlice";
 import modeReducer from "../redux/features/modeSlice.js";
 import languageReducer from "@/redux/features/languageSlice";
-import organizationReducer from '../redux/features/organizationsSlice'
+import organizationReducer from '../redux/features/organizationsSlice';
+import recoverReducer from '../redux/features/recoverSlice.js';
 import {configureStore} from "@reduxjs/toolkit";
 export const store = configureStore({
   reducer: {
@@ -23,5 +24,6 @@ export const store = configureStore({
     mode: modeReducer,
     language: languageReducer,
     organizations : organizationReducer,
+    recover:recoverReducer
   },
 });

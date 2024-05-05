@@ -114,9 +114,9 @@ const RegisterPage = () => {
         <h1 className={styles.title}>
           {t("Register-and-login-page.Create an account")}
         </h1>
-        <p className={styles.regParagraph}>
-          {t("Register-and-login-page.Welcome! Please enter your details")}.
-        </p>
+        {/*<p className={styles.regParagraph}>*/}
+        {/*  {t("Register-and-login-page.Welcome! Please enter your details")}.*/}
+        {/*</p>*/}
         {error.registerError.length > 0  && (
             <p className={styles.upperError}>
               {error.registerError.split('.').map((sentence, index) => (

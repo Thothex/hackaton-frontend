@@ -7,6 +7,7 @@
     "organization": "Организация",
     "hackathons": "Хакатоны",
     "view-all": "ПЕРЕЙТИ",
+    "makeOrg": "Чтобы сделать пользователя организатором, назначьте организацию",
     "label-stat": "Статистика",
     "year": "год",
     "months": {
@@ -83,7 +84,7 @@
   },
   "Navbar": {
     "profile": "Профиль",
-    "admin-panel": "Админка",
+    "admin-panel": "Администрация",
     "orgs": "Организации",
     "create-hackathon": "Создать хакатон",
     "register": "Регистрация",
@@ -155,6 +156,8 @@
   },
   "Register-and-login-page": {
     "Create an account": "Создать аккаунт",
+    "passwordRecover": "Восстановление пароля",
+    "Recover" : "Восстановить",
     "Welcome! Please enter your details": "Добро пожаловать! Пожалуйста, введите свои данные",
     "Password": "Пароль",
     "Enter your email": "Введите вашу почту",
@@ -185,7 +188,8 @@
     "CHECK": "ПРОВЕРИТЬ",
     "Registration is open": "регистрация открыта",
     "In progress": "в процессе",
-    "Finished": "закончен"
+    "Finished": "закончен",
+    "delete": "УДАЛИТЬ"
   },
   "HackathonPage": {
     "Welcome to the hackathon": "Добро пожаловать на хакатон",
@@ -312,8 +316,9 @@
     "Choose type": "Выберите тип",
     "Category": "Категория",
     "Choose category": "Выберите категорию",
+    "choose": "Выбрать",
     "Audience": "Аудитория",
-    "Choose audience": "Выберете аудиторию",
+    "Choose audience": "Выберите аудиторию",
     "Organizations": "Организации",
     "infoOrg": "При выборе организации в хакатоне cмогут участвовать только сотрудники выбранной организации.",
     "14-18 years, school": "14-18 лет, школа",
@@ -379,6 +384,8 @@
     "email": "Электронная почта",
     "score": "Баллы",
     "role": "Роль",
-    "all": "Все организации"
+    "all": "Все организации",
+    "Avatar": "Фото",
+    "view": "СМОТРЕТЬ"
   }
 }

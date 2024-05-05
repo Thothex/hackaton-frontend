@@ -53,10 +53,34 @@ const MyOrganization = ()=>{
     return (
         <div className={styles.organization}>
             <div className={styles.upperPanel}>
+                <div style={{display:'flex'}}>
                 {organization?.link ? (
                     <Link to={organization?.link}><h1 className={styles.title}>{organization.name}</h1></Link>
                 ) : (<h1 className={styles.title}>{organization.name}</h1>)}
-
+                <div className={styles.infoUserEdit}>
+                    <div style={{display: 'flex', alignItems: 'center', gap: 10}}>
+                        <button
+                            onClick={() => setModalInfoIsOpen(true)}
+                            className={styles.editInfo}
+                        ></button>
+                    </div>
+                    <ReactModal
+                        className={styles.modal}
+                        isOpen={modalInfoIsOpen}
+                        onRequestClose={closeModal}
+                        shouldCloseOnOverlayClick={true}
+                    >
+                        <FormEditOrganization name={organization.name} description={organization.description}
+                                              link={organization?.link} id={organization.id}/>
+                        <button
+                            onClick={() => setModalInfoIsOpen(false)}
+                            className={styles.close}
+                        >
+                            <img src={close} alt="close" className={styles.icon}/>
+                        </button>
+                    </ReactModal>
+                </div>
+                </div>
                 <img
                     src={
                         organization.picture
@@ -68,39 +92,15 @@ const MyOrganization = ()=>{
                 />
             </div>
             <div className={styles.about}>
-                <h2 className={style.h2}>About</h2>
+                <h2>{t(`OrgPage.About`)}</h2>
                 <div className={styles.aboutContainer}>
-                    <p>{organization.description}</p>
-                    <p>{totalPeople}</p>
+                    <p style={{fontSize:'16px'}}>{organization.description}</p>
                 </div>
             </div>
 
             {hackathons?.length > 0 ? <OrganizationHackathons hack={hackathons}/> : <p>no hacks</p>}
 
             {users && (userInfo.role === 'admin' || orgArr.includes(userInfo?.email)) && <UserInfoTable users={users}/>}
-            <div className={styles.infoUserEdit}>
-                <div style={{display:'flex', alignItems:'center', gap:10}}>
-                <h5 className={style.h2}>Edit organization information</h5>
-                <button
-                    onClick={() => setModalInfoIsOpen(true)}
-                    className={styles.editInfo}
-                ></button>
-            </div>
-                <ReactModal
-                    className={styles.modal}
-                    isOpen={modalInfoIsOpen}
-                    onRequestClose={closeModal}
-                    shouldCloseOnOverlayClick={true}
-                >
-                    <FormEditOrganization name={organization.name} description={organization.description} link={organization?.link} id={organization.id}/>
-                    <button
-                        onClick={() => setModalInfoIsOpen(false)}
-                        className={styles.close}
-                    >
-                        <img src={close} alt="close" className={styles.icon}/>
-                    </button>
-                </ReactModal>
-            </div>
         </div>
     );
 

@@ -4,12 +4,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: fit-content;
+  min-height: 100vh;
 }
 
 .main {
   padding: 27px;
-  margin-top: 17vh;
+  margin-top: 16vh;
   background-color: white;
   z-index: 10;
   display: flex;
@@ -19,7 +20,8 @@
   max-width: 500px;
   min-width: 330px;
   border-radius: 20px;
-
+  max-height: 76vh;
+  min-height: fit-content;
   .title {
     margin-block: 0.5em 0;
     font-size: 30px;
@@ -40,7 +42,11 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-
+    min-height: fit-content;
+  label{
+    margin-block: 0;
+    padding-bottom: 16px;
+  }
     div {
       display: flex;
       justify-content: space-between;

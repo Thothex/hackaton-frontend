@@ -30,6 +30,8 @@ import AboutPage from "@/components/pages/AboutPage/index.jsx";
 import OrganizationsPage from "@/components/pages/OrganizationsPage/index.jsx";
 import Organization from "@/components/pages/Organization/index.jsx";
 import Molecule from "@/components/Molecule/index.jsx";
+import EnterEmail from "@/components/pages/LoginPage/forgotPassword/email.jsx";
+import RecoverPage from "@/components/pages/LoginPage/forgotPassword/recover.jsx";
 
 
 
@@ -40,7 +42,11 @@ function App() {
   const { bearer: bearerFromStore, userInfo, userRankStatus } = useSelector((state) => state.userStore)
   const { darkMode } = useSelector((state) => state.mode);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [error, setError] = useState({
+    length:true,
+    match:true,
+    registerError:''
+  })
   const handleOk = () => {
     setIsModalOpen(false);
     dispatch(approveUserRankStatusThunk())
@@ -124,7 +130,7 @@ function App() {
                      ${darkMode ?
         "dark " :
         ""}`}>
-      {location.pathname !== "/register" && location.pathname !== "/login"  && location.pathname !== "/" && location.pathname !=='/dashboard' && (
+      {location.pathname !== "/register" && location.pathname !== "/login"  && location.pathname !== "/" && !location.pathname.startsWith('/recover') && location.pathname !=='/dashboard' && location.pathname !=='/newPass' && (
           <>
         <Navbar />
         </>
@@ -157,7 +163,9 @@ function App() {
           <Route path='/about' element={<AboutPage/>}/>
           <Route path='/organizations' element={<OrganizationsPage/>}/>
           <Route path='/organizations/:id' element={<Organization/>}/>
+          <Route path='/newPass' element={<EnterEmail/>}/>
           <Route path='/molecule' element={<Molecule />}/>
+          <Route path='/recover/:email/:token' element={<RecoverPage/>}/>
         </Routes>
       </div>
       <Modal title="New Rank" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
