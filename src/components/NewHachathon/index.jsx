@@ -220,7 +220,10 @@ const NewHachathon = ({ id }) => {
       })
     );
   };
-  !hackathon && <Loading />;
+  if( !hackathon){
+    return  <Loading />
+  }
+
   return (
     <>
       <div className={styles.newHachathonContainer}>

@@ -45,16 +45,16 @@ const RegisterPage = () => {
 
 
     if (!hasLowerCase) {
-      errors.push("Пароль должен содержать строчные буквы.");
+      errors.push(t("Errors.letA"));
     }
     if (!hasUpperCase) {
-      errors.push("Пароль должен содержать заглавные буквы.");
+      errors.push(t("Errors.leta"));
     }
     if (!hasNumber) {
-      errors.push("Пароль должен содержать цифры.");
+      errors.push(t("Errors.numbers"));
     }
     if (!hasNoSpaceOrPunctuation) {
-      errors.push("Пароль не должен содержать пробелы или знаки препинания.");
+      errors.push(t("Errors.space"));
     }
 
     if (errors.length === 0) {
@@ -146,8 +146,8 @@ const RegisterPage = () => {
             value={formData.username}
             onChange={handleInputChange}
           />
-          {!error.match && <p className={styles.lowerError}>{"Passwords don't match"}</p>}
-          {!error.length && <p className={styles.lowerError}>{"Password must be longer than 8 symbols"}</p>}
+          {!error.match && <p className={styles.lowerError}>{t("Errors.noMatch")}</p>}
+          {!error.length && <p className={styles.lowerError}>{t("Errors.symbols")}</p>}
           <AuthInput
             label={t("Register-and-login-page.Password")}
             inner={t("Register-and-login-page.Enter your password")}

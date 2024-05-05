@@ -151,32 +151,36 @@ font-size: 2em;
 }
 
 
-.toTask {
-  color: white;
+
+.takePartBTN{
+
+  width: 100%;
+  border: none;
+  height: 100%;
+  border-radius: 20px;
   font-family: "Geologica", sans-serif;
-  font-size: 30px;
+  font-size:40px;
+  color:white;
+  font-weight: 600;
+  white-space: normal;
+  transition: .3s all ease;
+  background-color: $light-violet-color;
+}
+.pic {
+  padding: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   border-radius: 20px;
-  height: 230px;
-  min-height: 230px;
-  background: #cc8fc6;
-  box-shadow: 0 -200px 100px -120px #7254b6 inset;
+  height: 150px;
+  background-color: white;
   animation: background 3s infinite alternate;
   transition: .3s all ease;
-  border:none;
 }
 
-@keyframes background {
-  50% {
-    background: skyblue;
-    box-shadow: 0 -200px 100px -100px rgba(125,152,226,1) inset;
-  }
-}
-.toTask:hover {
-  animation: bounce 0.3s;
+.pic:hover{
+  scale: 105%;
 }
 
 @keyframes bounce {
@@ -256,7 +260,8 @@ font-size: 2em;
   margin-bottom: 20%;
 }
 .titleHac{
-  font-size: 48px;
+  font-size: 40px;
+  font-weight: 700;
   padding-bottom: 0;
   margin-bottom: 0;
   padding-left: 20px;
@@ -292,14 +297,15 @@ font-size: 2em;
     font-family: "Geologica", sans-serif;
     background-color: white;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 32px;
+    height: 32px;
     margin-inline: 1em;
     //padding-block: .5em;
     box-shadow: none;
     outline: none;
     transition: .3s all ease;
     font-size: 15px;
+    background: url("../../../assets/arrowBack.svg");
   }
   .button:hover{
     box-shadow: black 5px 5px ;

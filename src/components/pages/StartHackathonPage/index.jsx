@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { fetchHackathonById } from "@/redux/features/hackathonsSlice.js";
 import styles from "./style.module.scss";
@@ -245,11 +245,6 @@ const StartHackathonPage = () => {
             className={styles.button}
             onClick={() => navigate(`/hackathon/${hackathon.id}`)}
           >
-            <img
-              className={styles.backArrow}
-              src={Icons.BACK_ARROW}
-              alt="back"
-            />
           </button>
           <h4>{t("HackathonPage.Welcome to the hackathon")} 👋🏼</h4>
         </div>
@@ -315,9 +310,11 @@ const StartHackathonPage = () => {
             )}
           </div>
           {!now && (teamInfo?.teamUsers?.length > 0 || person) && (
-            <button className={styles.toTask} onClick={handleStart}>
-              {t("HackathonTeamPage.START")}
-            </button>
+              <div className={styles.pic} onClick={handleStart}>
+                <button className={styles.takePartBTN}>
+                  {t(`HackathonPage.TAKE PART`)}
+                </button>
+              </div>
           )}
         </div>
       </div>

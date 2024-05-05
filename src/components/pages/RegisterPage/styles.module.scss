@@ -10,7 +10,7 @@
 
 .main {
   padding: 27px;
-  margin-top: 16vh;
+  margin-top: 150px;
   background-color: white;
   z-index: 10;
   display: flex;
@@ -20,8 +20,8 @@
   max-width: 500px;
   min-width: 330px;
   border-radius: 20px;
-  max-height: 76vh;
-  min-height: fit-content;
+
+  height: fit-content;
   .title {
     margin-block: 0.5em 0;
     font-size: 30px;
@@ -112,15 +112,19 @@
   padding-inline: 10px;
   width: fit-content;
   margin-left: 1em;
+
 }
 .upperError{
+  margin-top: 10px;
 div{
+  height: fit-content;
   p{
     background-color: rgba(139, 0, 0, 0.3);
     color:darkred;
     border-radius: 10px;
     padding-inline: 10px;
     width: fit-content;
+    margin-bottom: 5px;
   }
 }
 }

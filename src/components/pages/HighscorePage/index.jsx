@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Progress, Tooltip } from "antd";
+import {Progress, Tooltip, Table, ConfigProvider} from "antd";
 import styles from "./styles.module.scss";
 import getHighscore from "@/api/highscore";
 import { useSelector } from "react-redux";
@@ -31,8 +31,8 @@ const HighscorePage = () => {
     getUsersHighscore();
   }, [navigate]);
   const twoColors = {
-    "0%": "#108ee9",
-    "100%": "#87d068",
+    "0%": "#eaeef9",
+    "100%": "#8797c4",
   };
   useEffect(() => {
     if (!usersHithscore) return;
@@ -42,74 +42,96 @@ const HighscorePage = () => {
     });
   }, [usersHithscore]);
 
-  return (
-    <div className={styles.blocksWrapper}>
-      <div className={styles.blockWidget}>
-        <h1 className={styles.widgetTitle}>
-          {t("HighscorePage.Users highscore")}
-        </h1>
-        {usersHithscore?.highscore &&
-          usersHithscore?.highscore.map((user) => {
-            const progress = (user.score * 100) / maxHighscores.maxScore;
-            const isMe = user.id === userInfo.id;
-            const disabled = user.username.length > 10;
-            const usernameClass = isMe ? styles.usernameMe : styles.username;
-            return (
-              <div className={styles.userScore} key={user.id}>
-                <div className={usernameClass}>
-                  <Tooltip
-                    placement="topLeft"
-                    title={!disabled ? "" : user.username}
-                    color="#2db7f5"
-                  >
-                    <h4>{user.username}</h4>
-                  </Tooltip>
-                </div>
-                <Progress
-                  className={styles.progress}
-                  percent={progress}
-                  strokeColor={twoColors}
-                  size={[300, 30]}
-                  format={() => ` ${user.score}`}
-                />
-              </div>
-            );
-          })}
-      </div>
+  const columns = [
+    {
+      dataIndex: "username",
+      key: "username",
+      render: (text, record) => (
+          <Tooltip
+              align={{
+                offset: [0, 0],
+                overflow: { adjustX: true, adjustY: true },
+                targetOffset: [0, 0],
+              }}
+              title={record.username.length > 10 ? record.username : ""}
+              color="#8797c4"
+          >
+            <h4 className={record.isMe ? styles.usernameMe : styles.username}>
+              {text}
+            </h4>
+          </Tooltip>
+      ),
+    },
+    {
+      title: "",
+      dataIndex: "progress",
+      key: "progress",
+      render: (text, record) => (
+          <Progress
+              percent={(record.score * 100) / maxHighscores.maxScore}
+              strokeColor={twoColors}
+              size={[300, 30]}
+              format={() => ` ${record.score}`}
+          />
+      ),
+    },
+  ];
 
-      {!!maxHighscores.maxScoreOrg && (
-        <div className={styles.blockWidget}>
-          <h1 className={styles.widgetTitle}>
-            {t("HighscorePage.Organizations highscore")}
-          </h1>
-          {usersHithscore?.organizationsHighscore &&
-            usersHithscore?.organizationsHighscore.map((org) => {
-              const progress = (org.rating * 100) / maxHighscores.maxScoreOrg;
-              const disabled = org.organization.length > 10;
-              return (
-                <div className={styles.userScore} key={org.id}>
-                  <div className={styles.username}>
-                    <Tooltip
-                      placement="topLeft"
-                      title={!disabled ? "" : org.organization}
-                      color="#2db7f5"
-                    >
-                      <h4>{org.organization}</h4>
-                    </Tooltip>
-                  </div>
-                  <Progress
-                    className={styles.progress}
-                    percent={progress}
-                    strokeColor={twoColors}
-                    size={[300, 30]}
-                    format={() => ` ${org.rating}`}
-                  />
-                </div>
-              );
-            })}
-        </div>
-      )}
-    </div>
+  const data = usersHithscore?.highscore?.map((user) => ({
+    key: user.id,
+    username: user.username,
+    score: user.score,
+    isMe: user.id === userInfo.id,
+  }));
+
+  return (
+      <div className={styles.blocksWrapper}>
+     <h1 style={{margin:0, padding:0}}>{t("HighscorePage.Users highscore")}</h1>
+        <ConfigProvider
+            theme={{
+              token: {
+                colorPrimary: "#8797c4",
+                backgroundColor: "#f5f7fa",
+                colorBgContainer: "white",
+                margin: "0",
+                colorFillQuaternary: "rgba(150, 171, 223, 0.25)",
+                colorTextBase: "rgba(113, 128, 150, 1)",
+                fontFamily:'Geologica',
+                width:'100%',
+                borderRadius:20,
+                border:'none'
+              },
+            }}
+        >
+        <Table columns={columns} dataSource={data}
+               style={{width:'100%'}}
+               pagination={false} />
+        </ConfigProvider>
+        {!!maxHighscores.maxScoreOrg && (
+            <ConfigProvider
+                theme={{
+                  token: {
+                    colorPrimary: "#8797c4",
+                    backgroundColor: "#f5f7fa",
+                    colorBgContainer: "white",
+                    margin: "0",
+                    colorFillQuaternary: "rgba(150, 171, 223, 0.25)",
+                    colorTextBase: "rgba(113, 128, 150, 1)",
+                    fontFamily:'Geologica',
+                    width:'100%',
+                    borderRadius:20,
+                    border:'none'
+                  },
+                }}
+            >
+            <Table
+                columns={columns}
+                dataSource={usersHithscore?.organizationsHighscore}
+                pagination={false}
+            />
+            </ConfigProvider>
+        )}
+      </div>
   );
 };
 

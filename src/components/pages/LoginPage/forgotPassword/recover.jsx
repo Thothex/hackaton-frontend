@@ -47,19 +47,19 @@ const RecoverPage = () => {
             password
         );
         if(password.length <8){
-            errors.push("Пароль должен быть длиннее 8 символов");
+            errors.push(t("Errors.symbols"));
         }
         if (!hasLowerCase) {
-            errors.push("Пароль должен содержать строчные буквы.");
+            errors.push(t("Errors.letA"));
         }
         if (!hasUpperCase) {
-            errors.push("Пароль должен содержать заглавные буквы.");
+            errors.push(t("Errors.leta"));
         }
         if (!hasNumber) {
-            errors.push("Пароль должен содержать цифры.");
+            errors.push(t("Errors.numbers"));
         }
         if (!hasNoSpaceOrPunctuation) {
-            errors.push("Пароль не должен содержать пробелы или знаки препинания.");
+            errors.push(t("Errors.space"));
         }
 
         if (errors.length === 0) {
@@ -80,15 +80,15 @@ const RecoverPage = () => {
             try {
                 const res = await dispatch(recoverPasswordEmailThunk(formData));
                 if (res.payload.status >= 400) {
-                    setMessage({ error: "You don't have an account", success: "" });
+                    setMessage({ error: t("Errors.noAcc"), success: "" });
                 } else {
                     setMessage({ error: "", success: res.payload.message });
                 }
             } catch (error) {
-                setMessage({ error: "You don't have an account", success: "" });
+                setMessage({ error: t("Errors.noAcc"), success: "" });
             }
         } else {
-            setMessage({ error: "Passwords don't match", success: "" });
+            setMessage({ error: t("Errors.noMatch"), success: "" });
         }
     };
 

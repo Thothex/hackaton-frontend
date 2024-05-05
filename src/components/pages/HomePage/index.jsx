@@ -8,6 +8,7 @@ import { Select, Space } from "antd";
 import gsap from "gsap";
 import { fetchOrganizations } from "@/redux/features/organizationsSlice.js";
 import './index.scss'
+import Loading from "@/components/Loading/index.jsx";
 const HomePage = React.memo(() => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
@@ -63,6 +64,9 @@ const HomePage = React.memo(() => {
             }
         });
     }, [currentFilter, hackathons, user.id]);
+    if(!hackathons){
+        return <Loading/>
+    }
 
     return (
         <div className={styles.homeContainer}>

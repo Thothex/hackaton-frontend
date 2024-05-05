@@ -378,5 +378,16 @@
     "all": "All organizations",
     "Avatar": "Avatar",
     "view": "VIEW"
+  },
+  "Errors": {
+    "symbols": "Password must be longer than 8 characters",
+    "letA": "Password must contain lowercase letters.",
+    "leta": "Password must contain uppercase letters.",
+    "numbers": "Password must contain numbers.",
+    "space": "Password must not contain spaces or punctuation marks.",
+    "noAcc": "You don't have an account",
+    "noMatch": "Passwords don't match",
+    "forgot": "Forgot password?",
+    "sendError": "Error while sending data"
   }
 }

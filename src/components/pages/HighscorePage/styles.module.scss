@@ -1,19 +1,25 @@
 @import '../../../index.scss';
 
 .graphContainer {
-  height: 500px;
-  width: 500px;
-  font-family: $font-family-commissioner;
+  height: fit-content;
+  width: 100%;
+  font-family: 'Geologica';
 }
 
 .blocksWrapper{
   display: flex;
-  flex-direction: column;
-  gap: 60px;
+  gap: 20px;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-top: 120px;
+  margin-top: 70px;
   align-items: center;
+  width: 100%;
+  h1{
+    font-size: 40px;
+    font-weight: 700;
+    color: $font-color-date;
+    text-transform: uppercase;
+  }
 }
 
 .blockWidget{
@@ -25,9 +31,9 @@
   border-radius: 10px;
   background-color: #f5f5f5;
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-  min-width: 600px;
+  width: 100%;
   padding: 20px 60px 40px 40px;
-  min-width: 620px;
+  min-width: 100%;
 }
 
 .progressWrapper {
@@ -35,20 +41,20 @@
 }
 
 .widgetTitle{
-  font-size: 40px;
+  font-size: 20px;
   font-weight: 200;
   margin-bottom: 40px;
 }
 
 .username{
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 200;
   color: $data-auth-color;
 }
 .usernameMe {
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 200;
-  color: #2db7f5;
+  color: $light-violet-color;
 }
 
 .username h4 {
