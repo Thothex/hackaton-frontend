@@ -6,7 +6,7 @@ import styles from "./style.module.scss";
 import { useTranslation } from "react-i18next";
 import InputTask from "@/components/InputTask";
 import AddFileTask from "@/components/AddFileTask";
-import { useNavigate, useParams } from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTasks } from "@/redux/features/taskSlice.js";
 import ManyAnswersTask from "@/components/ManyAnswersTask";
@@ -38,7 +38,7 @@ const TestPage = () => {
   const { darkMode } = useSelector((state) => state.mode);
 
   useEffect(() => {
-    if (userInfo.id && hackathon.organizer_id) {
+    if (userInfo.id && hackathon?.organizer_id) {
       const isEmployeeOrg = !!hackathon?.organizations.find(
           (hack) => hack.name === userInfo?.organization
       );
@@ -213,11 +213,12 @@ const TestPage = () => {
                   {task.description.includes(`<code language='${lang}'`) ? (
                       <>
                         {darkMode ? (
-                            <SyntaxHighlighter  language={lang} style={dracula} customStyle={{ fontSize: '20px'}}>
+                            <SyntaxHighlighter language={lang} style={dracula} customStyle={{fontSize: '20px'}}>
                               {highlightedCode}
                             </SyntaxHighlighter>
                         ) : (
-                            <SyntaxHighlighter  language={lang} style={prism} customStyle={{ fontSize: '20px', backgroundColor:'white'  }}>
+                            <SyntaxHighlighter language={lang} style={prism}
+                                               customStyle={{fontSize: '20px', backgroundColor: 'white'}}>
                               {highlightedCode}
                             </SyntaxHighlighter>
                         )}
@@ -225,6 +226,11 @@ const TestPage = () => {
                   ) : (
                       <p>{task.description}</p>
                   )}
+                  {task?.link && <Link to={task.link} className={styles.linkContainer}>
+                    <p className={styles.link}>Ссылка на ресурс</p>
+                    <div className={styles.tooltip}>{task.link}</div>
+                  </Link>}
+
                   {captain && (
                       <AddFileTask
                           task={task}
@@ -254,7 +260,10 @@ const TestPage = () => {
                   ) : (
                       <p>{task.description}</p>
                   )}
-
+                  {task?.link && <Link to={task.link} className={styles.linkContainer}>
+                    <p className={styles.link}>Ссылка на ресурс</p>
+                    <div className={styles.tooltip}>{task.link}</div>
+                  </Link>}
 
                   {captain && (
                       <InputTask
@@ -273,11 +282,12 @@ const TestPage = () => {
                   {task.description.includes("<code language=") ? (
                       <>
                         {darkMode ? (
-                            <SyntaxHighlighter  language={lang} style={dracula} customStyle={{ fontSize: '20px'}}>
+                            <SyntaxHighlighter language={lang} style={dracula} customStyle={{fontSize: '20px'}}>
                               {highlightedCode}
                             </SyntaxHighlighter>
                         ) : (
-                            <SyntaxHighlighter  language={lang} style={prism} customStyle={{ fontSize: '20px', backgroundColor:'white'  }}>
+                            <SyntaxHighlighter language={lang} style={prism}
+                                               customStyle={{fontSize: '20px', backgroundColor: 'white'}}>
                               {highlightedCode}
                             </SyntaxHighlighter>
                         )}
@@ -286,6 +296,11 @@ const TestPage = () => {
                   ) : (
                       <p>{task.description}</p>
                   )}
+                  {task?.link && <Link to={task.link} className={styles.linkContainer}>
+                    <p className={styles.link}>Ссылка на ресурс</p>
+                    <div className={styles.tooltip}>{task.link}</div>
+                  </Link>}
+
                   <ManyAnswersTask
                       handleSaveMany={handleSaveMany}
                       type={"many-answers"}

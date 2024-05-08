@@ -11,8 +11,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {deleteTask, updateTask} from "@/redux/features/hackathonsSlice.js";
 import {Prism as SyntaxHighlighter} from "react-syntax-highlighter";
 import {dracula, prism} from "react-syntax-highlighter/dist/cjs/styles/prism/index.js";
+import InfoTooltip from "@/components/InfoTooltip/index.jsx";
 
-const ManyAnswerTask = ({ hackathonId, task, info }) => {
+const FileAnswerTask = ({ hackathonId, task, info }) => {
   const { t } = useTranslation();
   const [answers, setAnswers] = useState(task.answers);
   const [taskText, setTaskText] = useState(task.name || "");
@@ -25,8 +26,12 @@ const ManyAnswerTask = ({ hackathonId, task, info }) => {
   const [taskDescription, setTaskDescription] = useState(
       task.description || ""
   );
+  const [mark, setMark]=useState(task?.isJSONchem);
+  const [link, setLink] = useState(task?.link);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [taskScore, setTaskScore] = useState(task.maxScore);
+
+  console.log(task, info, 'AAAAAA')
 
   useEffect(() => {
     setAnswers(task.answers);
@@ -52,6 +57,9 @@ const ManyAnswerTask = ({ hackathonId, task, info }) => {
     setCodeInput(e.target.value);
     setHasUnsavedChanges(true);
   };
+  const changeLinkHandler =(e)=>{
+    setLink(e.target.value)
+  }
 
   const taskContainerClass = !hasUnsavedChanges
       ? `${styles.taskContainer} ${styles.greenBorder}`
@@ -69,6 +77,8 @@ const ManyAnswerTask = ({ hackathonId, task, info }) => {
             name: taskText,
             description: taskDescription,
             type: "document",
+            link:link,
+            isJSONchem: mark
           },
         })
     );
@@ -98,9 +108,11 @@ const ManyAnswerTask = ({ hackathonId, task, info }) => {
   const handleCodeChange = () =>{
     setCode(!code)
   }
+  const handleChemMarkUp = () =>{
+    setMark(!mark)
+  }
 
   if (!answers) return <Loading />;
-  console.log(`'${lang}'`)
   return (
       <div className={taskContainerClass}>
         <div>
@@ -109,7 +121,7 @@ const ManyAnswerTask = ({ hackathonId, task, info }) => {
             {t("HackathonEditPage.file-upload")}
           </span>
             <button className={styles.close} onClick={deleteHandler}>
-              <img src={close} alt="close" className={styles.icon} />
+              <img src={close} alt="close" className={styles.icon}/>
             </button>
           </div>
           <label>{t("HackathonEditPage.title")}</label>
@@ -119,13 +131,19 @@ const ManyAnswerTask = ({ hackathonId, task, info }) => {
               placeholder={`${t("HackathonEditPage.enter-title")}`}
           />
           <div className={styles.codeContainer}>
-          <h4>{t("HackathonEditPage.description")}</h4>
+            <h4>{t("HackathonEditPage.description")}</h4>
             <div className={styles.innerCode}>
-            <p>code</p>
-          <input checked={code} type={"radio"} className={styles.code}
-                 onClick={() => handleCodeChange()}
-          />
-          </div>
+              <p>code</p>
+              <input checked={code} type={"radio"} className={styles.code}
+                     onChange={() => handleCodeChange()}
+              />
+            </div>
+            <div className={styles.innerCode}>
+              <p>Разметка данных для химии</p>
+              <input checked={mark} type={"radio"} className={styles.code}
+                     onChange={() => handleChemMarkUp()}
+              />
+            </div>
           </div>
           {code ?
               (<>
@@ -152,38 +170,45 @@ const ManyAnswerTask = ({ hackathonId, task, info }) => {
                   }
                 </div>
                 <div>
-                    <p>{lang}</p>
-                    <CTextArea
-                        inner={`${t("HackathonEditPage.enter-code")}`}
-                        type={"text"}
-                        name={"description"}
-                        value={codeInput}
-                        onChange={(e) => changeCodeHandler(e)}
-                    />
-                    {darkMode ? (
-                        <SyntaxHighlighter  language={`'${lang}'`} style={dracula} customStyle={{ fontSize: '20px'}}>
-                          {codeInput}
-                          {/*{'console.log(Hello)'}*/}
-                        </SyntaxHighlighter>
-                    ) : (
-                        <SyntaxHighlighter language={`'${lang}'`}  style={prism}
-                                           customStyle={{fontSize: '20px', backgroundColor: 'white'}}>
-                          {/*{'console.log(Hello)'}*/}
-                          {codeInput}
-                        </SyntaxHighlighter>
-                    )}
+                  <p>{lang}</p>
+                  <CTextArea
+                      inner={`${t("HackathonEditPage.enter-code")}`}
+                      type={"text"}
+                      name={"description"}
+                      value={codeInput}
+                      onChange={(e) => changeCodeHandler(e)}
+                  />
+                  {darkMode ? (
+                      <SyntaxHighlighter language={`'${lang}'`} style={dracula} customStyle={{fontSize: '20px'}}>
+                        {codeInput}
+                        {/*{'console.log(Hello)'}*/}
+                      </SyntaxHighlighter>
+                  ) : (
+                      <SyntaxHighlighter language={`'${lang}'`} style={prism}
+                                         customStyle={{fontSize: '20px', backgroundColor: 'white'}}>
+                        {/*{'console.log(Hello)'}*/}
+                        {codeInput}
+                      </SyntaxHighlighter>
+                  )}
                 </div>
               </>) : (
-            <CTextArea
-            inner={`${t("HackathonEditPage.enter-description")}`}
-          type={"text"}
-          name={"description"}
-          value={taskDescription}
-          onChange={(e) => changeDescriptionHandler(e)}
-        />
-            )
+                  <CTextArea
+                      inner={`${t("HackathonEditPage.enter-description")}`}
+                      type={"text"}
+                      name={"description"}
+                      value={taskDescription}
+                      onChange={(e) => changeDescriptionHandler(e)}
+                  />
+              )
           }
+          <div className={styles.link}><label>Link</label> <InfoTooltip
+              text="Add useful link if you need, if you don't - leave field empty"/></div>
 
+          <input
+              value={link}
+              onChange={(e) => changeLinkHandler(e)}
+              placeholder='Link'
+          />
           <label>{t("HackathonEditPage.scores")}</label>
           <input
               className={styles.taskInput}
@@ -204,14 +229,16 @@ const ManyAnswerTask = ({ hackathonId, task, info }) => {
   );
 };
 
-ManyAnswerTask.propTypes = {
+FileAnswerTask.propTypes = {
   hackathonId: PropTypes.string,
   task: PropTypes.shape({
     answers: PropTypes.object,
     name: PropTypes.string,
     description: PropTypes.string,
     maxScore: PropTypes.number,
+    link:PropTypes.string,
+    isJSONchem: PropTypes.bool
   }),
 };
 
-export default ManyAnswerTask;
+export default FileAnswerTask;

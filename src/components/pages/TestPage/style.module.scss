@@ -81,3 +81,42 @@
     font-size: 25px;
   }
 }
+.linkContainer {
+  position: relative;
+  transition: all .3s ease;
+  width: fit-content;
+}
+
+.linkContainer {
+  position: relative;
+}
+
+.link {
+  color: white;
+  background-color: #97abdf;
+  width: fit-content;
+  padding-inline: 10px;
+  border-radius: 20px;
+  font-size: 18px;
+}
+
+.tooltip {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  height: fit-content;
+  word-break: break-word;
+  width: 100%;
+  background-color: $dark-light-violet-color;
+  color: white;
+  border-radius: 20px;
+  z-index: 999;
+  display: none;
+  padding: 20px;
+  transition: all .3s ease;
+  cursor: default;
+}
+
+.linkContainer:hover .tooltip {
+  display: block; 
+}

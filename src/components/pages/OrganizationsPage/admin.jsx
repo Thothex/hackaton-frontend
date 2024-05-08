@@ -23,6 +23,7 @@ const Admin = () =>{
                         margin: "0",
                         colorFillQuaternary: "rgba(150, 171, 223, 0.25)",
                         colorTextBase: "rgba(113, 128, 150, 1)",
+                        borderRadius:20
                     },
                 }}
             >

@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import React, { useEffect, useRef, useState } from "react";
+import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import categor from '../../../assets/hackathonPageIcons/categor.svg';
@@ -19,6 +19,7 @@ import screenfull from "screenfull";
 import DashboardFloatingButton from "@/components/DashboardFloatingButton";
 import Icons from "@/constants/icons";
 import HackatonDate from "@/components/HackatonDate/index.jsx";
+import {createTeam, getTeamInfo} from "@/redux/features/teamSlice.js";
 
 const HackathonPage = () => {
   const { t } = useTranslation();
@@ -26,10 +27,11 @@ const HackathonPage = () => {
   const user = useSelector((state) => state.userStore.userInfo);
   const { id } = useParams();
   const dispatch = useDispatch();
-
+  const [teamName, setTeamName] = useState("");
   const hackathon = useSelector((state) => state.hackathons.hackathon);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const iframeRef = useRef(null);
+  const [newTeamId, setNewTeamId] = useState(null);
 
   useEffect(() => {
     dispatch(fetchHackathonById(id));
@@ -45,22 +47,16 @@ const HackathonPage = () => {
       setIsFullscreen((prevState) => !prevState);
     }
   };
+  const isOrg = useMemo(() => user.isOrg && user?.id === hackathon?.organizer_id, [user, hackathon]);
+  const isEmployeeOrg = useMemo(() => !!hackathon?.organizations.find((hack) => hack.name === user?.organization), [hackathon, user]);
 
-  if (!hackathon) {
-    return <Loading />;
-  }
 
-  const isOrg = user.isOrg && user.id === hackathon.organizer_id;
+  const currentDate = useMemo(() => new Date(), []);
+  const endDate = useMemo(() => new Date(hackathon?.end), [hackathon?.end]);
+  const startDate = useMemo(() => new Date(hackathon?.start), [hackathon?.start]);
 
-  const isEmployeeOrg = !!hackathon?.organizations.find(
-    (hack) => hack.name === user?.organization
-  );
 
-  const currentDate = new Date();
-  const endDate = new Date(hackathon.end);
-  const startDate = new Date(hackathon.start);
-
-  const [level, organization] = hackathon.audience
+  const [level, organization] = hackathon?.audience
     ? hackathon.audience.split(",")
     : ["", ""];
   let status;
@@ -73,27 +69,55 @@ const HackathonPage = () => {
     status = "Finished";
   }
 
-  const formattedStartDate = startDate.getDate();
-  const startMonth = startDate.toLocaleString("en-US", { month: "long" });
-  const formattedEndDate = endDate.getDate();
-  const yearStart = startDate.getFullYear();
-  const yearEnd = endDate.getFullYear();
-
-  const endMonth = endDate.toLocaleString("en-US", { month: "long" });
-
-  const handleEndHackathon = () => {
+  const handleEndHackathon = useCallback(() => {
     dispatch(putHackathon({ ...hackathon, status: "Finished" }));
-  };
+  }, [dispatch, hackathon]);
 
-  const handleStartHackathon = () => {
+
+  const handleCreateTeam = useCallback(async () => {
+    try {
+      if(user?.role !== 'admin'){
+
+      const {
+        payload: { id: newTeamId },
+      } = await dispatch(
+          createTeam({
+            name: teamName ? teamName : `${user?.username} - ${hackathon?.id}`,
+            hackathonId: id,
+          })
+      );
+      setNewTeamId(newTeamId);
+      dispatch(getTeamInfo({ hackathonId: id, userId: user?.id }));
+      return newTeamId;
+      }
+    } catch (error) {
+      console.error("Failed to create team:", error);
+    }
+
+  }, [dispatch, hackathon?.id, id, teamName, user.username]);
+
+  const createMetaTeam = useCallback(async () => {
+    await handleCreateTeam(user.username);
+  }, [handleCreateTeam, user.username]);
+
+  const handleStartHackathon = useCallback(() => {
     if (user?.role) {
-      navigate(`/hackathon/${hackathon.id}/start`);
+      if (hackathon?.type === 'person') {
+        createMetaTeam();
+        setTeamName(`${user?.username} - ${hackathon?.id}`);
+      }
+      navigate(`/hackathon/${hackathon?.id}/start`);
     } else {
       navigate("/login");
     }
-  };
+  }, [createMetaTeam, hackathon?.id, hackathon?.type, navigate, user?.role, user.username]);
 
-  const currentLocation = window.location.origin;
+  const currentLocation = useMemo(() => window.location.origin, []);
+
+  if (!hackathon) {
+    return <Loading />;
+  }
+
   return (
     <div className={styles.hackathonPage}>
       <div
@@ -129,15 +153,15 @@ const HackathonPage = () => {
         >
           {t(`HomePage.${status}`)}
         </h3>
-        <h3 className={styles.area}>
-          {t(`ProfilePage.categories.${hackathon.category.name.toLowerCase()}`)}
-        </h3>
+        {/*<h3 className={styles.area}>*/}
+        {/*  {t(`ProfilePage.categories.${hackathon.category.name.toLowerCase()}`)}*/}
+        {/*</h3>*/}
         <h3 className={styles.type}>
-          {t(`HackathonPage.type.${hackathon.type.toLowerCase()}`)}
+          {t(`HackathonPage.type.${hackathon?.type.toLowerCase()}`)}
         </h3>
         </div>
           </div>
-          <HackatonDate props={{ end: hackathon.end, start: hackathon.start }} />
+          <HackatonDate props={{ end: hackathon?.end, start: hackathon?.start }} />
         </div>
       </div>
       <div
@@ -155,7 +179,7 @@ const HackathonPage = () => {
           <div className={styles.icons}>
             <img src={organiz} alt='icon'/>
           </div>
-          <Link to={`/organizations/${hackathon.organizer_id}`}>
+          <Link to={`/organizations/${hackathon?.organizer_id}`}>
           <div className={styles.infowrap}>
             <h3 className={styles.month}>{t(`HackathonPage.sponsor`)}</h3>
             <h3 className={styles.date}>
@@ -213,7 +237,7 @@ const HackathonPage = () => {
                 <ul>
                   <h3 className={styles.avialable}>Avaliable for participants from the following organizations:</h3>
                   {hackathon.organizations.map((org) => (
-                      <div key={org.id} className={styles.hackathonPanelOrganization}>
+                      <div key={org?.id} className={styles.hackathonPanelOrganization}>
                         {org.name}
                       </div>
                   ))}

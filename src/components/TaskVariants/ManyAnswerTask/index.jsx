@@ -15,6 +15,7 @@ import Loading from "@/components/Loading";
 import languages from "@/assets/highlihtLang/index.js";
 import {Prism as SyntaxHighlighter} from "react-syntax-highlighter";
 import {dracula, prism} from "react-syntax-highlighter/dist/cjs/styles/prism/index.js";
+import InfoTooltip from "@/components/InfoTooltip/index.jsx";
 
 
 const ManyAnswerTask = ({ hackathonId, task, info }) => {
@@ -29,10 +30,16 @@ const ManyAnswerTask = ({ hackathonId, task, info }) => {
   const [taskDescription, setTaskDescription] = useState(
     task.description || ""
   );
+  const [link, setLink] = useState('');
   const [ hasUnsavedChanges, setHasUnsavedChanges] = useState(false)
   const [taskScore, setTaskScore] = useState(task.maxScore);
 
   const dispatch = useDispatch();
+
+  const changeLinkHandler =(e)=>{
+    setLink(e.target.value)
+  }
+
 
   useEffect(() => {
     setAnswers(task.answers);
@@ -133,6 +140,7 @@ const ManyAnswerTask = ({ hackathonId, task, info }) => {
           name: taskText,
           description: taskDescription,
           type: "many-answers",
+          link:link
         },
       })
     );
@@ -145,139 +153,148 @@ const ManyAnswerTask = ({ hackathonId, task, info }) => {
 
   if (!answers) return <Loading />;
   return (
-    <div className={taskContainerClass}>
-      <div>
-        <div className={styles.deleteBtnContainer}>
+      <div className={taskContainerClass}>
+        <div>
+          <div className={styles.deleteBtnContainer}>
           <span className={styles.typeTask}>
             {t("HackathonEditPage.multiple-answers")}
           </span>
-          <button className={styles.close} onClick={deleteHandler}>
-            <img src={close} alt="close" className={styles.icon} />
-          </button>
-        </div>
-        <label>{t("HackathonEditPage.title")}</label>
-        <input
-          value={taskText}
-          onChange={(e) => changeTitleHandler(e)}
-          placeholder={`${t("HackathonEditPage.enter-title")}`}
-        />
-        <div className={styles.codeContainer}>
-          <h4>{t("HackathonEditPage.description")}</h4>
-          <div className={styles.innerCode}>
-            <p>code</p>
-            <input checked={code} type={"radio"} className={styles.code}
-                   onClick={() => handleCodeChange()}
-            />
-          </div>
-        </div>
-        {code ?
-            (<>
-              <input
-                  value={lang}
-                  onChange={(e) => handleInputChange(e)}
-                  placeholder={t("HackathonEditPage.choose-language")}
-                  className={styles.langInput}
-                  autoComplete="off"
-              />
-              <div className={styles.autocompleteContainer}>
-                {
-                  <ul className={styles.autocompleteList}>
-                    {filteredLanguages.map((language) => (
-                        <li
-                            key={language.value}
-                            onClick={() => handleUserClick(language)}
-                            className={styles.autocompleteItem}
-                        >
-                          {language.label}
-                        </li>
-                    ))}
-                  </ul>
-                }
-              </div>
-              <div>
-                <p>{lang}</p>
-                <CTextArea
-                    inner={`${t("HackathonEditPage.enter-code")}`}
-                    type={"text"}
-                    name={"description"}
-                    value={codeInput}
-                    onChange={(e) => changeCodeHandler(e)}
-                />
-                {darkMode ? (
-                    <SyntaxHighlighter  language={`'${lang}'`} style={dracula} customStyle={{ fontSize: '20px'}}>
-                      {codeInput}
-                      {/*{'console.log(Hello)'}*/}
-                    </SyntaxHighlighter>
-                ) : (
-                    <SyntaxHighlighter language={`'${lang}'`}  style={prism}
-                                       customStyle={{fontSize: '20px', backgroundColor: 'white'}}>
-                      {/*{'console.log(Hello)'}*/}
-                      {codeInput}
-                    </SyntaxHighlighter>
-                )}
-              </div>
-            </>) : (
-                <CTextArea
-                    inner={`${t("HackathonEditPage.enter-description")}`}
-                    type={"text"}
-                    name={"description"}
-                    value={taskDescription}
-                    onChange={(e) => changeDescriptionHandler(e)}
-                />
-            )
-        }
-        <label>{t("HackathonEditPage.scores")}</label>
-        <input
-          className={styles.taskInput}
-          onChange={(e) => changeScoreHandler(e)}
-          type="number"
-          value={taskScore || 0}
-          placeholder={`${t("HackathonEditPage.enter-scores")}`}
-        />
-      </div>
-      <label>{t("HackathonEditPage.answer-variant")}</label>
-      {Object.keys(answers).map((uuid) => {
-        return (
-          <div className={styles.answerInputBlock} key={uuid}>
-            <input
-              onChange={answerEditHandler}
-              className={styles.taskInput}
-              value={answers[uuid].text}
-              placeholder={`${t("HackathonEditPage.enter-answer-variant")}`}
-              data-uuid={uuid}
-            />
-            <Checkbox
-              className={styles.checkboxLabelRight}
-              onChange={(e) => onChangeRightAnswer(e, uuid)}
-              checked={answers[uuid].isRight}
-            >
-              <div className={styles.checkboxLabelRight}>
-                {t("HackathonEditPage.right-answer")}
-              </div>
-            </Checkbox>
-            <button
-              onClick={() => removeAnswerVariant(uuid)}
-              className={styles.deleteBtn}
-            >
-              <img src={remove} alt="delete" />
+            <button className={styles.close} onClick={deleteHandler}>
+              <img src={close} alt="close" className={styles.icon}/>
             </button>
           </div>
-        );
-      })}
-      <div className={styles.addNewAnswerBlock}>
-        <button
-          onClick={addAnaserVariantHander}
-          className={styles.addVariantBtn}
-        >
-          <img src={plus} alt="plus" />
-          <span>{t("HackathonEditPage.add-answer-variant")}</span>
-        </button>
-      </div>
-      <div className={styles.addNewAnswerBlock}>
+          <label>{t("HackathonEditPage.title")}</label>
+          <input
+              value={taskText}
+              onChange={(e) => changeTitleHandler(e)}
+              placeholder={`${t("HackathonEditPage.enter-title")}`}
+          />
+          <div className={styles.link}><label>Link</label> <InfoTooltip
+              text="Add useful link if you need, if you don't - leave field empty"/></div>
 
-        <MainButton caption={t("ProfilePage.save")} onClick={saveHander} isDisabled={!hasUnsavedChanges}/>
+          <input
+              value={link}
+              onChange={(e) => changeLinkHandler(e)}
+              placeholder='Link'
+          />
+          <div className={styles.codeContainer}>
+            <h4>{t("HackathonEditPage.description")}</h4>
+
+            <div className={styles.innerCode}>
+              <p>code</p>
+              <input checked={code} type={"radio"} className={styles.code}
+                     onClick={() => handleCodeChange()}
+              />
+            </div>
+          </div>
+          {code ?
+              (<>
+                <input
+                    value={lang}
+                    onChange={(e) => handleInputChange(e)}
+                    placeholder={t("HackathonEditPage.choose-language")}
+                    className={styles.langInput}
+                    autoComplete="off"
+                />
+                <div className={styles.autocompleteContainer}>
+                  {
+                    <ul className={styles.autocompleteList}>
+                      {filteredLanguages.map((language) => (
+                          <li
+                              key={language.value}
+                              onClick={() => handleUserClick(language)}
+                              className={styles.autocompleteItem}
+                          >
+                            {language.label}
+                          </li>
+                      ))}
+                    </ul>
+                  }
+                </div>
+                <div>
+                  <p>{lang}</p>
+                  <CTextArea
+                      inner={`${t("HackathonEditPage.enter-code")}`}
+                      type={"text"}
+                      name={"description"}
+                      value={codeInput}
+                      onChange={(e) => changeCodeHandler(e)}
+                  />
+                  {darkMode ? (
+                      <SyntaxHighlighter language={`'${lang}'`} style={dracula} customStyle={{fontSize: '20px'}}>
+                        {codeInput}
+                        {/*{'console.log(Hello)'}*/}
+                      </SyntaxHighlighter>
+                  ) : (
+                      <SyntaxHighlighter language={`'${lang}'`} style={prism}
+                                         customStyle={{fontSize: '20px', backgroundColor: 'white'}}>
+                        {/*{'console.log(Hello)'}*/}
+                        {codeInput}
+                      </SyntaxHighlighter>
+                  )}
+                </div>
+              </>) : (
+                  <CTextArea
+                      inner={`${t("HackathonEditPage.enter-description")}`}
+                      type={"text"}
+                      name={"description"}
+                      value={taskDescription}
+                      onChange={(e) => changeDescriptionHandler(e)}
+                  />
+              )
+          }
+          <label>{t("HackathonEditPage.scores")}</label>
+          <input
+              className={styles.taskInput}
+              onChange={(e) => changeScoreHandler(e)}
+              type="number"
+              value={taskScore || 0}
+              placeholder={`${t("HackathonEditPage.enter-scores")}`}
+          />
+        </div>
+        <label>{t("HackathonEditPage.answer-variant")}</label>
+        {Object.keys(answers).map((uuid) => {
+          return (
+              <div className={styles.answerInputBlock} key={uuid}>
+                <input
+                    onChange={answerEditHandler}
+                    className={styles.taskInput}
+                    value={answers[uuid].text}
+                    placeholder={`${t("HackathonEditPage.enter-answer-variant")}`}
+                    data-uuid={uuid}
+                />
+                <Checkbox
+                    className={styles.checkboxLabelRight}
+                    onChange={(e) => onChangeRightAnswer(e, uuid)}
+                    checked={answers[uuid].isRight}
+                >
+                  <div className={styles.checkboxLabelRight}>
+                    {t("HackathonEditPage.right-answer")}
+                  </div>
+                </Checkbox>
+                <button
+                    onClick={() => removeAnswerVariant(uuid)}
+                    className={styles.deleteBtn}
+                >
+                  <img src={remove} alt="delete"/>
+                </button>
+              </div>
+          );
+        })}
+        <div className={styles.addNewAnswerBlock}>
+          <button
+              onClick={addAnaserVariantHander}
+              className={styles.addVariantBtn}
+          >
+            <img src={plus} alt="plus"/>
+            <span>{t("HackathonEditPage.add-answer-variant")}</span>
+          </button>
+        </div>
+        <div className={styles.addNewAnswerBlock}>
+
+          <MainButton caption={t("ProfilePage.save")} onClick={saveHander} isDisabled={!hasUnsavedChanges}/>
+        </div>
       </div>
-    </div>
   );
 };
 

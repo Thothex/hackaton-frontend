@@ -12,6 +12,7 @@ import Loading from "@/components/Loading";
 import languages from "@/assets/highlihtLang/index.js";
 import {Prism as SyntaxHighlighter} from "react-syntax-highlighter";
 import {dracula, prism} from "react-syntax-highlighter/dist/cjs/styles/prism/index.js";
+import InfoTooltip from "@/components/InfoTooltip/index.jsx";
 
 const OneInputTask = ({ hackathonId, task, info }) => {
   const { t } = useTranslation();
@@ -27,7 +28,7 @@ const OneInputTask = ({ hackathonId, task, info }) => {
   );
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [taskScore, setTaskScore] = useState(task.maxScore);
-
+  const [link, setLink] = useState('');
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -54,6 +55,10 @@ const OneInputTask = ({ hackathonId, task, info }) => {
     setCodeInput(e.target.value);
     setHasUnsavedChanges(true);
   };
+
+  const changeLinkHandler =(e)=>{
+    setLink(e.target.value)
+  }
 
   const handleUserClick = (language) => {
     setLang(language.value);
@@ -89,6 +94,7 @@ const OneInputTask = ({ hackathonId, task, info }) => {
           name: taskText,
           description: taskDescription,
           type: "input",
+          link:link
         },
       })
     );
@@ -161,12 +167,12 @@ const OneInputTask = ({ hackathonId, task, info }) => {
                     onChange={(e) => changeCodeHandler(e)}
                 />
                 {darkMode ? (
-                    <SyntaxHighlighter  language={`'${lang}'`} style={dracula} customStyle={{ fontSize: '20px'}}>
+                    <SyntaxHighlighter language={`'${lang}'`} style={dracula} customStyle={{fontSize: '20px'}}>
                       {codeInput}
                       {/*{'console.log(Hello)'}*/}
                     </SyntaxHighlighter>
                 ) : (
-                    <SyntaxHighlighter language={`'${lang}'`}  style={prism}
+                    <SyntaxHighlighter language={`'${lang}'`} style={prism}
                                        customStyle={{fontSize: '20px', backgroundColor: 'white'}}>
                       {/*{'console.log(Hello)'}*/}
                       {codeInput}
@@ -182,7 +188,15 @@ const OneInputTask = ({ hackathonId, task, info }) => {
                     onChange={(e) => changeDescriptionHandler(e)}
                 />
             )
+
         }
+        <div className={styles.link}><label>Link</label> <InfoTooltip text="Add useful link if you need, if you don't - leave field empty"/> </div>
+
+        <input
+            value={link}
+            onChange={(e) => changeLinkHandler(e)}
+            placeholder='Link'
+        />
         <label>{t("HackathonEditPage.scores")}</label>
         <input
             className={styles.taskInput}

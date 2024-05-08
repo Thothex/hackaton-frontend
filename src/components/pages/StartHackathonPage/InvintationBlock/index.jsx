@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 import mockPic from "../../../../assets/avatar.png";
+import React, {useMemo} from "react";
 
 const InvintationBlock = ({
   styles,
@@ -113,4 +114,4 @@ InvintationBlock.propTypes = {
   person: PropTypes.bool,
 };
 
-export default InvintationBlock;
+export default React.memo(InvintationBlock);

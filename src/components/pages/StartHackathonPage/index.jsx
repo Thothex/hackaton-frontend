@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import React, { useEffect, useState } from "react";
+import React, {Suspense, useEffect, useState} from "react";
 import { useTranslation } from "react-i18next";
 import { fetchHackathonById } from "@/redux/features/hackathonsSlice.js";
 import styles from "./style.module.scss";
@@ -14,6 +14,8 @@ import InvintationBlock from "./InvintationBlock";
 import Loading from "@/components/Loading";
 import CountdownTimer from "@/components/CountdownTimer/index.jsx";
 import Icons from "@/constants/icons";
+import LeaderBoard from "@/components/pages/StartHackathonPage/LeaderBoard/index.jsx";
+const LazyLeaderBoard = React.lazy(() => import("@/components/pages/StartHackathonPage/LeaderBoard/index.jsx"));
 
 const StartHackathonPage = () => {
   const { t } = useTranslation();
@@ -30,6 +32,8 @@ const StartHackathonPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const hasTeam = !!teamInfo?.team?.id
+
+
 
   useEffect(() => {
     setLoading(true);
@@ -112,7 +116,7 @@ const StartHackathonPage = () => {
     : [];
 
   useEffect(() => {
-    if (user.id && hackathon.organizer_id) {
+    if (user.id && hackathon?.organizer_id) {
       const isEmployeeOrg = !!hackathon?.organizations.find(
         (hack) => hack.name === user?.organization
       );
@@ -136,38 +140,9 @@ const StartHackathonPage = () => {
     setSearchTerm("");
   };
 
-  const handleCreateTeam = async () => {
-    try {
-      const {
-        payload: { id: newTeamId },
-      } = await dispatch(
-        createTeam({
-          name: teamName ? teamName : `${user.username} - ${hackathon.id}`,
-          hackathonId: id,
-        })
-      );
-      setNewTeamId(newTeamId);
-      dispatch(getTeamInfo({ hackathonId: id, userId: user.id }));
-      return newTeamId;
-    } catch (error) {
-      console.error("Failed to create team:", error);
-    }
-  };
-
-  const createMetaTeam = async () => {
-    await handleCreateTeam(user.username);
-  };
 
   const handleStart = async () => {
-    if (!person) {
-      handleTasksClick();
-    } else {
-      if (!hasTeam) {
-        await createMetaTeam();
-        setTeamName(`${user.username} - ${hackathon.id}`);
-      }
-      handleTasksClick();
-    }
+    handleTasksClick();
   };
   const handleSendInvite = async () => {
     try {
@@ -188,6 +163,8 @@ const StartHackathonPage = () => {
   const handleTasksClick = () => {
     navigate(`/hackathon/${id}/tasks`);
   };
+
+
 
   if (!hackathon || loading) {
     return <Loading />;
@@ -267,34 +244,43 @@ const StartHackathonPage = () => {
             <h2>{t("HackathonTeamPage.Rules of participation")}</h2>
             <p>{hackathon.rules}</p>
           </div>
+          <div className={styles.toTaskCont}>
+            {!now && (teamInfo?.teamUsers?.length > 0) && (
+                <div className={styles.pic} onClick={handleStart}>
+                  <button className={styles.takePartBTN}>
+                   to tasks
+                  </button>
+                </div>
+            )}
+          </div>
         </div>
-
+<div className={styles.lowercontainer}>
         <div className={styles.teamContainer}>
           <div className={styles.team}>
-            {teamInfo?.team ? (
-              // <h2>Your team is: {teamInfo.team.name}</h2>
-              <></>
-            ) : (
-                now ? (
-                    <div className={styles.createTeam}>
-                      <h2>{t("HackathonTeamPage.Gather your team!")}
-                      </h2>
-                      <p>Even if hackathon is person</p>
-                      <form onSubmit={handleCreateTeam}>
-                        <input
-                            placeholder={t("HackathonTeamPage.Name your team")}
-                            value={teamName}
-                            onChange={(e) => setTeamName(e.target.value)}
-                        />
-                        <button type="submit">{t("HackathonTeamPage.Save")}</button>
-                      </form>
-                    </div>
-                ):(
-                  <></>
-                )
+            {/*{teamInfo?.team ? (*/}
+            {/*  // <h2>Your team is: {teamInfo.team.name}</h2>*/}
+            {/*  <></>*/}
+            {/*) : (*/}
+            {/*    now ? (*/}
+            {/*        <div className={styles.createTeam}>*/}
+            {/*          <h2>{t("HackathonTeamPage.Gather your team!")}*/}
+            {/*          </h2>*/}
+            {/*          <p>Even if hackathon is person</p>*/}
+            {/*          <form onSubmit={handleCreateTeam}>*/}
+            {/*            <input*/}
+            {/*                placeholder={t("HackathonTeamPage.Name your team")}*/}
+            {/*                value={teamName}*/}
+            {/*                onChange={(e) => setTeamName(e.target.value)}*/}
+            {/*            />*/}
+            {/*            <button type="submit">{t("HackathonTeamPage.Save")}</button>*/}
+            {/*          </form>*/}
+            {/*        </div>*/}
+            {/*    ):(*/}
+            {/*      <></>*/}
+            {/*    )*/}
 
-            )}
-            {teamInfo?.teamUsers?.length > 0 && (
+            {/*)}*/}
+            {teamInfo?.teamUsers?.length > 0 ? (
               <InvintationBlock
                 styles={styles}
                 teamInfo={teamInfo}
@@ -307,16 +293,17 @@ const StartHackathonPage = () => {
                 now={now}
                 person={person}
               />
+            ): (
+                <p>вы орг сейчас</p>
             )}
           </div>
-          {!now && (teamInfo?.teamUsers?.length > 0 || person) && (
-              <div className={styles.pic} onClick={handleStart}>
-                <button className={styles.takePartBTN}>
-                  {t(`HackathonPage.TAKE PART`)}
-                </button>
-              </div>
-          )}
         </div>
+  {(teamInfo?.teamUsers?.length > 0 || user?.role === 'admin') && !now && (
+  <Suspense fallback={<Loading />}>
+    <LazyLeaderBoard hackathonId={hackathon.id}/>
+  </Suspense>
+  )}
+      </div>
       </div>
     </div>
   );
