@@ -7,8 +7,9 @@ const DashboardFloatingButton = ({onClick}) => {
   return (
     <div className={styles.floatingWrapper}>
       <div onClick={onClick}>
-      <img className={styles.icon} src={dashboardIcon} alt='dashboard' />
-      </div>  
+      {/*<img className={styles.icon} src={dashboardIcon} alt='dashboard' />*/}
+          open fullscreen online leaderboard
+      </div>
     </div>
   );
 };

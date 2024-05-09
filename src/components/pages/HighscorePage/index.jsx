@@ -44,8 +44,20 @@ const HighscorePage = () => {
 
   const columns = [
     {
+      title: t("HighscorePage.place"),
+      dataIndex: "index",
+      key: "index",
+      align: 'center',
+      render: (text, record, index) => <span>{index + 1}</span>, // Индекс начинается с 1, а не с 0
+      width: '10%',
+    },
+    {
+      title: t("HighscorePage.name"),
       dataIndex: "username",
       key: "username",
+      align:'left',
+      width: '20%',
+      minWidth:'fitContent',
       render: (text, record) => (
           <Tooltip
               align={{
@@ -63,14 +75,15 @@ const HighscorePage = () => {
       ),
     },
     {
-      title: "",
+      title: t("HighscorePage.score"),
       dataIndex: "progress",
       key: "progress",
+      align:'left',
       render: (text, record) => (
           <Progress
               percent={(record.score * 100) / maxHighscores.maxScore}
               strokeColor={twoColors}
-              size={[300, 30]}
+              size={['100%', 30]}
               format={() => ` ${record.score}`}
           />
       ),
@@ -105,7 +118,7 @@ const HighscorePage = () => {
         >
         <Table columns={columns} dataSource={data}
                style={{width:'100%'}}
-               pagination={false} />
+                />
         </ConfigProvider>
         {!!maxHighscores.maxScoreOrg && (
             <ConfigProvider

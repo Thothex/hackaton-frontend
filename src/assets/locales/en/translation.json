@@ -11,6 +11,8 @@
     "label-stat": "Your hackathons",
     "year": "year",
     "About ranks": "About ranks",
+    "newRank": "New rank",
+    "yourNewRank": "Your new rank is:",
     "months": {
       "January": "January",
       "February": "February",
@@ -188,6 +190,8 @@
     "delete": "DELETE"
   },
   "HackathonPage": {
+    "isOver": "Hackathon is over :(",
+    "availableFor": "Available for participants from the following organizations:",
     "Welcome to the hackathon": "Welcome to the hackathon",
     "All ages": "All ages",
     " artists and creatives": "artists and creatives",
@@ -243,6 +247,7 @@
     "Hackathon end": "Count points"
   },
   "HackathonTeamPage": {
+    "notAllowed": "Participation in that hackathon is not allowed for you",
     "Hackathon has not started yet. Please wait until it starts on": "Hackathon has not started yet. Please wait until it starts on",
     "Error": "Error",
     "Name your team": "Name your team",
@@ -272,6 +277,9 @@
     "Enter answer here": "Enter answer here"
   },
   "HighscorePage": {
+    "place": "Place",
+    "name": "Username",
+    "score": "Score",
     "Users highscore": "Users highscore",
     "Organizations highscore": "Organizations highscore"
   },

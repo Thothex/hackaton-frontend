@@ -1,21 +1,29 @@
 import styles from '../style.module.scss'
-import { Progress } from "antd";
+import {ConfigProvider, Modal, Progress, Tabs} from "antd";
 import avatar from "@/assets/avatar.png";
-import React from "react";
-
+import React, {Suspense, useState} from "react";
+import Loading from "@/components/Loading/index.jsx";
+import './index.css';
 const Activity = ({ stat }) => {
 
     const teamsPages = stat?.teams?.map(team => {
+        // Проверяем, есть ли хотя бы один элемент существующего массива answers у текущей команды
+        const hasPages = team.answers && team.answers.some(answer => answer.pages !== undefined);
+        // Если есть страницы, записываем значение pages из первого элемента answers, где это свойство определено
+        const pages = hasPages ? team.answers.find(answer => answer.pages !== 0)?.pages : 0;
+
         return {
             name: team.name,
             users: team.users,
-            pages: team?.answers && team?.answers?.length > 0 ? team?.answers[0]?.pages : 0
+            pages: pages
         };
     });
 
-    const sortedFive = teamsPages?.sort((a, b) => b.pages - a.pages || b.answers?.length - a.answers?.length).slice(0, 5);
+    const sortedFive = teamsPages?.sort((a, b) => b.pages - a.pages || (b.answers?.length || 0) - (a.answers?.length || 0)).slice(0, 5);
 
     const maxPages = sortedFive?.length > 0 ? sortedFive[0].pages : 0;
+
+    console.log(teamsPages, sortedFive, maxPages, stat);
 
     return (
         <div className={styles.leaderboard}>

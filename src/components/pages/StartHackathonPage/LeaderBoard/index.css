@@ -1,0 +1,7 @@
+.ant-modal{
+    width: 100vw !important;
+
+}
+.ant-modal-content{
+    background-color: transparent !important;
+}

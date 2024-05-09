@@ -29,24 +29,12 @@ const HackathonPage = () => {
   const dispatch = useDispatch();
   const [teamName, setTeamName] = useState("");
   const hackathon = useSelector((state) => state.hackathons.hackathon);
-  const [isFullscreen, setIsFullscreen] = useState(false);
-  const iframeRef = useRef(null);
   const [newTeamId, setNewTeamId] = useState(null);
 
   useEffect(() => {
     dispatch(fetchHackathonById(id));
   }, [dispatch, id]);
-  console.log(hackathon)
-  const toggleFullscreen = () => {
-    if (screenfull.isEnabled) {
-      if (!screenfull.isFullscreen) {
-        screenfull.request(iframeRef.current);
-      } else {
-        screenfull.exit();
-      }
-      setIsFullscreen((prevState) => !prevState);
-    }
-  };
+
   const isOrg = useMemo(() => user.isOrg && user?.id === hackathon?.organizer_id, [user, hackathon]);
   const isEmployeeOrg = useMemo(() => !!hackathon?.organizations.find((hack) => hack.name === user?.organization), [hackathon, user]);
 
@@ -112,7 +100,6 @@ const HackathonPage = () => {
     }
   }, [createMetaTeam, hackathon?.id, hackathon?.type, navigate, user?.role, user.username]);
 
-  const currentLocation = useMemo(() => window.location.origin, []);
 
   if (!hackathon) {
     return <Loading />;
@@ -232,19 +219,20 @@ const HackathonPage = () => {
           <p className={styles.descriptionHac}>{hackathon.description}</p>
         </div>
         <div className={styles.panelLowerRignt}>
-          <div className={styles.organizationsList}>
+          {status !== 'Finished' && <div className={styles.organizationsList}>
             {hackathon.organizations.length >0 &&
                 <ul>
-                  <h3 className={styles.avialable}>Avaliable for participants from the following organizations:</h3>
+                  <h3 className={styles.avialable}>{t("HackathonPage.availableFor")}</h3>
                   {hackathon.organizations.map((org) => (
                       <div key={org?.id} className={styles.hackathonPanelOrganization}>
                         {org.name}
                       </div>
                   ))}
-          </ul>
+                </ul>
             }
-          </div>
-        {status === "Registration is open" && user && (
+          </div>}
+
+        {status === "Registration is open" && user.role ==='user' && (
           <div className={styles.pic} onClick={handleStartHackathon}>
             <button className={styles.takePartBTN}>
               {t(`HackathonPage.TAKE PART`)}
@@ -253,7 +241,6 @@ const HackathonPage = () => {
         )}
         {status === "In progress" &&
           user &&
-          hackathon.organizer_id !== user.id &&
           (hackathon?.organizations.length === 0 || isEmployeeOrg) &&
           user.role && (
             <div className={styles.pic} onClick={handleStartHackathon}>
@@ -264,14 +251,14 @@ const HackathonPage = () => {
           )}
         {status === "Registration is open" && !user?.role && (
           <div className={styles.pic}>
-            <button className={styles.takePartBTN}>
+            <button className={styles.takePartBTN} onClick={()=> navigate('/register')}>
               {t(`HackathonPage.SIGN IN/UP TO TAKE PART`)}
             </button>
           </div>
         )}
-        {status === "In progress" && !user?.role && (
+        {status === "In progress" && !user?.role && hackathon.type ==='person' && (
           <div className={styles.pic}>
-            <button className={styles.takePartBTN}>
+            <button className={styles.takePartBTN} onClick={()=> navigate('/register')}>
               {t(`HackathonPage.SIGN IN/UP TO TAKE PART`)}
             </button>
           </div>
@@ -282,7 +269,7 @@ const HackathonPage = () => {
               disabled={status === "Finished"}
               className={styles.takePartBTN}
             >
-              {t(`HackathonPage.Hackathon is over`)}
+              {t(`HackathonPage.isOver`)}
             </button>
           </div>
         )}
@@ -300,13 +287,6 @@ const HackathonPage = () => {
           )}
         </>
       )}
-      <DashboardFloatingButton onClick={toggleFullscreen} />
-      <div className={styles.iframeWrapper}>
-        <iframe
-          ref={iframeRef}
-          src={`${currentLocation}/dashboard?id=${id}`}
-        />
-      </div>
     </div>
   );
 };

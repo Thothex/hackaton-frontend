@@ -1,6 +1,6 @@
 import './index.scss'
 import { Route, Routes, useLocation } from "react-router-dom";
-import { Button, Modal } from 'antd'
+import {Button, ConfigProvider, Modal} from 'antd'
 import LoginPage from "./components/pages/LoginPage";
 import RegisterPage from "@/components/pages/RegisterPage";
 import HomePage from './components/pages/HomePage';
@@ -32,6 +32,7 @@ import Organization from "@/components/pages/Organization/index.jsx";
 import Molecule from "@/components/Molecule/index.jsx";
 import EnterEmail from "@/components/pages/LoginPage/forgotPassword/email.jsx";
 import RecoverPage from "@/components/pages/LoginPage/forgotPassword/recover.jsx";
+import {t} from "i18next";
 
 
 
@@ -78,7 +79,7 @@ function App() {
   }, [dispatch, userInfo])
 
   useEffect(() => {
-    if (userRankStatus && userRankStatus?.approved === false) {
+    if (userRankStatus && userRankStatus?.approved === false && location.pathname === '/profile') {
       setIsModalOpen(true)
     }
   }, [userRankStatus])
@@ -168,12 +169,29 @@ function App() {
           <Route path='/recover/:email/:token' element={<RecoverPage/>}/>
         </Routes>
       </div>
-      <Modal title="New Rank" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <ConfigProvider
+          theme={{
+            token: {
+              colorPrimary: "#8797c4",
+              backgroundColor: "#f5f7fa",
+              colorBgContainer: "white",
+              margin: "0",
+              colorFillQuaternary: "rgba(150, 171, 223, 0.25)",
+              colorTextBase: "rgba(113, 128, 150, 1)",
+              fontFamily:'Geologica',
+              width:'100%',
+              borderRadius:20,
+              border:'none'
+            },
+          }}
+      >
+      <Modal title={t('ProfilePage.newRank')} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}  footer={null}>
         <div className='flexCenterCol'>
-          <p>Yor new rank: {userRankStatus?.rank}</p>
+          <p>{t('ProfilePage.yourNewRank')} {t(`ProfilePage.ranks.${userRankStatus?.rank}`)}</p>
           {userRankStatus?.rank && <img src={Ranks[userRankStatus?.rank?.toUpperCase()]?.img} alt={userRankStatus?.rank} />}
         </div>
       </Modal>
+      </ConfigProvider>
     </div>
   );
 }

@@ -10,6 +10,8 @@
     "makeOrg": "Чтобы сделать пользователя организатором, назначьте организацию",
     "label-stat": "Статистика",
     "year": "год",
+    "newRank": "Новый ранг",
+    "yourNewRank": "Ваш новый ранг:",
     "months": {
       "January": "Январь",
       "February": "Февраль",
@@ -39,13 +41,13 @@
     "own-rank": "Текущий ранг",
     "popular-categories": "Любимые категории",
     "ranks": {
-      "wooden": "дерево",
-      "iron": "железо",
-      "bronze": "бронза",
-      "silver": "серебро",
-      "gold": "золото",
-      "platinum": "платина",
-      "diamond": "бриллиант"
+      "wooden": "деревянный",
+      "iron": "железный",
+      "bronze": "бронзовый",
+      "silver": "серебряный",
+      "gold": "золотой",
+      "platinum": "платиновый",
+      "diamond": "бриллиантовый"
     },
     "AboutRanks": {
       "from": "от",
@@ -192,8 +194,10 @@
     "delete": "УДАЛИТЬ"
   },
   "HackathonPage": {
+    "isOver": "Хакатон окончен :(",
+    "availableFor": "Доступно для участников из следующих организаций:",
     "Welcome to the hackathon": "Добро пожаловать на хакатон",
-    "All ages": "Любой возвраст",
+    "All ages": "Любой возраст",
     " artists and creatives": "художники и креативщики",
     " lovers of literature and philosophy": "любители литературы и философии",
     "no limit": "Без ограничений",
@@ -247,11 +251,12 @@
     "organization": "Организации",
     "About the hackathon": "О хакатоне",
     "TAKE PART": "УЧАСТВОВАТЬ",
-    "SIGN IN/UP TO TAKE PART": "ЗАРЕГИСТРИРОВАТЬСЯ/ВОЙТИ, ЧТОБЫ УЧАСТВОВАТЬ",
+    "SIGN IN/UP TO TAKE PART": "АВТОРИЗУЙТЕСЬ ДЛЯ УЧАСТИЯ",
     "Hackathon is over :(": "Хакатон закончился :(",
     "Hackathon end": "Подсчет очков"
   },
   "HackathonTeamPage": {
+    "notAllowed": "Вам не доступно участие в этом хакатоне",
     "Hackathon has not started yet. Please wait until it starts on": "Хакатон еще не начался. Пожалуйста, подождите, пока он не начнется",
     "Error": "Ошибка",
     "Name your team": "Введите имя вашей команды",
@@ -281,6 +286,9 @@
     "Enter answer here": "Введите ответ здесь"
   },
   "HighscorePage": {
+    "place": "Место",
+    "name": "Имя пользователя",
+    "score": "Счет",
     "Users highscore": "Рейтинг пользователей",
     "Organizations highscore": "Рейтинг организаций"
   },

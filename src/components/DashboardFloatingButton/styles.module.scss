@@ -5,22 +5,24 @@
   align-items: center;
   bottom: 20px;
   right: 20px;
-  width: 60px;
+  width: fit-content;
   height: 60px;
   border-radius: 30px;
+  padding: 20px;
   z-index: 1000;
   background-color: #7d98e2;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
   cursor: pointer;
+  color: white;
 }
 
 .floatingWrapper:hover{
   background-color: rgb(202, 202, 221);
-  width: 70px;
-  height: 70px;
+  width: fit-content;
+  height: 60px;
   border-radius: 35px;
-} 
+}
 
 .icon {
   width: 30px;

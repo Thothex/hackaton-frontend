@@ -157,9 +157,10 @@ height: fit-content;
   //height: fit-content;
   min-height: 300px;
   border-radius: 20px;
+  gap: 20px;
 }
 .description{
-  width: 65%;
+  width: calc(65% - 10px);
   min-height: 230px;
   max-height: fit-content;
   background-color: white;
@@ -232,9 +233,7 @@ background-color: $light-violet-color;
 }
 .panelClosedContainer{
 
-  .hackathonPanelSMall{
-    scale: 110%;
-  }
+
   .hackathonPanelSMall:hover{
     scale: 110%;
   }
@@ -368,9 +367,8 @@ background-color: $light-violet-color;
 
 }
 .panelLowerRignt{
-  width: calc(35% - 20px);
+  width: calc(35% - 10px);
   height: 100%;
-  margin-left: 20px;
   background-color: white;
   display: flex;
   flex-direction: column;

@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import React, {Suspense, useEffect, useState} from "react";
+import React, {Suspense, useCallback, useEffect, useMemo, useRef, useState} from "react";
 import { useTranslation } from "react-i18next";
 import { fetchHackathonById } from "@/redux/features/hackathonsSlice.js";
 import styles from "./style.module.scss";
@@ -15,6 +15,8 @@ import Loading from "@/components/Loading";
 import CountdownTimer from "@/components/CountdownTimer/index.jsx";
 import Icons from "@/constants/icons";
 import LeaderBoard from "@/components/pages/StartHackathonPage/LeaderBoard/index.jsx";
+import DashboardFloatingButton from "@/components/DashboardFloatingButton/index.jsx";
+import screenfull from "screenfull";
 const LazyLeaderBoard = React.lazy(() => import("@/components/pages/StartHackathonPage/LeaderBoard/index.jsx"));
 
 const StartHackathonPage = () => {
@@ -32,8 +34,11 @@ const StartHackathonPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const hasTeam = !!teamInfo?.team?.id
+  const iframeRef = useRef(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
 
+  const currentLocation = useMemo(() => window.location.origin, []);
 
   useEffect(() => {
     setLoading(true);
@@ -141,6 +146,33 @@ const StartHackathonPage = () => {
   };
 
 
+  const handleCreateTeam = useCallback(async () => {
+    try {
+      if(user?.role !== 'admin'){
+
+        const {
+          payload: { id: newTeamId },
+        } = await dispatch(
+            createTeam({
+              name: teamName ? teamName : `${user?.username} - ${hackathon?.id}`,
+              hackathonId: id,
+            })
+        );
+        setNewTeamId(newTeamId);
+        dispatch(getTeamInfo({ hackathonId: id, userId: user?.id }));
+        return newTeamId;
+      }
+    } catch (error) {
+      console.error("Failed to create team:", error);
+    }
+
+  }, [dispatch, hackathon?.id, id, teamName, user.username]);
+
+  const createMetaTeam = useCallback(async () => {
+    await handleCreateTeam(user.username);
+  }, [handleCreateTeam, user.username]);
+
+
   const handleStart = async () => {
     handleTasksClick();
   };
@@ -193,7 +225,6 @@ const StartHackathonPage = () => {
     //   </div>
     // );
   }
-
   let status;
 
   if (currentDate < startDate) {
@@ -204,6 +235,19 @@ const StartHackathonPage = () => {
     status = "Finished";
   }
   const person = hackathon?.type === 'person';
+
+
+  const toggleFullscreen = () => {
+    if (screenfull.isEnabled) {
+      if (!screenfull.isFullscreen) {
+        screenfull.request(iframeRef.current);
+      } else {
+        screenfull.exit();
+      }
+      setIsFullscreen((prevState) => !prevState);
+    }
+  };
+
   return (
     <div className={styles.hackathonPage}>
       <div
@@ -257,30 +301,29 @@ const StartHackathonPage = () => {
 <div className={styles.lowercontainer}>
         <div className={styles.teamContainer}>
           <div className={styles.team}>
-            {/*{teamInfo?.team ? (*/}
-            {/*  // <h2>Your team is: {teamInfo.team.name}</h2>*/}
-            {/*  <></>*/}
-            {/*) : (*/}
-            {/*    now ? (*/}
-            {/*        <div className={styles.createTeam}>*/}
-            {/*          <h2>{t("HackathonTeamPage.Gather your team!")}*/}
-            {/*          </h2>*/}
-            {/*          <p>Even if hackathon is person</p>*/}
-            {/*          <form onSubmit={handleCreateTeam}>*/}
-            {/*            <input*/}
-            {/*                placeholder={t("HackathonTeamPage.Name your team")}*/}
-            {/*                value={teamName}*/}
-            {/*                onChange={(e) => setTeamName(e.target.value)}*/}
-            {/*            />*/}
-            {/*            <button type="submit">{t("HackathonTeamPage.Save")}</button>*/}
-            {/*          </form>*/}
-            {/*        </div>*/}
-            {/*    ):(*/}
-            {/*      <></>*/}
-            {/*    )*/}
+            {teamInfo?.team ? (
+              // <h2>Your team is: {teamInfo.team.name}</h2>
+              <></>
+            ) : (
+                now && hackathon.type === 'team' ? (
+                    <div className={styles.createTeam}>
+                      <h2>{t("HackathonTeamPage.Gather your team!")}
+                      </h2>
+                      <form onSubmit={handleCreateTeam}>
+                        <input
+                            placeholder={t("HackathonTeamPage.Name your team")}
+                            value={teamName}
+                            onChange={(e) => setTeamName(e.target.value)}
+                        />
+                        <button type="submit">{t("HackathonTeamPage.Save")}</button>
+                      </form>
+                    </div>
+                ):(
+                    <p className={styles.notAllow}>{t("HackathonTeamPage.notAllowed")}</p>
+                )
 
-            {/*)}*/}
-            {teamInfo?.teamUsers?.length > 0 ? (
+            )}
+            {teamInfo?.teamUsers?.length > 0? (
               <InvintationBlock
                 styles={styles}
                 teamInfo={teamInfo}
@@ -293,8 +336,8 @@ const StartHackathonPage = () => {
                 now={now}
                 person={person}
               />
-            ): (
-                <p>вы орг сейчас</p>
+            ):(
+                <></>
             )}
           </div>
         </div>
@@ -305,6 +348,15 @@ const StartHackathonPage = () => {
   )}
       </div>
       </div>
+      {!now && <>
+        <DashboardFloatingButton onClick={toggleFullscreen}/>
+        <div className={styles.iframeWrapper}>
+          <iframe
+              ref={iframeRef}
+              src={`${currentLocation}/dashboard?id=${id}`}
+          />
+        </div>
+      </>}
     </div>
   );
 };
