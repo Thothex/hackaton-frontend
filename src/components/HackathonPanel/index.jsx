@@ -175,12 +175,11 @@ const dispatch = useDispatch();
             contentLabel="Confirm Delete"
             className={styles.modal}
         >
-          <h2>Confirmation</h2>
-          <p className={styles.password}>Password:</p>
+          <h2>{t(`HomePage.Confirmation`)}</h2>
+          <p className={styles.password}>{t(`HomePage.Password`)}</p>
           <h4 className={styles.random}>{generatedPassword}</h4>
           <p>
-            If you are sure you need to delete this hackathon, write this password
-            in the field:
+            {t(`HomePage.needDelete`)}
           </p>
           <input
               type="text"
@@ -188,8 +187,8 @@ const dispatch = useDispatch();
               onChange={(e) => setVerificationPassword(e.target.value)}
           />
           <div className={styles.modalButtons}>
-            <button className={styles.cancelBTN} onClick={() => setIsModalOpen(false)}>Cancel</button>
-            <button className={styles.deleteBTN} onClick={handleDelete}>Delete</button>
+            <button className={styles.cancelBTN} onClick={() => setIsModalOpen(false)}>{t(`HomePage.Cancel`)}</button>
+            <button className={styles.deleteBTN} onClick={handleDelete}>{t(`HomePage.Delete`)}</button>
           </div>
         </Modal>
       </div>

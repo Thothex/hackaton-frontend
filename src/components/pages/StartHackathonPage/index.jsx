@@ -25,7 +25,7 @@ const StartHackathonPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const hackathon = useSelector((state) => state.hackathons.hackathon);
-  const { teamInfo } = useSelector((state) => state.team);
+  const  teamInfo  = useSelector((state) => state.team.teamInfo);
   const { allUsers, userInfo: user } = useSelector((state) => state.userStore);
   const [teamName, setTeamName] = useState("");
   const [inviteEmail, setInviteEmail] = useState("");
@@ -33,10 +33,11 @@ const StartHackathonPage = () => {
   const [newTeamId, setNewTeamId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const hasTeam = !!teamInfo?.team?.id
+  const hasTeam = teamInfo?.team?.name
   const iframeRef = useRef(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
+  console.log('TEAM', teamInfo?.team?.name)
 
   const currentLocation = useMemo(() => window.location.origin, []);
 
@@ -125,12 +126,14 @@ const StartHackathonPage = () => {
       const isEmployeeOrg = !!hackathon?.organizations.find(
         (hack) => hack.name === user?.organization
       );
-      if (
-        user?.id === hackathon?.organizer_id ||
-        (hackathon?.organizations.length > 0 && !isEmployeeOrg)
-      ) {
-        navigate("/hackathon");
-      }
+      // if(!teamInfo?.team){
+      //   if (
+      //       (hackathon?.organizations.length > 0 && !isEmployeeOrg) ||
+      //       user?.role !== 'admin'
+      //   ) {
+      //     navigate("/hackathon");
+      //   }
+      // }
     }
   }, [navigate, user, hackathon]);
 

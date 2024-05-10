@@ -20,6 +20,7 @@ import DashboardFloatingButton from "@/components/DashboardFloatingButton";
 import Icons from "@/constants/icons";
 import HackatonDate from "@/components/HackatonDate/index.jsx";
 import {createTeam, getTeamInfo} from "@/redux/features/teamSlice.js";
+import LeaderBoard from "@/components/pages/StartHackathonPage/LeaderBoard/index.jsx";
 
 const HackathonPage = () => {
   const { t } = useTranslation();
@@ -241,7 +242,7 @@ const HackathonPage = () => {
         )}
         {status === "In progress" &&
           user &&
-          (hackathon?.organizations.length === 0 || isEmployeeOrg) &&
+          (hackathon?.organizations.length === 0 || isEmployeeOrg || user?.role === 'admin') &&
           user.role && (
             <div className={styles.pic} onClick={handleStartHackathon}>
               <button className={styles.takePartBTN}>
@@ -264,6 +265,7 @@ const HackathonPage = () => {
           </div>
         )}
         {status === "Finished" && (
+            <div className={styles.leader}>
           <div className={styles.pic}>
             <button
               disabled={status === "Finished"}
@@ -272,6 +274,8 @@ const HackathonPage = () => {
               {t(`HackathonPage.isOver`)}
             </button>
           </div>
+              <LeaderBoard hackathonId={hackathon.id}/>
+      </div>
         )}
         </div>
       </div>

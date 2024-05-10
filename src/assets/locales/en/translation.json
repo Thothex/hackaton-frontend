@@ -187,7 +187,13 @@
     "Registration is open": "registration is open",
     "In progress": "in progress",
     "Finished": "finished",
-    "delete": "DELETE"
+    "delete": "DELETE",
+    "Confirmation": "Confirmation",
+    "Password": "Password:",
+    "needDelete": "If you are sure you need to delete this hackathon, write this password in the field:",
+    "Cancel": "Cancel",
+    "Delete": "Delete",
+    "fullScreen": "open fullscreen online leaderboard"
   },
   "HackathonPage": {
     "isOver": "Hackathon is over :(",
@@ -244,7 +250,15 @@
     "TAKE PART": "TAKE PART",
     "SIGN IN/UP TO TAKE PART": "SIGN IN/UP TO TAKE PART",
     "Hackathon is over": "Hackathon is over :(",
-    "Hackathon end": "Count points"
+    "Hackathon end": "Count points",
+    "Team": "Team",
+    "Members": "Members",
+    "Pages":"Pages",
+    "Activity": "Activity",
+    "Score": "Score",
+    "Tasks": "Tasks",
+    "More": "More",
+    "leadBoard": "Leaderboard"
   },
   "HackathonTeamPage": {
     "notAllowed": "Participation in that hackathon is not allowed for you",

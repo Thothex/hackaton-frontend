@@ -5,13 +5,14 @@ import Loading from "@/components/Loading/index.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchHackathonStat } from "@/redux/features/hackathonsSlice.js";
 import avatar from "@/assets/avatar.png";
+import {useTranslation} from "react-i18next";
 
 const LazyActivity = React.lazy(() => import("@/components/pages/StartHackathonPage/LeaderBoard/activity.jsx"));
 const LazyScore = React.lazy(() => import("@/components/pages/StartHackathonPage/LeaderBoard/score.jsx"));
 const LazyTask = React.lazy(() => import("@/components/pages/StartHackathonPage/LeaderBoard/tasks.jsx"));
 
 const LeaderBoard = ({ hackathonId }) => {
-    console.log(hackathonId)
+    const { t } = useTranslation();
     const stat = useSelector((state) => state.hackathons.hackathonStat);
     const dispatch = useDispatch();
 
@@ -62,19 +63,19 @@ const LeaderBoard = ({ hackathonId }) => {
                     type="card"
                     items={[
                         {
-                            label: 'Активность',
+                            label: t("HackathonPage.Activity"),
                             key: "1",
                             children: <Suspense fallback={<Loading />}><LazyActivity stat={stat} hackathonId={hackathonId}  /></Suspense>,
                             className: styles.tabFile,
                         },
                         {
-                            label: 'Счет',
+                            label: t("HackathonPage.Score"),
                             key: "2",
                             children: <Suspense fallback={<Loading />}><LazyScore stat={stat} hackathonId={hackathonId}  /></Suspense>,
                             className: styles.tabFile,
                         },
                         {
-                            label: 'Задания',
+                            label: t("HackathonPage.Tasks"),
                             key: "3",
                             children: <Suspense fallback={<Loading />}><LazyTask stat={stat} hackathonId={hackathonId}  /></Suspense>,
                             className: styles.tabFile,
@@ -83,7 +84,7 @@ const LeaderBoard = ({ hackathonId }) => {
                     className={styles.tabsContainer}
                 ></Tabs>
                 <div className={styles.moreContainer}>
-                    <button className={styles.more} onClick={() => setFullScreen(!fullScreen)}>More</button>
+                    <button className={styles.more} onClick={() => setFullScreen(!fullScreen)}>{t("HackathonPage.More")}</button>
                     {fullScreen && (
                         <ConfigProvider
                             theme={{
@@ -113,16 +114,16 @@ const LeaderBoard = ({ hackathonId }) => {
                                     type="card"
                                     items={[
                                         {
-                                            label: 'Активность',
+                                            label: t("HackathonPage.Activity"),
                                             key: "1",
                                             children:
                                                 <div className={styles.leaderboard}>
-                                                    <h3 className={styles.title}>Лидерборд</h3>
+                                                    <h3 className={styles.title}>{t("HackathonPage.leadBoard")}</h3>
                                                     <div className={styles.leaderHeader}>
                                                         <div className={styles.leaderHeaderContainer}>
-                                                            <h6>Team</h6>
-                                                            <h6>Members</h6>
-                                                            <h6>Pages</h6>
+                                                            <h6>{t("HackathonPage.Team")}</h6>
+                                                            <h6>{t("HackathonPage.Members")}</h6>
+                                                            <h6>{t("HackathonPage.Pages")}</h6>
                                                         </div>
                                                     </div>
                                                     {SortedAll.map((team, index) => (
@@ -156,13 +157,13 @@ const LeaderBoard = ({ hackathonId }) => {
                                             className: styles.tabFile,
                                         },
                                         {
-                                            label: 'Счет',
+                                            label: t("HackathonPage.Score"),
                                             key: "2",
                                             children: 'child',
                                             className: styles.tabFile,
                                         },
                                         {
-                                            label: 'Задания',
+                                            label: t("HackathonPage.Tasks"),
                                             key: "3",
                                             children: 'child',
                                             className: styles.tabFile,

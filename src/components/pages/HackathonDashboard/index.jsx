@@ -9,6 +9,7 @@ import CountdownTimer from "@/components/CountdownTimer";
 import { useTranslation } from "react-i18next";
 import NewHachathon from "@/components/NewHachathon/index.jsx";
 import HackathonTasksEdit from "@/components/HackathonTasksEdit/index.jsx";
+import Loading from "@/components/Loading/index.jsx";
 
 const HackathonDashboard = () => {
   const { t } = useTranslation();
@@ -18,6 +19,23 @@ const HackathonDashboard = () => {
   const [chartInstance, setChartInstance] = useState(null);
   const stat = useSelector((state) => state.hackathons.hackathonStat);
   const dispatch = useDispatch();
+  const teamsPages = stat?.teams?.map(team => {
+    const hasPages = team.answers && team.answers.some(answer => answer.pages !== undefined);
+    const pages = hasPages ? team.answers.find(answer => answer.pages !== 0)?.pages : 0;
+
+    return {
+      name: team.name,
+      users: team.users,
+      pages: pages
+    };
+  });
+
+  const sortedFive = teamsPages?.sort((a, b) => b.pages - a.pages || (b.answers?.length || 0) - (a.answers?.length || 0));
+
+  const maxPages = sortedFive?.length > 0 ? sortedFive[0].pages : 0;
+
+
+
   useEffect(() => {
     dispatch(fetchHackathonStat({ hackathonId }));
   }, [dispatch, hackathonId]);
@@ -45,84 +63,92 @@ const HackathonDashboard = () => {
     };
   }, [dispatch, hackathonId]);
 
-  useEffect(() => {
-    if (stat.teams?.length > 0) {
-      const ctx = chartEl.current;
-      if (chartInstance) {
-        chartInstance.destroy();
-      }
-      const teamNames = stat.teams.map((team) => team.name);
-      const backgroundColors = [
-        "#3e95cd",
-        "#8e5ea2",
-        "#3cba9f",
-        "#3e95cd",
-        "#8e5ea2",
-        "#3cba9f",
-        "#3e95cd",
-        "#8e5ea2",
-        "#3cba9f",
-      ];
-      const colors = backgroundColors.slice(0, stat.teams.length);
-      const data = Array.from(
-        { length: stat.tasks.length },
-        (_, index) => index + 1
-      );
-      const newChartInstance = new Chart(ctx, {
-        type: "bar",
-        data: {
-          labels: teamNames,
-          datasets: [
-            {
-              label: "Tasks done",
-              backgroundColor: colors,
-              data: stat.teams.map((team) => team.answers.length),
-            },
-          ],
-        },
-        options: {
-          legend: { display: false },
-          indexAxis: "y",
-          title: {
-            display: true,
-            text: "Tasks done",
-          },
-          scales: {
-            x: {
-              type: "linear",
-              grace: 2,
-              grid: {
-                display: false,
-                drawBorder: false,
-              },
-              ticks: {
-                stepSize: 1,
-                beginAtZero: true,
-              },
-            },
-          },
-        },
-      });
-      setChartInstance(newChartInstance);
-    }
-    return () => {
-      if (chartInstance) {
-        chartInstance.destroy();
-      }
-    };
-  }, [stat]);
+  // useEffect(() => {
+  //   if (stat.teams?.length > 0) {
+  //     const ctx = chartEl.current;
+  //     if (chartInstance) {
+  //       chartInstance.destroy();
+  //     }
+  //     const teamNames = stat.teams.map((team) => team.name);
+  //     const backgroundColors = [
+  //       "#3e95cd",
+  //       "#8e5ea2",
+  //       "#3cba9f",
+  //       "#3e95cd",
+  //       "#8e5ea2",
+  //       "#3cba9f",
+  //       "#3e95cd",
+  //       "#8e5ea2",
+  //       "#3cba9f",
+  //     ];
+  //     const colors = backgroundColors.slice(0, stat.teams.length);
+  //     const data = Array.from(
+  //       { length: stat.tasks.length },
+  //       (_, index) => index + 1
+  //     );
+  //     const newChartInstance = new Chart(ctx, {
+  //       type: "bar",
+  //       data: {
+  //         labels: teamNames,
+  //         datasets: [
+  //           {
+  //             label: "Tasks done",
+  //             backgroundColor: colors,
+  //             data: stat.teams.map((team) => team.answers.length),
+  //           },
+  //         ],
+  //       },
+  //       options: {
+  //         legend: { display: false },
+  //         indexAxis: "y",
+  //         title: {
+  //           display: true,
+  //           text: "Tasks done",
+  //         },
+  //         scales: {
+  //           x: {
+  //             type: "linear",
+  //             grace: 2,
+  //             grid: {
+  //               display: false,
+  //               drawBorder: false,
+  //             },
+  //             ticks: {
+  //               stepSize: 1,
+  //               beginAtZero: true,
+  //             },
+  //           },
+  //         },
+  //       },
+  //     });
+  //     setChartInstance(newChartInstance);
+  //   }
+  //   return () => {
+  //     if (chartInstance) {
+  //       chartInstance.destroy();
+  //     }
+  //   };
+  // }, [stat]);
 
   const twoColors = {
     "0%": "#d2dcf8",
     "100%": "#8797c4",
   };
   const endData = new Date(stat.end).getTime();
+
+
+  if(!stat){
+    return(
+        <Loading/>
+    )
+  }
   return (
     <div className={styles.dashboardContainer}>
       <div className={styles.innerContainer}>
       <div className={styles.countdownWrapper}>
         <CountdownTimer targetDate={endData} />
       </div>
+        <h1 className={styles.title}>{stat?.name}</h1>
         <div className={styles.tabsContainer}></div>
         <ConfigProvider
             theme={{
@@ -163,12 +189,12 @@ const HackathonDashboard = () => {
                             }, 0);
                             const percent = (teamsAnsweredTask * 100) / stat.teams.length;
                             return (
-                              <div key={task.id}>
+                              <div key={task?.id}>
                                 <div className={styles.human} >
                                 <h4>{task.name}</h4>
                                 <div>
                                   {teamsAnswered.map((team) => (
-                                    <h5 key={team.id}>{team.name}</h5>
+                                    <h5 key={team?.id}>{team.name}</h5>
                                   ))}
                                 </div>
                                 <Progress
@@ -191,29 +217,37 @@ const HackathonDashboard = () => {
                   key: "2",
                   children:
                       <div className={styles.childContainer}>
-                              {stat.teams &&
-                                stat.teams.map((team) => {
-                                  const progress =
-                                    (team.answers.length * 100) / stat.tasks.length;
-                                  return (
-                                    <div key={team.id}>
-                                      <div  className={styles.human}>
+                        {stat.teams &&
+                            stat.teams.map((team) => {
+                              const totalPages = team.answers.reduce((acc, answer) => {
+                                return acc + answer.pages;
+                              }, 0);
+                              const progress = maxPages > 0 ?
+                                  (totalPages * 100) / maxPages :
+                                  (team.answers.length * 100) / stat.tasks.length;
+                              return (
+                                  <div key={team?.id}>
+                                    <div className={styles.human}>
                                       <h4>{team.name}</h4>
                                       <Progress
-                                        percent={progress}
-                                        strokeColor={twoColors}
-                                        className={styles.progress}
-                                        size={['80%', 20]}
-                                        format={() =>
-                                          ` ${team.answers.length} of ${stat.tasks.length} tasks`
-                                        }
+                                          percent={progress}
+                                          strokeColor={twoColors}
+                                          className={styles.progress}
+                                          size={['80%', 20]}
+                                          format={() =>
+                                              maxPages > 0 ?
+                                                  ` ${totalPages} of ${maxPages} pages` :
+                                                  ` ${totalPages} of ${team.answers.length} answers`
+                                          }
                                       />
                                     </div>
-                                      <hr/>
-                                    </div>
-                                  );
-                                })}
+                                    <hr/>
+                                  </div>
+                              );
+                            })}
                       </div>
+
+
                   ,
                   className: styles.tabFile,
                 },
@@ -259,9 +293,6 @@ const HackathonDashboard = () => {
               className={styles.tabsContainer}
           ></Tabs>
         </ConfigProvider>
-          {/*<div  className={styles.graphContainer}>*/}
-          {/*  <canvas ref={chartEl}></canvas>*/}
-          {/*</div>*/}
       </div>
     </div>
   );

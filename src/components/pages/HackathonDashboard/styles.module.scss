@@ -75,7 +75,7 @@
 .tabsContainer{
   width: 100%;
   height: fit-content;
-  padding: 20px;
+  padding-left: 20px;
 }
 .childContainer{
 
@@ -97,4 +97,10 @@
 }
 .progress{
   width: 50%;
+}
+.title{
+  width: 100%;
+  text-align: center;
+  padding-block: 40px 20px;
+  font-weight: 800;
 }

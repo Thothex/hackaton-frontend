@@ -378,3 +378,10 @@ background-color: $light-violet-color;
     padding: 0;
   }
 }
+.leader{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+
+}

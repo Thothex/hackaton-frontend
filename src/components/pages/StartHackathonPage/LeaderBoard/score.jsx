@@ -2,8 +2,10 @@ import styles from '../style.module.scss'
 import { Progress } from "antd";
 import React, { useMemo } from "react";
 import avatar from "@/assets/avatar.png";
+import {useTranslation} from "react-i18next";
 
 const Score = ({ stat }) => {
+    const { t } = useTranslation();
     const sortedFive = useMemo(() => {
         const teamsScores = stat?.teams.map(team => {
             const score = team.answers.reduce((acc, answer) => acc + (answer.score || 0), 0);
@@ -24,9 +26,9 @@ const Score = ({ stat }) => {
             <h3 className={styles.title}>Лидерборд</h3>
             <div className={styles.leaderHeader}>
                 <div className={styles.leaderHeaderContainer}>
-                    <h6>Team</h6>
-                    <h6>Members</h6>
-                    <h6>Score</h6>
+                    <h6>{t("HackathonPage.Team")}</h6>
+                    <h6>{t("HackathonPage.Members")}</h6>
+                    <h6>{t("HackathonPage.Score")}</h6>
                 </div>
             </div>
             {sortedFive.map((team, index) => (

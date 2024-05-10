@@ -4,12 +4,11 @@ import avatar from "@/assets/avatar.png";
 import React, {Suspense, useState} from "react";
 import Loading from "@/components/Loading/index.jsx";
 import './index.css';
+import {useTranslation} from "react-i18next";
 const Activity = ({ stat }) => {
-
+    const { t } = useTranslation();
     const teamsPages = stat?.teams?.map(team => {
-        // Проверяем, есть ли хотя бы один элемент существующего массива answers у текущей команды
         const hasPages = team.answers && team.answers.some(answer => answer.pages !== undefined);
-        // Если есть страницы, записываем значение pages из первого элемента answers, где это свойство определено
         const pages = hasPages ? team.answers.find(answer => answer.pages !== 0)?.pages : 0;
 
         return {
@@ -23,16 +22,15 @@ const Activity = ({ stat }) => {
 
     const maxPages = sortedFive?.length > 0 ? sortedFive[0].pages : 0;
 
-    console.log(teamsPages, sortedFive, maxPages, stat);
 
     return (
         <div className={styles.leaderboard}>
             <h3 className={styles.title}>Лидерборд</h3>
             <div className={styles.leaderHeader}>
                 <div className={styles.leaderHeaderContainer}>
-                    <h6>Team</h6>
-                    <h6>Members</h6>
-                    <h6>Pages</h6>
+                    <h6>{t("HackathonPage.Team")}</h6>
+                    <h6>{t("HackathonPage.Members")}</h6>
+                    <h6>{t("HackathonPage.Pages")}</h6>
                 </div>
             </div>
             {sortedFive.map((team, index) => (

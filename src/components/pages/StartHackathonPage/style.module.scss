@@ -343,8 +343,9 @@ font-size: 2em;
   width: 100%;
   gap:40px;
   h2{
-    font-size: 40px;
-
+    font-size: 32px;
+    font-weight: 700;
+    color: $font-color-date;
   }
   p{
     font-size:20px;
@@ -378,8 +379,8 @@ font-size: 2em;
   gap: 20px;
 }
 .leaderContainer{
-  width: 50%;
-
+  max-width: 100%;
+  min-width: 50%;
   border-radius: 20px;
 }
 .leaderboard{
