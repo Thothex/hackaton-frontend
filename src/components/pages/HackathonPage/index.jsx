@@ -31,12 +31,16 @@ const HackathonPage = () => {
   const [teamName, setTeamName] = useState("");
   const hackathon = useSelector((state) => state.hackathons.hackathon);
   const [newTeamId, setNewTeamId] = useState(null);
+  const isOrg = hackathon?.users.map((user)=> user.id).includes(user?.id)
+
+
+
 
   useEffect(() => {
     dispatch(fetchHackathonById(id));
   }, [dispatch, id]);
 
-  const isOrg = useMemo(() => user.isOrg && user?.id === hackathon?.organizer_id, [user, hackathon]);
+  // const isOrg = useMemo(() => user.isOrg && user?.id === hackathon?.organizer_id, [user, hackathon]);
   const isEmployeeOrg = useMemo(() => !!hackathon?.organizations.find((hack) => hack.name === user?.organization), [hackathon, user]);
 
 
@@ -218,6 +222,17 @@ const HackathonPage = () => {
         <div className={styles.description}>
           <h2>{t(`HackathonPage.About the hackathon`)}</h2>
           <p className={styles.descriptionHac}>{hackathon.description}</p>
+          {(isOrg || user?.role === 'admin') && (
+              <>
+                {status === "Finished" && (
+                    <Flex wrap="wrap" gap="small" style={{marginTop:20}}>
+                      <Button type="primary" danger onClick={handleEndHackathon}>
+                        {t(`HackathonPage.Hackathon end`)}
+                      </Button>
+                    </Flex>
+                )}
+              </>
+          )}
         </div>
         <div className={styles.panelLowerRignt}>
           {status !== 'Finished' && <div className={styles.organizationsList}>
@@ -280,17 +295,6 @@ const HackathonPage = () => {
         </div>
       </div>
 
-      {isOrg && (
-        <>
-          {hackathon.status !== "Finished" && (
-            <Flex wrap="wrap" gap="small">
-              <Button type="primary" danger onClick={handleEndHackathon}>
-                {t(`HackathonPage.Hackathon end`)}
-              </Button>
-            </Flex>
-          )}
-        </>
-      )}
     </div>
   );
 };

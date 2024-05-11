@@ -23,9 +23,10 @@ const Activity = ({ stat }) => {
     const maxPages = sortedFive?.length > 0 ? sortedFive[0].pages : 0;
 
 
+
     return (
         <div className={styles.leaderboard}>
-            <h3 className={styles.title}>Лидерборд</h3>
+            <h3 className={styles.title}>{t("HackathonPage.leadBoard")}</h3>
             <div className={styles.leaderHeader}>
                 <div className={styles.leaderHeaderContainer}>
                     <h6>{t("HackathonPage.Team")}</h6>

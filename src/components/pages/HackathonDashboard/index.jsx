@@ -19,26 +19,44 @@ const HackathonDashboard = () => {
   const [chartInstance, setChartInstance] = useState(null);
   const stat = useSelector((state) => state.hackathons.hackathonStat);
   const dispatch = useDispatch();
-  const teamsPages = stat?.teams?.map(team => {
-    const hasPages = team.answers && team.answers.some(answer => answer.pages !== undefined);
-    const pages = hasPages ? team.answers.find(answer => answer.pages !== 0)?.pages : 0;
-
-    return {
-      name: team.name,
-      users: team.users,
-      pages: pages
-    };
-  });
-
-  const sortedFive = teamsPages?.sort((a, b) => b.pages - a.pages || (b.answers?.length || 0) - (a.answers?.length || 0));
-
-  const maxPages = sortedFive?.length > 0 ? sortedFive[0].pages : 0;
+  const [maxPages, setMaxPages] = useState(0);
+  // const teamsPages = stat?.teams?.map(team => {
+  //   const hasPages = team.answers && team.answers.some(answer => answer.pages !== undefined);
+  //   const pages = hasPages ? team.answers.find(answer => answer.pages !== 0)?.pages : 0;
+  //
+  //   return {
+  //     name: team.name,
+  //     users: team.users,
+  //     pages: pages
+  //   };
+  // });
+  //
+  // const sortedFive = teamsPages?.sort((a, b) => b.pages - a.pages || (b.answers?.length || 0) - (a.answers?.length || 0));
+  //
+  // const maxPages = sortedFive?.length > 0 ? sortedFive[0].pages : 0;
 
 
 
   useEffect(() => {
     dispatch(fetchHackathonStat({ hackathonId }));
   }, [dispatch, hackathonId]);
+
+  useEffect(() => {
+    // Получение данных о страницах здесь
+    const teamsPages = stat?.teams?.map(team => {
+      const hasPages = team.answers && team.answers.some(answer => answer.pages !== undefined);
+      const pages = hasPages ? team.answers.find(answer => answer.pages !== 0)?.pages : 0;
+
+      return {
+        name: team.name,
+        users: team.users,
+        pages: pages
+      };
+    });
+
+    const sortedFive = teamsPages?.sort((a, b) => b.pages - a.pages || (b.answers?.length || 0) - (a.answers?.length || 0));
+    setMaxPages(sortedFive?.length > 0 ? sortedFive[0].pages : 0);
+  }, [dispatch, hackathonId, stat]);
 
   useEffect(() => {
     const socket = new WebSocket(import.meta.env.VITE_BASE_WS_URL);
@@ -137,7 +155,7 @@ const HackathonDashboard = () => {
   const endData = new Date(stat.end).getTime();
 
 
-  if(!stat){
+  if(!stat?.name){
     return(
         <Loading/>
     )
@@ -213,7 +231,7 @@ const HackathonDashboard = () => {
                   className: styles.tabFile,
                 },
                 {
-                  label: `${t("HackathonDashboard.Teams answers")}`,
+                  label: `${t("HackathonDashboard.Activity")}`,
                   key: "2",
                   children:
                       <div className={styles.childContainer}>

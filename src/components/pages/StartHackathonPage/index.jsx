@@ -17,6 +17,7 @@ import Icons from "@/constants/icons";
 import LeaderBoard from "@/components/pages/StartHackathonPage/LeaderBoard/index.jsx";
 import DashboardFloatingButton from "@/components/DashboardFloatingButton/index.jsx";
 import screenfull from "screenfull";
+import ContdownBeforeHack from "@/components/ContdownBeforeHack/index.jsx";
 const LazyLeaderBoard = React.lazy(() => import("@/components/pages/StartHackathonPage/LeaderBoard/index.jsx"));
 
 const StartHackathonPage = () => {
@@ -217,6 +218,8 @@ const StartHackathonPage = () => {
   const startDate = new Date(hackathon.start);
   const endDate = new Date(hackathon.end);
   const now = currentDate < startDate;
+
+
   if (currentDate > startDate) {
     // navigate(`/hackathon/${id}/tasks`);
     // return (
@@ -276,7 +279,8 @@ const StartHackathonPage = () => {
           <h1 className={styles.titleHac}>{hackathon.name}</h1>
           {hackathon?.end && (
             <div className={styles.countDownRow}>
-              <CountdownTimer targetDate={hackathon.end} />
+              {!now &&  <CountdownTimer targetDate={hackathon.end} />}
+
             </div>
           )}
         </div>
@@ -298,7 +302,16 @@ const StartHackathonPage = () => {
                    to tasks
                   </button>
                 </div>
-            )}
+            )}  {now && (
+              <div className={styles.pic} >
+                <button className={styles.takePartBTNВisable}>
+                  to tasks
+                </button>
+                <div>
+                 <ContdownBeforeHack targetDate={startDate} />
+                </div>
+              </div>
+          )}
           </div>
         </div>
 <div className={styles.lowercontainer}>

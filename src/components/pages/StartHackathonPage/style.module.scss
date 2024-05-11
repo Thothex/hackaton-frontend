@@ -169,6 +169,24 @@ font-size: 2em;
   min-width: fit-content;
   white-space: nowrap;
 }
+.takePartBTNВisable{
+  width:12vw;
+  border: none;
+  border-radius: 40px;
+  padding-inline: 20px;
+  padding-block: 10px;
+  font-family: "Geologica", sans-serif;
+  font-size:16px;
+  color:white;
+  font-weight: 600;
+  white-space: normal;
+  transition: .3s all ease;
+  background-color: #97ABDF;
+  text-transform: uppercase;
+  min-width: fit-content;
+  white-space: nowrap;
+  opacity: 50%;
+}
 .pic {
   display: flex;
   align-items: center;
@@ -179,7 +197,7 @@ font-size: 2em;
   text-transform: capitalize;
 }
 
-.takePartBTN:hover{
+.takePartBTN:hover, .takePartBTNВisable:hover{
   scale: 105%;
 }
 
@@ -261,11 +279,12 @@ font-size: 2em;
   margin-bottom: 20%;
 }
 .titleHac{
-  font-size: 40px;
-  font-weight: 700;
-  padding-bottom: 0;
-  margin-bottom: 0;
+  font-size: 48px;
+  height: fit-content;
+  font-weight: 800;
+  //max-width: 60%;
   padding-left: 20px;
+  min-width: fit-content;
 }
 .hackathonPanelUpper{
   background: url("../../../assets/authHeader.svg");
@@ -354,8 +373,7 @@ font-size: 2em;
 }
 .timerName{
   display: flex;
-  padding-bottom: 0;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   padding-right: 20px;
 

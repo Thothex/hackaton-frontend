@@ -190,7 +190,7 @@ const OneInputTask = ({ hackathonId, task, info }) => {
             )
 
         }
-        <div className={styles.link}><label>Link</label> <InfoTooltip text="Add useful link if you need, if you don't - leave field empty"/> </div>
+        <div className={styles.link}><label>{t("HackathonEditPage.Link")}</label> <InfoTooltip text={t("HackathonEditPage.addLink")}/> </div>
 
         <input
             value={link}

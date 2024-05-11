@@ -105,6 +105,8 @@
     "choose": "Выберите"
   },
   "HackathonEditPage": {
+    "addLink": "Добавьте полезную ссылку если необходимо, если нет - оставьте поле пустым",
+    "Link": "Ссылка",
     "general-info": "Основная информация",
     "tasks-questions": "Задания и вопросы",
     "multiple-answers": "Множественный выбор ответов",
@@ -259,8 +261,10 @@
     "TAKE PART": "УЧАСТВОВАТЬ",
     "SIGN IN/UP TO TAKE PART": "АВТОРИЗУЙТЕСЬ ДЛЯ УЧАСТИЯ",
     "Hackathon is over :(": "Хакатон закончился :(",
-    "Hackathon end": "Подсчет очков",
+    "Hackathon end": "Подсчет очков, можно нажать только один раз!",
     "Team": "Команда",
+    "Teams": "Команды",
+    "Done": "Сделано заданий",
     "Members": "Участники",
     "Pages":"Страницы",
     "Activity": "Активность",
@@ -289,7 +293,16 @@
     "Days": "Дни",
     "Hours": "Часы",
     "Mins": "Минуты",
-    "Seconds": "Секунды"
+    "Seconds": "Секунды",
+    "days": "дней",
+    "hours": "часов",
+    "mins": "минут",
+    "seconds": "секунд",
+    "days1": "день",
+    "hour1": "час",
+    "min1": "минуту",
+    "sec": "секунду",
+    "willBegin": "Хактон начнется через"
   },
   "TestPage": {
     "Answer saved correctly... maybe": "Ответ сохранён правильно... возможно",
@@ -309,7 +322,8 @@
   "HackathonDashboard": {
     "Answers stat": "Статистика ответов",
     "Teams answers": "Ответы команд",
-    "Teams score": "Счет команд"
+    "Teams score": "Счет команд",
+    "Activity": "Активность"
   },
   "HackathonCheckPage": {
     "Participants": "Участники",

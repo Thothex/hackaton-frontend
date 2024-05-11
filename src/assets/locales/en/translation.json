@@ -105,6 +105,8 @@
     "choose": "Сhoose"
   },
   "HackathonEditPage": {
+    "addLink": "Add useful link if you need, if you don't - leave field empty",
+    "Link": "Link",
     "general-info": "General information",
     "tasks-questions": "Tasks and questions",
     "multiple-answers": "Multiple answers",
@@ -250,8 +252,10 @@
     "TAKE PART": "TAKE PART",
     "SIGN IN/UP TO TAKE PART": "SIGN IN/UP TO TAKE PART",
     "Hackathon is over": "Hackathon is over :(",
-    "Hackathon end": "Count points",
+    "Hackathon end": "Count points only once!",
     "Team": "Team",
+    "Teams": "Teams",
+    "Done": "Tasks done",
     "Members": "Members",
     "Pages":"Pages",
     "Activity": "Activity",
@@ -280,7 +284,16 @@
     "Days": "Days",
     "Hours": "Hours",
     "Mins": "Mins",
-    "Seconds": "Seconds"
+    "Seconds": "Seconds",
+    "days": "days",
+    "hours": "hours",
+    "mins": "minutes",
+    "seconds": "seconds",
+    "days1": "day",
+    "hour1": "hour",
+    "min1": "minute",
+    "sec": "second",
+    "willBegin": "The hackathon will begin in"
   },
   "TestPage": {
     "Answer saved correctly... maybe": "Answer saved correctly... maybe",
@@ -300,7 +313,8 @@
   "HackathonDashboard": {
     "Answers stat": "Answers stat",
     "Teams answers": "Teams answers",
-    "Teams score": "Teams score"
+    "Teams score": "Teams score",
+    "Activity": "Activity"
   },
   "HackathonCheckPage": {
     "Participants": "Participants",

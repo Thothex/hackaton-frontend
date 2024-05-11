@@ -19,11 +19,10 @@ const Score = ({ stat }) => {
         return teamsScores.sort((a, b) => b.score - a.score).slice(0, 5);
     }, [stat?.teams]);
 
-    const maxScore = useMemo(() => sortedFive.length > 0 ? sortedFive[0].score : 0, [sortedFive]);
-
+    const maxScore = stat.tasks.reduce((acc, task) => acc + task.maxScore, 0);
     return (
         <div className={styles.leaderboard}>
-            <h3 className={styles.title}>Лидерборд</h3>
+            <h3 className={styles.title}>{t("HackathonPage.leadBoard")}</h3>
             <div className={styles.leaderHeader}>
                 <div className={styles.leaderHeaderContainer}>
                     <h6>{t("HackathonPage.Team")}</h6>
@@ -33,12 +32,13 @@ const Score = ({ stat }) => {
             </div>
             {sortedFive.map((team, index) => (
                 <div key={index} className={styles.leaderTop}>
-                    <hr className={styles.bottomHr} />
+                    <hr className={styles.bottomHr}/>
                     <div className={styles.leaderupper}>
                         <div>{team?.name}</div>
                         <div>{team?.users.map((user, index) => (
                             <p key={index}><img className={styles.ava}
-                                                src={user.avatar ? `${import.meta.env.VITE_BASE_URL_AVATAR}/${user.id}/${user.avatar}` : avatar}/></p>
+                                                src={user.avatar ? `${import.meta.env.VITE_BASE_URL_AVATAR}/${user.id}/${user.avatar}` : avatar}/>
+                            </p>
                         ))}</div>
                         <div>
                             <p>{team?.score}</p>

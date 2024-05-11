@@ -1,0 +1,22 @@
+@import "../../index.scss";
+
+.counter{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 10px;
+  *{
+    font-size: 16px;
+    color: $font-color-date;
+    margin-block: 0;
+    padding-block: 0;
+    text-transform: none;
+    display: flex;
+    align-items: flex-end;
+
+  }
+}
+.begin{
+  font-weight: 200;
+  text-transform: none;
+}
