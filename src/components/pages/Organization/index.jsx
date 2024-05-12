@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import {useEffect, useMemo} from "react";
+import React, {useEffect, useMemo} from "react";
 import { fetchOneOrganization } from "@/redux/features/organizationsSlice.js";
 import {Link, useParams} from "react-router-dom";
 import avatar from "@/assets/avatar.png";
@@ -9,6 +9,7 @@ import OrganizationHackathons from "@/components/OrganizationHackathons/index.js
 import UserInfoTable from "@/components/pages/Organization/userInfoTable.jsx";
 import Loading from "@/components/Loading/index.jsx";
 import {useTranslation} from "react-i18next";
+import {Helmet} from "react-helmet-async";
 
 const Organization = () => {
     const { organization, users, hackathons, totalPeople } = useSelector((store) => store.organizations.organization);
@@ -30,7 +31,11 @@ const Organization = () => {
     }
     return (
         <div className={styles.organization}>
-
+            <Helmet>
+                <title>Organizations | {organization?.name} | Thothex.hackathon</title>
+                <meta name='description' content={`${organization?.name} - All hackathons. ${organization?.description}`}/>
+                <meta name="keywords" content={`${organization?.name}, описание организации`} />
+            </Helmet>
             <div className={styles.upperPanel}>
                 {organization?.link ? (
                     <Link to={organization?.link}><h1 className={styles.title}>{organization.name}</h1></Link>

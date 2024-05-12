@@ -243,6 +243,11 @@ const StartHackathonPage = () => {
   const person = hackathon?.type === 'person';
 
 
+  if(status === 'Finished'){
+    navigate('/hackathon')
+  }
+
+
   const toggleFullscreen = () => {
     if (screenfull.isEnabled) {
       if (!screenfull.isFullscreen) {

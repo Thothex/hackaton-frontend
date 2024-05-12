@@ -4,6 +4,7 @@ import styles from "@/components/pages/HackathonEditPage/styles.module.scss";
 import React, {Suspense} from "react";
 import Loading from "@/components/Loading/index.jsx";
 import {useTranslation} from "react-i18next";
+import {Helmet} from "react-helmet-async";
 const ManageOrganizations = React.lazy(() => import("./children/manageOrg.jsx"));
 const CreateOrganizations = React.lazy(() => import("./children/createOrg.jsx"));
 const MyOrganizations = React.lazy(() => import("./children/myOrg.jsx"));
@@ -13,7 +14,12 @@ const Admin = () =>{
     return(
         <div className={style.mainPage}>
         {/*<h1>admin</h1>*/}
-
+                <Helmet>
+                    <title>Organizations | Thothex.hackathons</title>
+                    <meta name='description' content='List of all organizations'/>
+                    <meta name="author" content="Alina Luzanova"/>
+                    <meta name="keywords" content="организации, список пользователей, участники организаций" />
+                </Helmet>
             <ConfigProvider
                 theme={{
                     token: {

@@ -131,10 +131,6 @@ export const createOrganization = createAsyncThunk(
     "organizations/createOrganization",
     async ( {formData} ) => {
         try {
-            for(let [name, value] of formData) {
-                console.log(`${name} = ${value}`);
-
-            }
             const response = await fetch(
                 `${import.meta.env.VITE_BASE_URL}/organizations/new`,
                 {

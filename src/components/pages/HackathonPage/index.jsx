@@ -21,6 +21,7 @@ import Icons from "@/constants/icons";
 import HackatonDate from "@/components/HackatonDate/index.jsx";
 import {createTeam, getTeamInfo} from "@/redux/features/teamSlice.js";
 import LeaderBoard from "@/components/pages/StartHackathonPage/LeaderBoard/index.jsx";
+import {Helmet} from "react-helmet-async";
 
 const HackathonPage = () => {
   const { t } = useTranslation();
@@ -69,7 +70,7 @@ const HackathonPage = () => {
 
   const handleCreateTeam = useCallback(async () => {
     try {
-      if(user?.role !== 'admin'){
+      if(user?.role !== 'admin' && !user.isOrg){
 
       const {
         payload: { id: newTeamId },
@@ -112,6 +113,11 @@ const HackathonPage = () => {
 
   return (
     <div className={styles.hackathonPage}>
+      <Helmet>
+        <title>Hackathons | {hackathon?.name} | Thothex.hackathon</title>
+        <meta name='description' content={`${hackathon?.name} - about hackathon. ${hackathon?.description}`}/>
+        <meta name="keywords" content={`${hackathon?.name}, описание хакатона`} />
+      </Helmet>
       <div
           className={`${styles.hackathonPanelUpper} ${
               status === "Registration is open"
@@ -257,7 +263,7 @@ const HackathonPage = () => {
         )}
         {status === "In progress" &&
           user &&
-          (hackathon?.organizations.length === 0 || isEmployeeOrg || user?.role === 'admin') &&
+          (hackathon?.organizations.length === 0 || isEmployeeOrg || user?.role === 'admin' || isOrg) &&
           user.role && (
             <div className={styles.pic} onClick={handleStartHackathon}>
               <button className={styles.takePartBTN}>

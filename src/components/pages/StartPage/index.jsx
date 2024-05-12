@@ -15,6 +15,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react";
 import TypingEffect from "@/components/TypingEffect/index.jsx";
 import {useSelector} from "react-redux";
+import { Helmet } from 'react-helmet-async';
 gsap.registerPlugin(ScrollTrigger);
 
 console.clear();
@@ -117,8 +118,15 @@ const StartPage = () =>{
     };
     return (
         <>
-            <div  className={`${styles.StartPage} ${darkMode && styles.DarkStartPage}`}>
-                {darkMode ? (<img src={darkLogo} alt='logo' className={styles.logo}/>): (<img src={logo} alt='logo' className={styles.logo}/>)}
+            <Helmet>
+                <title>Glad to see you on the Thothex.hackathon platform!</title>
+                <meta name='description' content='Platform for participating in hackathons'/>
+                <meta name="author" content="Alina Luzanova"/>
+                <meta name="keywords" content="хакатоны, наука, химия, ИТМО, программирование, IT, нейросети" />
+                       </Helmet>
+            <div className={`${styles.StartPage} ${darkMode && styles.DarkStartPage}`}>
+                {darkMode ? (<img src={darkLogo} alt='logo' className={styles.logo}/>) : (
+                    <img src={logo} alt='logo' className={styles.logo}/>)}
 
                 <h2 className={styles.Welcome} id='list'>{t("StartPage.welcome")}</h2>
                 <div className={styles.titleContainer}>

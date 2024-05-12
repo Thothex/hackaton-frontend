@@ -39,7 +39,10 @@ const Task =({stat})=>{
                                     <div>
                                         {teamsAnswered.map((team) => (
                                             <div key={team?.id}>{team.name}</div>
-                                        ))}
+                                        )).slice(0,5)}
+                                        {teamsAnswered.length > 5 &&
+                                            <span>...</span>
+                                        }
                                     </div>
                                     <Progress
                                         percent={percent}

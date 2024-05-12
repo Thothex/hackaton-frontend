@@ -6,12 +6,18 @@ import Loading from "@/components/Loading/index.jsx";
 import ManageOrganizations from "@/components/pages/OrganizationsPage/children/manageOrg.jsx";
 import styles from "@/components/pages/HackathonEditPage/styles.module.scss";
 import MyOrganization from "@/components/pages/OrganizationsPage/children/myOrg.jsx";
+import {Helmet} from "react-helmet-async";
 
 const User = () =>{
     const { t } = useTranslation();
     return(
         <div className={style.mainPage}>
-
+            <Helmet>
+                <title>Organizations | Thothex.hackathon</title>
+                <meta name='description' content='List of all organizations'/>
+                <meta name="author" content="Alina Luzanova"/>
+                <meta name="keywords" content="организации, список пользователей, участники организаций" />
+            </Helmet>
             <ConfigProvider
                 theme={{
                     token: {

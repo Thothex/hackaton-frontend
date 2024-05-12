@@ -8,12 +8,18 @@ import CreateOrganizations from "@/components/pages/OrganizationsPage/children/c
 import MyOrganizations from "@/components/pages/OrganizationsPage/children/myOrg.jsx";
 import MyOrganization from "@/components/pages/OrganizationsPage/children/myOrg.jsx";
 import {useTranslation} from "react-i18next";
+import {Helmet} from "react-helmet-async";
 
 const Org = () =>{
     const { t } = useTranslation();
     return(
         <div className={style.mainPage}>
-
+            <Helmet>
+                <title>Organizations | Thothex.hackathon</title>
+                <meta name='description' content='List of all organizations'/>
+                <meta name="author" content="Alina Luzanova"/>
+                <meta name="keywords" content="организации, список пользователей, участники организаций" />
+            </Helmet>
             <ConfigProvider
                 theme={{
                     token: {

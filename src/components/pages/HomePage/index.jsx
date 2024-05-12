@@ -9,6 +9,7 @@ import gsap from "gsap";
 import { fetchOrganizations } from "@/redux/features/organizationsSlice.js";
 import './index.scss'
 import Loading from "@/components/Loading/index.jsx";
+import {Helmet} from "react-helmet-async";
 const HomePage = React.memo(() => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
@@ -70,6 +71,12 @@ const HomePage = React.memo(() => {
 
     return (
         <div className={styles.homeContainer}>
+            <Helmet>
+                <title>All hackathons  | Thothex.hackathon</title>
+                <meta name='description' content='Home page with a list of all hackathons'/>
+                <meta name="author" content="Alina Luzanova"/>
+                <meta name="keywords" content="список хакатонов, открыта регистрация" />
+            </Helmet>
             <div
                 className={`${styles.fullWidthFlexRow} ${
                     darkMode && styles.darkPage

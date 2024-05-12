@@ -65,7 +65,7 @@ const dispatch = useDispatch();
       setIsModalOpen(false);
       setGeneratedPassword("");
       setVerificationPassword("");
-      dispatch(deleteHackathon({id: props?.id}))
+      dispatch(deleteHackathon({id: props?.id, userID: userInfo?.id }))
       console.log(' совпали')
     } else {
       console.log('не совпали')

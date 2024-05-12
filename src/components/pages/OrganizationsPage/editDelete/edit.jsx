@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { editOrganization } from "@/redux/features/organizationsSlice.js";
 import { useTranslation } from "react-i18next";
 
-const FormEditOrganization = ({ initialName, initialDescription, initialLink, id }) => {
+const FormEditOrganization = ({ initialName, initialDescription, initialLink, id, userID }) => {
     const { t } = useTranslation();
     const [error, setError] = useState(null);
     const dispatch = useDispatch();
@@ -12,6 +12,7 @@ const FormEditOrganization = ({ initialName, initialDescription, initialLink, id
         name: initialName,
         description: initialDescription,
         link: initialLink,
+        userID: userID
     });
 
     const handleChange = (event) => {

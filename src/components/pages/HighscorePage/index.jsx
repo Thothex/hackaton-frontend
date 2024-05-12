@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {Progress, Tooltip, Table, ConfigProvider} from "antd";
 import styles from "./styles.module.scss";
 import getHighscore from "@/api/highscore";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import {Helmet} from "react-helmet-async";
 
 const HighscorePage = () => {
   const { t } = useTranslation();
@@ -99,6 +100,11 @@ const HighscorePage = () => {
 
   return (
       <div className={styles.blocksWrapper}>
+        <Helmet>
+          <title>Rating | Thothex.hackathon</title>
+          <meta name='description' content="Rating of participants of hackathons" />
+          <meta name="keywords" content="рейтинг, топ, лучшие игроки, баллы" />
+        </Helmet>
      <h1 style={{margin:0, padding:0}}>{t("HighscorePage.Users highscore")}</h1>
         <ConfigProvider
             theme={{

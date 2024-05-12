@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import {useEffect, useLayoutEffect, useState} from "react";
+import React, {useEffect, useLayoutEffect, useState} from "react";
 import { useTranslation } from "react-i18next";
 import ReactModal from "react-modal";
 import styles from "./styles.module.scss";
@@ -15,6 +15,7 @@ import { userStatThunk } from "@/redux/features/userSlice.js";
 import StatPanel from "@/components/StatPanel/index.jsx";
 import Loading from "@/components/Loading";
 import UserHackatons from "@/components/UserHackatons";
+import {Helmet} from "react-helmet-async";
 
 ReactModal.setAppElement("#root");
 
@@ -58,6 +59,12 @@ console.log(userInfo)
 
   return (
             <div className={`${styles.profilePage} ${darkMode && styles.darkPage}`}>
+                <Helmet>
+                  <title>Profile | Thothex.hackathon</title>
+                  <meta name='description' content='Profile page'/>
+                  <meta name="author" content="Alina Luzanova"/>
+                  <meta name="keywords" content="профиль ползователя, список хакатонов, статистика, календарь событий" />
+                </Helmet>
               <div className={styles.topPlain}>
                 <div className={styles.hello}>
                   {t("ProfilePage.hello", {username: userInfo.username})} 👋🏼

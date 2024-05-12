@@ -5,12 +5,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchTeamList } from "@/redux/features/teamsSlice";
 import { Card } from "antd";
+import Loading from "@/components/Loading/index.jsx";
 
 const HackathonCheckPage = () => {
   const { t } = useTranslation();
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { userInfo } = useSelector((state) => state.userStore);
 
   const { teams } = useSelector((state) => state.teamsStore);
 
@@ -21,6 +23,13 @@ const HackathonCheckPage = () => {
   const handleClickTeam = (teamId) => {
     navigate(`/hackathon/${id}/check/${teamId}`);
   };
+  if (!userInfo?.id){
+    return <Loading/>
+  }
+  if(!userInfo || userInfo.role==='user' && !userInfo.isOrg){
+    navigate('/hackathon')
+  }
+
   return (
     <div className={styles.checkPageContainer}>
       {teams?.length > 0 &&

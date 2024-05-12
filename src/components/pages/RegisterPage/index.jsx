@@ -4,10 +4,11 @@ import AuthInput from "@/components/CAuthInput/index.jsx";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import styles from "./styles.module.scss";
-import {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import AuthHeader from "@/components/AuthHeader/index.jsx";
 import { register } from "@/api/register";
 import {useSelector} from "react-redux";
+import {Helmet} from "react-helmet-async";
 
 const RegisterPage = () => {
   const { t } = useTranslation();
@@ -108,6 +109,12 @@ const RegisterPage = () => {
 
   return (
     <div className={styles.AuthPage}>
+      <Helmet>
+        <title>Registration on Thothex.hackathon platform</title>
+        <meta name='description' content='Create an account on Thothex.hackathon platform'/>
+        <meta name="author" content="Alina Luzanova"/>
+        <meta name="keywords" content="регистрация, создать аккаунт" />
+      </Helmet>
       <AuthHeader />
       <div className={styles.main}>
         <img src={logo} alt="logo" />

@@ -1,5 +1,5 @@
 import { Button, Checkbox, Form, Input, Space, Upload, Image } from 'antd';
-import { useDispatch } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { createOrganization } from '@/redux/features/organizationsSlice';
 import { useState } from 'react';
 import InfoTooltip from "@/components/InfoTooltip/index.jsx";
@@ -24,19 +24,21 @@ const tailLayout = {
 };
 
 const CreateOrganizations = () => {
+    const { userInfo } = useSelector((state) => state.userStore);
     const [form] = Form.useForm();
     const dispatch = useDispatch();
     const [fileList, setFileList] = useState([]);
     const [status, setStatus] = useState('');
     const { t } = useTranslation();
     const onFinish = async (values) => {
-        const { name, description } = values;
+        const { name, description, link } = values;
         const picture = fileList[0].originFileObj;
         const formData = new FormData();
         formData.append("name", name);
         formData.append("description", description);
+        formData.append("link", link);
         formData.append("picture", picture);
-
+        formData.append("userID", userInfo?.id)
         try {
             const response = await dispatch(createOrganization( {formData}));
 
@@ -107,7 +109,7 @@ const CreateOrganizations = () => {
             </Form.Item>
             <Form.Item
                 name="link"
-                label={t(`OrgPage.descr`)}
+                label={t(`OrgPage.link`)}
                 colon={false}
                 // rules={[
                 //     {

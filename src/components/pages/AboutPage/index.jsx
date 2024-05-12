@@ -13,6 +13,7 @@ import gsap from 'gsap';
 import ReactCardFlip from "react-card-flip";
 import Loading from "@/components/Loading/index.jsx";
 import {useTranslation} from "react-i18next";
+import {Helmet} from "react-helmet-async";
 
 const LazyComponent = React.lazy(() => import('./team.jsx'));
 
@@ -65,6 +66,11 @@ const AboutPage = () =>{
     }, []);
 
     return(<div className={style.about}>
+        <Helmet>
+            <title>About us | Thothex.hackathon</title>
+            <meta name='description' content="Thothex.hackathon - это открытая платформа для участия в хакатонах и их проведения. Участники могут выбирать хакатоны, присоединяться к командам, зарабатывать очки и совершенствовать свои навыки. Организаторы, в свою очередь, могут создавать и настраивать хакатоны по своему усмотрению и выявлять лучших среди участников.Наша миссия - сделать участие в хакатонах доступным для всех и помочь участникам развить свои профессиональные навыки. Мы верим в сообщество, где участники могут учиться и развиваться вместе."/>
+            <meta name="keywords" content="команда, цели, история логотипа, навыки" />
+        </Helmet>
         <h1>{t(`AboutUsPage.aboutUs`)}</h1>
         <div className={style.project}>
             <div className={style.shortInf}>

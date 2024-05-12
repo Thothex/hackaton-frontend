@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
@@ -10,6 +10,7 @@ import {
   fetchTeamAnswer,
   saveScores,
 } from "@/redux/features/answersSlice";
+import Loading from "@/components/Loading/index.jsx";
 
 const HackathonTeamPage = () => {
   const { t } = useTranslation();
@@ -19,6 +20,8 @@ const HackathonTeamPage = () => {
   const { tasks } = useSelector((state) => state.tasks);
   const { answers } = useSelector((state) => state.answersStore);
   const [team, setTeam] = useState(null);
+  const { userInfo } = useSelector((state) => state.userStore);
+  const navigate = useNavigate()
   useEffect(() => {
     setTeam(teams.find((team) => team.id === +teamId));
   }, [teams, teamId]);
@@ -29,6 +32,13 @@ const HackathonTeamPage = () => {
       dispatch(fetchTeamList({ hackathonId: id }));
     }
   }, [dispatch, teams, id, teamId]);
+
+  if (!userInfo?.id){
+    return <Loading/>
+  }
+  if(!userInfo || userInfo.role==='user' && !userInfo.isOrg){
+    navigate('/hackathon')
+  }
 
   const handleChangeScore = (e) => {
     e.preventDefault();

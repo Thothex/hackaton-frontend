@@ -22,6 +22,7 @@ import { solarizedlight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { twilight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { prism } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import {Helmet} from "react-helmet-async";
 const TestPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -37,6 +38,23 @@ const TestPage = () => {
   const hackathon = useSelector((state) => state.hackathons?.hackathon);
   const { darkMode } = useSelector((state) => state.mode);
 
+  const currentDate = new Date();
+  const startDate = new Date(hackathon?.start);
+  const endDate = new Date(hackathon?.end);
+  const now = currentDate < startDate;
+
+
+  let status;
+
+  if (currentDate < startDate) {
+    status = "Registration is open";
+  } else if (currentDate >= startDate && currentDate <= endDate) {
+    status = "In progress";
+  } else {
+    status = "Finished";
+  }
+
+
   useEffect(() => {
     if (userInfo.id && hackathon?.organizer_id) {
       const isEmployeeOrg = !!hackathon?.organizations.find(
@@ -44,7 +62,8 @@ const TestPage = () => {
       );
       if (
           userInfo?.id === hackathon?.organizer_id ||
-          (hackathon?.organizations.length > 0 && !isEmployeeOrg)
+          (hackathon?.organizations.length > 0 && !isEmployeeOrg) ||
+          status !== 'In progress'
       ) {
         navigate("/hackathon");
       }
@@ -85,7 +104,7 @@ const TestPage = () => {
     dispatch(fetchTeamAnswer({ hackathonId: id, teamId }));
   }, [dispatch, id, teamId]);
 
-  if (!tasks) {
+  if (!tasks || !userInfo?.id || !hackathon?.id) {
     return <Loading />;
   }
 
@@ -188,7 +207,7 @@ const TestPage = () => {
 
   const renderContent = () => {
     if (currentPage > 0 && currentPage <= totalPages) {
-      const task = tasks[currentPage - 1]; // Индексация с 0
+      const task = tasks[currentPage - 1];
       const currentAnswer = answers.find((answer) => answer.taskId === task.id)
           ?.answer?.answer;
       const disabled = new Date(hackathon.end) < new Date();
@@ -207,6 +226,11 @@ const TestPage = () => {
 
       return (
           <div>
+            <Helmet>
+              <title>{hackathon?.name} | {task?.name} | Thothex.hackathon</title>
+              <meta name='description' content={`${hackathon?.name} - about hackathon. ${hackathon?.description}`}/>
+              <meta name="keywords" content={`${hackathon?.name}, описание хакатона`} />
+            </Helmet>
             {task.type === "document" && (
                 <>
                   <p className={styles.taskName}>{task.name}</p>

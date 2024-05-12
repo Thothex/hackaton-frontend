@@ -29,7 +29,6 @@ import Ranks from './constants/ranks';
 import AboutPage from "@/components/pages/AboutPage/index.jsx";
 import OrganizationsPage from "@/components/pages/OrganizationsPage/index.jsx";
 import Organization from "@/components/pages/Organization/index.jsx";
-import Molecule from "@/components/Molecule/index.jsx";
 import EnterEmail from "@/components/pages/LoginPage/forgotPassword/email.jsx";
 import RecoverPage from "@/components/pages/LoginPage/forgotPassword/recover.jsx";
 import {t} from "i18next";
@@ -165,7 +164,6 @@ function App() {
           <Route path='/organizations' element={<OrganizationsPage/>}/>
           <Route path='/organizations/:id' element={<Organization/>}/>
           <Route path='/newPass' element={<EnterEmail/>}/>
-          <Route path='/molecule' element={<Molecule />}/>
           <Route path='/recover/:email/:token' element={<RecoverPage/>}/>
         </Routes>
       </div>

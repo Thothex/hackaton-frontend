@@ -71,7 +71,7 @@ const MyOrganization = ()=>{
                         shouldCloseOnOverlayClick={true}
                     >
                         <FormEditOrganization name={organization.name} description={organization.description}
-                                              link={organization?.link} id={organization.id}/>
+                                              link={organization?.link} id={organization.id} userID={userInfo.id}/>
                         <button
                             onClick={() => setModalInfoIsOpen(false)}
                             className={styles.close}

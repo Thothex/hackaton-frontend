@@ -3,13 +3,14 @@ import styles from "./styles.module.scss";
 import AuthButton from "../../CAuthButton/index.jsx";
 import AuthInput from "@/components/CAuthInput/index.jsx";
 import {Link, useNavigate} from "react-router-dom";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import CCheckbox from "../../CustomCheckbox/index.jsx";
 import AuthHeader from "@/components/AuthHeader/index.jsx";
 import { useDispatch } from "react-redux";
 import { userLoginThunk } from "@/redux/features/userSlice";
+import {Helmet} from "react-helmet-async";
 
 const LoginPage = () => {
   const { t } = useTranslation();
@@ -55,6 +56,12 @@ const LoginPage = () => {
 
   return (
     <div className={styles.AuthPage}>
+      <Helmet>
+        <title>Login on Thothex.hackathon platform</title>
+        <meta name='description' content='Login to your account on Thothex.hackathons platform'/>
+        <meta name="author" content="Alina Luzanova"/>
+        <meta name="keywords" content="логин, войти в аккаунт" />
+      </Helmet>
       <AuthHeader />
       <div className={styles.main}>
         <img src={logo} alt="logo" />

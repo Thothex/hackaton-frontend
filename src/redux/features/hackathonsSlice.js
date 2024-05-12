@@ -149,7 +149,7 @@ export const deleteTask = createAsyncThunk(
 );
 export const deleteHackathon = createAsyncThunk(
     "hackathons/delete",
-    async ({ id }) => {
+    async ({ id, userID }) => {
       try {
         const response = await fetch(
             `${import.meta.env.VITE_BASE_URL}/hackathon`,
@@ -159,7 +159,7 @@ export const deleteHackathon = createAsyncThunk(
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({ id }),
+              body: JSON.stringify({ id, userID }),
             }
         );
         if (!response.ok) {
