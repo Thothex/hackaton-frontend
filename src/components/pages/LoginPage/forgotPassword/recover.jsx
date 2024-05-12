@@ -9,6 +9,7 @@ import { recoverPasswordEmailThunk } from "@/redux/features/recoverSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "@/components/Loading/index.jsx";
 import styles from "../styles.module.scss";
+import {Helmet} from "react-helmet-async";
 
 const RecoverPage = () => {
     const { t } = useTranslation();
@@ -108,6 +109,11 @@ const RecoverPage = () => {
 
     return (
         <div className={styles.AuthPage}>
+            <Helmet>
+                <title>Password recovery on Thothex.hackathon platform</title>
+                <meta name='description' content='Recover password to your account on Thothex.hackathons platform'/>
+                <meta name="keywords" content="восстановление пароля, доступ" />
+            </Helmet>
             <AuthHeader />
             <div className={styles.main}>
                 <img src={logo} alt="logo" />

@@ -3,13 +3,14 @@ import styles from "../styles.module.scss";
 import AuthButton from "../../../CAuthButton/index.jsx";
 import AuthInput from "@/components/CAuthInput/index.jsx";
 import {Link, useNavigate} from "react-router-dom";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import AuthHeader from "@/components/AuthHeader/index.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {recoverPasswordThunk} from "@/redux/features/recoverSlice";
 import Loading from "@/components/Loading/index.jsx";
+import {Helmet} from "react-helmet-async";
 
 const EnterEmail = () => {
     const { t } = useTranslation();
@@ -63,6 +64,11 @@ const EnterEmail = () => {
 
     return (
         <div className={styles.AuthPage}>
+            <Helmet>
+                <title>Password recovery on Thothex.hackathon platform</title>
+                <meta name='description' content='Recover password to your account on Thothex.hackathons platform'/>
+                <meta name="keywords" content="восстановление пароля, доступ" />
+            </Helmet>
             <AuthHeader />
             <div className={styles.main}>
                 <img src={logo} alt="logo" />
