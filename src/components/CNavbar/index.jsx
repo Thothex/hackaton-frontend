@@ -148,7 +148,7 @@ const Navbar = () => {
           <button
             className={styles.questionsBtn}
             onClick={() => {
-              window.location.href = "https://t.me/alinaluzanova";
+              window.location.href = "https://t.me/+gvrrMjD1ui02ZmUy";
             }}
           >
             {t("Navbar.contact")}
