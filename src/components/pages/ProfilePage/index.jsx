@@ -110,10 +110,10 @@ console.log(userInfo)
                     <div className={styles.infoContainer}>
                       <div className={styles.infoUserEdit}>
                         <h4>{t("ProfilePage.profile_information")}</h4>
-                        <button
-                            onClick={() => setModalInfoIsOpen(true)}
-                            className={styles.editInfo}
-                        ></button>
+                        {/*<button*/}
+                        {/*    // onClick={() => setModalInfoIsOpen(true)}*/}
+                        {/*    className={styles.editInfo}*/}
+                        {/*></button>*/}
                         <ReactModal
                             className={styles.modal}
                             isOpen={modalInfoIsOpen}
@@ -122,7 +122,7 @@ console.log(userInfo)
                         >
                           <FormUpdateUser/>
                           <button
-                              onClick={() => setModalInfoIsOpen(false)}
+                              // onClick={() => setModalInfoIsOpen(false)}
                               className={styles.close}
                           >
                             <img src={close} alt="close" className={styles.icon}/>

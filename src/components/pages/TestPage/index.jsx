@@ -212,13 +212,13 @@ const TestPage = () => {
           ?.answer?.answer;
       const disabled = new Date(hackathon.end) < new Date();
       const getLanguage = (description) => {
-        const match = description.match(/language='(\w+)'/);
+        const match = description?.match(/language='(\w+)'/);
         return match ? match[1] : null;
       };
       const getHighlightedCode = (code) => {
-        const codeStartIndex = code.indexOf('>') + 1;
-        const codeEndIndex = code.lastIndexOf('<');
-        return code.slice(codeStartIndex, codeEndIndex);
+        const codeStartIndex = code?.indexOf('>') + 1;
+        const codeEndIndex = code?.lastIndexOf('<');
+        return code?.slice(codeStartIndex, codeEndIndex);
       };
       const lang = getLanguage(task.description);
       const highlightedCode = getHighlightedCode(task.description);
@@ -234,7 +234,7 @@ const TestPage = () => {
             {task.type === "document" && (
                 <>
                   <p className={styles.taskName}>{task.name}</p>
-                  {task.description.includes(`<code language='${lang}'`) ? (
+                  {task?.description?.includes(`<code language='${lang}'`) ? (
                       <>
                         {darkMode ? (
                             <SyntaxHighlighter language={lang} style={dracula} customStyle={{fontSize: '20px'}}>
@@ -268,7 +268,7 @@ const TestPage = () => {
             {task.type === "input" && (
                 <>
                   <p className={styles.taskName}>{task.name}</p>
-                  {task.description.includes("<code language=") ? (
+                  {task.description?.includes("<code language=") ? (
                       <>
                         {darkMode ? (
                             <SyntaxHighlighter  language={lang} style={dracula} customStyle={{ fontSize: '20px'}}>
@@ -303,7 +303,7 @@ const TestPage = () => {
             {task.type === "many-answers" && (
                 <>
                   <p className={styles.taskName}>{task.name}</p>
-                  {task.description.includes("<code language=") ? (
+                  {task.description?.includes("<code language=") ? (
                       <>
                         {darkMode ? (
                             <SyntaxHighlighter language={lang} style={dracula} customStyle={{fontSize: '20px'}}>

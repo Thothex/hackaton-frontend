@@ -32,6 +32,12 @@ const RegisterPage = () => {
       ...formData,
       [name]: value,
     });
+    if(formData.username.length>15){
+      setFormData({
+        ...formData,
+        username: formData.username.slice(0,15)
+      });
+    }
   };
 
   const validatePassword = useCallback((password) => {

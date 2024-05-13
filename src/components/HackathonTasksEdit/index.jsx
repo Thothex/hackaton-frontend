@@ -9,12 +9,18 @@ import FileAnswerTask from "../TaskVariants/FileAnswerTask";
 import OneInputTask from "../TaskVariants/OneInputTask";
 import styles from "./styles.module.scss";
 import plus from "@/assets/plus.svg";
+import {useEffect} from "react";
+import {fetchTasks} from "@/redux/features/taskSlice.js";
 
 
 const HackathonTasksEdit = ({ hackathonId }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.hackathons.currentHackathonTasks);
+
+    useEffect(() => {
+        dispatch(fetchTasks(hackathonId));
+    }, [tasks]);
 
   const handleMenuClick = (e) => {
     if (e.key === "1")
@@ -44,6 +50,7 @@ const HackathonTasksEdit = ({ hackathonId }) => {
           hackathonId,
         })
       );
+    console.log(e)
   };
 
   const items = [
@@ -70,6 +77,7 @@ const HackathonTasksEdit = ({ hackathonId }) => {
     message.success("Question saved");
   };
 
+  console.log(tasks)
   return (
     <div>
       <h2 className={styles.title}>

@@ -218,7 +218,8 @@ const HackathonDashboard = () => {
                                 <Progress
                                     percent={percent}
                                     strokeColor={twoColors}
-                                    size={['50%', 20]}
+                                    className={styles.progress}
+                                    size={['80%', 20]}
                                     format={() => `${teamsAnsweredTask}`}
                                 />
                               </div>
@@ -236,7 +237,14 @@ const HackathonDashboard = () => {
                   children:
                       <div className={styles.childContainer}>
                         {stat.teams &&
-                            stat.teams.map((team) => {
+                          stat.teams
+                          .slice()
+                          .sort((teamA, teamB) => {
+                          const totalPagesA = teamA.answers.reduce((acc, answer) => (answer.pages ? acc + answer.pages : acc), 0);
+                          const totalPagesB = teamB.answers.reduce((acc, answer) => (answer.pages ? acc + answer.pages : acc), 0);
+                          return totalPagesB - totalPagesA;
+                        })
+                                .map((team) => {
                               const totalPages = team.answers.reduce((acc, answer) => {
                                 return acc + answer.pages;
                               }, 0);
@@ -293,7 +301,8 @@ const HackathonDashboard = () => {
                                         <Progress
                                             percent={progress}
                                             strokeColor={twoColors}
-                                            size={['50%', 20]}
+                                            className={styles.progress}
+                                            size={['80%', 20]}
                                             format={() => ` ${currentScore} of ${maxScore}`}
                                         />
                                       </div>
