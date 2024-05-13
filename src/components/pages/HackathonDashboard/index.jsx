@@ -254,7 +254,7 @@ const HackathonDashboard = () => {
                                           size={['80%', 20]}
                                           format={() =>
                                               maxPages > 0 ?
-                                                  ` ${totalPages} of ${maxPages} pages` :
+                                                  ` ${totalPages} of ${maxPages} annotations` :
                                                   ` ${totalPages} of ${team.answers.length} answers`
                                           }
                                       />
