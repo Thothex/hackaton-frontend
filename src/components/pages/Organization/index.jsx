@@ -44,7 +44,7 @@ const Organization = () => {
                 <img
                     src={
                             organization.picture
-                                ? `${import.meta.env.VITE_BASE_URL_ORG_PIC}/${organization.name}/${organization.picture}`
+                                ? `${import.meta.env.VITE_BASE_URL_ORG_PIC}/${organization.name.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/\s+/g, '')}/${organization.picture}`
                                 : avatar
                         }
                         className={styles.picture}
