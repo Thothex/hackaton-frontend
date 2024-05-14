@@ -244,14 +244,14 @@ const HackathonDashboard = () => {
                           const totalPagesB = teamB.answers.reduce((acc, answer) => (answer.pages ? acc + answer.pages : acc), 0);
                           return totalPagesB - totalPagesA;
                         })
-                                .map((team, index) => {
+                                .map((team) => {
                               const totalPages = team.answers.reduce((acc, answer) => {
                                 return acc + answer.pages;
                               }, 0);
                               const progress = maxPages > 0 ?
                                   (totalPages * 100) / maxPages :
                                   (team.answers.length * 100) / stat.tasks.length;
-                                  const updatedAtString = team?.answers[index]?.updatedAt;
+                                  const updatedAtString = team?.answers[0]?.updatedAt;
                                   const updatedAt = new Date(updatedAtString);
 
                                   const dateFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
