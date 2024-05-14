@@ -275,15 +275,23 @@ const HackathonDashboard = () => {
                                                   ` ${totalPages} of ${team.answers.length} answers`
                                           }
                                       />
-                                      <div className={styles.updated}>
-                                        <h5><p>Дата обновления: </p> {formattedDate}</h5>
-                                      <h5><p>Время обновления: </p> {formattedTime}</h5>
-                                    </div>
+                                      {formattedDate !== 'Invalid Date' && formattedTime !== 'Invalid Date' ?
+                                          <div className={styles.updated}>
+                                            <h5><p>Дата обновления: </p> {formattedDate}</h5>
+                                            <h5><p>Время обновления: </p> {formattedTime}</h5>
+                                          </div>
+                                          :
+                                          <div className={styles.updated}>
+                                            <h5><p>Дата обновления: </p> нет данных</h5>
+                                            <h5><p>Время обновления: </p> нет данных</h5>
+                                          </div>
+                                      }
+
                                     </div>
                                     <hr/>
                                   </div>
-                              );
-                            })}
+                                  );
+                                })}
                       </div>
 
 
