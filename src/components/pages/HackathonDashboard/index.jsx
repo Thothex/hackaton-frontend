@@ -244,14 +244,23 @@ const HackathonDashboard = () => {
                           const totalPagesB = teamB.answers.reduce((acc, answer) => (answer.pages ? acc + answer.pages : acc), 0);
                           return totalPagesB - totalPagesA;
                         })
-                                .map((team) => {
+                                .map((team, index) => {
                               const totalPages = team.answers.reduce((acc, answer) => {
                                 return acc + answer.pages;
                               }, 0);
                               const progress = maxPages > 0 ?
                                   (totalPages * 100) / maxPages :
                                   (team.answers.length * 100) / stat.tasks.length;
-                              return (
+                                  const updatedAtString = team?.answers[index]?.updatedAt;
+                                  const updatedAt = new Date(updatedAtString);
+
+                                  const dateFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+                                  const timeFormatOptions = { hour: 'numeric', minute: 'numeric', second: 'numeric' };
+
+                                  const formattedDate = updatedAt.toLocaleDateString('ru-RU', dateFormatOptions);
+                                  const formattedTime = updatedAt.toLocaleTimeString('ru-RU', timeFormatOptions);
+
+                                  return (
                                   <div key={team?.id}>
                                     <div className={styles.human}>
                                       <h4>{team.name}</h4>
@@ -266,6 +275,10 @@ const HackathonDashboard = () => {
                                                   ` ${totalPages} of ${team.answers.length} answers`
                                           }
                                       />
+                                      <div className={styles.updated}>
+                                        <h5><p>Дата обновления: </p> {formattedDate}</h5>
+                                      <h5><p>Время обновления: </p> {formattedTime}</h5>
+                                    </div>
                                     </div>
                                     <hr/>
                                   </div>
